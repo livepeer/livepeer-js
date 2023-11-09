@@ -11,7 +11,7 @@ features:
     globalServerURLs: 2.82.0
     inputOutputModels: 2.82.0
 typescript:
-  version: 2.9.2
+  version: 3.0.0
   author: Livepeer
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
