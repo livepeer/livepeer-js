@@ -1,4 +1,4 @@
-# Livepeer Node.js Library
+# Livepeer JavaScript Library
 
 [![Version](https://img.shields.io/npm/v/livepeer.svg)](https://www.npmjs.org/package/livepeer)
 [![Downloads](https://img.shields.io/npm/dm/livepeer.svg)](https://www.npmjs.com/package/livepeer)
