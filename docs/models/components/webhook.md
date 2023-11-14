@@ -1,0 +1,14 @@
+# Webhook
+
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `id`                                                           | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            | de7818e7-610a-4057-8f6f-b785dc1e6f88                           |
+| `name`                                                         | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            | My webhook                                                     |
+| `createdAt`                                                    | *number*                                                       | :heavy_minus_sign:                                             | Timestamp (in milliseconds) at which stream object was created | 1587667174725                                                  |
+| `events`                                                       | [components.Events](../../models/components/events.md)[]       | :heavy_minus_sign:                                             | N/A                                                            | stream.started,recording.ready                                 |
+| `url`                                                          | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            | https://webhook.example.com                                    |
+| `streamId`                                                     | *string*                                                       | :heavy_minus_sign:                                             | streamId of the stream on which the webhook is applied         | de7818e7-610a-4057-8f6f-b785dc1e6f88                           |
+| `status`                                                       | [components.Status](../../models/components/status.md)         | :heavy_minus_sign:                                             | status of webhook                                              |                                                                |

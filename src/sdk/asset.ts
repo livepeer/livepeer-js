@@ -19,7 +19,7 @@ export class Asset {
     /**
      * Retrieve assets
      */
-    async getAssets(config?: AxiosRequestConfig): Promise<operations.GetAssetsResponse> {
+    async getAll(config?: AxiosRequestConfig): Promise<operations.GetAssetsResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -48,7 +48,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -56,23 +56,23 @@ export class Asset {
 
         const res: operations.GetAssetsResponse = new operations.GetAssetsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Asset,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -95,7 +95,7 @@ export class Asset {
     /**
      * Upload an asset
      */
-    async requestUpload(
+    async create(
         req: components.NewAssetPayload,
         config?: AxiosRequestConfig
     ): Promise<operations.RequestUploadResponse> {
@@ -147,7 +147,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -155,20 +155,20 @@ export class Asset {
 
         const res: operations.RequestUploadResponse = new operations.RequestUploadResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.object = utils.objectToClass(
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
-                        operations.RequestUploadResponseBody
+                        operations.RequestUploadData
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -191,7 +191,7 @@ export class Asset {
     /**
      * Upload asset via URL
      */
-    async uploadAssetViaURL(
+    async createViaURL(
         req: components.NewAssetPayload,
         config?: AxiosRequestConfig
     ): Promise<operations.UploadAssetViaURLResponse> {
@@ -243,7 +243,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -251,20 +251,20 @@ export class Asset {
 
         const res: operations.UploadAssetViaURLResponse = new operations.UploadAssetViaURLResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.object = utils.objectToClass(
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
-                        operations.UploadAssetViaURLResponseBody
+                        operations.UploadAssetViaURLData
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -287,7 +287,7 @@ export class Asset {
     /**
      * Delete an asset
      */
-    async deleteAsset(
+    async delete(
         assetId: string,
         config?: AxiosRequestConfig
     ): Promise<operations.DeleteAssetResponse> {
@@ -322,7 +322,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -330,7 +330,7 @@ export class Asset {
 
         const res: operations.DeleteAssetResponse = new operations.DeleteAssetResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         switch (true) {
@@ -352,10 +352,7 @@ export class Asset {
     /**
      * Retrieves an asset
      */
-    async getAsset(
-        assetId: string,
-        config?: AxiosRequestConfig
-    ): Promise<operations.GetAssetResponse> {
+    async get(assetId: string, config?: AxiosRequestConfig): Promise<operations.GetAssetResponse> {
         const req = new operations.GetAssetRequest({
             assetId: assetId,
         });
@@ -387,7 +384,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -395,17 +392,17 @@ export class Asset {
 
         const res: operations.GetAssetResponse = new operations.GetAssetResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.asset = utils.objectToClass(JSON.parse(decodedRes), components.Asset);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -428,7 +425,7 @@ export class Asset {
     /**
      * Update an asset
      */
-    async patchAssetAssetId(
+    async update(
         assetId: string,
         assetPatchPayload: components.AssetPatchPayload,
         config?: AxiosRequestConfig
@@ -485,7 +482,7 @@ export class Asset {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -493,17 +490,17 @@ export class Asset {
 
         const res: operations.PatchAssetAssetIdResponse = new operations.PatchAssetAssetIdResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.asset = utils.objectToClass(JSON.parse(decodedRes), components.Asset);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

@@ -19,7 +19,7 @@ export class Session {
     /**
      * Retrieve sessions
      */
-    async getSessions(config?: AxiosRequestConfig): Promise<operations.GetSessionsResponse> {
+    async getAll(config?: AxiosRequestConfig): Promise<operations.GetSessionsResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -48,7 +48,7 @@ export class Session {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -56,23 +56,23 @@ export class Session {
 
         const res: operations.GetSessionsResponse = new operations.GetSessionsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Session,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -95,10 +95,7 @@ export class Session {
     /**
      * Retrieve a session
      */
-    async getSession(
-        id: string,
-        config?: AxiosRequestConfig
-    ): Promise<operations.GetSessionResponse> {
+    async get(id: string, config?: AxiosRequestConfig): Promise<operations.GetSessionResponse> {
         const req = new operations.GetSessionRequest({
             id: id,
         });
@@ -130,7 +127,7 @@ export class Session {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -138,17 +135,17 @@ export class Session {
 
         const res: operations.GetSessionResponse = new operations.GetSessionResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.session = utils.objectToClass(JSON.parse(decodedRes), components.Session);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -171,7 +168,7 @@ export class Session {
     /**
      * Retrieve Recorded Sessions
      */
-    async getRecordedSessions(
+    async getRecorded(
         parentId: string,
         record?: number,
         config?: AxiosRequestConfig
@@ -209,7 +206,7 @@ export class Session {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -218,23 +215,105 @@ export class Session {
         const res: operations.GetRecordedSessionsResponse =
             new operations.GetRecordedSessionsResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Session,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
+                        httpRes.status,
+                        decodedRes,
+                        httpRes
+                    );
+                }
+                break;
+            case (httpRes?.status >= 400 && httpRes?.status < 500) ||
+                (httpRes?.status >= 500 && httpRes?.status < 600):
+                throw new errors.SDKError(
+                    "API error occurred",
+                    httpRes.status,
+                    decodedRes,
+                    httpRes
+                );
+        }
+
+        return res;
+    }
+
+    /**
+     * Retrieve clips of a session
+     */
+    async getAllClips(
+        id: string,
+        config?: AxiosRequestConfig
+    ): Promise<operations.GetSessionIdClipsResponse> {
+        const req = new operations.GetSessionIdClipsRequest({
+            id: id,
+        });
+        const baseURL: string = utils.templateUrl(
+            this.sdkConfiguration.serverURL,
+            this.sdkConfiguration.serverDefaults
+        );
+        const operationUrl: string = utils.generateURL(baseURL, "/session/{id}/clips", req);
+        const client: AxiosInstance = this.sdkConfiguration.defaultClient;
+        let globalSecurity = this.sdkConfiguration.security;
+        if (typeof globalSecurity === "function") {
+            globalSecurity = await globalSecurity();
+        }
+        if (!(globalSecurity instanceof utils.SpeakeasyBase)) {
+            globalSecurity = new components.Security(globalSecurity);
+        }
+        const properties = utils.parseSecurityProperties(globalSecurity);
+        const headers: RawAxiosRequestHeaders = { ...config?.headers, ...properties.headers };
+        headers["Accept"] = "application/json";
+
+        headers["user-agent"] = this.sdkConfiguration.userAgent;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: operationUrl,
+            method: "get",
+            headers: headers,
+            responseType: "arraybuffer",
+            ...config,
+        });
+
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.GetSessionIdClipsResponse = new operations.GetSessionIdClipsResponse({
+            statusCode: httpRes.status,
+            contentType: responseContentType,
+            rawResponse: httpRes,
+        });
+        const decodedRes = new TextDecoder().decode(httpRes?.data);
+        switch (true) {
+            case httpRes?.status == 200:
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
+                    const resFieldDepth: number = utils.getResFieldDepth(res);
+                    res.data = utils.objectToClass(
+                        JSON.parse(decodedRes),
+                        components.Asset,
+                        resFieldDepth
+                    );
+                } else {
+                    throw new errors.SDKError(
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

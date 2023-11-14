@@ -22,8 +22,8 @@ export class Stream {
     async getAll(
         streamsonly?: string,
         config?: AxiosRequestConfig
-    ): Promise<operations.GetAllResponse> {
-        const req = new operations.GetAllRequest({
+    ): Promise<operations.GetStreamsResponse> {
+        const req = new operations.GetStreamsRequest({
             streamsonly: streamsonly,
         });
         const baseURL: string = utils.templateUrl(
@@ -55,31 +55,31 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.GetAllResponse = new operations.GetAllResponse({
+        const res: operations.GetStreamsResponse = new operations.GetStreamsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Stream,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -105,7 +105,7 @@ export class Stream {
     async create(
         req: components.NewStreamPayload,
         config?: AxiosRequestConfig
-    ): Promise<operations.CreateResponse> {
+    ): Promise<operations.CreateStreamResponse> {
         if (!(req instanceof utils.SpeakeasyBase)) {
             req = new components.NewStreamPayload(req);
         }
@@ -154,31 +154,31 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.CreateResponse = new operations.CreateResponse({
+        const res: operations.CreateStreamResponse = new operations.CreateStreamResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Stream,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -201,8 +201,11 @@ export class Stream {
     /**
      * Delete a stream
      */
-    async delete(id: string, config?: AxiosRequestConfig): Promise<operations.DeleteResponse> {
-        const req = new operations.DeleteRequest({
+    async delete(
+        id: string,
+        config?: AxiosRequestConfig
+    ): Promise<operations.DeleteStreamResponse> {
+        const req = new operations.DeleteStreamRequest({
             id: id,
         });
         const baseURL: string = utils.templateUrl(
@@ -233,15 +236,15 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.DeleteResponse = new operations.DeleteResponse({
+        const res: operations.DeleteStreamResponse = new operations.DeleteStreamResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         switch (true) {
@@ -263,8 +266,8 @@ export class Stream {
     /**
      * Retrieve a stream
      */
-    async get(id: string, config?: AxiosRequestConfig): Promise<operations.GetResponse> {
-        const req = new operations.GetRequest({
+    async get(id: string, config?: AxiosRequestConfig): Promise<operations.GetStreamResponse> {
+        const req = new operations.GetStreamRequest({
             id: id,
         });
         const baseURL: string = utils.templateUrl(
@@ -295,25 +298,25 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.GetResponse = new operations.GetResponse({
+        const res: operations.GetStreamResponse = new operations.GetStreamResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.stream = utils.objectToClass(JSON.parse(decodedRes), components.Stream);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -340,8 +343,8 @@ export class Stream {
         id: string,
         streamPatchPayload: components.StreamPatchPayload,
         config?: AxiosRequestConfig
-    ): Promise<operations.UpdateResponse> {
-        const req = new operations.UpdateRequest({
+    ): Promise<operations.UpdateStreamResponse> {
+        const req = new operations.UpdateStreamRequest({
             id: id,
             streamPatchPayload: streamPatchPayload,
         });
@@ -393,15 +396,15 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.UpdateResponse = new operations.UpdateResponse({
+        const res: operations.UpdateStreamResponse = new operations.UpdateStreamResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         switch (true) {
@@ -430,7 +433,7 @@ export class Stream {
     async createClip(
         req: components.ClipPayload,
         config?: AxiosRequestConfig
-    ): Promise<operations.CreateClipResponse> {
+    ): Promise<operations.PostClipResponse> {
         if (!(req instanceof utils.SpeakeasyBase)) {
             req = new components.ClipPayload(req);
         }
@@ -479,28 +482,25 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.CreateClipResponse = new operations.CreateClipResponse({
+        const res: operations.PostClipResponse = new operations.PostClipResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.object = utils.objectToClass(
-                        JSON.parse(decodedRes),
-                        operations.CreateClipResponseBody
-                    );
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = utils.objectToClass(JSON.parse(decodedRes), operations.PostClipData);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -526,8 +526,8 @@ export class Stream {
     async getAllClips(
         id: string,
         config?: AxiosRequestConfig
-    ): Promise<operations.GetAllClipsResponse> {
-        const req = new operations.GetAllClipsRequest({
+    ): Promise<operations.GetStreamIdClipsResponse> {
+        const req = new operations.GetStreamIdClipsRequest({
             id: id,
         });
         const baseURL: string = utils.templateUrl(
@@ -558,31 +558,31 @@ export class Stream {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
         }
 
-        const res: operations.GetAllClipsResponse = new operations.GetAllClipsResponse({
+        const res: operations.GetStreamIdClipsResponse = new operations.GetStreamIdClipsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Asset,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

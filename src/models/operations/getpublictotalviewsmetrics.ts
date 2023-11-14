@@ -26,7 +26,7 @@ export class GetPublicTotalViewsMetricsRequest extends SpeakeasyBase {
  * asset. Either playbackId or dStorageUrl will be set.
  *
  */
-export class GetPublicTotalViewsMetricsResponseBody extends SpeakeasyBase {
+export class GetPublicTotalViewsMetricsData extends SpeakeasyBase {
     /**
      * The playback ID associated with the metric
      */
@@ -79,5 +79,5 @@ export class GetPublicTotalViewsMetricsResponse extends SpeakeasyBase {
      * A single Metric object with the viewCount and playtimeMins metrics.
      */
     @SpeakeasyMetadata()
-    object?: GetPublicTotalViewsMetricsResponseBody;
+    data?: GetPublicTotalViewsMetricsData;
 }

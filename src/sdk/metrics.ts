@@ -19,7 +19,7 @@ export class Metrics {
     /**
      * Query viewership metrics
      */
-    async getViewershipsMetrics(
+    async getViewership(
         req: operations.GetViewershipsMetricsRequest,
         config?: AxiosRequestConfig
     ): Promise<operations.GetViewershipsMetricsResponse> {
@@ -56,7 +56,7 @@ export class Metrics {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -65,23 +65,23 @@ export class Metrics {
         const res: operations.GetViewershipsMetricsResponse =
             new operations.GetViewershipsMetricsResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.ViewershipMetric,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -104,7 +104,7 @@ export class Metrics {
     /**
      * Query creator viewership metrics
      */
-    async getCreatorMetrics(
+    async getCreatorViewership(
         req: operations.GetCreatorMetricsRequest,
         config?: AxiosRequestConfig
     ): Promise<operations.GetCreatorMetricsResponse> {
@@ -141,7 +141,7 @@ export class Metrics {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -149,23 +149,23 @@ export class Metrics {
 
         const res: operations.GetCreatorMetricsResponse = new operations.GetCreatorMetricsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.ViewershipMetric,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -188,7 +188,7 @@ export class Metrics {
     /**
      * Query public total views metrics
      */
-    async getPublicTotalViewsMetrics(
+    async getPublicTotalViews(
         playbackId: string,
         config?: AxiosRequestConfig
     ): Promise<operations.GetPublicTotalViewsMetricsResponse> {
@@ -227,7 +227,7 @@ export class Metrics {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -236,20 +236,20 @@ export class Metrics {
         const res: operations.GetPublicTotalViewsMetricsResponse =
             new operations.GetPublicTotalViewsMetricsResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.object = utils.objectToClass(
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
-                        operations.GetPublicTotalViewsMetricsResponseBody
+                        operations.GetPublicTotalViewsMetricsData
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -272,7 +272,7 @@ export class Metrics {
     /**
      * Query usage metrics
      */
-    async getUsageMetrics(
+    async getUsage(
         from?: number,
         to?: number,
         timeStep?: operations.GetUsageMetricsQueryParamTimeStep,
@@ -314,7 +314,7 @@ export class Metrics {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -322,20 +322,20 @@ export class Metrics {
 
         const res: operations.GetUsageMetricsResponse = new operations.GetUsageMetricsResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.usageMetric = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.UsageMetric
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

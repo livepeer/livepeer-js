@@ -29,5 +29,5 @@ export class GetSigningKeysResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.SigningKey })
-    classes?: components.SigningKey[];
+    data?: components.SigningKey[];
 }

@@ -1,0 +1,10 @@
+{
+  "name": "livepeer-js-example",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "livepeer": "^3.0.0"
+  }
+}

@@ -19,9 +19,7 @@ export class MultistreamTarget {
     /**
      * Retrieve Multistream Targets
      */
-    async getMultistreamTargets(
-        config?: AxiosRequestConfig
-    ): Promise<operations.GetMultistreamTargetsResponse> {
+    async getAll(config?: AxiosRequestConfig): Promise<operations.GetMultistreamTargetsResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -50,7 +48,7 @@ export class MultistreamTarget {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -59,23 +57,23 @@ export class MultistreamTarget {
         const res: operations.GetMultistreamTargetsResponse =
             new operations.GetMultistreamTargetsResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.MultistreamTarget,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -98,7 +96,7 @@ export class MultistreamTarget {
     /**
      * Create a multistream target
      */
-    async createMultistreamTarget(
+    async create(
         req: components.MultistreamTargetInput,
         config?: AxiosRequestConfig
     ): Promise<operations.CreateMultistreamTargetResponse> {
@@ -150,7 +148,7 @@ export class MultistreamTarget {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -159,13 +157,13 @@ export class MultistreamTarget {
         const res: operations.CreateMultistreamTargetResponse =
             new operations.CreateMultistreamTargetResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 201:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
                     res.classes = utils.objectToClass(
@@ -175,7 +173,7 @@ export class MultistreamTarget {
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -198,7 +196,7 @@ export class MultistreamTarget {
     /**
      * Delete a multistream target
      */
-    async deleteMultistreamTarget(
+    async delete(
         id: string,
         config?: AxiosRequestConfig
     ): Promise<operations.DeleteMultistreamTargetResponse> {
@@ -233,7 +231,7 @@ export class MultistreamTarget {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -242,7 +240,7 @@ export class MultistreamTarget {
         const res: operations.DeleteMultistreamTargetResponse =
             new operations.DeleteMultistreamTargetResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         switch (true) {
@@ -264,7 +262,7 @@ export class MultistreamTarget {
     /**
      * Retrieve a multistream target
      */
-    async getMultistreamTarget(
+    async get(
         id: string,
         config?: AxiosRequestConfig
     ): Promise<operations.GetMultistreamTargetResponse> {
@@ -299,7 +297,7 @@ export class MultistreamTarget {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -308,20 +306,20 @@ export class MultistreamTarget {
         const res: operations.GetMultistreamTargetResponse =
             new operations.GetMultistreamTargetResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.multistreamTarget = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.MultistreamTarget
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -344,7 +342,7 @@ export class MultistreamTarget {
     /**
      * Update Multistream Target
      */
-    async updateMultistreamTarget(
+    async update(
         id: string,
         multistreamTargetPatchPayload: components.MultistreamTargetPatchPayload,
         config?: AxiosRequestConfig
@@ -401,7 +399,7 @@ export class MultistreamTarget {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -410,7 +408,7 @@ export class MultistreamTarget {
         const res: operations.UpdateMultistreamTargetResponse =
             new operations.UpdateMultistreamTargetResponse({
                 statusCode: httpRes.status,
-                contentType: contentType,
+                contentType: responseContentType,
                 rawResponse: httpRes,
             });
         switch (true) {

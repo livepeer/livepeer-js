@@ -102,5 +102,5 @@ export class GetCreatorMetricsResponse extends SpeakeasyBase {
      * A list of Metric objects
      */
     @SpeakeasyMetadata({ elemType: components.ViewershipMetric })
-    classes?: components.ViewershipMetric[];
+    data?: components.ViewershipMetric[];
 }

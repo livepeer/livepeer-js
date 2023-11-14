@@ -75,3 +75,75 @@ const httpClient = axios.create({
 
 const livepeer = new Livepeer({ defaultClient: httpClient });
 ```
+
+## Available Resources and Operations
+
+### [stream](docs/sdks/stream/README.md)
+
+- [getAll](docs/sdks/stream/README.md#getall) - Retrieve streams
+- [create](docs/sdks/stream/README.md#create) - Create a stream
+- [delete](docs/sdks/stream/README.md#delete) - Delete a stream
+- [get](docs/sdks/stream/README.md#get) - Retrieve a stream
+- [update](docs/sdks/stream/README.md#update) - Update a stream
+- [createClip](docs/sdks/stream/README.md#createclip) - Create a clip
+- [getAllClips](docs/sdks/stream/README.md#getallclips) - Retrieve clips of a livestream
+
+### [multistreamTarget](docs/sdks/multistreamtarget/README.md)
+
+- [getAll](docs/sdks/multistreamtarget/README.md#getall) - Retrieve Multistream Targets
+- [create](docs/sdks/multistreamtarget/README.md#create) - Create a multistream target
+- [delete](docs/sdks/multistreamtarget/README.md#delete) - Delete a multistream target
+- [get](docs/sdks/multistreamtarget/README.md#get) - Retrieve a multistream target
+- [update](docs/sdks/multistreamtarget/README.md#update) - Update Multistream Target
+
+### [webhook](docs/sdks/webhook/README.md)
+
+- [getAll](docs/sdks/webhook/README.md#getall) - Retrieve a Webhook
+- [create](docs/sdks/webhook/README.md#create) - Create a webhook
+- [delete](docs/sdks/webhook/README.md#delete) - Delete a webhook
+- [get](docs/sdks/webhook/README.md#get) - Retrieve a webhook
+- [update](docs/sdks/webhook/README.md#update) - Update a webhook
+
+### [asset](docs/sdks/asset/README.md)
+
+- [getAll](docs/sdks/asset/README.md#getall) - Retrieve assets
+- [create](docs/sdks/asset/README.md#create) - Upload an asset
+- [createViaURL](docs/sdks/asset/README.md#createviaurl) - Upload asset via URL
+- [delete](docs/sdks/asset/README.md#delete) - Delete an asset
+- [get](docs/sdks/asset/README.md#get) - Retrieves an asset
+- [update](docs/sdks/asset/README.md#update) - Update an asset
+
+### [metrics](docs/sdks/metrics/README.md)
+
+- [getViewership](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
+- [getCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
+- [getPublicTotalViews](docs/sdks/metrics/README.md#getpublictotalviews) - Query public total views metrics
+- [getUsage](docs/sdks/metrics/README.md#getusage) - Query usage metrics
+
+### [session](docs/sdks/session/README.md)
+
+- [getAll](docs/sdks/session/README.md#getall) - Retrieve sessions
+- [get](docs/sdks/session/README.md#get) - Retrieve a session
+- [getRecorded](docs/sdks/session/README.md#getrecorded) - Retrieve Recorded Sessions
+- [getAllClips](docs/sdks/session/README.md#getallclips) - Retrieve clips of a session
+
+### [accessControl](docs/sdks/accesscontrol/README.md)
+
+- [getSigningKeys](docs/sdks/accesscontrol/README.md#getsigningkeys) - Retrieves signing keys
+- [createSigningKey](docs/sdks/accesscontrol/README.md#createsigningkey) - Create a signing key
+- [deleteSigningKey](docs/sdks/accesscontrol/README.md#deletesigningkey) - Delete Signing Key
+- [getSigningKey](docs/sdks/accesscontrol/README.md#getsigningkey) - Retrieves a signing key
+- [updateSigningKey](docs/sdks/accesscontrol/README.md#updatesigningkey) - Update a signing key
+
+### [task](docs/sdks/task/README.md)
+
+- [getAll](docs/sdks/task/README.md#getall) - Retrieve Tasks
+- [get](docs/sdks/task/README.md#get) - Retrieve a Task
+
+### [transcode](docs/sdks/transcode/README.md)
+
+- [create](docs/sdks/transcode/README.md#create) - Transcode a video
+
+### [playback](docs/sdks/playback/README.md)
+
+- [get](docs/sdks/playback/README.md#get) - Retrieve Playback Info
