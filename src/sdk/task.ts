@@ -19,7 +19,7 @@ export class Task {
     /**
      * Retrieve Tasks
      */
-    async getTasks(config?: AxiosRequestConfig): Promise<operations.GetTasksResponse> {
+    async getAll(config?: AxiosRequestConfig): Promise<operations.GetTasksResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -48,7 +48,7 @@ export class Task {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -56,23 +56,23 @@ export class Task {
 
         const res: operations.GetTasksResponse = new operations.GetTasksResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Task,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -95,10 +95,7 @@ export class Task {
     /**
      * Retrieve a Task
      */
-    async getTask(
-        taskId: string,
-        config?: AxiosRequestConfig
-    ): Promise<operations.GetTaskResponse> {
+    async get(taskId: string, config?: AxiosRequestConfig): Promise<operations.GetTaskResponse> {
         const req = new operations.GetTaskRequest({
             taskId: taskId,
         });
@@ -130,7 +127,7 @@ export class Task {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -138,17 +135,17 @@ export class Task {
 
         const res: operations.GetTaskResponse = new operations.GetTaskResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.task = utils.objectToClass(JSON.parse(decodedRes), components.Task);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

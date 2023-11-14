@@ -16,7 +16,7 @@ export class UploadAssetViaURLTask extends SpeakeasyBase {
 /**
  * Success
  */
-export class UploadAssetViaURLResponseBody extends SpeakeasyBase {
+export class UploadAssetViaURLData extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "asset" })
     @Type(() => components.Asset)
@@ -51,5 +51,5 @@ export class UploadAssetViaURLResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata()
-    object?: UploadAssetViaURLResponseBody;
+    data?: UploadAssetViaURLData;
 }

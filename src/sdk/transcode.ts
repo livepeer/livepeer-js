@@ -19,7 +19,7 @@ export class Transcode {
     /**
      * Transcode a video
      */
-    async transcode(
+    async create(
         req: components.TaskInput,
         config?: AxiosRequestConfig
     ): Promise<operations.TranscodeResponse> {
@@ -71,7 +71,7 @@ export class Transcode {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -79,17 +79,17 @@ export class Transcode {
 
         const res: operations.TranscodeResponse = new operations.TranscodeResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.task = utils.objectToClass(JSON.parse(decodedRes), components.Task);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

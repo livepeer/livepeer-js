@@ -19,7 +19,7 @@ export class Webhook {
     /**
      * Retrieve a Webhook
      */
-    async getWebhooks(config?: AxiosRequestConfig): Promise<operations.GetWebhooksResponse> {
+    async getAll(config?: AxiosRequestConfig): Promise<operations.GetWebhooksResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -48,7 +48,7 @@ export class Webhook {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -56,23 +56,23 @@ export class Webhook {
 
         const res: operations.GetWebhooksResponse = new operations.GetWebhooksResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
-                    res.classes = [];
+                if (utils.matchContentType(responseContentType, `application/json`)) {
+                    res.data = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.classes = utils.objectToClass(
+                    res.data = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Webhook,
                         resFieldDepth
                     );
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -95,7 +95,7 @@ export class Webhook {
     /**
      * Create a webhook
      */
-    async createWebhook(config?: AxiosRequestConfig): Promise<operations.CreateWebhookResponse> {
+    async create(config?: AxiosRequestConfig): Promise<operations.CreateWebhookResponse> {
         const baseURL: string = utils.templateUrl(
             this.sdkConfiguration.serverURL,
             this.sdkConfiguration.serverDefaults
@@ -124,7 +124,7 @@ export class Webhook {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -132,17 +132,17 @@ export class Webhook {
 
         const res: operations.CreateWebhookResponse = new operations.CreateWebhookResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.webhook = utils.objectToClass(JSON.parse(decodedRes), components.Webhook);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -165,7 +165,7 @@ export class Webhook {
     /**
      * Delete a webhook
      */
-    async deleteWebhook(
+    async delete(
         id: string,
         config?: AxiosRequestConfig
     ): Promise<operations.DeleteWebhookResponse> {
@@ -200,7 +200,7 @@ export class Webhook {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -208,17 +208,17 @@ export class Webhook {
 
         const res: operations.DeleteWebhookResponse = new operations.DeleteWebhookResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.webhook = utils.objectToClass(JSON.parse(decodedRes), components.Webhook);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -241,10 +241,7 @@ export class Webhook {
     /**
      * Retrieve a webhook
      */
-    async getWebhook(
-        id: string,
-        config?: AxiosRequestConfig
-    ): Promise<operations.GetWebhookResponse> {
+    async get(id: string, config?: AxiosRequestConfig): Promise<operations.GetWebhookResponse> {
         const req = new operations.GetWebhookRequest({
             id: id,
         });
@@ -276,7 +273,7 @@ export class Webhook {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -284,17 +281,17 @@ export class Webhook {
 
         const res: operations.GetWebhookResponse = new operations.GetWebhookResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.webhook = utils.objectToClass(JSON.parse(decodedRes), components.Webhook);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes
@@ -317,7 +314,7 @@ export class Webhook {
     /**
      * Update a webhook
      */
-    async updateWebhook(
+    async update(
         id: string,
         config?: AxiosRequestConfig
     ): Promise<operations.UpdateWebhookResponse> {
@@ -352,7 +349,7 @@ export class Webhook {
             ...config,
         });
 
-        const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
 
         if (httpRes?.status == null) {
             throw new Error(`status code not found in response: ${httpRes}`);
@@ -360,17 +357,17 @@ export class Webhook {
 
         const res: operations.UpdateWebhookResponse = new operations.UpdateWebhookResponse({
             statusCode: httpRes.status,
-            contentType: contentType,
+            contentType: responseContentType,
             rawResponse: httpRes,
         });
         const decodedRes = new TextDecoder().decode(httpRes?.data);
         switch (true) {
             case httpRes?.status == 200:
-                if (utils.matchContentType(contentType, `application/json`)) {
+                if (utils.matchContentType(responseContentType, `application/json`)) {
                     res.webhook = utils.objectToClass(JSON.parse(decodedRes), components.Webhook);
                 } else {
                     throw new errors.SDKError(
-                        "unknown content-type received: " + contentType,
+                        "unknown content-type received: " + responseContentType,
                         httpRes.status,
                         decodedRes,
                         httpRes

@@ -29,5 +29,5 @@ export class GetWebhooksResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Webhook })
-    classes?: components.Webhook[];
+    data?: components.Webhook[];
 }

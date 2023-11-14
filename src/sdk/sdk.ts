@@ -9,7 +9,6 @@ import { Asset } from "./asset";
 import { Metrics } from "./metrics";
 import { MultistreamTarget } from "./multistreamtarget";
 import { Playback } from "./playback";
-import { Room } from "./room";
 import { Session } from "./session";
 import { Stream } from "./stream";
 import { Task } from "./task";
@@ -56,9 +55,9 @@ export class SDKConfiguration {
     serverDefaults: any;
     language = "typescript";
     openapiDocVersion = "1.0.0";
-    sdkVersion = "0.0.1";
-    genVersion = "2.185.0";
-    userAgent = "speakeasy-sdk/typescript 0.0.1 2.185.0 1.0.0 livepeer";
+    sdkVersion = "3.0.0";
+    genVersion = "2.188.1";
+    userAgent = "speakeasy-sdk/typescript 3.0.0 2.188.1 1.0.0 livepeer";
     retryConfig?: utils.RetryConfig;
     public constructor(init?: Partial<SDKConfiguration>) {
         Object.assign(this, init);
@@ -78,7 +77,6 @@ export class Livepeer {
     public multistreamTarget: MultistreamTarget;
     public webhook: Webhook;
     public asset: Asset;
-    public room: Room;
     public metrics: Metrics;
     public session: Session;
     public accessControl: AccessControl;
@@ -109,7 +107,6 @@ export class Livepeer {
         this.multistreamTarget = new MultistreamTarget(this.sdkConfiguration);
         this.webhook = new Webhook(this.sdkConfiguration);
         this.asset = new Asset(this.sdkConfiguration);
-        this.room = new Room(this.sdkConfiguration);
         this.metrics = new Metrics(this.sdkConfiguration);
         this.session = new Session(this.sdkConfiguration);
         this.accessControl = new AccessControl(this.sdkConfiguration);

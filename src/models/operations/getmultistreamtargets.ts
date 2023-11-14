@@ -29,5 +29,5 @@ export class GetMultistreamTargetsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.MultistreamTarget })
-    classes?: components.MultistreamTarget[];
+    data?: components.MultistreamTarget[];
 }

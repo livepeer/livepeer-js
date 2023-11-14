@@ -29,5 +29,5 @@ export class GetAssetsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Asset })
-    classes?: components.Asset[];
+    data?: components.Asset[];
 }
