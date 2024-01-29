@@ -5,38 +5,8 @@
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../internal/utils";
 import { FfmpegProfile } from "./ffmpegprofile";
 import { PlaybackPolicy } from "./playbackpolicy";
+import { TargetOutput } from "./targetoutput";
 import { Expose, Type } from "class-transformer";
-
-export class StreamTargets extends SpeakeasyBase {
-    /**
-     * Name of the transcoding profile that should be sent. Use
-     *
-     * @remarks
-     * "source" for pushing the source stream data
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "profile" })
-    profile: string;
-
-    /**
-     * If true, the stream audio will be muted, and only silent
-     *
-     * @remarks
-     * video will be pushed to the target.
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "videoOnly" })
-    videoOnly?: boolean;
-
-    /**
-     * ID of the multistream target object where to push this stream
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "id" })
-    id?: string;
-}
 
 export class StreamMultistream extends SpeakeasyBase {
     /**
@@ -46,10 +16,10 @@ export class StreamMultistream extends SpeakeasyBase {
      * streamed to
      *
      */
-    @SpeakeasyMetadata({ elemType: StreamTargets })
+    @SpeakeasyMetadata({ elemType: TargetOutput })
     @Expose({ name: "targets" })
-    @Type(() => StreamTargets)
-    targets?: StreamTargets[];
+    @Type(() => TargetOutput)
+    targets?: TargetOutput[];
 }
 
 export class Stream extends SpeakeasyBase {
@@ -146,21 +116,21 @@ export class Stream extends SpeakeasyBase {
     createdByTokenName?: string;
 
     /**
-     * Timestamp (in milliseconds) at which the stream object was created
+     * Timestamp (in milliseconds) at which stream object was created
      */
     @SpeakeasyMetadata()
     @Expose({ name: "createdAt" })
     createdAt?: number;
 
     /**
-     * Points to the parent stream object
+     * Points to parent stream object
      */
     @SpeakeasyMetadata()
     @Expose({ name: "parentId" })
     parentId?: string;
 
     /**
-     * Used to form the RTMP ingest URL
+     * Used to form RTMP ingest URL
      */
     @SpeakeasyMetadata()
     @Expose({ name: "streamKey" })

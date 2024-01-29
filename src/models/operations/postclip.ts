@@ -16,7 +16,7 @@ export class PostClipTask extends SpeakeasyBase {
 /**
  * Success
  */
-export class PostClipData extends SpeakeasyBase {
+export class PostClipResponseBody extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "asset" })
     @Type(() => components.Asset)
@@ -51,5 +51,5 @@ export class PostClipResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata()
-    data?: PostClipData;
+    object?: PostClipResponseBody;
 }

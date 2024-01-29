@@ -13,19 +13,29 @@ export enum PlaybackInfoType {
     Recording = "recording",
 }
 
+/**
+ * Human Readable Name
+ */
 export enum Hrn {
     HlsTs = "HLS (TS)",
     Mp4 = "MP4",
     WebRTCH264 = "WebRTC (H264)",
+    ThumbnailJPEG = "Thumbnail (JPEG)",
+    Thumbnails = "Thumbnails",
 }
 
 export enum PlaybackInfoSchemasType {
     Html5ApplicationVndAppleMpegurl = "html5/application/vnd.apple.mpegurl",
     Html5VideoMp4 = "html5/video/mp4",
     Html5VideoH264 = "html5/video/h264",
+    ImageJpeg = "image/jpeg",
+    TextVtt = "text/vtt",
 }
 
 export class Source extends SpeakeasyBase {
+    /**
+     * Human Readable Name
+     */
     @SpeakeasyMetadata()
     @Expose({ name: "hrn" })
     hrn: Hrn;
@@ -55,6 +65,32 @@ export class Source extends SpeakeasyBase {
     bitrate?: number;
 }
 
+export enum PlaybackInfoHrn {
+    HlsTs = "HLS (TS)",
+}
+
+export enum PlaybackInfoSchemasMetaType {
+    Html5ApplicationVndAppleMpegurl = "html5/application/vnd.apple.mpegurl",
+}
+
+export class DvrPlayback extends SpeakeasyBase {
+    @SpeakeasyMetadata()
+    @Expose({ name: "hrn" })
+    hrn?: PlaybackInfoHrn;
+
+    @SpeakeasyMetadata()
+    @Expose({ name: "type" })
+    type?: PlaybackInfoSchemasMetaType;
+
+    @SpeakeasyMetadata()
+    @Expose({ name: "url" })
+    url?: string;
+
+    @SpeakeasyMetadata()
+    @Expose({ name: "error" })
+    error?: string;
+}
+
 export class Meta extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "live" })
@@ -72,6 +108,11 @@ export class Meta extends SpeakeasyBase {
     @Expose({ name: "source" })
     @Type(() => Source)
     source: Source[];
+
+    @SpeakeasyMetadata({ elemType: DvrPlayback })
+    @Expose({ name: "dvrPlayback" })
+    @Type(() => DvrPlayback)
+    dvrPlayback?: DvrPlayback[];
 
     @SpeakeasyMetadata()
     @Expose({ name: "attestation" })

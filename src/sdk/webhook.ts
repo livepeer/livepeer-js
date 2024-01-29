@@ -63,9 +63,9 @@ export class Webhook {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Webhook,
                         resFieldDepth
@@ -94,6 +94,10 @@ export class Webhook {
 
     /**
      * Create a webhook
+     *
+     * @remarks
+     * To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
+     *
      */
     async create(config?: AxiosRequestConfig): Promise<operations.CreateWebhookResponse> {
         const baseURL: string = utils.templateUrl(

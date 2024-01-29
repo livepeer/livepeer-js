@@ -26,7 +26,11 @@ export class MultistreamTarget extends SpeakeasyBase {
     disabled?: boolean;
 
     /**
-     * Timestamp (in milliseconds) at which multistream target object was created
+     * Timestamp (in milliseconds) at which multistream target object was
+     *
+     * @remarks
+     * created
+     *
      */
     @SpeakeasyMetadata()
     @Expose({ name: "createdAt" })

@@ -1,0 +1,14 @@
+# TranscodePayload
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `input`                                                                      | *any*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `storage`                                                                    | *any*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `outputs`                                                                    | [components.Outputs](../../models/components/outputs.md)                     | :heavy_check_mark:                                                           | Output formats                                                               |
+| `profiles`                                                                   | [components.TranscodeProfile](../../models/components/transcodeprofile.md)[] | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `targetSegmentSizeSecs`                                                      | *number*                                                                     | :heavy_minus_sign:                                                           | How many seconds the duration of each output segment should be               |
+| `creatorId`                                                                  | *any*                                                                        | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `c2pa`                                                                       | *boolean*                                                                    | :heavy_minus_sign:                                                           | Decides if the output video should include C2PA signature                    |

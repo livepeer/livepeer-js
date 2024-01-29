@@ -37,5 +37,5 @@ export class GetStreamIdClipsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Asset })
-    data?: components.Asset[];
+    classes?: components.Asset[];
 }

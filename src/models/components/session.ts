@@ -91,14 +91,14 @@ export class Session extends SpeakeasyBase {
     issues?: string[];
 
     /**
-     * Timestamp (in milliseconds) at which the stream object was created
+     * Timestamp (in milliseconds) at which stream object was created
      */
     @SpeakeasyMetadata()
     @Expose({ name: "createdAt" })
     createdAt?: number;
 
     /**
-     * Points to the parent stream object
+     * Points to parent stream object
      */
     @SpeakeasyMetadata()
     @Expose({ name: "parentId" })
@@ -137,7 +137,7 @@ export class Session extends SpeakeasyBase {
     mp4Url?: string;
 
     /**
-     * Used to form the playback URL
+     * Used to form playback URL
      */
     @SpeakeasyMetadata()
     @Expose({ name: "playbackId" })

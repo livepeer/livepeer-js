@@ -4,11 +4,8 @@
 
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../internal/utils";
 import { Encryption } from "./encryption";
-import { EncryptionOutput } from "./encryptionoutput";
-import { FfmpegProfile } from "./ffmpegprofile";
 import { IpfsExportParams } from "./ipfsexportparams";
-import { Upload } from "./upload";
-import { UploadOutput } from "./uploadoutput";
+import { TranscodeProfile } from "./transcodeprofile";
 import { Expose, Type } from "class-transformer";
 
 /**
@@ -16,10 +13,8 @@ import { Expose, Type } from "class-transformer";
  */
 export enum TaskType {
     Upload = "upload",
-    Import = "import",
     Export = "export",
     ExportData = "export-data",
-    Transcode = "transcode",
     TranscodeFile = "transcode-file",
     Clip = "clip",
 }
@@ -27,7 +22,7 @@ export enum TaskType {
 /**
  * Parameters for the upload task
  */
-export class TaskUploadOutput extends SpeakeasyBase {
+export class Upload extends SpeakeasyBase {
     /**
      * URL of the asset to "upload"
      */
@@ -37,19 +32,15 @@ export class TaskUploadOutput extends SpeakeasyBase {
 
     @SpeakeasyMetadata()
     @Expose({ name: "encryption" })
-    @Type(() => EncryptionOutput)
-    encryption?: EncryptionOutput;
+    @Type(() => Encryption)
+    encryption?: Encryption;
 
     /**
-     * ID of the original recorded session to avoid re-transcoding
-     *
-     * @remarks
-     * of the same content. Only used for import task.
-     *
+     * Decides if the output video should include C2PA signature
      */
     @SpeakeasyMetadata()
-    @Expose({ name: "recordedSessionId" })
-    recordedSessionId?: string;
+    @Expose({ name: "c2pa" })
+    c2pa?: boolean;
 }
 
 /**
@@ -90,19 +81,6 @@ export class ExportData extends SpeakeasyBase {
 }
 
 /**
- * Parameters for the transcode task
- */
-export class Transcode extends SpeakeasyBase {
-    /**
-     * LMPS ffmpeg profile
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "profile" })
-    @Type(() => FfmpegProfile)
-    profile?: FfmpegProfile;
-}
-
-/**
  * Input video file to transcode
  */
 export class Input extends SpeakeasyBase {
@@ -137,7 +115,7 @@ export class TaskStorage extends SpeakeasyBase {
 /**
  * HLS output format
  */
-export class Hls extends SpeakeasyBase {
+export class TaskHls extends SpeakeasyBase {
     /**
      * Path for the HLS output
      */
@@ -149,7 +127,7 @@ export class Hls extends SpeakeasyBase {
 /**
  * MP4 output format
  */
-export class Mp4 extends SpeakeasyBase {
+export class TaskMp4 extends SpeakeasyBase {
     /**
      * Path for the MP4 output
      */
@@ -161,22 +139,22 @@ export class Mp4 extends SpeakeasyBase {
 /**
  * Output formats
  */
-export class Outputs extends SpeakeasyBase {
+export class TaskOutputs extends SpeakeasyBase {
     /**
      * HLS output format
      */
     @SpeakeasyMetadata()
     @Expose({ name: "hls" })
-    @Type(() => Hls)
-    hls?: Hls;
+    @Type(() => TaskHls)
+    hls?: TaskHls;
 
     /**
      * MP4 output format
      */
     @SpeakeasyMetadata()
     @Expose({ name: "mp4" })
-    @Type(() => Mp4)
-    mp4?: Mp4;
+    @Type(() => TaskMp4)
+    mp4?: TaskMp4;
 }
 
 /**
@@ -204,13 +182,13 @@ export class TranscodeFile extends SpeakeasyBase {
      */
     @SpeakeasyMetadata()
     @Expose({ name: "outputs" })
-    @Type(() => Outputs)
-    outputs?: Outputs;
+    @Type(() => TaskOutputs)
+    outputs?: TaskOutputs;
 
-    @SpeakeasyMetadata({ elemType: FfmpegProfile })
+    @SpeakeasyMetadata({ elemType: TranscodeProfile })
     @Expose({ name: "profiles" })
-    @Type(() => FfmpegProfile)
-    profiles?: FfmpegProfile[];
+    @Type(() => TranscodeProfile)
+    profiles?: TranscodeProfile[];
 
     /**
      * How many seconds the duration of each output segment should
@@ -226,58 +204,13 @@ export class TranscodeFile extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "creatorId" })
     creatorId?: any;
-}
-
-/**
- * Parameters of the task
- */
-export class TaskParams extends SpeakeasyBase {
-    /**
-     * Parameters for the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "upload" })
-    @Type(() => TaskUploadOutput)
-    upload?: TaskUploadOutput;
 
     /**
-     * Parameters for the upload task
+     * Decides if the output video should include C2PA signature
      */
     @SpeakeasyMetadata()
-    @Expose({ name: "import" })
-    @Type(() => UploadOutput)
-    import?: UploadOutput;
-
-    /**
-     * Parameters for the export task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "export" })
-    export?: any;
-
-    /**
-     * Parameters for the export-data task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "exportData" })
-    @Type(() => ExportData)
-    exportData?: ExportData;
-
-    /**
-     * Parameters for the transcode task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode" })
-    @Type(() => Transcode)
-    transcode?: Transcode;
-
-    /**
-     * Parameters for the transcode-file task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode-file" })
-    @Type(() => TranscodeFile)
-    transcodeFile?: TranscodeFile;
+    @Expose({ name: "c2pa" })
+    c2pa?: boolean;
 }
 
 /**
@@ -354,6 +287,47 @@ export class Clip extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "inputId" })
     inputId?: string;
+}
+
+/**
+ * Parameters of the task
+ */
+export class Params extends SpeakeasyBase {
+    /**
+     * Parameters for the upload task
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "upload" })
+    @Type(() => Upload)
+    upload?: Upload;
+
+    /**
+     * Parameters for the export task
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "export" })
+    export?: any;
+
+    /**
+     * Parameters for the export-data task
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "exportData" })
+    @Type(() => ExportData)
+    exportData?: ExportData;
+
+    /**
+     * Parameters for the transcode-file task
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "transcode-file" })
+    @Type(() => TranscodeFile)
+    transcodeFile?: TranscodeFile;
+
+    @SpeakeasyMetadata()
+    @Expose({ name: "clip" })
+    @Type(() => Clip)
+    clip?: Clip;
 }
 
 /**
@@ -485,12 +459,6 @@ export class TaskExportData extends SpeakeasyBase {
     ipfs?: TaskSchemasIpfs;
 }
 
-export class TaskTranscode extends SpeakeasyBase {
-    @SpeakeasyMetadata()
-    @Expose({ name: "asset" })
-    asset?: Record<string, any>;
-}
-
 /**
  * Output of the task
  */
@@ -501,13 +469,6 @@ export class Output extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "upload" })
     upload?: Record<string, any>;
-
-    /**
-     * Output of the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "import" })
-    import?: Record<string, any>;
 
     /**
      * Output of the export task
@@ -524,11 +485,6 @@ export class Output extends SpeakeasyBase {
     @Expose({ name: "exportData" })
     @Type(() => TaskExportData)
     exportData?: TaskExportData;
-
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode" })
-    @Type(() => TaskTranscode)
-    transcode?: TaskTranscode;
 }
 
 export class Task extends SpeakeasyBase {
@@ -579,17 +535,19 @@ export class Task extends SpeakeasyBase {
     outputAssetId?: string;
 
     /**
+     * ID of the requester hash(IP + SALT + PlaybackId)
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "requesterId" })
+    requesterId?: string;
+
+    /**
      * Parameters of the task
      */
     @SpeakeasyMetadata()
     @Expose({ name: "params" })
-    @Type(() => TaskParams)
-    params?: TaskParams;
-
-    @SpeakeasyMetadata()
-    @Expose({ name: "clip" })
-    @Type(() => Clip)
-    clip?: Clip;
+    @Type(() => Params)
+    params?: Params;
 
     /**
      * Status of the task
@@ -606,194 +564,4 @@ export class Task extends SpeakeasyBase {
     @Expose({ name: "output" })
     @Type(() => Output)
     output?: Output;
-}
-
-/**
- * Parameters for the upload task
- */
-export class TaskUpload extends SpeakeasyBase {
-    /**
-     * URL of the asset to "upload"
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "url" })
-    url?: string;
-
-    @SpeakeasyMetadata()
-    @Expose({ name: "encryption" })
-    @Type(() => Encryption)
-    encryption?: Encryption;
-
-    /**
-     * ID of the original recorded session to avoid re-transcoding
-     *
-     * @remarks
-     * of the same content. Only used for import task.
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "recordedSessionId" })
-    recordedSessionId?: string;
-}
-
-/**
- * Parameters of the task
- */
-export class Params extends SpeakeasyBase {
-    /**
-     * Parameters for the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "upload" })
-    @Type(() => TaskUpload)
-    upload?: TaskUpload;
-
-    /**
-     * Parameters for the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "import" })
-    @Type(() => Upload)
-    import?: Upload;
-
-    /**
-     * Parameters for the export task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "export" })
-    export?: any;
-
-    /**
-     * Parameters for the export-data task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "exportData" })
-    @Type(() => ExportData)
-    exportData?: ExportData;
-
-    /**
-     * Parameters for the transcode task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode" })
-    @Type(() => Transcode)
-    transcode?: Transcode;
-
-    /**
-     * Parameters for the transcode-file task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode-file" })
-    @Type(() => TranscodeFile)
-    transcodeFile?: TranscodeFile;
-}
-
-export class TaskIpfsInput extends SpeakeasyBase {
-    /**
-     * IPFS CID of the exported video file
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "videoFileCid" })
-    videoFileCid: string;
-
-    /**
-     * IPFS CID of the default metadata exported for the video
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "nftMetadataCid" })
-    nftMetadataCid?: string;
-}
-
-/**
- * Output of the export task
- */
-export class TaskExport extends SpeakeasyBase {
-    @SpeakeasyMetadata()
-    @Expose({ name: "ipfs" })
-    @Type(() => TaskIpfsInput)
-    ipfs?: TaskIpfsInput;
-}
-
-/**
- * Output of the task
- */
-export class TaskOutput extends SpeakeasyBase {
-    /**
-     * Output of the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "upload" })
-    upload?: Record<string, any>;
-
-    /**
-     * Output of the upload task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "import" })
-    import?: Record<string, any>;
-
-    /**
-     * Output of the export task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "export" })
-    @Type(() => TaskExport)
-    export?: TaskExport;
-
-    /**
-     * Output of the export data task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "exportData" })
-    @Type(() => TaskExportData)
-    exportData?: TaskExportData;
-
-    @SpeakeasyMetadata()
-    @Expose({ name: "transcode" })
-    @Type(() => TaskTranscode)
-    transcode?: TaskTranscode;
-}
-
-export class TaskInput extends SpeakeasyBase {
-    /**
-     * Type of the task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "type" })
-    type?: TaskType;
-
-    /**
-     * ID of the input asset
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "inputAssetId" })
-    inputAssetId?: string;
-
-    /**
-     * ID of the output asset
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "outputAssetId" })
-    outputAssetId?: string;
-
-    /**
-     * Parameters of the task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "params" })
-    @Type(() => Params)
-    params?: Params;
-
-    @SpeakeasyMetadata()
-    @Expose({ name: "clip" })
-    @Type(() => Clip)
-    clip?: Clip;
-
-    /**
-     * Output of the task
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "output" })
-    @Type(() => TaskOutput)
-    output?: TaskOutput;
 }

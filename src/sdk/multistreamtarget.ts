@@ -64,9 +64,9 @@ export class MultistreamTarget {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.MultistreamTarget,
                         resFieldDepth
@@ -195,6 +195,11 @@ export class MultistreamTarget {
 
     /**
      * Delete a multistream target
+     *
+     * @remarks
+     * Make sure to remove any references to the target on existing
+     * streams before actually deleting it from the API.
+     *
      */
     async delete(
         id: string,

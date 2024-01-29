@@ -29,5 +29,5 @@ export class GetSessionsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Session })
-    data?: components.Session[];
+    classes?: components.Session[];
 }

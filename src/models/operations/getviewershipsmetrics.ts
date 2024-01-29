@@ -116,5 +116,5 @@ export class GetViewershipsMetricsResponse extends SpeakeasyBase {
      * A list of Metric objects
      */
     @SpeakeasyMetadata({ elemType: components.ViewershipMetric })
-    data?: components.ViewershipMetric[];
+    classes?: components.ViewershipMetric[];
 }

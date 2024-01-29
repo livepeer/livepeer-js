@@ -69,7 +69,9 @@ export class NewAssetPayload extends SpeakeasyBase {
      * URL where the asset contents can be retrieved. Only allowed (and
      *
      * @remarks
-     * also required) in the upload asset via URL endpoint.
+     * also required) in the upload asset via URL endpoint. For an IPFS
+     * source, this should be similar to: `ipfs://{CID}`. For an Arweave
+     * source: `ar://{CID}`.
      *
      */
     @SpeakeasyMetadata()
@@ -80,4 +82,11 @@ export class NewAssetPayload extends SpeakeasyBase {
     @Expose({ name: "encryption" })
     @Type(() => NewAssetPayloadEncryption)
     encryption?: NewAssetPayloadEncryption;
+
+    /**
+     * Decides if the output video should include C2PA signature
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "c2pa" })
+    c2pa?: boolean;
 }

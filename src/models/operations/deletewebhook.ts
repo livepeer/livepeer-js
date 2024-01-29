@@ -7,9 +7,6 @@ import * as components from "../../models/components";
 import { AxiosResponse } from "axios";
 
 export class DeleteWebhookRequest extends SpeakeasyBase {
-    /**
-     * ID of the webhook
-     */
     @SpeakeasyMetadata({ data: "pathParam, style=simple;explode=false;name=id" })
     id: string;
 }

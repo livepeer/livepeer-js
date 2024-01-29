@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | ID of the webhook  |
+| `id`               | *string*           | :heavy_check_mark: | N/A                |

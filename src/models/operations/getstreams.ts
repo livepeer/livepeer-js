@@ -7,9 +7,6 @@ import * as components from "../../models/components";
 import { AxiosResponse } from "axios";
 
 export class GetStreamsRequest extends SpeakeasyBase {
-    /**
-     * Filter the API response and retrieve a specific subset of stream objects based on certain criteria
-     */
     @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=streamsonly" })
     streamsonly?: string;
 }
@@ -37,5 +34,5 @@ export class GetStreamsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Stream })
-    data?: components.Stream[];
+    classes?: components.Stream[];
 }

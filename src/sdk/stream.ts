@@ -70,9 +70,9 @@ export class Stream {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Stream,
                         resFieldDepth
@@ -101,6 +101,22 @@ export class Stream {
 
     /**
      * Create a stream
+     *
+     * @remarks
+     * The only parameter you are required to set is the name of your stream,
+     * but we also highly recommend that you define transcoding profiles
+     * parameter that suits your specific broadcasting configuration.
+     * \
+     * \
+     * If you do not define transcoding rendition profiles when creating the
+     * stream, a default set of profiles will be used. These profiles include
+     * 240p,  360p, 480p and 720p.
+     * \
+     * \
+     * The playback policy is set to public by default for new streams. It can
+     * also be added upon the creation of a new stream by adding
+     * `"playbackPolicy": {"type": "jwt"}`
+     *
      */
     async create(
         req: components.NewStreamPayload,
@@ -169,9 +185,9 @@ export class Stream {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Stream,
                         resFieldDepth
@@ -200,6 +216,14 @@ export class Stream {
 
     /**
      * Delete a stream
+     *
+     * @remarks
+     *
+     * This will also suspend any active stream sessions, so make sure to wait
+     * until the stream has finished. To explicitly interrupt an active
+     * session, consider instead updating the suspended field in the stream
+     * using the PATCH stream API.
+     *
      */
     async delete(
         id: string,
@@ -424,11 +448,83 @@ export class Stream {
     }
 
     /**
-     * Create a clip
+     * Terminates a live stream
      *
      * @remarks
-     * Create a clip from a livestream
+     * `DELETE /stream/{id}/terminate` can be used to terminate an ongoing
+     * session on a live stream. Unlike suspending the stream, it allows the
+     * streamer to restart streaming even immediately, but it will force
+     * terminate the current session and stop the recording.
+     * \
+     * \
+     * A 204 No Content status response indicates the stream was successfully
+     * terminated.
      *
+     */
+    async terminate(
+        id: string,
+        config?: AxiosRequestConfig
+    ): Promise<operations.TerminateStreamResponse> {
+        const req = new operations.TerminateStreamRequest({
+            id: id,
+        });
+        const baseURL: string = utils.templateUrl(
+            this.sdkConfiguration.serverURL,
+            this.sdkConfiguration.serverDefaults
+        );
+        const operationUrl: string = utils.generateURL(baseURL, "/stream/{id}/terminate", req);
+        const client: AxiosInstance = this.sdkConfiguration.defaultClient;
+        let globalSecurity = this.sdkConfiguration.security;
+        if (typeof globalSecurity === "function") {
+            globalSecurity = await globalSecurity();
+        }
+        if (!(globalSecurity instanceof utils.SpeakeasyBase)) {
+            globalSecurity = new components.Security(globalSecurity);
+        }
+        const properties = utils.parseSecurityProperties(globalSecurity);
+        const headers: RawAxiosRequestHeaders = { ...config?.headers, ...properties.headers };
+        headers["Accept"] = "*/*";
+
+        headers["user-agent"] = this.sdkConfiguration.userAgent;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: operationUrl,
+            method: "delete",
+            headers: headers,
+            responseType: "arraybuffer",
+            ...config,
+        });
+
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.TerminateStreamResponse = new operations.TerminateStreamResponse({
+            statusCode: httpRes.status,
+            contentType: responseContentType,
+            rawResponse: httpRes,
+        });
+        switch (true) {
+            case httpRes?.status == 204:
+                break;
+            case (httpRes?.status >= 400 && httpRes?.status < 500) ||
+                (httpRes?.status >= 500 && httpRes?.status < 600):
+                throw new errors.SDKError(
+                    "API error occurred",
+                    httpRes.status,
+                    httpRes?.data,
+                    httpRes
+                );
+        }
+
+        return res;
+    }
+
+    /**
+     * Create a clip
      */
     async createClip(
         req: components.ClipPayload,
@@ -497,7 +593,10 @@ export class Stream {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = utils.objectToClass(JSON.parse(decodedRes), operations.PostClipData);
+                    res.object = utils.objectToClass(
+                        JSON.parse(decodedRes),
+                        operations.PostClipResponseBody
+                    );
                 } else {
                     throw new errors.SDKError(
                         "unknown content-type received: " + responseContentType,
@@ -573,9 +672,9 @@ export class Stream {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.Asset,
                         resFieldDepth
@@ -595,6 +694,166 @@ export class Stream {
                     "API error occurred",
                     httpRes.status,
                     decodedRes,
+                    httpRes
+                );
+        }
+
+        return res;
+    }
+
+    /**
+     * Add a multistream target
+     */
+    async createMultistreamTarget(
+        id: string,
+        targetAddPayload: components.TargetAddPayload,
+        config?: AxiosRequestConfig
+    ): Promise<operations.AddMultistreamTargetResponse> {
+        const req = new operations.AddMultistreamTargetRequest({
+            id: id,
+            targetAddPayload: targetAddPayload,
+        });
+        const baseURL: string = utils.templateUrl(
+            this.sdkConfiguration.serverURL,
+            this.sdkConfiguration.serverDefaults
+        );
+        const operationUrl: string = utils.generateURL(
+            baseURL,
+            "/stream/{id}/create-multistream-target",
+            req
+        );
+
+        let [reqBodyHeaders, reqBody]: [object, any] = [{}, null];
+
+        try {
+            [reqBodyHeaders, reqBody] = utils.serializeRequestBody(req, "targetAddPayload", "json");
+        } catch (e: unknown) {
+            if (e instanceof Error) {
+                throw new Error(`Error serializing request body, cause: ${e.message}`);
+            }
+        }
+        const client: AxiosInstance = this.sdkConfiguration.defaultClient;
+        let globalSecurity = this.sdkConfiguration.security;
+        if (typeof globalSecurity === "function") {
+            globalSecurity = await globalSecurity();
+        }
+        if (!(globalSecurity instanceof utils.SpeakeasyBase)) {
+            globalSecurity = new components.Security(globalSecurity);
+        }
+        const properties = utils.parseSecurityProperties(globalSecurity);
+        const headers: RawAxiosRequestHeaders = {
+            ...reqBodyHeaders,
+            ...config?.headers,
+            ...properties.headers,
+        };
+        if (reqBody == null) throw new Error("request body is required");
+        headers["Accept"] = "*/*";
+
+        headers["user-agent"] = this.sdkConfiguration.userAgent;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: operationUrl,
+            method: "post",
+            headers: headers,
+            responseType: "arraybuffer",
+            data: reqBody,
+            ...config,
+        });
+
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.AddMultistreamTargetResponse =
+            new operations.AddMultistreamTargetResponse({
+                statusCode: httpRes.status,
+                contentType: responseContentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 204:
+                break;
+            case (httpRes?.status >= 400 && httpRes?.status < 500) ||
+                (httpRes?.status >= 500 && httpRes?.status < 600):
+                throw new errors.SDKError(
+                    "API error occurred",
+                    httpRes.status,
+                    httpRes?.data,
+                    httpRes
+                );
+        }
+
+        return res;
+    }
+
+    /**
+     * Remove a multistream target
+     */
+    async deleteMultistreamTarget(
+        id: string,
+        targetId: string,
+        config?: AxiosRequestConfig
+    ): Promise<operations.RemoveMultistreamTargetResponse> {
+        const req = new operations.RemoveMultistreamTargetRequest({
+            id: id,
+            targetId: targetId,
+        });
+        const baseURL: string = utils.templateUrl(
+            this.sdkConfiguration.serverURL,
+            this.sdkConfiguration.serverDefaults
+        );
+        const operationUrl: string = utils.generateURL(
+            baseURL,
+            "/stream/{id}/multistream/{targetId}",
+            req
+        );
+        const client: AxiosInstance = this.sdkConfiguration.defaultClient;
+        let globalSecurity = this.sdkConfiguration.security;
+        if (typeof globalSecurity === "function") {
+            globalSecurity = await globalSecurity();
+        }
+        if (!(globalSecurity instanceof utils.SpeakeasyBase)) {
+            globalSecurity = new components.Security(globalSecurity);
+        }
+        const properties = utils.parseSecurityProperties(globalSecurity);
+        const headers: RawAxiosRequestHeaders = { ...config?.headers, ...properties.headers };
+        headers["Accept"] = "*/*";
+
+        headers["user-agent"] = this.sdkConfiguration.userAgent;
+
+        const httpRes: AxiosResponse = await client.request({
+            validateStatus: () => true,
+            url: operationUrl,
+            method: "delete",
+            headers: headers,
+            responseType: "arraybuffer",
+            ...config,
+        });
+
+        const responseContentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+        if (httpRes?.status == null) {
+            throw new Error(`status code not found in response: ${httpRes}`);
+        }
+
+        const res: operations.RemoveMultistreamTargetResponse =
+            new operations.RemoveMultistreamTargetResponse({
+                statusCode: httpRes.status,
+                contentType: responseContentType,
+                rawResponse: httpRes,
+            });
+        switch (true) {
+            case httpRes?.status == 204:
+                break;
+            case (httpRes?.status >= 400 && httpRes?.status < 500) ||
+                (httpRes?.status >= 500 && httpRes?.status < 600):
+                throw new errors.SDKError(
+                    "API error occurred",
+                    httpRes.status,
+                    httpRes?.data,
                     httpRes
                 );
         }

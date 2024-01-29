@@ -29,5 +29,5 @@ export class CreateSigningKeyResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata()
-    signingKeyResponsePayload?: components.SigningKeyResponsePayload;
+    signingKey?: components.SigningKey;
 }

@@ -62,7 +62,6 @@ import { Livepeer } from "livepeer";
   });
 
   const res = await sdk.multistreamTarget.create({
-    name: "My Multistream Target",
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
 
@@ -91,7 +90,9 @@ import { Livepeer } from "livepeer";
 
 ## delete
 
-Delete a multistream target
+Make sure to remove any references to the target on existing
+streams before actually deleting it from the API.
+
 
 ### Example Usage
 
@@ -188,7 +189,6 @@ import { UpdateMultistreamTargetRequest } from "livepeer/dist/models/operations"
   });
 const id: string = "string";
 const multistreamTargetPatchPayload: MultistreamTargetPatchPayload = {
-  name: "My Multistream Target",
   url: "rtmps://live.my-service.tv/channel/secretKey",
 };
 

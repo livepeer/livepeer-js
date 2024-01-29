@@ -3,35 +3,12 @@
  */
 
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../internal/utils";
-import { NftMetadata } from "./nftmetadata";
-import { NftMetadataTemplate } from "./nftmetadatatemplate";
-import { Expose, Type } from "class-transformer";
+import { Expose } from "class-transformer";
 
 export class IpfsExportParams extends SpeakeasyBase {
-    /**
-     * Name of the NFT metadata template to export. 'player'
-     *
-     * @remarks
-     * will embed the Livepeer Player on the NFT while 'file'
-     * will reference only the immutable MP4 files.
-     *
-     */
     @SpeakeasyMetadata()
-    @Expose({ name: "nftMetadataTemplate" })
-    nftMetadataTemplate?: NftMetadataTemplate;
-
-    /**
-     * Additional data to add to the NFT metadata exported to
-     *
-     * @remarks
-     * IPFS. Will be deep merged with the default metadata
-     * exported.
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "nftMetadata" })
-    @Type(() => NftMetadata)
-    nftMetadata?: NftMetadata;
+    @Expose({ name: "$ref" })
+    dollarRef?: any;
 
     /**
      * Custom credentials for the Piñata service. Must have either

@@ -29,5 +29,5 @@ export class GetTasksResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Task })
-    data?: components.Task[];
+    classes?: components.Task[];
 }

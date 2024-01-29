@@ -29,5 +29,5 @@ export class CreateStreamResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Stream })
-    data?: components.Stream[];
+    classes?: components.Stream[];
 }

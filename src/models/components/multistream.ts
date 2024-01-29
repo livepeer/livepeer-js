@@ -3,70 +3,8 @@
  */
 
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../internal/utils";
+import { Target } from "./target";
 import { Expose, Type } from "class-transformer";
-
-/**
- * Inline multistream target object. Will automatically
- *
- * @remarks
- * create the target resource to be used by the created stream.
- *
- */
-export class Spec extends SpeakeasyBase {
-    @SpeakeasyMetadata()
-    @Expose({ name: "name" })
-    name?: string;
-
-    /**
-     * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "url" })
-    url: string;
-}
-
-export class Targets extends SpeakeasyBase {
-    /**
-     * Name of the transcoding profile that should be sent. Use
-     *
-     * @remarks
-     * "source" for pushing the source stream data
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "profile" })
-    profile: string;
-
-    /**
-     * If true, the stream audio will be muted, and only silent
-     *
-     * @remarks
-     * video will be pushed to the target.
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "videoOnly" })
-    videoOnly?: boolean;
-
-    /**
-     * ID of the multistream target object where to push this stream
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "id" })
-    id?: string;
-
-    /**
-     * Inline multistream target object. Will automatically
-     *
-     * @remarks
-     * create the target resource to be used by the created stream.
-     *
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "spec" })
-    @Type(() => Spec)
-    spec?: Spec;
-}
 
 export class Multistream extends SpeakeasyBase {
     /**
@@ -76,8 +14,8 @@ export class Multistream extends SpeakeasyBase {
      * streamed to
      *
      */
-    @SpeakeasyMetadata({ elemType: Targets })
+    @SpeakeasyMetadata({ elemType: Target })
     @Expose({ name: "targets" })
-    @Type(() => Targets)
-    targets?: Targets[];
+    @Type(() => Target)
+    targets?: Target[];
 }

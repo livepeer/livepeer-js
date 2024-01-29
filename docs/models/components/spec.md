@@ -1,7 +1,8 @@
 # Spec
 
 Inline multistream target object. Will automatically
-create the target resource to be used by the created stream.
+create the target resource to be used by the created
+stream.
 
 
 

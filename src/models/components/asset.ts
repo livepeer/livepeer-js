@@ -24,7 +24,7 @@ export enum AssetType {
  * will reference only the immutable MP4 files.
  *
  */
-export enum AssetNftMetadataTemplate {
+export enum NftMetadataTemplate {
     File = "file",
     Player = "player",
 }
@@ -37,7 +37,7 @@ export enum AssetNftMetadataTemplate {
  * exported.
  *
  */
-export class AssetNftMetadata extends SpeakeasyBase {}
+export class NftMetadata extends SpeakeasyBase {}
 
 export class AssetSpec extends SpeakeasyBase {
     /**
@@ -50,7 +50,7 @@ export class AssetSpec extends SpeakeasyBase {
      */
     @SpeakeasyMetadata()
     @Expose({ name: "nftMetadataTemplate" })
-    nftMetadataTemplate?: AssetNftMetadataTemplate;
+    nftMetadataTemplate?: NftMetadataTemplate;
 
     /**
      * Additional data to add to the NFT metadata exported to
@@ -62,8 +62,8 @@ export class AssetSpec extends SpeakeasyBase {
      */
     @SpeakeasyMetadata()
     @Expose({ name: "nftMetadata" })
-    @Type(() => AssetNftMetadata)
-    nftMetadata?: AssetNftMetadata;
+    @Type(() => NftMetadata)
+    nftMetadata?: NftMetadata;
 }
 
 export class Ipfs extends SpeakeasyBase {
@@ -72,26 +72,9 @@ export class Ipfs extends SpeakeasyBase {
     @Type(() => AssetSpec)
     spec?: AssetSpec;
 
-    /**
-     * CID of the file on IPFS
-     */
     @SpeakeasyMetadata()
-    @Expose({ name: "cid" })
-    cid?: string;
-
-    /**
-     * URL with IPFS scheme for the file
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "url" })
-    url?: string;
-
-    /**
-     * URL to access file via HTTP through an IPFS gateway
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "gatewayUrl" })
-    gatewayUrl?: string;
+    @Expose({ name: "$ref" })
+    dollarRef?: any;
 
     @SpeakeasyMetadata()
     @Expose({ name: "nftMetadata" })

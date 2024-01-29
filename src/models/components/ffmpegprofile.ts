@@ -47,6 +47,16 @@ export class FfmpegProfile extends SpeakeasyBase {
     @Expose({ name: "fpsDen" })
     fpsDen?: number;
 
+    /**
+     * Restricts the size of the output video using the constant quality feature. Increasing this value will result in a lower quality video. Note that this parameter might not work if the transcoder lacks support for it.
+     *
+     * @remarks
+     *
+     */
+    @SpeakeasyMetadata()
+    @Expose({ name: "quality" })
+    quality?: number;
+
     @SpeakeasyMetadata()
     @Expose({ name: "gop" })
     gop?: string;

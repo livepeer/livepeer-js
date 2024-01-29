@@ -8,8 +8,11 @@
 * [delete](#delete) - Delete a stream
 * [get](#get) - Retrieve a stream
 * [update](#update) - Update a stream
+* [terminate](#terminate) - Terminates a live stream
 * [createClip](#createclip) - Create a clip
 * [getAllClips](#getallclips) - Retrieve clips of a livestream
+* [createMultistreamTarget](#createmultistreamtarget) - Add a multistream target
+* [deleteMultistreamTarget](#deletemultistreamtarget) - Remove a multistream target
 
 ## getAll
 
@@ -37,10 +40,10 @@ const streamsonly: string = "string";
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `streamsonly`                                                                                      | *string*                                                                                           | :heavy_minus_sign:                                                                                 | Filter the API response and retrieve a specific subset of stream objects based on certain criteria |
-| `config`                                                                                           | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                                       | :heavy_minus_sign:                                                                                 | Available config options for making requests.                                                      |
+| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `streamsonly`                                                | *string*                                                     | :heavy_minus_sign:                                           | N/A                                                          |
+| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
 
 
 ### Response
@@ -54,7 +57,20 @@ const streamsonly: string = "string";
 
 ## create
 
-Create a stream
+The only parameter you are required to set is the name of your stream,
+but we also highly recommend that you define transcoding profiles
+parameter that suits your specific broadcasting configuration.
+\
+\
+If you do not define transcoding rendition profiles when creating the
+stream, a default set of profiles will be used. These profiles include
+240p,  360p, 480p and 720p.
+\
+\
+The playback policy is set to public by default for new streams. It can
+also be added upon the creation of a new stream by adding
+`"playbackPolicy": {"type": "jwt"}`
+
 
 ### Example Usage
 
@@ -72,22 +88,17 @@ import { Encoder, Profile, TypeT } from "livepeer/dist/models/components";
     creatorId: "string",
     playbackPolicy: {
       type: TypeT.Jwt,
-      webhookId: "3e02c844-d364-4d48-b401-24b2773b5d6c",
       webhookContext: {
-        "foo": "string",
+        "key": "string",
       },
     },
     profiles: [
       {
-        width: 1280,
+        width: 489382,
         name: "720p",
-        height: 720,
-        bitrate: 4000,
-        fps: 30,
-        fpsDen: 1,
-        gop: "60",
-        profile: Profile.H264High,
-        encoder: Encoder.H264,
+        height: 638424,
+        bitrate: 859213,
+        fps: 417458,
       },
     ],
     record: false,
@@ -128,7 +139,12 @@ import { Encoder, Profile, TypeT } from "livepeer/dist/models/components";
 
 ## delete
 
-Delete a stream
+
+This will also suspend any active stream sessions, so make sure to wait
+until the stream has finished. To explicitly interrupt an active
+session, consider instead updating the suspended field in the stream
+using the PATCH stream API.
+
 
 ### Example Usage
 
@@ -216,7 +232,17 @@ Update a stream
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Multistream, PlaybackPolicy, Spec, StreamPatchPayload, Targets, TypeT } from "livepeer/dist/models/components";
+import {
+  Encoder,
+  FfmpegProfile,
+  Multistream,
+  PlaybackPolicy,
+  Profile,
+  Spec,
+  StreamPatchPayload,
+  Target,
+  TypeT,
+} from "livepeer/dist/models/components";
 import { UpdateStreamRequest } from "livepeer/dist/models/operations";
 
 (async() => {
@@ -239,11 +265,19 @@ const streamPatchPayload: StreamPatchPayload = {
   },
   playbackPolicy: {
     type: TypeT.Webhook,
-    webhookId: "3e02c844-d364-4d48-b401-24b2773b5d6c",
     webhookContext: {
-      "foo": "string",
+      "key": "string",
     },
   },
+  profiles: [
+    {
+      width: 24555,
+      name: "720p",
+      height: 597129,
+      bitrate: 15652,
+      fps: 344620,
+    },
+  ],
 };
 
   const res = await sdk.stream.update(id, streamPatchPayload);
@@ -272,10 +306,58 @@ const streamPatchPayload: StreamPatchPayload = {
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 400-600         | */*             |
 
+## terminate
+
+`DELETE /stream/{id}/terminate` can be used to terminate an ongoing
+session on a live stream. Unlike suspending the stream, it allows the
+streamer to restart streaming even immediately, but it will force
+terminate the current session and stop the recording.
+\
+\
+A 204 No Content status response indicates the stream was successfully
+terminated.
+
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+import { TerminateStreamRequest } from "livepeer/dist/models/operations";
+
+(async() => {
+  const sdk = new Livepeer({
+    apiKey: "",
+  });
+const id: string = "string";
+
+  const res = await sdk.stream.terminate(id);
+
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
+```
+
+### Parameters
+
+| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the stream                                             |
+| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+
+
+### Response
+
+**Promise<[operations.TerminateStreamResponse](../../models/operations/terminatestreamresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 400-600         | */*             |
+
 ## createClip
 
-Create a clip from a livestream
-
+Create a clip
 
 ### Example Usage
 
@@ -350,6 +432,98 @@ const id: string = "string";
 ### Response
 
 **Promise<[operations.GetStreamIdClipsResponse](../../models/operations/getstreamidclipsresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 400-600         | */*             |
+
+## createMultistreamTarget
+
+Add a multistream target
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+import { TargetAddPayload, TargetAddPayloadSpec } from "livepeer/dist/models/components";
+import { AddMultistreamTargetRequest } from "livepeer/dist/models/operations";
+
+(async() => {
+  const sdk = new Livepeer({
+    apiKey: "",
+  });
+const id: string = "string";
+const targetAddPayload: TargetAddPayload = {
+  profile: "720p",
+  spec: {
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  },
+};
+
+  const res = await sdk.stream.createMultistreamTarget(id, targetAddPayload);
+
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
+```
+
+### Parameters
+
+| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | ID of the parent stream                                                    |
+| `targetAddPayload`                                                         | [components.TargetAddPayload](../../models/components/targetaddpayload.md) | :heavy_check_mark:                                                         | N/A                                                                        |
+| `config`                                                                   | [AxiosRequestConfig](https://axios-http.com/docs/req_config)               | :heavy_minus_sign:                                                         | Available config options for making requests.                              |
+
+
+### Response
+
+**Promise<[operations.AddMultistreamTargetResponse](../../models/operations/addmultistreamtargetresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 400-600         | */*             |
+
+## deleteMultistreamTarget
+
+Remove a multistream target
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+import { RemoveMultistreamTargetRequest } from "livepeer/dist/models/operations";
+
+(async() => {
+  const sdk = new Livepeer({
+    apiKey: "",
+  });
+const id: string = "string";
+const targetId: string = "string";
+
+  const res = await sdk.stream.deleteMultistreamTarget(id, targetId);
+
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
+```
+
+### Parameters
+
+| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the parent stream                                      |
+| `targetId`                                                   | *string*                                                     | :heavy_check_mark:                                           | ID of the multistream target                                 |
+| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+
+
+### Response
+
+**Promise<[operations.RemoveMultistreamTargetResponse](../../models/operations/removemultistreamtargetresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

@@ -3,6 +3,7 @@
  */
 
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../internal/utils";
+import { FfmpegProfile } from "./ffmpegprofile";
 import { Multistream } from "./multistream";
 import { PlaybackPolicy } from "./playbackpolicy";
 import { Expose, Type } from "class-transformer";
@@ -42,4 +43,9 @@ export class StreamPatchPayload extends SpeakeasyBase {
     @Expose({ name: "playbackPolicy" })
     @Type(() => PlaybackPolicy)
     playbackPolicy?: PlaybackPolicy;
+
+    @SpeakeasyMetadata({ elemType: FfmpegProfile })
+    @Expose({ name: "profiles" })
+    @Type(() => FfmpegProfile)
+    profiles?: FfmpegProfile[];
 }

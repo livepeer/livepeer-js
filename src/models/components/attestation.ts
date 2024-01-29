@@ -72,26 +72,9 @@ export enum SignatureType {
 }
 
 export class AttestationIpfs extends SpeakeasyBase {
-    /**
-     * CID of the file on IPFS
-     */
     @SpeakeasyMetadata()
-    @Expose({ name: "cid" })
-    cid?: string;
-
-    /**
-     * URL with IPFS scheme for the file
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "url" })
-    url?: string;
-
-    /**
-     * URL to access file via HTTP through an IPFS gateway
-     */
-    @SpeakeasyMetadata()
-    @Expose({ name: "gatewayUrl" })
-    gatewayUrl?: string;
+    @Expose({ name: "$ref" })
+    dollarRef?: any;
 
     /**
      * Timestamp (in milliseconds) at which IPFS export task was updated

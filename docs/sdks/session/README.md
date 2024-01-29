@@ -3,10 +3,51 @@
 
 ### Available Operations
 
+* [getAllClips](#getallclips) - Retrieve clips of a session
 * [getAll](#getall) - Retrieve sessions
 * [get](#get) - Retrieve a session
 * [getRecorded](#getrecorded) - Retrieve Recorded Sessions
-* [getAllClips](#getallclips) - Retrieve clips of a session
+
+## getAllClips
+
+Retrieve clips of a session
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+import { GetSessionIdClipsRequest } from "livepeer/dist/models/operations";
+
+(async() => {
+  const sdk = new Livepeer({
+    apiKey: "",
+  });
+const id: string = "string";
+
+  const res = await sdk.session.getAllClips(id);
+
+  if (res.statusCode == 200) {
+    // handle response
+  }
+})();
+```
+
+### Parameters
+
+| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the parent session                                     |
+| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+
+
+### Response
+
+**Promise<[operations.GetSessionIdClipsResponse](../../models/operations/getsessionidclipsresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 400-600         | */*             |
 
 ## getAll
 
@@ -124,47 +165,6 @@ const record: number = 1;
 ### Response
 
 **Promise<[operations.GetRecordedSessionsResponse](../../models/operations/getrecordedsessionsresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
-
-## getAllClips
-
-Retrieve clips of a session
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import { GetSessionIdClipsRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-
-  const res = await sdk.session.getAllClips(id);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the parent session                                     |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
-
-
-### Response
-
-**Promise<[operations.GetSessionIdClipsResponse](../../models/operations/getsessionidclipsresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

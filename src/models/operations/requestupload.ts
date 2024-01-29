@@ -16,7 +16,7 @@ export class Task extends SpeakeasyBase {
 /**
  * Success
  */
-export class RequestUploadData extends SpeakeasyBase {
+export class RequestUploadResponseBody extends SpeakeasyBase {
     @SpeakeasyMetadata()
     @Expose({ name: "url" })
     url: string;
@@ -59,5 +59,5 @@ export class RequestUploadResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata()
-    data?: RequestUploadData;
+    object?: RequestUploadResponseBody;
 }

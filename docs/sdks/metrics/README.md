@@ -10,7 +10,8 @@
 
 ## getViewership
 
-Query viewership metrics
+Requires a private (non-CORS) API key to be used.
+
 
 ### Example Usage
 
@@ -56,7 +57,8 @@ import { BreakdownBy, TimeStep } from "livepeer/dist/models/operations";
 
 ## getCreatorViewership
 
-Query creator viewership metrics
+Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
+
 
 ### Example Usage
 
@@ -102,7 +104,10 @@ import { QueryParamBreakdownBy, QueryParamTimeStep } from "livepeer/dist/models/
 
 ## getPublicTotalViews
 
-Query public total views metrics
+Allows querying for the public metrics for viewership about a video.
+This can be called from the frontend with a CORS key, or even
+unauthenticated.
+
 
 ### Example Usage
 

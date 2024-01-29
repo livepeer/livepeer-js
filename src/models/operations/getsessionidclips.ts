@@ -37,5 +37,5 @@ export class GetSessionIdClipsResponse extends SpeakeasyBase {
      * Success
      */
     @SpeakeasyMetadata({ elemType: components.Asset })
-    data?: components.Asset[];
+    classes?: components.Asset[];
 }

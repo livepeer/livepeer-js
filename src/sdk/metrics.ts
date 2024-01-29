@@ -18,6 +18,10 @@ export class Metrics {
 
     /**
      * Query viewership metrics
+     *
+     * @remarks
+     * Requires a private (non-CORS) API key to be used.
+     *
      */
     async getViewership(
         req: operations.GetViewershipsMetricsRequest,
@@ -72,9 +76,9 @@ export class Metrics {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.ViewershipMetric,
                         resFieldDepth
@@ -103,6 +107,10 @@ export class Metrics {
 
     /**
      * Query creator viewership metrics
+     *
+     * @remarks
+     * Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
+     *
      */
     async getCreatorViewership(
         req: operations.GetCreatorMetricsRequest,
@@ -156,9 +164,9 @@ export class Metrics {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = [];
+                    res.classes = [];
                     const resFieldDepth: number = utils.getResFieldDepth(res);
-                    res.data = utils.objectToClass(
+                    res.classes = utils.objectToClass(
                         JSON.parse(decodedRes),
                         components.ViewershipMetric,
                         resFieldDepth
@@ -187,6 +195,12 @@ export class Metrics {
 
     /**
      * Query public total views metrics
+     *
+     * @remarks
+     * Allows querying for the public metrics for viewership about a video.
+     * This can be called from the frontend with a CORS key, or even
+     * unauthenticated.
+     *
      */
     async getPublicTotalViews(
         playbackId: string,
@@ -243,9 +257,9 @@ export class Metrics {
         switch (true) {
             case httpRes?.status == 200:
                 if (utils.matchContentType(responseContentType, `application/json`)) {
-                    res.data = utils.objectToClass(
+                    res.object = utils.objectToClass(
                         JSON.parse(decodedRes),
-                        operations.GetPublicTotalViewsMetricsData
+                        operations.GetPublicTotalViewsMetricsResponseBody
                     );
                 } else {
                     throw new errors.SDKError(
