@@ -14,7 +14,7 @@ features:
     inputOutputModels: 2.82.0
     nameOverrides: 2.81.1
 typescript:
-  version: 3.0.1
+  version: 3.0.2
   author: Livepeer
   clientServerStatusCodesAsErrors: true
   flattenGlobalSecurity: true
