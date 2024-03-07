@@ -30,3 +30,4 @@ typescript:
   maxMethodParams: 4
   outputModelSuffix: output
   packageName: livepeer
+  templateVersion: v2
