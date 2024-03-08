@@ -13,36 +13,38 @@ Retrieve Playback Info
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetPlaybackInfoRequest } from "livepeer/dist/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
-const id: string = "string";
 
-  const res = await sdk.playback.get(id);
+  const id = "<value>";
+  
+  const result = await sdk.playback.get(id);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | The ID of the playback                                       |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The ID of the playback                                                                                                                                                         |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetPlaybackInfoResponse](../../models/operations/getplaybackinforesponse.md)>**
+**Promise<[operations.GetPlaybackIdResponse](../../models/operations/getplaybackidresponse.md)>**
 ### Errors
 
 | Error Object     | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.ErrorT    | 404              | application/json |
-| errors.SDKError  | 400-600          | */*              |
+| errors.SDKError  | 4xx-5xx          | */*              |

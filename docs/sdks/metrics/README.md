@@ -3,150 +3,151 @@
 
 ### Available Operations
 
-* [getViewership](#getviewership) - Query viewership metrics
-* [getCreatorViewership](#getcreatorviewership) - Query creator viewership metrics
-* [getPublicTotalViews](#getpublictotalviews) - Query public total views metrics
-* [getUsage](#getusage) - Query usage metrics
+* [getViewershipsMetrics](#getviewershipsmetrics) - Query viewership metrics
+* [getCreatorMetrics](#getcreatormetrics) - Query creator viewership metrics
+* [getPublicTotalViewsMetrics](#getpublictotalviewsmetrics) - Query public total views metrics
+* [getUsageMetrics](#getusagemetrics) - Query usage metrics
 
-## getViewership
+## getViewershipsMetrics
 
-Requires a private (non-CORS) API key to be used.
-
+Query viewership metrics
 
 ### Example Usage
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { BreakdownBy, TimeStep } from "livepeer/dist/models/operations";
+import { BreakdownBy } from "livepeer/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
-  const res = await sdk.metrics.getViewership({
-    from: "string",
-    to: "string",
+  const result = await sdk.metrics.getViewershipsMetrics({
+  from: 599370,
+  to: 750430,
     breakdownBy: [
-      BreakdownBy.ViewerId,
+      BreakdownBy.Country,
     ],
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `request`                                                                                          | [operations.GetViewershipsMetricsRequest](../../models/operations/getviewershipsmetricsrequest.md) | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
-| `config`                                                                                           | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                                       | :heavy_minus_sign:                                                                                 | Available config options for making requests.                                                      |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetDataViewsQueryRequest](../../models/operations/getdataviewsqueryrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetViewershipsMetricsResponse](../../models/operations/getviewershipsmetricsresponse.md)>**
+**Promise<[operations.GetDataViewsQueryResponse](../../models/operations/getdataviewsqueryresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## getCreatorViewership
+## getCreatorMetrics
 
-Requires a proof of ownership to be sent in the request, which for now is just the assetId or streamId parameters (1 of those must be in the query-string).
-
+Query creator viewership metrics
 
 ### Example Usage
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { QueryParamBreakdownBy, QueryParamTimeStep } from "livepeer/dist/models/operations";
+import { QueryParamBreakdownBy } from "livepeer/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
-  const res = await sdk.metrics.getCreatorViewership({
-    from: "string",
-    to: "string",
+  const result = await sdk.metrics.getCreatorMetrics({
+  from: new Date("2024-01-10T00:19:08.773Z"),
+  to: new Date("2022-02-11T11:42:19.967Z"),
     breakdownBy: [
-      QueryParamBreakdownBy.Os,
+      QueryParamBreakdownBy.Continent,
     ],
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                                  | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `request`                                                                                  | [operations.GetCreatorMetricsRequest](../../models/operations/getcreatormetricsrequest.md) | :heavy_check_mark:                                                                         | The request object to use for the request.                                                 |
-| `config`                                                                                   | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                               | :heavy_minus_sign:                                                                         | Available config options for making requests.                                              |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetDataViewsQueryCreatorRequest](../../models/operations/getdataviewsquerycreatorrequest.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetCreatorMetricsResponse](../../models/operations/getcreatormetricsresponse.md)>**
+**Promise<[operations.GetDataViewsQueryCreatorResponse](../../models/operations/getdataviewsquerycreatorresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## getPublicTotalViews
+## getPublicTotalViewsMetrics
 
-Allows querying for the public metrics for viewership about a video.
-This can be called from the frontend with a CORS key, or even
-unauthenticated.
-
+Query public total views metrics
 
 ### Example Usage
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetPublicTotalViewsMetricsRequest } from "livepeer/dist/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
-const playbackId: string = "string";
 
-  const res = await sdk.metrics.getPublicTotalViews(playbackId);
+  const playbackId = "<value>";
+  
+  const result = await sdk.metrics.getPublicTotalViewsMetrics(playbackId);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `playbackId`                                                                                                                                          | *string*                                                                                                                                              | :heavy_check_mark:                                                                                                                                    | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/> |
-| `config`                                                                                                                                              | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                                                                                          | :heavy_minus_sign:                                                                                                                                    | Available config options for making requests.                                                                                                         |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `playbackId`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The playback ID to filter the query results. This can be a canonical<br/>playback ID from Livepeer assets or streams, or dStorage identifiers<br/>for assets<br/>              |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetPublicTotalViewsMetricsResponse](../../models/operations/getpublictotalviewsmetricsresponse.md)>**
+**Promise<[operations.GetDataViewsQueryTotalPlaybackIdResponse](../../models/operations/getdataviewsquerytotalplaybackidresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## getUsage
+## getUsageMetrics
 
 Query usage metrics
 
@@ -154,41 +155,44 @@ Query usage metrics
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetUsageMetricsQueryParamTimeStep, GetUsageMetricsRequest } from "livepeer/dist/models/operations";
+import { GetDataUsageQueryQueryParamTimeStep } from "livepeer/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
-const from: number = 224089;
-const to: number = 231125;
-const timeStep: GetUsageMetricsQueryParamTimeStep = GetUsageMetricsQueryParamTimeStep.Day;
-const creatorId: string = "string";
 
-  const res = await sdk.metrics.getUsage(from, to, timeStep, creatorId);
+  const from = 169019;
+  const to = 623790;
+  const timeStep = GetDataUsageQueryQueryParamTimeStep.Hour;
+  const creatorId = "<value>";
+  
+  const result = await sdk.metrics.getUsageMetrics(from, to, timeStep, creatorId);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `from`                                                                                                       | *number*                                                                                                     | :heavy_minus_sign:                                                                                           | Start millis timestamp for the query range (inclusive)<br/>                                                  |
-| `to`                                                                                                         | *number*                                                                                                     | :heavy_minus_sign:                                                                                           | End millis timestamp for the query range (exclusive)<br/>                                                    |
-| `timeStep`                                                                                                   | [operations.GetUsageMetricsQueryParamTimeStep](../../models/operations/getusagemetricsqueryparamtimestep.md) | :heavy_minus_sign:                                                                                           | The time step to aggregate viewership metrics by<br/>                                                        |
-| `creatorId`                                                                                                  | *string*                                                                                                     | :heavy_minus_sign:                                                                                           | The creator ID to filter the query results<br/>                                                              |
-| `config`                                                                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                                                 | :heavy_minus_sign:                                                                                           | Available config options for making requests.                                                                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `from`                                                                                                                                                                         | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Start millis timestamp for the query range (inclusive)<br/>                                                                                                                    |
+| `to`                                                                                                                                                                           | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | End millis timestamp for the query range (exclusive)<br/>                                                                                                                      |
+| `timeStep`                                                                                                                                                                     | [operations.GetDataUsageQueryQueryParamTimeStep](../../models/operations/getdatausagequeryqueryparamtimestep.md)                                                               | :heavy_minus_sign:                                                                                                                                                             | The time step to aggregate viewership metrics by<br/>                                                                                                                          |
+| `creatorId`                                                                                                                                                                    | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The creator ID to filter the query results<br/>                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md)>**
+**Promise<[operations.GetDataUsageQueryResponse](../../models/operations/getdatausagequeryresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |

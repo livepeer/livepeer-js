@@ -1,0 +1,10 @@
+# AssetIpfsInput
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `spec`                                                                       | [components.AssetSpec](../../models/components/assetspec.md)                 | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |
+| `cid`                                                                        | *string*                                                                     | :heavy_minus_sign:                                                           | CID of the file on IPFS                                                      | bafybeihoqtemwitqajy6d654tmghqqvxmzgblddj2egst6yilplr5num6u                  |
+| `nftMetadata`                                                                | [components.IpfsFileInfoInput](../../models/components/ipfsfileinfoinput.md) | :heavy_minus_sign:                                                           | N/A                                                                          |                                                                              |

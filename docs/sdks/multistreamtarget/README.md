@@ -5,9 +5,9 @@
 
 * [getAll](#getall) - Retrieve Multistream Targets
 * [create](#create) - Create a multistream target
-* [delete](#delete) - Delete a multistream target
 * [get](#get) - Retrieve a multistream target
 * [update](#update) - Update Multistream Target
+* [delete](#delete) - Delete a multistream target
 
 ## getAll
 
@@ -18,34 +18,36 @@ Retrieve Multistream Targets
 ```typescript
 import { Livepeer } from "livepeer";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
-  const res = await sdk.multistreamTarget.getAll();
+  const result = await sdk.multistreamTarget.getAll();
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetMultistreamTargetsResponse](../../models/operations/getmultistreamtargetsresponse.md)>**
+**Promise<[operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## create
 
@@ -56,80 +58,40 @@ Create a multistream target
 ```typescript
 import { Livepeer } from "livepeer";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
 
-  const res = await sdk.multistreamTarget.create({
+  const result = await sdk.multistreamTarget.create({
+    name: "My Multistream Target",
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `request`                                                                              | [components.MultistreamTargetInput](../../models/components/multistreamtargetinput.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
-| `config`                                                                               | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                           | :heavy_minus_sign:                                                                     | Available config options for making requests.                                          |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.MultistreamTargetInput](../../models/components/multistreamtargetinput.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.CreateMultistreamTargetResponse](../../models/operations/createmultistreamtargetresponse.md)>**
+**Promise<[operations.PostMultistreamTargetResponse](../../models/operations/postmultistreamtargetresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
-
-## delete
-
-Make sure to remove any references to the target on existing
-streams before actually deleting it from the API.
-
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import { DeleteMultistreamTargetRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-
-  const res = await sdk.multistreamTarget.delete(id);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the multistream target                                 |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
-
-
-### Response
-
-**Promise<[operations.DeleteMultistreamTargetResponse](../../models/operations/deletemultistreamtargetresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## get
 
@@ -139,38 +101,40 @@ Retrieve a multistream target
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetMultistreamTargetRequest } from "livepeer/dist/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
-const id: string = "string";
 
-  const res = await sdk.multistreamTarget.get(id);
+  const id = "<value>";
+  
+  const result = await sdk.multistreamTarget.get(id);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the multistream target                                 |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the multistream target                                                                                                                                                   |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md)>**
+**Promise<[operations.GetMultistreamTargetIdResponse](../../models/operations/getmultistreamtargetidresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## update
 
@@ -180,40 +144,85 @@ Update Multistream Target
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { MultistreamTargetPatchPayload } from "livepeer/dist/models/components";
-import { UpdateMultistreamTargetRequest } from "livepeer/dist/models/operations";
 
-(async() => {
+async function run() {
   const sdk = new Livepeer({
-    apiKey: "",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
   });
-const id: string = "string";
-const multistreamTargetPatchPayload: MultistreamTargetPatchPayload = {
-  url: "rtmps://live.my-service.tv/channel/secretKey",
-};
 
-  const res = await sdk.multistreamTarget.update(id, multistreamTargetPatchPayload);
+  const id = "<value>";
+  const multistreamTargetPatchPayload = {
+    name: "My Multistream Target",
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  };
+  
+  const result = await sdk.multistreamTarget.update(id, multistreamTargetPatchPayload);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                                            | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                 | *string*                                                                                             | :heavy_check_mark:                                                                                   | ID of the multistream target                                                                         |
-| `multistreamTargetPatchPayload`                                                                      | [components.MultistreamTargetPatchPayload](../../models/components/multistreamtargetpatchpayload.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `config`                                                                                             | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                                         | :heavy_minus_sign:                                                                                   | Available config options for making requests.                                                        |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the multistream target                                                                                                                                                   |
+| `multistreamTargetPatchPayload`                                                                                                                                                | [components.MultistreamTargetPatchPayload](../../models/components/multistreamtargetpatchpayload.md)                                                                           | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.UpdateMultistreamTargetResponse](../../models/operations/updatemultistreamtargetresponse.md)>**
+**Promise<[operations.PatchMultistreamTargetIdResponse](../../models/operations/patchmultistreamtargetidresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## delete
+
+Delete a multistream target
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+
+async function run() {
+  const sdk = new Livepeer({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+  });
+
+  const id = "<value>";
+  
+  const result = await sdk.multistreamTarget.delete(id);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the multistream target                                                                                                                                                   |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.DeleteMultistreamTargetIdResponse](../../models/operations/deletemultistreamtargetidresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
