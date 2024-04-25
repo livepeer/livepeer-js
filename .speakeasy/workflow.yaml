@@ -1,0 +1,11 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    livepeer-studio-api:
+        inputs:
+            - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/api-schema.yaml
+targets:
+    livepeer-ts:
+        target: typescript
+        source: livepeer-studio-api
+        output: .
