@@ -10,3 +10,4 @@
 /.tsbuildinfo
 dist/
 node_modules/
+tests/reports
