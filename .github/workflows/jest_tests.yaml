@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 18.x]  # You can specify multiple Node.js versions to test against
+        node-version: [18.x]  # You can specify multiple Node.js versions to test against
 
     steps:
     - uses: actions/checkout@v2
@@ -25,13 +25,19 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build --if-present
+
+    - name: Run tests
+      run: npm test
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
-      if: failure()  # This will only run if previous steps fail
+      if: failure() 
       with:
         name: test-results
         path: ./tests/reports/
-        if-no-files-found: error # 'warn' or 'ignore' are also available, error will fail the step
+        if-no-files-found: error 
