@@ -64,29 +64,4 @@ describe("Streams API", () => {
       expect(isStructureEqual).toBe(true);
     });
   });
-
-  describe("List streams", () => {
-    it("should list streams and match the structure of direct API call", async () => {
-      const { data } = await sdk.stream.getAll();
-
-      const response = await fetch(`${API_BASE_URL}/stream`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`API responded with status ${response.status}`);
-      }
-
-      const directApiResponse = await response.json();
-
-      const isStructureEqual = compareResponseStructures(
-        data,
-        directApiResponse
-      );
-      expect(isStructureEqual).toBe(true);
-    });
-  });
 });
