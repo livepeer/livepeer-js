@@ -153,125 +153,282 @@ const livepeer = new Livepeer({ defaultClient: httpClient });
 <!-- No SDK Available Operations -->
 
 
-<!-- Start Error Handling -->
+<!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations.  All operations return a response object or throw an error.  If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
+All SDK methods return a response object or throw an error. If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
 
 | Error Object     | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.ErrorT    | 404              | application/json |
-| errors.SDKError  | 400-600          | */*              |
+| errors.SDKError  | 4xx-5xx          | */*              |
 
-Example
+Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging. 
+
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetPlaybackInfoRequest } from "livepeer/dist/models/operations";
+import * as errors from "livepeer/models/errors";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
+const livepeer = new Livepeer({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  
-  let res;
-  try {
-    res = await sdk.playback.get(id);
-  } catch (e) { 
-    if (e instanceof errors.ErrorT) {
-      console.error(e) // handle exception 
-    
-  }
+async function run() {
+    const id = "<value>";
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+    let result;
+    try {
+        result = await livepeer.playback.get(id);
+    } catch (err) {
+        switch (true) {
+            case err instanceof errors.SDKValidationError: {
+                // Validation errors can be pretty-printed
+                console.error(err.pretty());
+                // Raw value may also be inspected
+                console.error(err.rawValue);
+                return;
+            }
+            case err instanceof errors.ErrorT: {
+                console.error(err); // handle exception
+                return;
+            }
+            default: {
+                throw err;
+            }
+        }
+    }
+
+    // Handle the result
+    console.log(result);
+}
+
+run();
+
 ```
-<!-- End Error Handling -->
+<!-- End Error Handling [errors] -->
 
 
 
-<!-- Start Server Selection -->
+<!-- Start Server Selection [server] -->
 ## Server Selection
 
 ### Select Server by Index
 
-You can override the default server globally by passing a server index to the `serverIdx: number` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+You can override the default server globally by passing a server index to the `serverIdx` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
 | # | Server | Variables |
 | - | ------ | --------- |
 | 0 | `https://livepeer.studio/api` | None |
 
-#### Example
-
 ```typescript
 import { Livepeer } from "livepeer";
+import { InputCreatorIdType, Profile, Type } from "livepeer/models/components";
 
-(async () => {
-    const sdk = new Livepeer({
-        serverIdx: 0,
-        apiKey: "",
+const livepeer = new Livepeer({
+    serverIdx: 0,
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+    const result = await livepeer.stream.create({
+        name: "test_stream",
+        pull: {
+            source: "https://myservice.com/live/stream.flv",
+            headers: {
+                Authorization: "Bearer 123",
+            },
+            location: {
+                lat: 39.739,
+                lon: -104.988,
+            },
+        },
+        creatorId: {
+            type: InputCreatorIdType.Unverified,
+            value: "<value>",
+        },
+        playbackPolicy: {
+            type: Type.Webhook,
+            webhookId: "1bde4o2i6xycudoy",
+            webhookContext: {
+                streamerId: "my-custom-id",
+            },
+            refreshInterval: 600,
+        },
+        profiles: [
+            {
+                width: 1280,
+                name: "720p",
+                height: 489382,
+                bitrate: 3000000,
+                fps: 30,
+                fpsDen: 1,
+                quality: 23,
+                gop: "2",
+                profile: Profile.H264Baseline,
+            },
+        ],
+        record: false,
+        multistream: {
+            targets: [
+                {
+                    profile: "720p",
+                    videoOnly: false,
+                    id: "PUSH123",
+                    spec: {
+                        name: "My target",
+                        url: "rtmps://live.my-service.tv/channel/secretKey",
+                    },
+                },
+            ],
+        },
+        userTags: {
+            key: 8592.13,
+        },
     });
 
-    const res = await sdk.getAll();
+    // Handle the result
+    console.log(result);
+}
 
-    if (res.statusCode == 200) {
-        // handle response
-    }
-})();
+run();
 
 ```
 
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `serverURL: str` optional parameter when initializing the SDK client instance. For example:
+The default server can also be overridden globally by passing a URL to the `serverURL` optional parameter when initializing the SDK client instance. For example:
+
 ```typescript
 import { Livepeer } from "livepeer";
+import { InputCreatorIdType, Profile, Type } from "livepeer/models/components";
 
-(async () => {
-    const sdk = new Livepeer({
-        serverURL: "https://livepeer.studio/api",
-        apiKey: "",
+const livepeer = new Livepeer({
+    serverURL: "https://livepeer.studio/api",
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+    const result = await livepeer.stream.create({
+        name: "test_stream",
+        pull: {
+            source: "https://myservice.com/live/stream.flv",
+            headers: {
+                Authorization: "Bearer 123",
+            },
+            location: {
+                lat: 39.739,
+                lon: -104.988,
+            },
+        },
+        creatorId: {
+            type: InputCreatorIdType.Unverified,
+            value: "<value>",
+        },
+        playbackPolicy: {
+            type: Type.Webhook,
+            webhookId: "1bde4o2i6xycudoy",
+            webhookContext: {
+                streamerId: "my-custom-id",
+            },
+            refreshInterval: 600,
+        },
+        profiles: [
+            {
+                width: 1280,
+                name: "720p",
+                height: 489382,
+                bitrate: 3000000,
+                fps: 30,
+                fpsDen: 1,
+                quality: 23,
+                gop: "2",
+                profile: Profile.H264Baseline,
+            },
+        ],
+        record: false,
+        multistream: {
+            targets: [
+                {
+                    profile: "720p",
+                    videoOnly: false,
+                    id: "PUSH123",
+                    spec: {
+                        name: "My target",
+                        url: "rtmps://live.my-service.tv/channel/secretKey",
+                    },
+                },
+            ],
+        },
+        userTags: {
+            key: 8592.13,
+        },
     });
 
-    const res = await sdk.getAll();
+    // Handle the result
+    console.log(result);
+}
 
-    if (res.statusCode == 200) {
-        // handle response
-    }
-})();
+run();
 
 ```
-<!-- End Server Selection -->
+<!-- End Server Selection [server] -->
 
 
 
-<!-- Start Custom HTTP Client -->
+<!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
 
-The Typescript SDK makes API calls using the (axios)[https://axios-http.com/docs/intro] HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with a custom `AxiosInstance` object.
+The TypeScript SDK makes API calls using an `HTTPClient` that wraps the native
+[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This
+client is a thin wrapper around `fetch` and provides the ability to attach hooks
+around the request lifecycle that can be used to modify the request or handle
+errors and response.
 
-For example, you could specify a header for every request that your sdk makes as follows:
+The `HTTPClient` constructor takes an optional `fetcher` argument that can be
+used to integrate a third-party HTTP client or when writing tests to mock out
+the HTTP client and feed in fixtures.
+
+The following example shows how to use the `"beforeRequest"` hook to to add a
+custom header and a timeout to requests and how to use the `"requestError"` hook
+to log errors:
 
 ```typescript
-from livepeer import Livepeer;
-import axios;
+import { Livepeer } from "livepeer";
+import { HTTPClient } from "livepeer/lib/http";
 
-const httpClient = axios.create({
-    headers: {'x-custom-header': 'someValue'}
-})
+const httpClient = new HTTPClient({
+  // fetcher takes a function that has the same signature as native `fetch`.
+  fetcher: (request) => {
+    return fetch(request);
+  }
+});
 
-const sdk = new Livepeer({defaultClient: httpClient});
+httpClient.addHook("beforeRequest", (request) => {
+  const nextRequest = new Request(request, {
+    signal: request.signal || AbortSignal.timeout(5000);
+  });
+
+  nextRequest.headers.set("x-custom-header", "custom value");
+
+  return nextRequest;
+});
+
+httpClient.addHook("requestError", (error, request) => {
+  console.group("Request Error");
+  console.log("Reason:", `${error}`);
+  console.log("Endpoint:", `${request.method} ${request.url}`);
+  console.groupEnd();
+});
+
+const sdk = new Livepeer({ httpClient });
 ```
-<!-- End Custom HTTP Client -->
+<!-- End Custom HTTP Client [http-client] -->
 
 
 
-<!-- Start Authentication -->
+<!-- Start Authentication [security] -->
 ## Authentication
 
 ### Per-Client Security Schemes
@@ -285,21 +442,83 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Livepeer } from "livepeer";
+import { InputCreatorIdType, Profile, Type } from "livepeer/models/components";
 
-(async () => {
-    const sdk = new Livepeer({
-        apiKey: "",
+const livepeer = new Livepeer({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+    const result = await livepeer.stream.create({
+        name: "test_stream",
+        pull: {
+            source: "https://myservice.com/live/stream.flv",
+            headers: {
+                Authorization: "Bearer 123",
+            },
+            location: {
+                lat: 39.739,
+                lon: -104.988,
+            },
+        },
+        creatorId: {
+            type: InputCreatorIdType.Unverified,
+            value: "<value>",
+        },
+        playbackPolicy: {
+            type: Type.Webhook,
+            webhookId: "1bde4o2i6xycudoy",
+            webhookContext: {
+                streamerId: "my-custom-id",
+            },
+            refreshInterval: 600,
+        },
+        profiles: [
+            {
+                width: 1280,
+                name: "720p",
+                height: 489382,
+                bitrate: 3000000,
+                fps: 30,
+                fpsDen: 1,
+                quality: 23,
+                gop: "2",
+                profile: Profile.H264Baseline,
+            },
+        ],
+        record: false,
+        multistream: {
+            targets: [
+                {
+                    profile: "720p",
+                    videoOnly: false,
+                    id: "PUSH123",
+                    spec: {
+                        name: "My target",
+                        url: "rtmps://live.my-service.tv/channel/secretKey",
+                    },
+                },
+            ],
+        },
+        userTags: {
+            key: 8592.13,
+        },
     });
 
-    const res = await sdk.getAll();
+    // Handle the result
+    console.log(result);
+}
 
-    if (res.statusCode == 200) {
-        // handle response
-    }
-})();
+run();
 
 ```
-<!-- End Authentication -->
+<!-- End Authentication [security] -->
+
+<!-- Start Requirements [requirements] -->
+## Requirements
+
+For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
+<!-- End Requirements [requirements] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

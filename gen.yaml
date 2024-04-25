@@ -1,22 +1,25 @@
-configVersion: 1.0.0
+configVersion: 2.0.0
 generation:
-  comments: {}
   sdkClassName: Livepeer
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
-features:
-  typescript:
-    core: 3.1.3
-    flattening: 2.81.1
-    globalSecurity: 2.82.0
-    globalServerURLs: 2.82.0
-    inputOutputModels: 2.82.0
-    nameOverrides: 2.81.1
+  fixes:
+    nameResolutionDec2023: false
+    parameterOrderingFeb2024: false
+    requestResponseComponentNamesFeb2024: false
+  auth:
+    oAuth2ClientCredentialsEnabled: false
 typescript:
-  version: 3.0.2
+  version: 3.1.0
+  additionalDependencies:
+    dependencies: {}
+    devDependencies: {}
+    peerDependencies: {}
+  additionalPackageJSON: {}
   author: Livepeer
   clientServerStatusCodesAsErrors: true
+  enumFormat: enum
   flattenGlobalSecurity: true
   imports:
     option: openapi
@@ -30,4 +33,5 @@ typescript:
   maxMethodParams: 4
   outputModelSuffix: output
   packageName: livepeer
+  responseFormat: envelope
   templateVersion: v2
