@@ -7,5 +7,9 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
+  reporters: [
+    "default",
+    ["jest-junit", { outputDirectory: "./tests/reports", outputName: "junit.xml" }]
+  ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
