@@ -1,21 +1,28 @@
+import { Livepeer } from "../index.js";
+
 const compareResponseStructures = (obj1: any, obj2: any) => {
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+	const keys1 = Object.keys(obj1);
+	const keys2 = Object.keys(obj2);
 
-  if (keys1.length !== keys2.length) {
-    return false;
-  }
+	if (keys1.length !== keys2.length) {
+		return false;
+	}
 
-  for (const key of keys1) {
-    const type1 = typeof obj1[key];
-    const type2 = typeof obj2[key];
+	for (const key of keys1) {
+		const type1 = typeof obj1[key];
+		const type2 = typeof obj2[key];
 
-    if (type1 !== type2 || !keys2.includes(key)) {
-      return false;
-    }
-  }
+		if (type1 !== type2 || !keys2.includes(key)) {
+			return false;
+		}
+	}
 
-  return true;
+	return true;
 };
 
-export { compareResponseStructures };
+const sdk = new Livepeer({
+	serverURL: process.env.API_BASE_URL ?? "",
+	apiKey: process.env.API_KEY ?? "",
+});
+
+export { compareResponseStructures, sdk };
