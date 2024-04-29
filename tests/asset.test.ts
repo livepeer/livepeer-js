@@ -57,8 +57,6 @@ describe("Asset API", () => {
 
       const directApiResponse = await response.json();
 
-      console.log(asset, directApiResponse);
-
       const isStructureEqual = compareResponseStructures(
         asset,
         directApiResponse
