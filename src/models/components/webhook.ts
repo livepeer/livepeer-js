@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 
-export enum Events {
+export enum WebhookEvents {
     StreamStarted = "stream.started",
     StreamDetection = "stream.detection",
     StreamIdle = "stream.idle",
@@ -70,12 +70,18 @@ export type Status = {
 export type Webhook = {
     id?: string | undefined;
     name: string;
+    kind?: string | undefined;
+    userId?: string | undefined;
     /**
      * Timestamp (in milliseconds) at which stream object was created
      */
     createdAt?: number | undefined;
-    events?: Array<Events> | undefined;
+    events?: Array<WebhookEvents> | undefined;
     url: string;
+    /**
+     * shared secret used to sign the webhook payload
+     */
+    sharedSecret?: string | undefined;
     /**
      * streamId of the stream on which the webhook is applied
      */
@@ -87,7 +93,7 @@ export type Webhook = {
 };
 
 /** @internal */
-export const Events$: z.ZodNativeEnum<typeof Events> = z.nativeEnum(Events);
+export const WebhookEvents$: z.ZodNativeEnum<typeof WebhookEvents> = z.nativeEnum(WebhookEvents);
 
 /** @internal */
 export namespace LastFailure$ {
@@ -184,9 +190,12 @@ export namespace Webhook$ {
     export type Inbound = {
         id?: string | undefined;
         name: string;
+        kind?: string | undefined;
+        userId?: string | undefined;
         createdAt?: number | undefined;
-        events?: Array<Events> | undefined;
+        events?: Array<WebhookEvents> | undefined;
         url: string;
+        sharedSecret?: string | undefined;
         streamId?: string | undefined;
         status?: Status$.Inbound | undefined;
     };
@@ -195,9 +204,12 @@ export namespace Webhook$ {
         .object({
             id: z.string().optional(),
             name: z.string(),
+            kind: z.string().optional(),
+            userId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(WebhookEvents$).optional(),
             url: z.string(),
+            sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.inboundSchema).optional(),
         })
@@ -205,9 +217,12 @@ export namespace Webhook$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 name: v.name,
+                ...(v.kind === undefined ? null : { kind: v.kind }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
+                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
                 ...(v.streamId === undefined ? null : { streamId: v.streamId }),
                 ...(v.status === undefined ? null : { status: v.status }),
             };
@@ -216,9 +231,12 @@ export namespace Webhook$ {
     export type Outbound = {
         id?: string | undefined;
         name: string;
+        kind?: string | undefined;
+        userId?: string | undefined;
         createdAt?: number | undefined;
-        events?: Array<Events> | undefined;
+        events?: Array<WebhookEvents> | undefined;
         url: string;
+        sharedSecret?: string | undefined;
         streamId?: string | undefined;
         status?: Status$.Outbound | undefined;
     };
@@ -227,9 +245,12 @@ export namespace Webhook$ {
         .object({
             id: z.string().optional(),
             name: z.string(),
+            kind: z.string().optional(),
+            userId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(WebhookEvents$).optional(),
             url: z.string(),
+            sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.outboundSchema).optional(),
         })
@@ -237,9 +258,12 @@ export namespace Webhook$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 name: v.name,
+                ...(v.kind === undefined ? null : { kind: v.kind }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
+                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
                 ...(v.streamId === undefined ? null : { streamId: v.streamId }),
                 ...(v.status === undefined ? null : { status: v.status }),
             };

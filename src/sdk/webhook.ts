@@ -8,6 +8,7 @@ import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
+import * as components from "../models/components";
 import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
@@ -114,7 +115,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -125,10 +130,21 @@ export class Webhook extends ClientSDK {
      * To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
      *
      */
-    async create(options?: RequestOptions): Promise<operations.CreateWebhookResponse> {
+    async create(
+        input: components.WebhookPayload,
+        options?: RequestOptions
+    ): Promise<operations.CreateWebhookResponse> {
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
+        headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
+
+        const payload$ = schemas$.parse(
+            input,
+            (value$) => components.WebhookPayload$.outboundSchema.parse(value$),
+            "Input validation failed"
+        );
+        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/webhook")();
 
@@ -158,6 +174,7 @@ export class Webhook extends ClientSDK {
                 path: path$,
                 headers: headers$,
                 query: query$,
+                body: body$,
             },
             options
         );
@@ -198,7 +215,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -292,19 +313,29 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
     /**
      * Update a webhook
      */
-    async update(id: string, options?: RequestOptions): Promise<operations.UpdateWebhookResponse> {
+    async update(
+        id: string,
+        webhookPayload: components.WebhookPayload,
+        options?: RequestOptions
+    ): Promise<operations.UpdateWebhookResponse> {
         const input$: operations.UpdateWebhookRequest = {
             id: id,
+            webhookPayload: webhookPayload,
         };
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
+        headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
@@ -312,7 +343,7 @@ export class Webhook extends ClientSDK {
             (value$) => operations.UpdateWebhookRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = null;
+        const body$ = enc$.encodeJSON("body", payload$["webhook-payload"], { explode: true });
 
         const pathParams$ = {
             id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
@@ -386,7 +417,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -480,7 +515,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -577,7 +616,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -680,7 +723,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 
@@ -789,7 +836,11 @@ export class Webhook extends ClientSDK {
             return result;
         } else {
             const responseBody = await response.text();
-            throw new errors.SDKError("Unexpected API response", response, responseBody);
+            throw new errors.SDKError(
+                "Unexpected API response status or content-type",
+                response,
+                responseBody
+            );
         }
     }
 }

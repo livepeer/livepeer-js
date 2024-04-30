@@ -7,6 +7,7 @@ import * as z from "zod";
 export type MultistreamTarget = {
     id?: string | undefined;
     name?: string | undefined;
+    userId?: string | undefined;
     /**
      * If true then this multistream target will not be used for pushing
      *
@@ -30,6 +31,7 @@ export namespace MultistreamTarget$ {
     export type Inbound = {
         id?: string | undefined;
         name?: string | undefined;
+        userId?: string | undefined;
         disabled?: boolean | undefined;
         createdAt?: number | undefined;
     };
@@ -38,6 +40,7 @@ export namespace MultistreamTarget$ {
         .object({
             id: z.string().optional(),
             name: z.string().optional(),
+            userId: z.string().optional(),
             disabled: z.boolean().optional(),
             createdAt: z.number().optional(),
         })
@@ -45,6 +48,7 @@ export namespace MultistreamTarget$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
             };
@@ -53,6 +57,7 @@ export namespace MultistreamTarget$ {
     export type Outbound = {
         id?: string | undefined;
         name?: string | undefined;
+        userId?: string | undefined;
         disabled?: boolean | undefined;
         createdAt?: number | undefined;
     };
@@ -61,6 +66,7 @@ export namespace MultistreamTarget$ {
         .object({
             id: z.string().optional(),
             name: z.string().optional(),
+            userId: z.string().optional(),
             disabled: z.boolean().optional(),
             createdAt: z.number().optional(),
         })
@@ -68,6 +74,7 @@ export namespace MultistreamTarget$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
             };

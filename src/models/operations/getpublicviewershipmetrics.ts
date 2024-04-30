@@ -36,11 +36,11 @@ export type GetPublicViewershipMetricsData = {
     /**
      * The number of views for the asset.
      */
-    viewCount: number;
+    viewCount?: number | undefined;
     /**
      * The total playtime in minutes for the asset.
      */
-    playtimeMins: number;
+    playtimeMins?: number | undefined;
 };
 
 export type GetPublicViewershipMetricsResponse = {
@@ -110,31 +110,31 @@ export namespace GetPublicViewershipMetricsData$ {
     export type Inbound = {
         playbackId?: string | undefined;
         dStorageUrl?: string | undefined;
-        viewCount: number;
-        playtimeMins: number;
+        viewCount?: number | undefined;
+        playtimeMins?: number | undefined;
     };
 
     export const inboundSchema: z.ZodType<GetPublicViewershipMetricsData, z.ZodTypeDef, Inbound> = z
         .object({
             playbackId: z.string().optional(),
             dStorageUrl: z.string().optional(),
-            viewCount: z.number().int(),
-            playtimeMins: z.number(),
+            viewCount: z.number().int().optional(),
+            playtimeMins: z.number().optional(),
         })
         .transform((v) => {
             return {
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
                 ...(v.dStorageUrl === undefined ? null : { dStorageUrl: v.dStorageUrl }),
-                viewCount: v.viewCount,
-                playtimeMins: v.playtimeMins,
+                ...(v.viewCount === undefined ? null : { viewCount: v.viewCount }),
+                ...(v.playtimeMins === undefined ? null : { playtimeMins: v.playtimeMins }),
             };
         });
 
     export type Outbound = {
         playbackId?: string | undefined;
         dStorageUrl?: string | undefined;
-        viewCount: number;
-        playtimeMins: number;
+        viewCount?: number | undefined;
+        playtimeMins?: number | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetPublicViewershipMetricsData> =
@@ -142,15 +142,15 @@ export namespace GetPublicViewershipMetricsData$ {
             .object({
                 playbackId: z.string().optional(),
                 dStorageUrl: z.string().optional(),
-                viewCount: z.number().int(),
-                playtimeMins: z.number(),
+                viewCount: z.number().int().optional(),
+                playtimeMins: z.number().optional(),
             })
             .transform((v) => {
                 return {
                     ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
                     ...(v.dStorageUrl === undefined ? null : { dStorageUrl: v.dStorageUrl }),
-                    viewCount: v.viewCount,
-                    playtimeMins: v.playtimeMins,
+                    ...(v.viewCount === undefined ? null : { viewCount: v.viewCount }),
+                    ...(v.playtimeMins === undefined ? null : { playtimeMins: v.playtimeMins }),
                 };
             });
 }

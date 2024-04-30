@@ -288,6 +288,7 @@ export type Asset = {
      * The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
      */
     playbackId?: string | undefined;
+    userId?: string | undefined;
     /**
      * URL for HLS playback. **It is recommended to not use this URL**, and instead use playback IDs with the Playback Info endpoint to retrieve the playback URLs - this URL format is subject to change (e.g. https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8).
      */
@@ -399,6 +400,7 @@ export type AssetInput = {
      * The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
      */
     playbackId?: string | undefined;
+    userId?: string | undefined;
     /**
      * Whether to generate MP4s for the asset.
      */
@@ -995,6 +997,7 @@ export namespace Asset$ {
         id: string;
         type?: AssetType | undefined;
         playbackId?: string | undefined;
+        userId?: string | undefined;
         playbackUrl?: string | undefined;
         downloadUrl?: string | undefined;
         playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
@@ -1016,6 +1019,7 @@ export namespace Asset$ {
             id: z.string(),
             type: AssetType$.optional(),
             playbackId: z.string().optional(),
+            userId: z.string().optional(),
             playbackUrl: z.string().optional(),
             downloadUrl: z.string().optional(),
             playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
@@ -1040,6 +1044,7 @@ export namespace Asset$ {
                 id: v.id,
                 ...(v.type === undefined ? null : { type: v.type }),
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.playbackUrl === undefined ? null : { playbackUrl: v.playbackUrl }),
                 ...(v.downloadUrl === undefined ? null : { downloadUrl: v.downloadUrl }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
@@ -1063,6 +1068,7 @@ export namespace Asset$ {
         id: string;
         type?: AssetType | undefined;
         playbackId?: string | undefined;
+        userId?: string | undefined;
         playbackUrl?: string | undefined;
         downloadUrl?: string | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
@@ -1084,6 +1090,7 @@ export namespace Asset$ {
             id: z.string(),
             type: AssetType$.optional(),
             playbackId: z.string().optional(),
+            userId: z.string().optional(),
             playbackUrl: z.string().optional(),
             downloadUrl: z.string().optional(),
             playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
@@ -1108,6 +1115,7 @@ export namespace Asset$ {
                 id: v.id,
                 ...(v.type === undefined ? null : { type: v.type }),
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.playbackUrl === undefined ? null : { playbackUrl: v.playbackUrl }),
                 ...(v.downloadUrl === undefined ? null : { downloadUrl: v.downloadUrl }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
@@ -1340,6 +1348,7 @@ export namespace AssetInput$ {
     export type Inbound = {
         type?: AssetType | undefined;
         playbackId?: string | undefined;
+        userId?: string | undefined;
         staticMp4?: boolean | undefined;
         playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
         source: Two$.Inbound | Asset1$.Inbound | Asset3$.Inbound;
@@ -1354,6 +1363,7 @@ export namespace AssetInput$ {
         .object({
             type: AssetType$.optional(),
             playbackId: z.string().optional(),
+            userId: z.string().optional(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
             source: z.union([
@@ -1371,6 +1381,7 @@ export namespace AssetInput$ {
             return {
                 ...(v.type === undefined ? null : { type: v.type }),
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
                 source: v.source,
@@ -1385,6 +1396,7 @@ export namespace AssetInput$ {
     export type Outbound = {
         type?: AssetType | undefined;
         playbackId?: string | undefined;
+        userId?: string | undefined;
         staticMp4?: boolean | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
         source: Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
@@ -1399,6 +1411,7 @@ export namespace AssetInput$ {
         .object({
             type: AssetType$.optional(),
             playbackId: z.string().optional(),
+            userId: z.string().optional(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
             source: z.union([
@@ -1416,6 +1429,7 @@ export namespace AssetInput$ {
             return {
                 ...(v.type === undefined ? null : { type: v.type }),
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
                 source: v.source,

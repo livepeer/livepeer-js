@@ -16,6 +16,8 @@ export enum RecordingStatus {
 
 export type Session = {
     id?: string | undefined;
+    kind?: string | undefined;
+    userId?: string | undefined;
     name: string;
     lastSeen?: number | undefined;
     sourceSegments?: number | undefined;
@@ -41,15 +43,11 @@ export type Session = {
     /**
      * Indicates whether the stream is healthy or not.
      */
-    isHealthy?: boolean | undefined;
+    isHealthy?: boolean | null | undefined;
     /**
-     * A string array of human-readable errors describing issues affecting
-     *
-     * @remarks
-     * the stream, if any.
-     *
+     * A string array of human-readable errors describing issues affecting the stream, if any.
      */
-    issues?: Array<string> | undefined;
+    issues?: Array<string> | null | undefined;
     /**
      * Timestamp (in milliseconds) at which stream object was created
      */
@@ -92,6 +90,8 @@ export const RecordingStatus$: z.ZodNativeEnum<typeof RecordingStatus> =
 export namespace Session$ {
     export type Inbound = {
         id?: string | undefined;
+        kind?: string | undefined;
+        userId?: string | undefined;
         name: string;
         lastSeen?: number | undefined;
         sourceSegments?: number | undefined;
@@ -102,8 +102,8 @@ export namespace Session$ {
         transcodedBytes?: number | undefined;
         ingestRate?: number | undefined;
         outgoingRate?: number | undefined;
-        isHealthy?: boolean | undefined;
-        issues?: Array<string> | undefined;
+        isHealthy?: boolean | null | undefined;
+        issues?: Array<string> | null | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
         record?: boolean | undefined;
@@ -117,6 +117,8 @@ export namespace Session$ {
     export const inboundSchema: z.ZodType<Session, z.ZodTypeDef, Inbound> = z
         .object({
             id: z.string().optional(),
+            kind: z.string().optional(),
+            userId: z.string().optional(),
             name: z.string(),
             lastSeen: z.number().optional(),
             sourceSegments: z.number().optional(),
@@ -127,8 +129,8 @@ export namespace Session$ {
             transcodedBytes: z.number().optional(),
             ingestRate: z.number().optional(),
             outgoingRate: z.number().optional(),
-            isHealthy: z.boolean().optional(),
-            issues: z.array(z.string()).optional(),
+            isHealthy: z.nullable(z.boolean()).optional(),
+            issues: z.nullable(z.array(z.string())).optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
             record: z.boolean().optional(),
@@ -141,6 +143,8 @@ export namespace Session$ {
         .transform((v) => {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
+                ...(v.kind === undefined ? null : { kind: v.kind }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 name: v.name,
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),
@@ -176,6 +180,8 @@ export namespace Session$ {
 
     export type Outbound = {
         id?: string | undefined;
+        kind?: string | undefined;
+        userId?: string | undefined;
         name: string;
         lastSeen?: number | undefined;
         sourceSegments?: number | undefined;
@@ -186,8 +192,8 @@ export namespace Session$ {
         transcodedBytes?: number | undefined;
         ingestRate?: number | undefined;
         outgoingRate?: number | undefined;
-        isHealthy?: boolean | undefined;
-        issues?: Array<string> | undefined;
+        isHealthy?: boolean | null | undefined;
+        issues?: Array<string> | null | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
         record?: boolean | undefined;
@@ -201,6 +207,8 @@ export namespace Session$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Session> = z
         .object({
             id: z.string().optional(),
+            kind: z.string().optional(),
+            userId: z.string().optional(),
             name: z.string(),
             lastSeen: z.number().optional(),
             sourceSegments: z.number().optional(),
@@ -211,8 +219,8 @@ export namespace Session$ {
             transcodedBytes: z.number().optional(),
             ingestRate: z.number().optional(),
             outgoingRate: z.number().optional(),
-            isHealthy: z.boolean().optional(),
-            issues: z.array(z.string()).optional(),
+            isHealthy: z.nullable(z.boolean()).optional(),
+            issues: z.nullable(z.array(z.string())).optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
             record: z.boolean().optional(),
@@ -225,6 +233,8 @@ export namespace Session$ {
         .transform((v) => {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
+                ...(v.kind === undefined ? null : { kind: v.kind }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 name: v.name,
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),

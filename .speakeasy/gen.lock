@@ -1,17 +1,17 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: a52e3f40e804f624817174f1e96d6e37
+  docChecksum: e0d3690f1eaf4589bf6d15c59c30cc1e
   docVersion: 1.0.0
-  speakeasyVersion: 1.274.1
-  generationVersion: 2.314.0
+  speakeasyVersion: 1.277.2
+  generationVersion: 2.317.0
   releaseVersion: 3.1.0
-  configChecksum: e38b65f6f2de042d3930086684ade8e3
+  configChecksum: 4a223c15fa429ea5ebdfb419af1209dc
 features:
   typescript:
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.0
+    core: 3.9.2
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -134,6 +134,8 @@ generatedFiles:
   - src/models/components/multistreamtargetinput.ts
   - src/models/components/multistreamtargetpatchpayload.ts
   - src/models/components/webhook.ts
+  - src/models/components/webhookpayload.ts
+  - src/models/components/events.ts
   - src/models/components/webhooklog.ts
   - src/models/components/newassetpayload.ts
   - src/models/components/transcodeprofile.ts
@@ -188,6 +190,7 @@ generatedFiles:
   - docs/models/operations/removemultistreamtargetrequest.md
   - docs/models/operations/removemultistreamtargetresponse.md
   - docs/models/operations/getmultistreamtargetsresponse.md
+  - docs/models/operations/createmultistreamtargetdata.md
   - docs/models/operations/createmultistreamtargetresponse.md
   - docs/models/operations/getmultistreamtargetrequest.md
   - docs/models/operations/getmultistreamtargetresponse.md
@@ -339,10 +342,12 @@ generatedFiles:
   - docs/models/components/multistreamtarget.md
   - docs/models/components/multistreamtargetinput.md
   - docs/models/components/multistreamtargetpatchpayload.md
-  - docs/models/components/events.md
+  - docs/models/components/webhookevents.md
   - docs/models/components/lastfailure.md
   - docs/models/components/status.md
   - docs/models/components/webhook.md
+  - docs/models/components/webhookpayload.md
+  - docs/models/components/events.md
   - docs/models/components/request.md
   - docs/models/components/response.md
   - docs/models/components/webhooklog.md

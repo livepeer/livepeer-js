@@ -6,6 +6,7 @@ import * as z from "zod";
 
 export type MultistreamTargetInput = {
     name?: string | undefined;
+    userId?: string | undefined;
     /**
      * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
      */
@@ -24,6 +25,7 @@ export type MultistreamTargetInput = {
 export namespace MultistreamTargetInput$ {
     export type Inbound = {
         name?: string | undefined;
+        userId?: string | undefined;
         url: string;
         disabled?: boolean | undefined;
     };
@@ -31,12 +33,14 @@ export namespace MultistreamTargetInput$ {
     export const inboundSchema: z.ZodType<MultistreamTargetInput, z.ZodTypeDef, Inbound> = z
         .object({
             name: z.string().optional(),
+            userId: z.string().optional(),
             url: z.string(),
             disabled: z.boolean().optional(),
         })
         .transform((v) => {
             return {
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 url: v.url,
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
             };
@@ -44,6 +48,7 @@ export namespace MultistreamTargetInput$ {
 
     export type Outbound = {
         name?: string | undefined;
+        userId?: string | undefined;
         url: string;
         disabled?: boolean | undefined;
     };
@@ -51,12 +56,14 @@ export namespace MultistreamTargetInput$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTargetInput> = z
         .object({
             name: z.string().optional(),
+            userId: z.string().optional(),
             url: z.string(),
             disabled: z.boolean().optional(),
         })
         .transform((v) => {
             return {
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 url: v.url,
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
             };

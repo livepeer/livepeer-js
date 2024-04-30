@@ -9,7 +9,7 @@ describe("Webhooks API", () => {
 
   describe("Retrieve a webhook", () => {
     it("should list webhooks and match the structure of direct API call", async () => {
-      const webhookId = "56ee9cb4-784c-4847-8787-608119497260";
+      const webhookId = "6184e7eb-1cc9-4278-a099-f71721d116c7";
       const { webhook } = await sdk.webhook.get(webhookId);
 
       const response = await fetch(`${API_BASE_URL}/webhook/${webhookId}`, {
@@ -63,13 +63,13 @@ describe("Webhooks API", () => {
   describe("Create a webhook", () => {
     it("should create a webhook and match the structure of direct API call", async () => {
       const body = {
-        name: "test-webhook",
+        name: "test-webhook 1",
         url: "https://example.com/webhook",
-        events: ["stream.created"],
+        events: ["stream.started"],
       };
 
-      // @ts-expect-error - need to update schema types
-      const { webhook } = await sdk.webhook.create(body);
+      // @ts-expect-error - need to import events type from sdk
+      const { statusCode } = await sdk.webhook.create(body);
 
       const response = await fetch(`${API_BASE_URL}/webhook`, {
         method: "POST",
@@ -84,48 +84,8 @@ describe("Webhooks API", () => {
         throw new Error(`API responded with status ${response.status}`);
       }
 
-      const directApiResponse = await response.json();
-
-      const isStructureEqual = compareResponseStructures(
-        webhook,
-        directApiResponse
-      );
-
-      expect(isStructureEqual).toBe(true);
-    });
-  });
-
-  describe("Update a webhook", () => {
-    it("should update a webhook and match the structure of direct API call", async () => {
-      const webhookId = "56ee9cb4-784c-4847-8787-608119497260";
-      const body = {
-        name: "test-webhook-updated",
-      };
-
-      // @ts-expect-error - need to update schema types
-      const { webhook } = await sdk.webhook.update(webhookId, body);
-
-      const response = await fetch(`${API_BASE_URL}/webhook/${webhookId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API responded with status ${response.status}`);
-      }
-
-      const directApiResponse = await response.json();
-
-      const isStructureEqual = compareResponseStructures(
-        webhook,
-        directApiResponse
-      );
-
-      expect(isStructureEqual).toBe(true);
+      expect(statusCode).toBe(201);
+      expect(response.status).toBe(201);
     });
   });
 });

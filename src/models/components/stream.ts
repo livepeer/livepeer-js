@@ -110,15 +110,11 @@ export type Stream = {
     /**
      * Indicates whether the stream is healthy or not.
      */
-    isHealthy?: boolean | undefined;
+    isHealthy?: boolean | null | undefined;
     /**
-     * A string array of human-readable errors describing issues affecting
-     *
-     * @remarks
-     * the stream, if any.
-     *
+     * A string array of human-readable errors describing issues affecting the stream, if any.
      */
-    issues?: Array<string> | undefined;
+    issues?: Array<string> | null | undefined;
     /**
      * Name of the token used to create this object
      */
@@ -345,8 +341,8 @@ export namespace Stream$ {
         ingestRate?: number | undefined;
         outgoingRate?: number | undefined;
         isActive?: boolean | undefined;
-        isHealthy?: boolean | undefined;
-        issues?: Array<string> | undefined;
+        isHealthy?: boolean | null | undefined;
+        issues?: Array<string> | null | undefined;
         createdByTokenName?: string | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
@@ -384,8 +380,8 @@ export namespace Stream$ {
             ingestRate: z.number().optional(),
             outgoingRate: z.number().optional(),
             isActive: z.boolean().optional(),
-            isHealthy: z.boolean().optional(),
-            issues: z.array(z.string()).optional(),
+            isHealthy: z.nullable(z.boolean()).optional(),
+            issues: z.nullable(z.array(z.string())).optional(),
             createdByTokenName: z.string().optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
@@ -465,8 +461,8 @@ export namespace Stream$ {
         ingestRate?: number | undefined;
         outgoingRate?: number | undefined;
         isActive?: boolean | undefined;
-        isHealthy?: boolean | undefined;
-        issues?: Array<string> | undefined;
+        isHealthy?: boolean | null | undefined;
+        issues?: Array<string> | null | undefined;
         createdByTokenName?: string | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
@@ -504,8 +500,8 @@ export namespace Stream$ {
             ingestRate: z.number().optional(),
             outgoingRate: z.number().optional(),
             isActive: z.boolean().optional(),
-            isHealthy: z.boolean().optional(),
-            issues: z.array(z.string()).optional(),
+            isHealthy: z.nullable(z.boolean()).optional(),
+            issues: z.nullable(z.array(z.string())).optional(),
             createdByTokenName: z.string().optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),

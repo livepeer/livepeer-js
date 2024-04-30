@@ -8,6 +8,7 @@ import * as z from "zod";
 
 export type UpdateWebhookRequest = {
     id: string;
+    webhookPayload: components.WebhookPayload;
 };
 
 export type UpdateWebhookResponse = {
@@ -37,29 +38,35 @@ export type UpdateWebhookResponse = {
 export namespace UpdateWebhookRequest$ {
     export type Inbound = {
         id: string;
+        "webhook-payload": components.WebhookPayload$.Inbound;
     };
 
     export const inboundSchema: z.ZodType<UpdateWebhookRequest, z.ZodTypeDef, Inbound> = z
         .object({
             id: z.string(),
+            "webhook-payload": components.WebhookPayload$.inboundSchema,
         })
         .transform((v) => {
             return {
                 id: v.id,
+                webhookPayload: v["webhook-payload"],
             };
         });
 
     export type Outbound = {
         id: string;
+        "webhook-payload": components.WebhookPayload$.Outbound;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UpdateWebhookRequest> = z
         .object({
             id: z.string(),
+            webhookPayload: components.WebhookPayload$.outboundSchema,
         })
         .transform((v) => {
             return {
                 id: v.id,
+                "webhook-payload": v.webhookPayload,
             };
         });
 }

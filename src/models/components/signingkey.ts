@@ -10,6 +10,7 @@ export type SigningKey = {
      * Name of the signing key
      */
     name?: string | undefined;
+    userId?: string | undefined;
     /**
      * Timestamp (in milliseconds) at which the signing-key was created
      */
@@ -30,6 +31,7 @@ export namespace SigningKey$ {
     export type Inbound = {
         id?: string | undefined;
         name?: string | undefined;
+        userId?: string | undefined;
         createdAt?: number | undefined;
         lastSeen?: number | undefined;
         publicKey: string;
@@ -40,6 +42,7 @@ export namespace SigningKey$ {
         .object({
             id: z.string().optional(),
             name: z.string().optional(),
+            userId: z.string().optional(),
             createdAt: z.number().optional(),
             lastSeen: z.number().optional(),
             publicKey: z.string(),
@@ -49,6 +52,7 @@ export namespace SigningKey$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 publicKey: v.publicKey,
@@ -59,6 +63,7 @@ export namespace SigningKey$ {
     export type Outbound = {
         id?: string | undefined;
         name?: string | undefined;
+        userId?: string | undefined;
         createdAt?: number | undefined;
         lastSeen?: number | undefined;
         publicKey: string;
@@ -69,6 +74,7 @@ export namespace SigningKey$ {
         .object({
             id: z.string().optional(),
             name: z.string().optional(),
+            userId: z.string().optional(),
             createdAt: z.number().optional(),
             lastSeen: z.number().optional(),
             publicKey: z.string(),
@@ -78,6 +84,7 @@ export namespace SigningKey$ {
             return {
                 ...(v.id === undefined ? null : { id: v.id }),
                 ...(v.name === undefined ? null : { name: v.name }),
+                ...(v.userId === undefined ? null : { userId: v.userId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 publicKey: v.publicKey,

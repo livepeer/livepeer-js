@@ -14,76 +14,84 @@ export type UsageMetric = {
     /**
      * The user ID associated with the metric
      */
-    userID: string;
+    userID?: string | undefined;
     /**
      * The creator ID associated with the metric
      */
-    creatorID: string;
+    creatorID?: string | undefined;
     /**
      * Total minutes of delivery usage.
      */
-    deliveryUsageMins: number;
+    deliveryUsageMins?: number | undefined;
     /**
      * Total transcoded minutes.
      */
-    totalUsageMins: number;
+    totalUsageMins?: number | undefined;
     /**
      * Total minutes of storage usage.
      */
-    storageUsageMins: number;
+    storageUsageMins?: number | undefined;
 };
 
 /** @internal */
 export namespace UsageMetric$ {
     export type Inbound = {
-        UserID: string;
-        CreatorID: string;
-        DeliveryUsageMins: number;
-        TotalUsageMins: number;
-        StorageUsageMins: number;
+        UserID?: string | undefined;
+        CreatorID?: string | undefined;
+        DeliveryUsageMins?: number | undefined;
+        TotalUsageMins?: number | undefined;
+        StorageUsageMins?: number | undefined;
     };
 
     export const inboundSchema: z.ZodType<UsageMetric, z.ZodTypeDef, Inbound> = z
         .object({
-            UserID: z.string(),
-            CreatorID: z.string(),
-            DeliveryUsageMins: z.number(),
-            TotalUsageMins: z.number(),
-            StorageUsageMins: z.number(),
+            UserID: z.string().optional(),
+            CreatorID: z.string().optional(),
+            DeliveryUsageMins: z.number().optional(),
+            TotalUsageMins: z.number().optional(),
+            StorageUsageMins: z.number().optional(),
         })
         .transform((v) => {
             return {
-                userID: v.UserID,
-                creatorID: v.CreatorID,
-                deliveryUsageMins: v.DeliveryUsageMins,
-                totalUsageMins: v.TotalUsageMins,
-                storageUsageMins: v.StorageUsageMins,
+                ...(v.UserID === undefined ? null : { userID: v.UserID }),
+                ...(v.CreatorID === undefined ? null : { creatorID: v.CreatorID }),
+                ...(v.DeliveryUsageMins === undefined
+                    ? null
+                    : { deliveryUsageMins: v.DeliveryUsageMins }),
+                ...(v.TotalUsageMins === undefined ? null : { totalUsageMins: v.TotalUsageMins }),
+                ...(v.StorageUsageMins === undefined
+                    ? null
+                    : { storageUsageMins: v.StorageUsageMins }),
             };
         });
 
     export type Outbound = {
-        UserID: string;
-        CreatorID: string;
-        DeliveryUsageMins: number;
-        TotalUsageMins: number;
-        StorageUsageMins: number;
+        UserID?: string | undefined;
+        CreatorID?: string | undefined;
+        DeliveryUsageMins?: number | undefined;
+        TotalUsageMins?: number | undefined;
+        StorageUsageMins?: number | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UsageMetric> = z
         .object({
-            userID: z.string(),
-            creatorID: z.string(),
-            deliveryUsageMins: z.number(),
-            totalUsageMins: z.number(),
-            storageUsageMins: z.number(),
+            userID: z.string().optional(),
+            creatorID: z.string().optional(),
+            deliveryUsageMins: z.number().optional(),
+            totalUsageMins: z.number().optional(),
+            storageUsageMins: z.number().optional(),
         })
         .transform((v) => {
             return {
-                UserID: v.userID,
-                CreatorID: v.creatorID,
-                DeliveryUsageMins: v.deliveryUsageMins,
-                TotalUsageMins: v.totalUsageMins,
-                StorageUsageMins: v.storageUsageMins,
+                ...(v.userID === undefined ? null : { UserID: v.userID }),
+                ...(v.creatorID === undefined ? null : { CreatorID: v.creatorID }),
+                ...(v.deliveryUsageMins === undefined
+                    ? null
+                    : { DeliveryUsageMins: v.deliveryUsageMins }),
+                ...(v.totalUsageMins === undefined ? null : { TotalUsageMins: v.totalUsageMins }),
+                ...(v.storageUsageMins === undefined
+                    ? null
+                    : { StorageUsageMins: v.storageUsageMins }),
             };
         });
 }
