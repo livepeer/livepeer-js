@@ -1,59 +1,23 @@
 # Stream
 (*stream*)
 
+## Overview
+
+Operations related to livestream api
+
 ### Available Operations
 
-* [getAll](#getall) - Retrieve streams
 * [create](#create) - Create a stream
-* [delete](#delete) - Delete a stream
+* [getAll](#getall) - Retrieve streams
 * [get](#get) - Retrieve a stream
 * [update](#update) - Update a stream
+* [delete](#delete) - Delete a stream
 * [terminate](#terminate) - Terminates a live stream
+* [startPull](#startpull) - Start ingest for a pull stream
 * [createClip](#createclip) - Create a clip
-* [getAllClips](#getallclips) - Retrieve clips of a livestream
-* [createMultistreamTarget](#createmultistreamtarget) - Add a multistream target
-* [deleteMultistreamTarget](#deletemultistreamtarget) - Remove a multistream target
-
-## getAll
-
-Retrieve streams
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import { GetStreamsRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const streamsonly: string = "string";
-
-  const res = await sdk.stream.getAll(streamsonly);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `streamsonly`                                                | *string*                                                     | :heavy_minus_sign:                                           | N/A                                                          |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
-
-
-### Response
-
-**Promise<[operations.GetStreamsResponse](../../models/operations/getstreamsresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+* [getClips](#getclips) - Retrieve clips of a livestream
+* [addMultistreamTarget](#addmultistreamtarget) - Add a multistream target
+* [removeMultistreamTarget](#removemultistreamtarget) - Remove a multistream target
 
 ## create
 
@@ -76,29 +40,48 @@ also be added upon the creation of a new stream by adding
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Encoder, Profile, TypeT } from "livepeer/dist/models/components";
+import { InputCreatorIdType, Profile, Type } from "livepeer/models/components";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.create({
+async function run() {
+  const result = await livepeer.stream.create({
     name: "test_stream",
-    creatorId: "string",
-    playbackPolicy: {
-      type: TypeT.Jwt,
-      webhookContext: {
-        "key": "string",
+    pull: {
+      source: "https://myservice.com/live/stream.flv",
+      headers: {
+        "Authorization": "Bearer 123",
       },
+      location: {
+        lat: 39.739,
+        lon: -104.988,
+      },
+    },
+  creatorId:     {
+        type: InputCreatorIdType.Unverified,
+        value: "<value>",
+      },
+    playbackPolicy: {
+      type: Type.Webhook,
+      webhookId: "1bde4o2i6xycudoy",
+      webhookContext: {
+        "streamerId": "my-custom-id",
+      },
+      refreshInterval: 600,
     },
     profiles: [
       {
-        width: 489382,
+        width: 1280,
         name: "720p",
-        height: 638424,
-        bitrate: 859213,
-        fps: 417458,
+        height: 489382,
+        bitrate: 3000000,
+        fps: 30,
+        fpsDen: 1,
+        quality: 23,
+        gop: "2",
+        profile: Profile.H264Baseline,
       },
     ],
     record: false,
@@ -106,26 +89,34 @@ import { Encoder, Profile, TypeT } from "livepeer/dist/models/components";
       targets: [
         {
           profile: "720p",
+          videoOnly: false,
+          id: "PUSH123",
           spec: {
+            name: "My target",
             url: "rtmps://live.my-service.tv/channel/secretKey",
           },
         },
       ],
     },
+    userTags: {
+      "key": 8592.13,
+    },
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `request`                                                                  | [components.NewStreamPayload](../../models/components/newstreampayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
-| `config`                                                                   | [AxiosRequestConfig](https://axios-http.com/docs/req_config)               | :heavy_minus_sign:                                                         | Available config options for making requests.                              |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.NewStreamPayload](../../models/components/newstreampayload.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -135,10 +126,181 @@ import { Encoder, Profile, TypeT } from "livepeer/dist/models/components";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## getAll
+
+Retrieve streams
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const streamsonly = "<value>";
+  
+  const result = await livepeer.stream.getAll(streamsonly);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `streamsonly`                                                                                                                                                                  | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.GetStreamsResponse](../../models/operations/getstreamsresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## get
+
+Retrieve a stream
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const id = "<value>";
+  
+  const result = await livepeer.stream.get(id);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the stream                                                                                                                                                               |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.GetStreamResponse](../../models/operations/getstreamresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## update
+
+Update a stream
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+import { Profile, Type } from "livepeer/models/components";
+
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const id = "<value>";
+  const streamPatchPayload = {
+  creatorId: "<value>",
+    record: false,
+    multistream: {
+      targets: [
+        {
+          profile: "720p",
+          videoOnly: false,
+          id: "PUSH123",
+          spec: {
+            name: "My target",
+            url: "rtmps://live.my-service.tv/channel/secretKey",
+          },
+        },
+      ],
+    },
+    playbackPolicy: {
+      type: Type.Webhook,
+      webhookId: "1bde4o2i6xycudoy",
+      webhookContext: {
+        "streamerId": "my-custom-id",
+      },
+      refreshInterval: 600,
+    },
+    profiles: [
+      {
+        width: 1280,
+        name: "720p",
+        height: 24555,
+        bitrate: 3000000,
+        fps: 30,
+        fpsDen: 1,
+        quality: 23,
+        gop: "2",
+        profile: Profile.H264Baseline,
+      },
+    ],
+    userTags: {
+      "key": 156.52,
+    },
+  };
+  
+  const result = await livepeer.stream.update(id, streamPatchPayload);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the stream                                                                                                                                                               |
+| `streamPatchPayload`                                                                                                                                                           | [components.StreamPatchPayload](../../models/components/streampatchpayload.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## delete
-
 
 This will also suspend any active stream sessions, so make sure to wait
 until the stream has finished. To explicitly interrupt an active
@@ -150,28 +312,30 @@ using the PATCH stream API.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { DeleteStreamRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.delete(id);
+async function run() {
+  const id = "<value>";
+  
+  const result = await livepeer.stream.delete(id);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the stream                                             |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the stream                                                                                                                                                               |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -181,130 +345,7 @@ const id: string = "string";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
-
-## get
-
-Retrieve a stream
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import { GetStreamRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-
-  const res = await sdk.stream.get(id);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the stream                                             |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
-
-
-### Response
-
-**Promise<[operations.GetStreamResponse](../../models/operations/getstreamresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
-
-## update
-
-Update a stream
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import {
-  Encoder,
-  FfmpegProfile,
-  Multistream,
-  PlaybackPolicy,
-  Profile,
-  Spec,
-  StreamPatchPayload,
-  Target,
-  TypeT,
-} from "livepeer/dist/models/components";
-import { UpdateStreamRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-const streamPatchPayload: StreamPatchPayload = {
-  creatorId: "string",
-  record: false,
-  multistream: {
-    targets: [
-      {
-        profile: "720p",
-        spec: {
-          url: "rtmps://live.my-service.tv/channel/secretKey",
-        },
-      },
-    ],
-  },
-  playbackPolicy: {
-    type: TypeT.Webhook,
-    webhookContext: {
-      "key": "string",
-    },
-  },
-  profiles: [
-    {
-      width: 24555,
-      name: "720p",
-      height: 597129,
-      bitrate: 15652,
-      fps: 344620,
-    },
-  ],
-};
-
-  const res = await sdk.stream.update(id, streamPatchPayload);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `id`                                                                           | *string*                                                                       | :heavy_check_mark:                                                             | ID of the stream                                                               |
-| `streamPatchPayload`                                                           | [components.StreamPatchPayload](../../models/components/streampatchpayload.md) | :heavy_check_mark:                                                             | N/A                                                                            |
-| `config`                                                                       | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                   | :heavy_minus_sign:                                                             | Available config options for making requests.                                  |
-
-
-### Response
-
-**Promise<[operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## terminate
 
@@ -322,28 +363,30 @@ terminated.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { TerminateStreamRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.terminate(id);
+async function run() {
+  const id = "<value>";
+  
+  const result = await livepeer.stream.terminate(id);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the stream                                             |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the stream                                                                                                                                                               |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -353,7 +396,57 @@ const id: string = "string";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## startPull
+
+`POST /stream/{id}/start-pull` can be used to start ingest for a stream
+configured with a pull source. If the stream has recording configured,
+it will also start recording.
+\
+\
+A 204 No Content status response indicates the stream was successfully
+started.
+
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const id = "<value>";
+  
+  const result = await livepeer.stream.startPull(id);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the stream                                                                                                                                                               |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.StartPullStreamResponse](../../models/operations/startpullstreamresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## createClip
 
@@ -364,40 +457,45 @@ Create a clip
 ```typescript
 import { Livepeer } from "livepeer";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const result = await livepeer.stream.createClip({
+    playbackId: "eaw4nk06ts2d0mzb",
+    startTime: 1587667174725,
+    endTime: 1587667174725,
+    name: "My Clip",
+    sessionId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
   });
 
-  const res = await sdk.stream.createClip({
-    playbackId: "string",
-    startTime: 9418.72,
-  });
+  // Handle the result
+  console.log(result)
+}
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                        | Type                                                             | Required                                                         | Description                                                      |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `request`                                                        | [components.ClipPayload](../../models/components/clippayload.md) | :heavy_check_mark:                                               | The request object to use for the request.                       |
-| `config`                                                         | [AxiosRequestConfig](https://axios-http.com/docs/req_config)     | :heavy_minus_sign:                                               | Available config options for making requests.                    |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.ClipPayload](../../models/components/clippayload.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.PostClipResponse](../../models/operations/postclipresponse.md)>**
+**Promise<[operations.CreateClipResponse](../../models/operations/createclipresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## getAllClips
+## getClips
 
 Retrieve clips of a livestream
 
@@ -405,40 +503,42 @@ Retrieve clips of a livestream
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetStreamIdClipsRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.getAllClips(id);
+async function run() {
+  const id = "<value>";
+  
+  const result = await livepeer.stream.getClips(id);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the parent stream or playbackId of parent stream       |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the parent stream or playbackId of parent stream                                                                                                                         |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.GetStreamIdClipsResponse](../../models/operations/getstreamidclipsresponse.md)>**
+**Promise<[operations.GetClipsResponse](../../models/operations/getclipsresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## createMultistreamTarget
+## addMultistreamTarget
 
 Add a multistream target
 
@@ -446,36 +546,40 @@ Add a multistream target
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { TargetAddPayload, TargetAddPayloadSpec } from "livepeer/dist/models/components";
-import { AddMultistreamTargetRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-const targetAddPayload: TargetAddPayload = {
-  profile: "720p",
-  spec: {
-    url: "rtmps://live.my-service.tv/channel/secretKey",
-  },
-};
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.createMultistreamTarget(id, targetAddPayload);
+async function run() {
+  const id = "<value>";
+  const targetAddPayload = {
+    profile: "720p0",
+    videoOnly: false,
+    id: "PUSH123",
+    spec: {
+      name: "My target",
+      url: "rtmps://live.my-service.tv/channel/secretKey",
+    },
+  };
+  
+  const result = await livepeer.stream.addMultistreamTarget(id, targetAddPayload);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `id`                                                                       | *string*                                                                   | :heavy_check_mark:                                                         | ID of the parent stream                                                    |
-| `targetAddPayload`                                                         | [components.TargetAddPayload](../../models/components/targetaddpayload.md) | :heavy_check_mark:                                                         | N/A                                                                        |
-| `config`                                                                   | [AxiosRequestConfig](https://axios-http.com/docs/req_config)               | :heavy_minus_sign:                                                         | Available config options for making requests.                              |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the parent stream                                                                                                                                                        |
+| `targetAddPayload`                                                                                                                                                             | [components.TargetAddPayload](../../models/components/targetaddpayload.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -485,9 +589,9 @@ const targetAddPayload: TargetAddPayload = {
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## deleteMultistreamTarget
+## removeMultistreamTarget
 
 Remove a multistream target
 
@@ -495,30 +599,32 @@ Remove a multistream target
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { RemoveMultistreamTargetRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const id: string = "string";
-const targetId: string = "string";
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.stream.deleteMultistreamTarget(id, targetId);
+async function run() {
+  const id = "<value>";
+  const targetId = "<value>";
+  
+  const result = await livepeer.stream.removeMultistreamTarget(id, targetId);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `id`                                                         | *string*                                                     | :heavy_check_mark:                                           | ID of the parent stream                                      |
-| `targetId`                                                   | *string*                                                     | :heavy_check_mark:                                           | ID of the multistream target                                 |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the parent stream                                                                                                                                                        |
+| `targetId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the multistream target                                                                                                                                                   |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -528,4 +634,4 @@ const targetId: string = "string";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |

@@ -1,14 +1,18 @@
 # Asset
 (*asset*)
 
+## Overview
+
+Operations related to asset/vod api
+
 ### Available Operations
 
 * [getAll](#getall) - Retrieve assets
 * [create](#create) - Upload an asset
-* [createViaURL](#createviaurl) - Upload asset via URL
-* [delete](#delete) - Delete an asset
+* [createViaUrl](#createviaurl) - Upload asset via URL
 * [get](#get) - Retrieves an asset
 * [update](#update) - Patch an asset
+* [delete](#delete) - Delete an asset
 
 ## getAll
 
@@ -19,24 +23,26 @@ Retrieve assets
 ```typescript
 import { Livepeer } from "livepeer";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.asset.getAll();
+async function run() {
+  const result = await livepeer.asset.getAll();
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -46,7 +52,7 @@ import { Livepeer } from "livepeer";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## create
 
@@ -77,7 +83,7 @@ Livepeer on POST /api/asset/request-upload. You should use the
 tusEndpoint field of the response to upload the video file and track the
 progress:
 
-``` 
+```
 # This assumes there is an `input` element of `type="file"` with id
 `fileInput` in the HTML
 
@@ -127,44 +133,110 @@ definition above.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { TypeT } from "livepeer/dist/models/components";
+import {
+  AssetSchemasSourceType,
+  AssetType,
+  CreatorIdType,
+  InputCreatorIdType,
+  TranscodeProfileEncoder,
+  TranscodeProfileProfile,
+  Type,
+} from "livepeer/models/components";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.asset.create({
+async function run() {
+  const result = await livepeer.asset.create({
     name: "filename.mp4",
+    projectId: {
+      type: AssetType.Video,
+      playbackId: "eaw4nk06ts2d0mzb",
+      userId: "66E2161C-7670-4D05-B71D-DA2D6979556F",
+      playbackPolicy: {
+        type: Type.Webhook,
+        webhookId: "1bde4o2i6xycudoy",
+        webhookContext: {
+          "streamerId": "my-custom-id",
+        },
+        refreshInterval: 600,
+      },
+    source:     {
+          type: AssetSchemasSourceType.Recording,
+          sessionId: "<value>",
+        },
+    creatorId:     {
+          type: CreatorIdType.Unverified,
+          value: "user123",
+        },
+      storage: {
+        ipfs: {
+          spec: {
+            nftMetadata: {},
+          },
+          nftMetadata: {
+            cid: "<value>",
+          },
+        },
+      },
+      name: "filename.mp4",
+      projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+      hash: [
+        {
+          hash: "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57",
+          algorithm: "sha256",
+        },
+      ],
+    },
     staticMp4: true,
     playbackPolicy: {
-      type: TypeT.Jwt,
+      type: Type.Webhook,
+      webhookId: "1bde4o2i6xycudoy",
       webhookContext: {
-        "key": "string",
+        "streamerId": "my-custom-id",
       },
+      refreshInterval: 600,
     },
-    creatorId: "string",
+  creatorId:     {
+        type: InputCreatorIdType.Unverified,
+        value: "<value>",
+      },
     storage: {
-      ipfs: "string",
+    ipfs: false,
     },
-    url: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
     encryption: {
-      encryptedKey: "string",
+      encryptedKey: "<value>",
     },
+    profiles: [
+      {
+        width: 1280,
+        name: "720p",
+        bitrate: 3000000,
+        quality: 23,
+        fps: 30,
+        fpsDen: 1,
+        gop: "2",
+        profile: TranscodeProfileProfile.H264Baseline,
+        encoder: TranscodeProfileEncoder.H264,
+      },
+    ],
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `request`                                                                | [components.NewAssetPayload](../../models/components/newassetpayload.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `config`                                                                 | [AxiosRequestConfig](https://axios-http.com/docs/req_config)             | :heavy_minus_sign:                                                       | Available config options for making requests.                            |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.NewAssetPayload](../../models/components/newassetpayload.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -174,9 +246,9 @@ import { TypeT } from "livepeer/dist/models/components";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
-## createViaURL
+## createViaUrl
 
 Upload asset via URL
 
@@ -184,95 +256,75 @@ Upload asset via URL
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { TypeT } from "livepeer/dist/models/components";
+import { TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.asset.createViaURL({
+async function run() {
+  const result = await livepeer.asset.createViaUrl({
     name: "filename.mp4",
     staticMp4: true,
     playbackPolicy: {
-      type: TypeT.Webhook,
+      type: Type.Webhook,
+      webhookId: "1bde4o2i6xycudoy",
       webhookContext: {
-        "key": "string",
+        "streamerId": "my-custom-id",
       },
+      refreshInterval: 600,
     },
-    creatorId: "string",
+  creatorId: "<value>",
     storage: {
-      ipfs: "string",
+    ipfs:     {
+          spec: {
+            nftMetadata: {},
+          },
+        },
     },
     url: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
     encryption: {
-      encryptedKey: "string",
+      encryptedKey: "<value>",
     },
+    profiles: [
+      {
+        width: 1280,
+        name: "720p",
+        bitrate: 3000000,
+        quality: 23,
+        fps: 30,
+        fpsDen: 1,
+        gop: "2",
+        profile: TranscodeProfileProfile.H264Baseline,
+        encoder: TranscodeProfileEncoder.H264,
+      },
+    ],
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `request`                                                                | [components.NewAssetPayload](../../models/components/newassetpayload.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `config`                                                                 | [AxiosRequestConfig](https://axios-http.com/docs/req_config)             | :heavy_minus_sign:                                                       | Available config options for making requests.                            |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.NewAssetFromUrlPayload](../../models/components/newassetfromurlpayload.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.UploadAssetViaURLResponse](../../models/operations/uploadassetviaurlresponse.md)>**
+**Promise<[operations.UploadAssetResponse](../../models/operations/uploadassetresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
-
-## delete
-
-Delete an asset
-
-### Example Usage
-
-```typescript
-import { Livepeer } from "livepeer";
-import { DeleteAssetRequest } from "livepeer/dist/models/operations";
-
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const assetId: string = "string";
-
-  const res = await sdk.asset.delete(assetId);
-
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
-```
-
-### Parameters
-
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `assetId`                                                    | *string*                                                     | :heavy_check_mark:                                           | ID of the asset                                              |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
-
-
-### Response
-
-**Promise<[operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md)>**
-### Errors
-
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## get
 
@@ -282,28 +334,30 @@ Retrieves an asset
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetAssetRequest } from "livepeer/dist/models/operations";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const assetId: string = "string";
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.asset.get(assetId);
+async function run() {
+  const assetId = "<value>";
+  
+  const result = await livepeer.asset.get(assetId);
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                    | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `assetId`                                                    | *string*                                                     | :heavy_check_mark:                                           | ID of the asset                                              |
-| `config`                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config) | :heavy_minus_sign:                                           | Available config options for making requests.                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the asset                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -313,7 +367,7 @@ const assetId: string = "string";
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## update
 
@@ -323,43 +377,51 @@ Patch an asset
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { AssetPatchPayload, PlaybackPolicy, Storage, TypeT } from "livepeer/dist/models/components";
-import { UpdateAssetRequest } from "livepeer/dist/models/operations";
+import { Type } from "livepeer/models/components";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
-const assetId: string = "string";
-const assetPatchPayload: AssetPatchPayload = {
-  name: "filename.mp4",
-  creatorId: "string",
-  playbackPolicy: {
-    type: TypeT.Webhook,
-    webhookContext: {
-      "key": "string",
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const assetId = "<value>";
+  const assetPatchPayload = {
+    name: "filename.mp4",
+  creatorId: "<value>",
+    playbackPolicy: {
+      type: Type.Webhook,
+      webhookId: "1bde4o2i6xycudoy",
+      webhookContext: {
+        "streamerId": "my-custom-id",
+      },
+      refreshInterval: 600,
     },
-  },
-  storage: {
-    ipfs: "string",
-  },
-};
+    storage: {
+    ipfs:     {
+          spec: {
+            nftMetadata: {},
+          },
+        },
+    },
+  };
+  
+  const result = await livepeer.asset.update(assetId, assetPatchPayload);
 
-  const res = await sdk.asset.update(assetId, assetPatchPayload);
+  // Handle the result
+  console.log(result)
+}
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `assetId`                                                                    | *string*                                                                     | :heavy_check_mark:                                                           | ID of the asset                                                              |
-| `assetPatchPayload`                                                          | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md) | :heavy_check_mark:                                                           | N/A                                                                          |
-| `config`                                                                     | [AxiosRequestConfig](https://axios-http.com/docs/req_config)                 | :heavy_minus_sign:                                                           | Available config options for making requests.                                |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the asset                                                                                                                                                                |
+| `assetPatchPayload`                                                                                                                                                            | [components.AssetPatchPayload](../../models/components/assetpatchpayload.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
@@ -369,4 +431,47 @@ const assetPatchPayload: AssetPatchPayload = {
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
+
+## delete
+
+Delete an asset
+
+### Example Usage
+
+```typescript
+import { Livepeer } from "livepeer";
+
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const assetId = "<value>";
+  
+  const result = await livepeer.asset.delete(assetId);
+
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `assetId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the asset                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+
+
+### Response
+
+**Promise<[operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md)>**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |

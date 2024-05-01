@@ -1,6 +1,10 @@
 # Transcode
 (*transcode*)
 
+## Overview
+
+Operations related to transcode api
+
 ### Available Operations
 
 * [create](#create) - Transcode a video
@@ -8,7 +12,7 @@
 ## create
 
 `POST /transcode` transcodes a video file and uploads the results to the
-specified storage service. 
+specified storage service.
 \
 \
 Transcoding is asynchronous so you will need to check the status of the
@@ -134,16 +138,26 @@ This endpoint currently supports the following output types:
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { TranscodeProfileEncoder, TranscodeProfileProfile } from "livepeer/dist/models/components";
+import { TranscodePayloadSchemasType, TranscodeProfileEncoder, TranscodeProfileProfile } from "livepeer/models/components";
 
-(async() => {
-  const sdk = new Livepeer({
-    apiKey: "",
-  });
+const livepeer = new Livepeer({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
 
-  const res = await sdk.transcode.create({
-    input: "string",
-    storage: "string",
+async function run() {
+  const result = await livepeer.transcode.create({
+  input:     {
+        url: "https://s3.amazonaws.com/bucket/file.mp4",
+      },
+  storage:     {
+        type: TranscodePayloadSchemasType.S3,
+        endpoint: "https://gateway.storjshare.io",
+        bucket: "outputbucket",
+        credentials: {
+          accessKeyId: "AKIAIOSFODNN7EXAMPLE",
+          secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+        },
+      },
     outputs: {
       hls: {
         path: "/samplevideo/hls",
@@ -157,32 +171,41 @@ import { TranscodeProfileEncoder, TranscodeProfileProfile } from "livepeer/dist/
     },
     profiles: [
       {
+        width: 1280,
         name: "720p",
-        bitrate: 486589,
+        bitrate: 3000000,
+        quality: 23,
+        fps: 30,
+        fpsDen: 1,
+        gop: "2",
+        profile: TranscodeProfileProfile.H264Baseline,
+        encoder: TranscodeProfileEncoder.H264,
       },
     ],
-    creatorId: "string",
+  creatorId: "<value>",
   });
 
-  if (res.statusCode == 200) {
-    // handle response
-  }
-})();
+  // Handle the result
+  console.log(result)
+}
+
+run();
 ```
 
 ### Parameters
 
-| Parameter                                                                  | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `request`                                                                  | [components.TranscodePayload](../../models/components/transcodepayload.md) | :heavy_check_mark:                                                         | The request object to use for the request.                                 |
-| `config`                                                                   | [AxiosRequestConfig](https://axios-http.com/docs/req_config)               | :heavy_minus_sign:                                                         | Available config options for making requests.                              |
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.TranscodePayload](../../models/components/transcodepayload.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
 
 ### Response
 
-**Promise<[operations.TranscodeResponse](../../models/operations/transcoderesponse.md)>**
+**Promise<[operations.TranscodeVideoResponse](../../models/operations/transcodevideoresponse.md)>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 400-600         | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |

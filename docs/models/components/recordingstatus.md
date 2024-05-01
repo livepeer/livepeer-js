@@ -1,6 +1,6 @@
 # RecordingStatus
 
-Status of the recording process of this stream session.
+The status of the recording process of this stream session.
 
 
 ## Values

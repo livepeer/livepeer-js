@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `role`             | *string*           | :heavy_check_mark: | N/A                |
-| `address`          | *string*           | :heavy_check_mark: | N/A                |
+| Field               | Type                | Required            | Description         | Example             |
+| ------------------- | ------------------- | ------------------- | ------------------- | ------------------- |
+| `role`              | *string*            | :heavy_check_mark:  | N/A                 | creator             |
+| `address`           | *string*            | :heavy_check_mark:  | N/A                 | 1311768467294899700 |
