@@ -54,12 +54,7 @@ export type TargetAddPayload = {
 
 /** @internal */
 export namespace TargetAddPayloadSpec$ {
-    export type Inbound = {
-        name?: string | undefined;
-        url: string;
-    };
-
-    export const inboundSchema: z.ZodType<TargetAddPayloadSpec, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TargetAddPayloadSpec, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string().optional(),
             url: z.string(),
@@ -91,14 +86,7 @@ export namespace TargetAddPayloadSpec$ {
 
 /** @internal */
 export namespace TargetAddPayload$ {
-    export type Inbound = {
-        profile: string;
-        videoOnly?: boolean | undefined;
-        id?: string | undefined;
-        spec?: TargetAddPayloadSpec$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TargetAddPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TargetAddPayload, z.ZodTypeDef, unknown> = z
         .object({
             profile: z.string(),
             videoOnly: z.boolean().default(false),

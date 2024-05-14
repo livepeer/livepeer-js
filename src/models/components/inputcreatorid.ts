@@ -21,12 +21,7 @@ export const InputCreatorIdType$: z.ZodNativeEnum<typeof InputCreatorIdType> =
 
 /** @internal */
 export namespace One$ {
-    export type Inbound = {
-        type: InputCreatorIdType;
-        value: string;
-    };
-
-    export const inboundSchema: z.ZodType<One, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<One, z.ZodTypeDef, unknown> = z
         .object({
             type: InputCreatorIdType$,
             value: z.string(),
@@ -58,13 +53,12 @@ export namespace One$ {
 
 /** @internal */
 export namespace InputCreatorId$ {
-    export type Inbound = One$.Inbound | string;
-
-    export type Outbound = One$.Outbound | string;
-    export const inboundSchema: z.ZodType<InputCreatorId, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<InputCreatorId, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => One$.inboundSchema),
         z.string(),
     ]);
+
+    export type Outbound = One$.Outbound | string;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, InputCreatorId> = z.union([
         z.lazy(() => One$.outboundSchema),
         z.string(),

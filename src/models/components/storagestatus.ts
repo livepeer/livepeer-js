@@ -59,13 +59,7 @@ export const Phase$: z.ZodNativeEnum<typeof Phase> = z.nativeEnum(Phase);
 
 /** @internal */
 export namespace Tasks$ {
-    export type Inbound = {
-        pending?: string | undefined;
-        last?: string | undefined;
-        failed?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z
         .object({
             pending: z.string().optional(),
             last: z.string().optional(),
@@ -102,14 +96,7 @@ export namespace Tasks$ {
 
 /** @internal */
 export namespace StorageStatus$ {
-    export type Inbound = {
-        phase: Phase;
-        progress?: number | undefined;
-        errorMessage?: string | undefined;
-        tasks: Tasks$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, unknown> = z
         .object({
             phase: Phase$,
             progress: z.number().optional(),

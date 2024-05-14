@@ -32,12 +32,7 @@ export type StartRoomEgressResponse = {
 
 /** @internal */
 export namespace StartRoomEgressRequest$ {
-    export type Inbound = {
-        id: string;
-        "room-egress-payload": components.RoomEgressPayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<StartRoomEgressRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StartRoomEgressRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             "room-egress-payload": components.RoomEgressPayload$.inboundSchema,
@@ -69,14 +64,7 @@ export namespace StartRoomEgressRequest$ {
 
 /** @internal */
 export namespace StartRoomEgressResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<StartRoomEgressResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StartRoomEgressResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

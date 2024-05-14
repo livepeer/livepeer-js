@@ -43,11 +43,7 @@ export type CreateClipResponse = {
 
 /** @internal */
 export namespace CreateClipTask$ {
-    export type Inbound = {
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateClipTask, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateClipTask, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
         })
@@ -74,12 +70,7 @@ export namespace CreateClipTask$ {
 
 /** @internal */
 export namespace CreateClipData$ {
-    export type Inbound = {
-        asset: components.Asset$.Inbound;
-        task: CreateClipTask$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<CreateClipData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateClipData, z.ZodTypeDef, unknown> = z
         .object({
             asset: components.Asset$.inboundSchema,
             task: z.lazy(() => CreateClipTask$.inboundSchema),
@@ -111,15 +102,7 @@ export namespace CreateClipData$ {
 
 /** @internal */
 export namespace CreateClipResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: CreateClipData$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateClipResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateClipResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

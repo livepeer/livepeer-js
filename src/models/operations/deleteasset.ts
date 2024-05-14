@@ -33,11 +33,7 @@ export type DeleteAssetResponse = {
 
 /** @internal */
 export namespace DeleteAssetRequest$ {
-    export type Inbound = {
-        assetId: string;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteAssetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteAssetRequest, z.ZodTypeDef, unknown> = z
         .object({
             assetId: z.string(),
         })
@@ -64,14 +60,7 @@ export namespace DeleteAssetRequest$ {
 
 /** @internal */
 export namespace DeleteAssetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteAssetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteAssetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

@@ -7,6 +7,9 @@ import * as z from "zod";
 export type MultistreamTarget = {
     id?: string | undefined;
     name?: string | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     userId?: string | undefined;
     /**
      * If true then this multistream target will not be used for pushing
@@ -28,15 +31,7 @@ export type MultistreamTarget = {
 
 /** @internal */
 export namespace MultistreamTarget$ {
-    export type Inbound = {
-        id?: string | undefined;
-        name?: string | undefined;
-        userId?: string | undefined;
-        disabled?: boolean | undefined;
-        createdAt?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<MultistreamTarget, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<MultistreamTarget, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             name: z.string().optional(),

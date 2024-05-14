@@ -113,16 +113,15 @@ export type GetViewershipMetricsResponse = {
 
 /** @internal */
 export namespace From$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<From, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<From, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, From> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -131,16 +130,15 @@ export namespace From$ {
 
 /** @internal */
 export namespace To$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<To, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<To, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, To> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -155,18 +153,7 @@ export const BreakdownBy$: z.ZodNativeEnum<typeof BreakdownBy> = z.nativeEnum(Br
 
 /** @internal */
 export namespace GetViewershipMetricsRequest$ {
-    export type Inbound = {
-        playbackId?: string | undefined;
-        from?: string | number | undefined;
-        to?: string | number | undefined;
-        timeStep?: TimeStep | undefined;
-        assetId?: string | undefined;
-        streamId?: string | undefined;
-        creatorId?: string | undefined;
-        "breakdownBy[]"?: Array<BreakdownBy> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetViewershipMetricsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetViewershipMetricsRequest, z.ZodTypeDef, unknown> = z
         .object({
             playbackId: z.string().optional(),
             from: z
@@ -246,15 +233,7 @@ export namespace GetViewershipMetricsRequest$ {
 
 /** @internal */
 export namespace GetViewershipMetricsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.ViewershipMetric$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetViewershipMetricsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetViewershipMetricsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

@@ -36,11 +36,7 @@ export type IpfsExportParams = {
 
 /** @internal */
 export namespace IpfsExportParams2$ {
-    export type Inbound = {
-        apiKey: string;
-    };
-
-    export const inboundSchema: z.ZodType<IpfsExportParams2, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<IpfsExportParams2, z.ZodTypeDef, unknown> = z
         .object({
             apiKey: z.string(),
         })
@@ -67,9 +63,7 @@ export namespace IpfsExportParams2$ {
 
 /** @internal */
 export namespace IpfsExportParams1$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<IpfsExportParams1, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<IpfsExportParams1, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -80,13 +74,12 @@ export namespace IpfsExportParams1$ {
 
 /** @internal */
 export namespace Pinata$ {
-    export type Inbound = IpfsExportParams1$.Inbound | IpfsExportParams2$.Inbound;
-
-    export type Outbound = IpfsExportParams1$.Outbound | IpfsExportParams2$.Outbound;
-    export const inboundSchema: z.ZodType<Pinata, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Pinata, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => IpfsExportParams1$.inboundSchema),
         z.lazy(() => IpfsExportParams2$.inboundSchema),
     ]);
+
+    export type Outbound = IpfsExportParams1$.Outbound | IpfsExportParams2$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Pinata> = z.union([
         z.lazy(() => IpfsExportParams1$.outboundSchema),
         z.lazy(() => IpfsExportParams2$.outboundSchema),
@@ -95,12 +88,7 @@ export namespace Pinata$ {
 
 /** @internal */
 export namespace IpfsExportParams$ {
-    export type Inbound = {
-        $ref?: any | undefined;
-        pinata?: IpfsExportParams1$.Inbound | IpfsExportParams2$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<IpfsExportParams, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<IpfsExportParams, z.ZodTypeDef, unknown> = z
         .object({
             $ref: z.any().optional(),
             pinata: z

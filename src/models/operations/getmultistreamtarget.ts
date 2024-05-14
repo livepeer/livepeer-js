@@ -38,11 +38,7 @@ export type GetMultistreamTargetResponse = {
 
 /** @internal */
 export namespace GetMultistreamTargetRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetMultistreamTargetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetMultistreamTargetRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -69,15 +65,7 @@ export namespace GetMultistreamTargetRequest$ {
 
 /** @internal */
 export namespace GetMultistreamTargetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "multistream-target"?: components.MultistreamTarget$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetMultistreamTargetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetMultistreamTargetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

@@ -31,15 +31,7 @@ export type CreateRoomResponse = {
 
 /** @internal */
 export namespace CreateRoomResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "create-room-response"?: components.CreateRoomResponse$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

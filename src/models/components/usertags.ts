@@ -10,13 +10,12 @@ export type UserTags = string | number | Array<string | number>;
 
 /** @internal */
 export namespace Three$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<Three, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Three, z.ZodTypeDef, unknown> = z.union([
         z.string(),
         z.number(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Three> = z.union([
         z.string(),
         z.number(),
@@ -25,14 +24,13 @@ export namespace Three$ {
 
 /** @internal */
 export namespace UserTags$ {
-    export type Inbound = string | number | Array<string | number>;
-
-    export type Outbound = string | number | Array<string | number>;
-    export const inboundSchema: z.ZodType<UserTags, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<UserTags, z.ZodTypeDef, unknown> = z.union([
         z.string(),
         z.number(),
         z.array(z.union([z.string(), z.number()])),
     ]);
+
+    export type Outbound = string | number | Array<string | number>;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UserTags> = z.union([
         z.string(),
         z.number(),

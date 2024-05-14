@@ -70,14 +70,7 @@ export type WebhookLog = {
 
 /** @internal */
 export namespace Request$ {
-    export type Inbound = {
-        url?: string | undefined;
-        method?: string | undefined;
-        headers?: Record<string, string> | undefined;
-        body?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Request, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Request, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string().optional(),
             method: z.string().optional(),
@@ -119,13 +112,7 @@ export namespace Request$ {
 
 /** @internal */
 export namespace Response$ {
-    export type Inbound = {
-        body?: string | undefined;
-        status?: number | undefined;
-        statusText?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Response, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Response, z.ZodTypeDef, unknown> = z
         .object({
             body: z.string().optional(),
             status: z.number().optional(),
@@ -162,18 +149,7 @@ export namespace Response$ {
 
 /** @internal */
 export namespace WebhookLog$ {
-    export type Inbound = {
-        id: string;
-        webhookId: string;
-        event?: string | undefined;
-        createdAt?: number | undefined;
-        duration?: number | undefined;
-        success?: boolean | undefined;
-        request?: Request$.Inbound | undefined;
-        response?: Response$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<WebhookLog, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<WebhookLog, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             webhookId: z.string(),

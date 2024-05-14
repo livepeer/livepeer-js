@@ -31,15 +31,7 @@ export type CreateSigningKeyResponse = {
 
 /** @internal */
 export namespace CreateSigningKeyResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "signing-key"?: components.SigningKey$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateSigningKeyResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateSigningKeyResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

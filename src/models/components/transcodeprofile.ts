@@ -50,20 +50,7 @@ export const TranscodeProfileEncoder$: z.ZodNativeEnum<typeof TranscodeProfileEn
 
 /** @internal */
 export namespace TranscodeProfile$ {
-    export type Inbound = {
-        width?: number | undefined;
-        name?: string | undefined;
-        height?: number | undefined;
-        bitrate: number;
-        quality?: number | undefined;
-        fps?: number | undefined;
-        fpsDen?: number | undefined;
-        gop?: string | undefined;
-        profile?: TranscodeProfileProfile | undefined;
-        encoder?: TranscodeProfileEncoder | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, unknown> = z
         .object({
             width: z.number().int().optional(),
             name: z.string().optional(),

@@ -36,12 +36,7 @@ export type GetWebhookLogResponse = {
 
 /** @internal */
 export namespace GetWebhookLogRequest$ {
-    export type Inbound = {
-        id: string;
-        logId: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetWebhookLogRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetWebhookLogRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             logId: z.string(),
@@ -73,15 +68,7 @@ export namespace GetWebhookLogRequest$ {
 
 /** @internal */
 export namespace GetWebhookLogResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "webhook-log"?: components.WebhookLog$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetWebhookLogResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetWebhookLogResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

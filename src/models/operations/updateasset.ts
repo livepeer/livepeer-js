@@ -39,12 +39,7 @@ export type UpdateAssetResponse = {
 
 /** @internal */
 export namespace UpdateAssetRequest$ {
-    export type Inbound = {
-        assetId: string;
-        "asset-patch-payload": components.AssetPatchPayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateAssetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateAssetRequest, z.ZodTypeDef, unknown> = z
         .object({
             assetId: z.string(),
             "asset-patch-payload": components.AssetPatchPayload$.inboundSchema,
@@ -76,15 +71,7 @@ export namespace UpdateAssetRequest$ {
 
 /** @internal */
 export namespace UpdateAssetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        asset?: components.Asset$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateAssetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateAssetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

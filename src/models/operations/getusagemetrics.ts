@@ -78,14 +78,7 @@ export const GetUsageMetricsQueryParamTimeStep$: z.ZodNativeEnum<
 
 /** @internal */
 export namespace GetUsageMetricsRequest$ {
-    export type Inbound = {
-        from?: number | undefined;
-        to?: number | undefined;
-        timeStep?: GetUsageMetricsQueryParamTimeStep | undefined;
-        creatorId?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetUsageMetricsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetUsageMetricsRequest, z.ZodTypeDef, unknown> = z
         .object({
             from: z.number().int().optional(),
             to: z.number().int().optional(),
@@ -127,15 +120,7 @@ export namespace GetUsageMetricsRequest$ {
 
 /** @internal */
 export namespace GetUsageMetricsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "usage-metric"?: components.UsageMetric$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetUsageMetricsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetUsageMetricsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

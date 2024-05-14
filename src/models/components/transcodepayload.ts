@@ -230,12 +230,7 @@ export const TranscodePayloadType$: z.ZodNativeEnum<typeof TranscodePayloadType>
 
 /** @internal */
 export namespace Credentials$ {
-    export type Inbound = {
-        accessKeyId: string;
-        secretAccessKey: string;
-    };
-
-    export const inboundSchema: z.ZodType<Credentials, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Credentials, z.ZodTypeDef, unknown> = z
         .object({
             accessKeyId: z.string(),
             secretAccessKey: z.string(),
@@ -267,15 +262,7 @@ export namespace Credentials$ {
 
 /** @internal */
 export namespace TranscodePayload2$ {
-    export type Inbound = {
-        type: TranscodePayloadType;
-        endpoint: string;
-        bucket: string;
-        path: string;
-        credentials: Credentials$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayload2, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayload2, z.ZodTypeDef, unknown> = z
         .object({
             type: TranscodePayloadType$,
             endpoint: z.string(),
@@ -322,11 +309,7 @@ export namespace TranscodePayload2$ {
 
 /** @internal */
 export namespace TranscodePayload1$ {
-    export type Inbound = {
-        url: string;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayload1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayload1, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string(),
         })
@@ -353,13 +336,12 @@ export namespace TranscodePayload1$ {
 
 /** @internal */
 export namespace Input$ {
-    export type Inbound = TranscodePayload1$.Inbound | TranscodePayload2$.Inbound;
-
-    export type Outbound = TranscodePayload1$.Outbound | TranscodePayload2$.Outbound;
-    export const inboundSchema: z.ZodType<Input, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => TranscodePayload1$.inboundSchema),
         z.lazy(() => TranscodePayload2$.inboundSchema),
     ]);
+
+    export type Outbound = TranscodePayload1$.Outbound | TranscodePayload2$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Input> = z.union([
         z.lazy(() => TranscodePayload1$.outboundSchema),
         z.lazy(() => TranscodePayload2$.outboundSchema),
@@ -373,14 +355,10 @@ export const TranscodePayloadSchemasStorageType$: z.ZodNativeEnum<
 
 /** @internal */
 export namespace TranscodePayloadSchemasCredentials$ {
-    export type Inbound = {
-        proof: string;
-    };
-
     export const inboundSchema: z.ZodType<
         TranscodePayloadSchemasCredentials,
         z.ZodTypeDef,
-        Inbound
+        unknown
     > = z
         .object({
             proof: z.string(),
@@ -412,12 +390,7 @@ export namespace TranscodePayloadSchemasCredentials$ {
 
 /** @internal */
 export namespace TranscodePayloadSchemas2$ {
-    export type Inbound = {
-        type: TranscodePayloadSchemasStorageType;
-        credentials: TranscodePayloadSchemasCredentials$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayloadSchemas2, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayloadSchemas2, z.ZodTypeDef, unknown> = z
         .object({
             type: TranscodePayloadSchemasStorageType$,
             credentials: z.lazy(() => TranscodePayloadSchemasCredentials$.inboundSchema),
@@ -453,12 +426,7 @@ export const TranscodePayloadSchemasType$: z.ZodNativeEnum<typeof TranscodePaylo
 
 /** @internal */
 export namespace TranscodePayloadCredentials$ {
-    export type Inbound = {
-        accessKeyId: string;
-        secretAccessKey: string;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayloadCredentials, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayloadCredentials, z.ZodTypeDef, unknown> = z
         .object({
             accessKeyId: z.string(),
             secretAccessKey: z.string(),
@@ -490,14 +458,7 @@ export namespace TranscodePayloadCredentials$ {
 
 /** @internal */
 export namespace TranscodePayloadSchemas1$ {
-    export type Inbound = {
-        type: TranscodePayloadSchemasType;
-        endpoint: string;
-        bucket: string;
-        credentials: TranscodePayloadCredentials$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayloadSchemas1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayloadSchemas1, z.ZodTypeDef, unknown> = z
         .object({
             type: TranscodePayloadSchemasType$,
             endpoint: z.string(),
@@ -539,15 +500,14 @@ export namespace TranscodePayloadSchemas1$ {
 
 /** @internal */
 export namespace TranscodePayloadStorage$ {
-    export type Inbound = TranscodePayloadSchemas2$.Inbound | TranscodePayloadSchemas1$.Inbound;
-
-    export type Outbound = TranscodePayloadSchemas2$.Outbound | TranscodePayloadSchemas1$.Outbound;
-    export const inboundSchema: z.ZodType<TranscodePayloadStorage, z.ZodTypeDef, Inbound> = z.union(
+    export const inboundSchema: z.ZodType<TranscodePayloadStorage, z.ZodTypeDef, unknown> = z.union(
         [
             z.lazy(() => TranscodePayloadSchemas2$.inboundSchema),
             z.lazy(() => TranscodePayloadSchemas1$.inboundSchema),
         ]
     );
+
+    export type Outbound = TranscodePayloadSchemas2$.Outbound | TranscodePayloadSchemas1$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadStorage> =
         z.union([
             z.lazy(() => TranscodePayloadSchemas2$.outboundSchema),
@@ -557,11 +517,7 @@ export namespace TranscodePayloadStorage$ {
 
 /** @internal */
 export namespace Hls$ {
-    export type Inbound = {
-        path: string;
-    };
-
-    export const inboundSchema: z.ZodType<Hls, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Hls, z.ZodTypeDef, unknown> = z
         .object({
             path: z.string(),
         })
@@ -588,11 +544,7 @@ export namespace Hls$ {
 
 /** @internal */
 export namespace Mp4$ {
-    export type Inbound = {
-        path: string;
-    };
-
-    export const inboundSchema: z.ZodType<Mp4, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Mp4, z.ZodTypeDef, unknown> = z
         .object({
             path: z.string(),
         })
@@ -619,11 +571,7 @@ export namespace Mp4$ {
 
 /** @internal */
 export namespace Fmp4$ {
-    export type Inbound = {
-        path: string;
-    };
-
-    export const inboundSchema: z.ZodType<Fmp4, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Fmp4, z.ZodTypeDef, unknown> = z
         .object({
             path: z.string(),
         })
@@ -650,13 +598,7 @@ export namespace Fmp4$ {
 
 /** @internal */
 export namespace Outputs$ {
-    export type Inbound = {
-        hls?: Hls$.Inbound | undefined;
-        mp4?: Mp4$.Inbound | undefined;
-        fmp4?: Fmp4$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Outputs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Outputs, z.ZodTypeDef, unknown> = z
         .object({
             hls: z.lazy(() => Hls$.inboundSchema).optional(),
             mp4: z.lazy(() => Mp4$.inboundSchema).optional(),
@@ -693,17 +635,7 @@ export namespace Outputs$ {
 
 /** @internal */
 export namespace TranscodePayload$ {
-    export type Inbound = {
-        input: TranscodePayload1$.Inbound | TranscodePayload2$.Inbound;
-        storage: TranscodePayloadSchemas2$.Inbound | TranscodePayloadSchemas1$.Inbound;
-        outputs: Outputs$.Inbound;
-        profiles?: Array<TranscodeProfile$.Inbound> | undefined;
-        targetSegmentSizeSecs?: number | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        c2pa?: boolean | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodePayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodePayload, z.ZodTypeDef, unknown> = z
         .object({
             input: z.union([
                 z.lazy(() => TranscodePayload1$.inboundSchema),

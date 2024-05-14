@@ -13,11 +13,7 @@ export type RoomEgressPayload = {
 
 /** @internal */
 export namespace RoomEgressPayload$ {
-    export type Inbound = {
-        streamId: string;
-    };
-
-    export const inboundSchema: z.ZodType<RoomEgressPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RoomEgressPayload, z.ZodTypeDef, unknown> = z
         .object({
             streamId: z.string(),
         })

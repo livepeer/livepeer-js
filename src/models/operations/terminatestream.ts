@@ -33,11 +33,7 @@ export type TerminateStreamResponse = {
 
 /** @internal */
 export namespace TerminateStreamRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<TerminateStreamRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TerminateStreamRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -64,14 +60,7 @@ export namespace TerminateStreamRequest$ {
 
 /** @internal */
 export namespace TerminateStreamResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TerminateStreamResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TerminateStreamResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

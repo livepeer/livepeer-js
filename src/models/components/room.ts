@@ -45,14 +45,7 @@ export type Room = {
 
 /** @internal */
 export namespace Participants$ {
-    export type Inbound = {
-        identity?: string | undefined;
-        name?: string | undefined;
-        joinedAt?: number | undefined;
-        leftAt?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Participants, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Participants, z.ZodTypeDef, unknown> = z
         .object({
             identity: z.string().optional(),
             name: z.string().optional(),
@@ -94,15 +87,7 @@ export namespace Participants$ {
 
 /** @internal */
 export namespace Room$ {
-    export type Inbound = {
-        id: string;
-        createdAt?: number | undefined;
-        updatedAt?: number | undefined;
-        egressId?: string | undefined;
-        participants: Record<string, Participants$.Inbound>;
-    };
-
-    export const inboundSchema: z.ZodType<Room, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Room, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             createdAt: z.number().optional(),

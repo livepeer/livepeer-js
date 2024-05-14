@@ -54,9 +54,7 @@ export const NftMetadataTemplate$: z.ZodNativeEnum<typeof NftMetadataTemplate> =
 
 /** @internal */
 export namespace NftMetadata$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<NftMetadata, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<NftMetadata, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -65,12 +63,7 @@ export namespace NftMetadata$ {
 
 /** @internal */
 export namespace Spec$ {
-    export type Inbound = {
-        nftMetadataTemplate?: NftMetadataTemplate | undefined;
-        nftMetadata?: NftMetadata$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Spec, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Spec, z.ZodTypeDef, unknown> = z
         .object({
             nftMetadataTemplate: NftMetadataTemplate$.default(NftMetadataTemplate.File),
             nftMetadata: z.lazy(() => NftMetadata$.inboundSchema).optional(),

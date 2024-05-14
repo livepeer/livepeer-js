@@ -38,14 +38,7 @@ export const Type$: z.ZodNativeEnum<typeof Type> = z.nativeEnum(Type);
 
 /** @internal */
 export namespace PlaybackPolicy$ {
-    export type Inbound = {
-        type: Type;
-        webhookId?: string | undefined;
-        webhookContext?: Record<string, any> | undefined;
-        refreshInterval?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, unknown> = z
         .object({
             type: Type$,
             webhookId: z.string().optional(),

@@ -24,7 +24,7 @@ export type NewAssetFromUrlPayload = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     creatorId?: InputCreatorId | undefined;
     storage?: Storage | undefined;
     /**
@@ -50,24 +50,11 @@ export type NewAssetFromUrlPayload = {
 
 /** @internal */
 export namespace NewAssetFromUrlPayload$ {
-    export type Inbound = {
-        name: string;
-        staticMp4?: boolean | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        storage?: Storage$.Inbound | undefined;
-        url: string;
-        encryption?: Encryption$.Inbound | undefined;
-        c2pa?: boolean | undefined;
-        profiles?: Array<TranscodeProfile$.Inbound> | undefined;
-        targetSegmentSizeSecs?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewAssetFromUrlPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewAssetFromUrlPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
             staticMp4: z.boolean().optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
             storage: Storage$.inboundSchema.optional(),
             url: z.string(),
@@ -96,7 +83,7 @@ export namespace NewAssetFromUrlPayload$ {
     export type Outbound = {
         name: string;
         staticMp4?: boolean | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
         storage?: Storage$.Outbound | undefined;
         url: string;
@@ -110,7 +97,7 @@ export namespace NewAssetFromUrlPayload$ {
         .object({
             name: z.string(),
             staticMp4: z.boolean().optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
             storage: Storage$.outboundSchema.optional(),
             url: z.string(),

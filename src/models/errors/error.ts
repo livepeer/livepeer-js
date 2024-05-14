@@ -33,11 +33,7 @@ export class ErrorT extends Error {
 
 /** @internal */
 export namespace ErrorT$ {
-    export type Inbound = {
-        errors?: Array<string> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
         .object({
             errors: z.array(z.string()).optional(),
         })

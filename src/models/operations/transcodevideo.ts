@@ -31,15 +31,7 @@ export type TranscodeVideoResponse = {
 
 /** @internal */
 export namespace TranscodeVideoResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        task?: components.Task$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodeVideoResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodeVideoResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

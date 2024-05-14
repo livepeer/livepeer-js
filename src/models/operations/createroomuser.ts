@@ -36,12 +36,7 @@ export type CreateRoomUserResponse = {
 
 /** @internal */
 export namespace CreateRoomUserRequest$ {
-    export type Inbound = {
-        id: string;
-        "room-user-payload": components.RoomUserPayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<CreateRoomUserRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateRoomUserRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             "room-user-payload": components.RoomUserPayload$.inboundSchema,
@@ -73,15 +68,7 @@ export namespace CreateRoomUserRequest$ {
 
 /** @internal */
 export namespace CreateRoomUserResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "room-user-response"?: components.RoomUserResponse$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateRoomUserResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateRoomUserResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 
-export enum WebhookEvents {
+export enum Events {
     StreamStarted = "stream.started",
     StreamDetection = "stream.detection",
     StreamIdle = "stream.idle",
@@ -70,18 +70,24 @@ export type Status = {
 export type Webhook = {
     id?: string | undefined;
     name: string;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     kind?: string | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     userId?: string | undefined;
+    /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
     /**
      * Timestamp (in milliseconds) at which stream object was created
      */
     createdAt?: number | undefined;
-    events?: Array<WebhookEvents> | undefined;
+    events?: Array<Events> | undefined;
     url: string;
-    /**
-     * shared secret used to sign the webhook payload
-     */
-    sharedSecret?: string | undefined;
     /**
      * streamId of the stream on which the webhook is applied
      */
@@ -92,19 +98,30 @@ export type Webhook = {
     status?: Status | undefined;
 };
 
+export type WebhookInput = {
+    name: string;
+    /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
+    events?: Array<Events> | undefined;
+    url: string;
+    /**
+     * shared secret used to sign the webhook payload
+     */
+    sharedSecret?: string | undefined;
+    /**
+     * streamId of the stream on which the webhook is applied
+     */
+    streamId?: string | undefined;
+};
+
 /** @internal */
-export const WebhookEvents$: z.ZodNativeEnum<typeof WebhookEvents> = z.nativeEnum(WebhookEvents);
+export const Events$: z.ZodNativeEnum<typeof Events> = z.nativeEnum(Events);
 
 /** @internal */
 export namespace LastFailure$ {
-    export type Inbound = {
-        timestamp?: number | undefined;
-        error?: string | undefined;
-        response?: string | undefined;
-        statusCode?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<LastFailure, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<LastFailure, z.ZodTypeDef, unknown> = z
         .object({
             timestamp: z.number().optional(),
             error: z.string().optional(),
@@ -146,12 +163,7 @@ export namespace LastFailure$ {
 
 /** @internal */
 export namespace Status$ {
-    export type Inbound = {
-        lastFailure?: LastFailure$.Inbound | undefined;
-        lastTriggeredAt?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Status, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
         .object({
             lastFailure: z.lazy(() => LastFailure$.inboundSchema).optional(),
             lastTriggeredAt: z.number().optional(),
@@ -187,29 +199,16 @@ export namespace Status$ {
 
 /** @internal */
 export namespace Webhook$ {
-    export type Inbound = {
-        id?: string | undefined;
-        name: string;
-        kind?: string | undefined;
-        userId?: string | undefined;
-        createdAt?: number | undefined;
-        events?: Array<WebhookEvents> | undefined;
-        url: string;
-        sharedSecret?: string | undefined;
-        streamId?: string | undefined;
-        status?: Status$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             name: z.string(),
             kind: z.string().optional(),
             userId: z.string().optional(),
+            projectId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(WebhookEvents$).optional(),
+            events: z.array(Events$).optional(),
             url: z.string(),
-            sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.inboundSchema).optional(),
         })
@@ -219,10 +218,10 @@ export namespace Webhook$ {
                 name: v.name,
                 ...(v.kind === undefined ? null : { kind: v.kind }),
                 ...(v.userId === undefined ? null : { userId: v.userId }),
+                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
-                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
                 ...(v.streamId === undefined ? null : { streamId: v.streamId }),
                 ...(v.status === undefined ? null : { status: v.status }),
             };
@@ -233,10 +232,10 @@ export namespace Webhook$ {
         name: string;
         kind?: string | undefined;
         userId?: string | undefined;
+        projectId?: string | undefined;
         createdAt?: number | undefined;
-        events?: Array<WebhookEvents> | undefined;
+        events?: Array<Events> | undefined;
         url: string;
-        sharedSecret?: string | undefined;
         streamId?: string | undefined;
         status?: Status$.Outbound | undefined;
     };
@@ -247,10 +246,10 @@ export namespace Webhook$ {
             name: z.string(),
             kind: z.string().optional(),
             userId: z.string().optional(),
+            projectId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(WebhookEvents$).optional(),
+            events: z.array(Events$).optional(),
             url: z.string(),
-            sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.outboundSchema).optional(),
         })
@@ -260,12 +259,64 @@ export namespace Webhook$ {
                 name: v.name,
                 ...(v.kind === undefined ? null : { kind: v.kind }),
                 ...(v.userId === undefined ? null : { userId: v.userId }),
+                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
+                ...(v.events === undefined ? null : { events: v.events }),
+                url: v.url,
+                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
+                ...(v.status === undefined ? null : { status: v.status }),
+            };
+        });
+}
+
+/** @internal */
+export namespace WebhookInput$ {
+    export const inboundSchema: z.ZodType<WebhookInput, z.ZodTypeDef, unknown> = z
+        .object({
+            name: z.string(),
+            projectId: z.string().optional(),
+            events: z.array(Events$).optional(),
+            url: z.string(),
+            sharedSecret: z.string().optional(),
+            streamId: z.string().optional(),
+        })
+        .transform((v) => {
+            return {
+                name: v.name,
+                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
                 ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
                 ...(v.streamId === undefined ? null : { streamId: v.streamId }),
-                ...(v.status === undefined ? null : { status: v.status }),
+            };
+        });
+
+    export type Outbound = {
+        name: string;
+        projectId?: string | undefined;
+        events?: Array<Events> | undefined;
+        url: string;
+        sharedSecret?: string | undefined;
+        streamId?: string | undefined;
+    };
+
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookInput> = z
+        .object({
+            name: z.string(),
+            projectId: z.string().optional(),
+            events: z.array(Events$).optional(),
+            url: z.string(),
+            sharedSecret: z.string().optional(),
+            streamId: z.string().optional(),
+        })
+        .transform((v) => {
+            return {
+                name: v.name,
+                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
+                ...(v.events === undefined ? null : { events: v.events }),
+                url: v.url,
+                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
+                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
             };
         });
 }

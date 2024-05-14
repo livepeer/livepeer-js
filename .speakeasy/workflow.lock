@@ -1,4 +1,4 @@
-speakeasyVersion: 1.277.2
+speakeasyVersion: 1.287.0
 sources: {}
 targets: {}
 workflow:
@@ -13,3 +13,5 @@ workflow:
             target: typescript
             source: livepeer-studio-api
             output: .
+            codeSamples:
+                output: codeSamples.yaml

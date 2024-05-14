@@ -12,6 +12,11 @@ export enum PlaybackInfoType {
     Recording = "recording",
 }
 
+export enum Live {
+    Zero = 0,
+    One = 1,
+}
+
 /**
  * Human Readable Name
  */
@@ -62,11 +67,11 @@ export type DvrPlayback = {
 };
 
 export type Meta = {
-    live?: number | undefined;
+    live?: Live | undefined;
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     source: Array<PlaybackInfoSource>;
     dvrPlayback?: Array<DvrPlayback> | undefined;
     attestation?: Attestation | undefined;
@@ -82,6 +87,9 @@ export const PlaybackInfoType$: z.ZodNativeEnum<typeof PlaybackInfoType> =
     z.nativeEnum(PlaybackInfoType);
 
 /** @internal */
+export const Live$: z.ZodNativeEnum<typeof Live> = z.nativeEnum(Live);
+
+/** @internal */
 export const Hrn$: z.ZodNativeEnum<typeof Hrn> = z.nativeEnum(Hrn);
 
 /** @internal */
@@ -90,17 +98,7 @@ export const PlaybackInfoSchemasType$: z.ZodNativeEnum<typeof PlaybackInfoSchema
 
 /** @internal */
 export namespace PlaybackInfoSource$ {
-    export type Inbound = {
-        hrn: Hrn;
-        type: PlaybackInfoSchemasType;
-        url: string;
-        size?: number | undefined;
-        width?: number | undefined;
-        height?: number | undefined;
-        bitrate?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<PlaybackInfoSource, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<PlaybackInfoSource, z.ZodTypeDef, unknown> = z
         .object({
             hrn: Hrn$,
             type: PlaybackInfoSchemasType$,
@@ -165,14 +163,7 @@ export const PlaybackInfoSchemasMetaType$: z.ZodNativeEnum<typeof PlaybackInfoSc
 
 /** @internal */
 export namespace DvrPlayback$ {
-    export type Inbound = {
-        hrn?: PlaybackInfoHrn | undefined;
-        type?: PlaybackInfoSchemasMetaType | undefined;
-        url?: string | undefined;
-        error?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<DvrPlayback, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DvrPlayback, z.ZodTypeDef, unknown> = z
         .object({
             hrn: PlaybackInfoHrn$.optional(),
             type: PlaybackInfoSchemasMetaType$.optional(),
@@ -214,18 +205,10 @@ export namespace DvrPlayback$ {
 
 /** @internal */
 export namespace Meta$ {
-    export type Inbound = {
-        live?: number | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        source: Array<PlaybackInfoSource$.Inbound>;
-        dvrPlayback?: Array<DvrPlayback$.Inbound> | undefined;
-        attestation?: Attestation$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Meta, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Meta, z.ZodTypeDef, unknown> = z
         .object({
-            live: z.number().optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            live: Live$.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             source: z.array(z.lazy(() => PlaybackInfoSource$.inboundSchema)),
             dvrPlayback: z.array(z.lazy(() => DvrPlayback$.inboundSchema)).optional(),
             attestation: Attestation$.inboundSchema.optional(),
@@ -241,8 +224,8 @@ export namespace Meta$ {
         });
 
     export type Outbound = {
-        live?: number | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        live?: Live | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         source: Array<PlaybackInfoSource$.Outbound>;
         dvrPlayback?: Array<DvrPlayback$.Outbound> | undefined;
         attestation?: Attestation$.Outbound | undefined;
@@ -250,8 +233,8 @@ export namespace Meta$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Meta> = z
         .object({
-            live: z.number().optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            live: Live$.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             source: z.array(z.lazy(() => PlaybackInfoSource$.outboundSchema)),
             dvrPlayback: z.array(z.lazy(() => DvrPlayback$.outboundSchema)).optional(),
             attestation: Attestation$.outboundSchema.optional(),
@@ -269,12 +252,7 @@ export namespace Meta$ {
 
 /** @internal */
 export namespace PlaybackInfo$ {
-    export type Inbound = {
-        type: PlaybackInfoType;
-        meta: Meta$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<PlaybackInfo, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<PlaybackInfo, z.ZodTypeDef, unknown> = z
         .object({
             type: PlaybackInfoType$,
             meta: z.lazy(() => Meta$.inboundSchema),

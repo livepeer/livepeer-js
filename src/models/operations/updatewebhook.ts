@@ -8,7 +8,7 @@ import * as z from "zod";
 
 export type UpdateWebhookRequest = {
     id: string;
-    webhookPayload: components.WebhookPayload;
+    webhook: components.WebhookInput;
 };
 
 export type UpdateWebhookResponse = {
@@ -36,52 +36,39 @@ export type UpdateWebhookResponse = {
 
 /** @internal */
 export namespace UpdateWebhookRequest$ {
-    export type Inbound = {
-        id: string;
-        "webhook-payload": components.WebhookPayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateWebhookRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateWebhookRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
-            "webhook-payload": components.WebhookPayload$.inboundSchema,
+            webhook: components.WebhookInput$.inboundSchema,
         })
         .transform((v) => {
             return {
                 id: v.id,
-                webhookPayload: v["webhook-payload"],
+                webhook: v.webhook,
             };
         });
 
     export type Outbound = {
         id: string;
-        "webhook-payload": components.WebhookPayload$.Outbound;
+        webhook: components.WebhookInput$.Outbound;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UpdateWebhookRequest> = z
         .object({
             id: z.string(),
-            webhookPayload: components.WebhookPayload$.outboundSchema,
+            webhook: components.WebhookInput$.outboundSchema,
         })
         .transform((v) => {
             return {
                 id: v.id,
-                "webhook-payload": v.webhookPayload,
+                webhook: v.webhook,
             };
         });
 }
 
 /** @internal */
 export namespace UpdateWebhookResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        webhook?: components.Webhook$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateWebhookResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateWebhookResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

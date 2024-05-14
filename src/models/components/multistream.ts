@@ -18,11 +18,7 @@ export type Multistream = {
 
 /** @internal */
 export namespace Multistream$ {
-    export type Inbound = {
-        targets?: Array<Target$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Multistream, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Multistream, z.ZodTypeDef, unknown> = z
         .object({
             targets: z.array(Target$.inboundSchema).optional(),
         })

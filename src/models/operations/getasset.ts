@@ -38,11 +38,7 @@ export type GetAssetResponse = {
 
 /** @internal */
 export namespace GetAssetRequest$ {
-    export type Inbound = {
-        assetId: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetAssetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetAssetRequest, z.ZodTypeDef, unknown> = z
         .object({
             assetId: z.string(),
         })
@@ -69,15 +65,7 @@ export namespace GetAssetRequest$ {
 
 /** @internal */
 export namespace GetAssetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        asset?: components.Asset$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetAssetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetAssetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

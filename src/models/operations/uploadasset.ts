@@ -43,11 +43,7 @@ export type UploadAssetResponse = {
 
 /** @internal */
 export namespace UploadAssetTask$ {
-    export type Inbound = {
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetTask, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UploadAssetTask, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
         })
@@ -74,12 +70,7 @@ export namespace UploadAssetTask$ {
 
 /** @internal */
 export namespace UploadAssetData$ {
-    export type Inbound = {
-        asset: components.Asset$.Inbound;
-        task: UploadAssetTask$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UploadAssetData, z.ZodTypeDef, unknown> = z
         .object({
             asset: components.Asset$.inboundSchema,
             task: z.lazy(() => UploadAssetTask$.inboundSchema),
@@ -111,15 +102,7 @@ export namespace UploadAssetData$ {
 
 /** @internal */
 export namespace UploadAssetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: UploadAssetData$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UploadAssetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

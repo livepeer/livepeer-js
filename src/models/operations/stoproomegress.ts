@@ -30,11 +30,7 @@ export type StopRoomEgressResponse = {
 
 /** @internal */
 export namespace StopRoomEgressRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<StopRoomEgressRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StopRoomEgressRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -61,14 +57,7 @@ export namespace StopRoomEgressRequest$ {
 
 /** @internal */
 export namespace StopRoomEgressResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<StopRoomEgressResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StopRoomEgressResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

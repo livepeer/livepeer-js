@@ -33,11 +33,7 @@ export type DeleteMultistreamTargetResponse = {
 
 /** @internal */
 export namespace DeleteMultistreamTargetRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteMultistreamTargetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteMultistreamTargetRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -65,14 +61,7 @@ export namespace DeleteMultistreamTargetRequest$ {
 
 /** @internal */
 export namespace DeleteMultistreamTargetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteMultistreamTargetResponse, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<DeleteMultistreamTargetResponse, z.ZodTypeDef, unknown> =
         z
             .object({
                 ContentType: z.string(),

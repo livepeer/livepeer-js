@@ -29,13 +29,7 @@ export type TargetOutput = {
 
 /** @internal */
 export namespace TargetOutput$ {
-    export type Inbound = {
-        profile: string;
-        videoOnly?: boolean | undefined;
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TargetOutput, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TargetOutput, z.ZodTypeDef, unknown> = z
         .object({
             profile: z.string(),
             videoOnly: z.boolean().default(false),

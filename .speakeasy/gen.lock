@@ -1,25 +1,30 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: e0d3690f1eaf4589bf6d15c59c30cc1e
+  docChecksum: bb6c31a417ba32274cdf8e510ac03851
   docVersion: 1.0.0
-  speakeasyVersion: 1.277.2
-  generationVersion: 2.317.0
-  releaseVersion: 3.1.0
-  configChecksum: 4a223c15fa429ea5ebdfb419af1209dc
+  speakeasyVersion: 1.287.0
+  generationVersion: 2.331.0
+  releaseVersion: 3.2.0
+  configChecksum: a7a83bafbaf74c13ee759d0dd9dad8fa
 features:
   typescript:
+    additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.2
+    core: 3.9.4
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
     inputOutputModels: 2.82.0
     nameOverrides: 2.81.2
+    nullables: 0.1.0
     responseFormat: 0.2.3
-    unions: 2.85.3
+    sdkHooks: 0.1.0
+    unions: 2.85.4
 generatedFiles:
   - src/sdk/stream.ts
   - src/sdk/multistream.ts
@@ -134,8 +139,6 @@ generatedFiles:
   - src/models/components/multistreamtargetinput.ts
   - src/models/components/multistreamtargetpatchpayload.ts
   - src/models/components/webhook.ts
-  - src/models/components/webhookpayload.ts
-  - src/models/components/events.ts
   - src/models/components/webhooklog.ts
   - src/models/components/newassetpayload.ts
   - src/models/components/transcodeprofile.ts
@@ -190,7 +193,6 @@ generatedFiles:
   - docs/models/operations/removemultistreamtargetrequest.md
   - docs/models/operations/removemultistreamtargetresponse.md
   - docs/models/operations/getmultistreamtargetsresponse.md
-  - docs/models/operations/createmultistreamtargetdata.md
   - docs/models/operations/createmultistreamtargetresponse.md
   - docs/models/operations/getmultistreamtargetrequest.md
   - docs/models/operations/getmultistreamtargetresponse.md
@@ -285,6 +287,7 @@ generatedFiles:
   - docs/models/errors/errort.md
   - docs/models/components/stream3.md
   - docs/models/components/streamusertags.md
+  - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
   - docs/models/components/streammultistream.md
@@ -308,6 +311,7 @@ generatedFiles:
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/one.md
   - docs/models/components/inputcreatorid.md
+  - docs/models/components/ismobile.md
   - docs/models/components/location.md
   - docs/models/components/pull.md
   - docs/models/components/streampatchpayload.md
@@ -342,12 +346,11 @@ generatedFiles:
   - docs/models/components/multistreamtarget.md
   - docs/models/components/multistreamtargetinput.md
   - docs/models/components/multistreamtargetpatchpayload.md
-  - docs/models/components/webhookevents.md
+  - docs/models/components/events.md
   - docs/models/components/lastfailure.md
   - docs/models/components/status.md
   - docs/models/components/webhook.md
-  - docs/models/components/webhookpayload.md
-  - docs/models/components/events.md
+  - docs/models/components/webhookinput.md
   - docs/models/components/request.md
   - docs/models/components/response.md
   - docs/models/components/webhooklog.md
@@ -437,6 +440,7 @@ generatedFiles:
   - docs/models/components/outputs.md
   - docs/models/components/transcodepayload.md
   - docs/models/components/playbackinfotype.md
+  - docs/models/components/live.md
   - docs/models/components/hrn.md
   - docs/models/components/playbackinfoschemastype.md
   - docs/models/components/playbackinfosource.md

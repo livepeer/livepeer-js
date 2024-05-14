@@ -23,12 +23,7 @@ export const CreatorIdType$: z.ZodNativeEnum<typeof CreatorIdType> = z.nativeEnu
 
 /** @internal */
 export namespace CreatorId1$ {
-    export type Inbound = {
-        type: CreatorIdType;
-        value: string;
-    };
-
-    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, unknown> = z
         .object({
             type: CreatorIdType$,
             value: z.string(),
@@ -60,12 +55,11 @@ export namespace CreatorId1$ {
 
 /** @internal */
 export namespace CreatorId$ {
-    export type Inbound = CreatorId1$.Inbound;
-
-    export type Outbound = CreatorId1$.Outbound;
-    export const inboundSchema: z.ZodType<CreatorId, z.ZodTypeDef, Inbound> = z.lazy(
+    export const inboundSchema: z.ZodType<CreatorId, z.ZodTypeDef, unknown> = z.lazy(
         () => CreatorId1$.inboundSchema
     );
+
+    export type Outbound = CreatorId1$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreatorId> = z.lazy(
         () => CreatorId1$.outboundSchema
     );

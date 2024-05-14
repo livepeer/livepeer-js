@@ -9,4 +9,5 @@ The status of the recording process of this stream session.
 | --------- | --------- |
 | `Waiting` | waiting   |
 | `Ready`   | ready     |
+| `Failed`  | failed    |
 | `None`    | none      |

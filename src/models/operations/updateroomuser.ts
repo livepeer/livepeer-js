@@ -33,13 +33,7 @@ export type UpdateRoomUserResponse = {
 
 /** @internal */
 export namespace UpdateRoomUserRequest$ {
-    export type Inbound = {
-        id: string;
-        userId: string;
-        "room-user-update-payload": components.RoomUserUpdatePayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateRoomUserRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateRoomUserRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             userId: z.string(),
@@ -76,14 +70,7 @@ export namespace UpdateRoomUserRequest$ {
 
 /** @internal */
 export namespace UpdateRoomUserResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateRoomUserResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateRoomUserResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

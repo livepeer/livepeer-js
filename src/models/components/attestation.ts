@@ -101,12 +101,7 @@ export const Version$: z.ZodNativeEnum<typeof Version> = z.nativeEnum(Version);
 
 /** @internal */
 export namespace Domain$ {
-    export type Inbound = {
-        name: Name;
-        version: Version;
-    };
-
-    export const inboundSchema: z.ZodType<Domain, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Domain, z.ZodTypeDef, unknown> = z
         .object({
             name: Name$,
             version: Version$,
@@ -138,12 +133,7 @@ export namespace Domain$ {
 
 /** @internal */
 export namespace Attestations$ {
-    export type Inbound = {
-        role: string;
-        address: string;
-    };
-
-    export const inboundSchema: z.ZodType<Attestations, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Attestations, z.ZodTypeDef, unknown> = z
         .object({
             role: z.string(),
             address: z.string(),
@@ -175,14 +165,7 @@ export namespace Attestations$ {
 
 /** @internal */
 export namespace Message$ {
-    export type Inbound = {
-        video: string;
-        attestations: Array<Attestations$.Inbound>;
-        signer: string;
-        timestamp: number;
-    };
-
-    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, unknown> = z
         .object({
             video: z.string(),
             attestations: z.array(z.lazy(() => Attestations$.inboundSchema)),
@@ -227,12 +210,7 @@ export const SignatureType$: z.ZodNativeEnum<typeof SignatureType> = z.nativeEnu
 
 /** @internal */
 export namespace AttestationIpfs$ {
-    export type Inbound = {
-        $ref?: any | undefined;
-        updatedAt?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<AttestationIpfs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<AttestationIpfs, z.ZodTypeDef, unknown> = z
         .object({
             $ref: z.any().optional(),
             updatedAt: z.number().optional(),
@@ -264,12 +242,7 @@ export namespace AttestationIpfs$ {
 
 /** @internal */
 export namespace AttestationStorage$ {
-    export type Inbound = {
-        ipfs?: AttestationIpfs$.Inbound | undefined;
-        status?: StorageStatus$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<AttestationStorage, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<AttestationStorage, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z.lazy(() => AttestationIpfs$.inboundSchema).optional(),
             status: StorageStatus$.inboundSchema.optional(),
@@ -301,18 +274,7 @@ export namespace AttestationStorage$ {
 
 /** @internal */
 export namespace Attestation$ {
-    export type Inbound = {
-        id?: string | undefined;
-        primaryType: PrimaryType;
-        domain: Domain$.Inbound;
-        message: Message$.Inbound;
-        signature: string;
-        createdAt?: number | undefined;
-        signatureType?: SignatureType | undefined;
-        storage?: AttestationStorage$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Attestation, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Attestation, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             primaryType: PrimaryType$,

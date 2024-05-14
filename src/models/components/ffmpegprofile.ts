@@ -45,20 +45,7 @@ export const Encoder$: z.ZodNativeEnum<typeof Encoder> = z.nativeEnum(Encoder);
 
 /** @internal */
 export namespace FfmpegProfile$ {
-    export type Inbound = {
-        width: number;
-        name: string;
-        height: number;
-        bitrate: number;
-        fps: number;
-        fpsDen?: number | undefined;
-        quality?: number | undefined;
-        gop?: string | undefined;
-        profile?: Profile | undefined;
-        encoder?: Encoder | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<FfmpegProfile, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<FfmpegProfile, z.ZodTypeDef, unknown> = z
         .object({
             width: z.number().int(),
             name: z.string(),

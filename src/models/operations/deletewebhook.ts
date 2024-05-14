@@ -35,11 +35,7 @@ export type DeleteWebhookResponse = {
 
 /** @internal */
 export namespace DeleteWebhookRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteWebhookRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteWebhookRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -66,15 +62,7 @@ export namespace DeleteWebhookRequest$ {
 
 /** @internal */
 export namespace DeleteWebhookResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        webhook?: components.Webhook$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteWebhookResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteWebhookResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

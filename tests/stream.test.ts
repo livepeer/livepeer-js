@@ -1,4 +1,5 @@
 import { Livepeer } from "../index.js";
+import type { NewStreamPayload } from "../models/components";
 import { compareResponseStructures } from "./utils";
 
 const API_BASE_URL = "https://livepeer.studio/api";
@@ -11,9 +12,10 @@ describe("Streams API", () => {
     it("should create a stream and match the structure of direct API call", async () => {
       const body = {
         name: "My Stream",
+				profiles: null
       };
 
-      const { stream } = await sdk.stream.create(body);
+      const { stream } = await sdk.stream.create(body as unknown as NewStreamPayload);
 
       const response = await fetch(`${API_BASE_URL}/stream`, {
         method: "POST",

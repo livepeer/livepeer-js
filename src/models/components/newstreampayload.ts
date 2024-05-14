@@ -24,7 +24,7 @@ export type NewStreamPayload = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     profiles?: Array<FfmpegProfile> | undefined;
     /**
      * Should this stream be recorded? Uses default settings. For more
@@ -43,23 +43,12 @@ export type NewStreamPayload = {
 
 /** @internal */
 export namespace NewStreamPayload$ {
-    export type Inbound = {
-        name: string;
-        pull?: Pull$.Inbound | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        profiles?: Array<FfmpegProfile$.Inbound> | undefined;
-        record?: boolean | undefined;
-        multistream?: Multistream$.Inbound | undefined;
-        userTags?: Record<string, UserTags$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewStreamPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewStreamPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
             pull: Pull$.inboundSchema.optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.inboundSchema.optional(),
@@ -82,7 +71,7 @@ export namespace NewStreamPayload$ {
         name: string;
         pull?: Pull$.Outbound | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         profiles?: Array<FfmpegProfile$.Outbound> | undefined;
         record?: boolean | undefined;
         multistream?: Multistream$.Outbound | undefined;
@@ -94,7 +83,7 @@ export namespace NewStreamPayload$ {
             name: z.string(),
             pull: Pull$.outboundSchema.optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.outboundSchema.optional(),

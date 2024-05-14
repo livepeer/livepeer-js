@@ -5,6 +5,15 @@
 import * as z from "zod";
 
 /**
+ * If true, the stream will be pulled from a mobile source.
+ */
+export enum IsMobile {
+    Zero = 0,
+    One = 1,
+    Two = 2,
+}
+
+/**
  * Approximate location of the pull source. The location is used to
  *
  * @remarks
@@ -44,6 +53,10 @@ export type Pull = {
      */
     headers?: Record<string, string> | undefined;
     /**
+     * If true, the stream will be pulled from a mobile source.
+     */
+    isMobile?: IsMobile | undefined;
+    /**
      * Approximate location of the pull source. The location is used to
      *
      * @remarks
@@ -53,13 +66,11 @@ export type Pull = {
 };
 
 /** @internal */
-export namespace Location$ {
-    export type Inbound = {
-        lat: number;
-        lon: number;
-    };
+export const IsMobile$: z.ZodNativeEnum<typeof IsMobile> = z.nativeEnum(IsMobile);
 
-    export const inboundSchema: z.ZodType<Location, z.ZodTypeDef, Inbound> = z
+/** @internal */
+export namespace Location$ {
+    export const inboundSchema: z.ZodType<Location, z.ZodTypeDef, unknown> = z
         .object({
             lat: z.number(),
             lon: z.number(),
@@ -91,22 +102,18 @@ export namespace Location$ {
 
 /** @internal */
 export namespace Pull$ {
-    export type Inbound = {
-        source: string;
-        headers?: Record<string, string> | undefined;
-        location?: Location$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Pull, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
+            isMobile: IsMobile$.default(IsMobile.Zero),
             location: z.lazy(() => Location$.inboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
+                isMobile: v.isMobile,
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });
@@ -114,6 +121,7 @@ export namespace Pull$ {
     export type Outbound = {
         source: string;
         headers?: Record<string, string> | undefined;
+        isMobile: IsMobile;
         location?: Location$.Outbound | undefined;
     };
 
@@ -121,12 +129,14 @@ export namespace Pull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
+            isMobile: IsMobile$.default(IsMobile.Zero),
             location: z.lazy(() => Location$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
+                isMobile: v.isMobile,
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });

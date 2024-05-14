@@ -19,24 +19,17 @@ export type AssetPatchPayload = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     storage?: Storage | undefined;
 };
 
 /** @internal */
 export namespace AssetPatchPayload$ {
-    export type Inbound = {
-        name?: string | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        storage?: Storage$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<AssetPatchPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<AssetPatchPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string().optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             storage: Storage$.inboundSchema.optional(),
         })
         .transform((v) => {
@@ -51,7 +44,7 @@ export namespace AssetPatchPayload$ {
     export type Outbound = {
         name?: string | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         storage?: Storage$.Outbound | undefined;
     };
 
@@ -59,7 +52,7 @@ export namespace AssetPatchPayload$ {
         .object({
             name: z.string().optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             storage: Storage$.outboundSchema.optional(),
         })
         .transform((v) => {

@@ -29,15 +29,7 @@ export type ClipPayload = {
 
 /** @internal */
 export namespace ClipPayload$ {
-    export type Inbound = {
-        playbackId: string;
-        startTime: number;
-        endTime?: number | undefined;
-        name?: string | undefined;
-        sessionId?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ClipPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ClipPayload, z.ZodTypeDef, unknown> = z
         .object({
             playbackId: z.string(),
             startTime: z.number(),

@@ -35,11 +35,7 @@ export type GetRoomResponse = {
 
 /** @internal */
 export namespace GetRoomRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetRoomRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetRoomRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -66,15 +62,7 @@ export namespace GetRoomRequest$ {
 
 /** @internal */
 export namespace GetRoomResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        room?: components.Room$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetRoomResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetRoomResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

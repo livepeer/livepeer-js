@@ -38,11 +38,7 @@ export type GetClipsResponse = {
 
 /** @internal */
 export namespace GetClipsRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetClipsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetClipsRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -69,15 +65,7 @@ export namespace GetClipsRequest$ {
 
 /** @internal */
 export namespace GetClipsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.Asset$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetClipsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetClipsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

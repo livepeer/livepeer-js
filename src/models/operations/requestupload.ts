@@ -51,11 +51,7 @@ export type RequestUploadResponse = {
 
 /** @internal */
 export namespace Task$ {
-    export type Inbound = {
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
         })
@@ -82,14 +78,7 @@ export namespace Task$ {
 
 /** @internal */
 export namespace RequestUploadData$ {
-    export type Inbound = {
-        url: string;
-        tusEndpoint: string;
-        asset: components.Asset$.Inbound;
-        task: Task$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<RequestUploadData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RequestUploadData, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string(),
             tusEndpoint: z.string(),
@@ -131,15 +120,7 @@ export namespace RequestUploadData$ {
 
 /** @internal */
 export namespace RequestUploadResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: RequestUploadData$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<RequestUploadResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RequestUploadResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

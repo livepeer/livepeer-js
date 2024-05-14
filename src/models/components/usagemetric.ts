@@ -35,15 +35,7 @@ export type UsageMetric = {
 
 /** @internal */
 export namespace UsageMetric$ {
-    export type Inbound = {
-        UserID?: string | undefined;
-        CreatorID?: string | undefined;
-        DeliveryUsageMins?: number | undefined;
-        TotalUsageMins?: number | undefined;
-        StorageUsageMins?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UsageMetric, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UsageMetric, z.ZodTypeDef, unknown> = z
         .object({
             UserID: z.string().optional(),
             CreatorID: z.string().optional(),
