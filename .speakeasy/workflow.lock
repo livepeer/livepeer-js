@@ -1,6 +1,18 @@
 speakeasyVersion: 1.287.0
-sources: {}
-targets: {}
+sources:
+    livepeer-studio-api:
+        sourceNamespace: livepeer-studio-api
+        sourceRevisionDigest: sha256:8b9c80b91a7a85be56dee979d479ae7c2ba2ff1c69ee1de3743c7781d04574d1
+        sourceBlobDigest: sha256:87e907cb670cc88e16f41406b53dea12d873f17427498e7eb5bddaf36ddeb12c
+        tags:
+            - latest
+targets:
+    livepeer-ts:
+        source: livepeer-studio-api
+        sourceNamespace: livepeer-studio-api
+        sourceRevisionDigest: sha256:8b9c80b91a7a85be56dee979d479ae7c2ba2ff1c69ee1de3743c7781d04574d1
+        sourceBlobDigest: sha256:87e907cb670cc88e16f41406b53dea12d873f17427498e7eb5bddaf36ddeb12c
+        outLocation: .
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -8,6 +20,8 @@ workflow:
         livepeer-studio-api:
             inputs:
                 - location: https://raw.githubusercontent.com/livepeer/studio/sk/schema-fixes/packages/api/src/schema/api-schema.yaml
+            registry:
+                location: registry.speakeasyapi.dev/livepeer/livepeer-studio/livepeer-studio-api
     targets:
         livepeer-ts:
             target: typescript

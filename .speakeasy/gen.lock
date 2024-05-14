@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: bb6c31a417ba32274cdf8e510ac03851
+  docChecksum: 00bb67b4da79d0c7cf7adad96dcb5426
   docVersion: 1.0.0
   speakeasyVersion: 1.287.0
   generationVersion: 2.331.0
-  releaseVersion: 3.2.0
-  configChecksum: a7a83bafbaf74c13ee759d0dd9dad8fa
+  releaseVersion: 3.2.1
+  configChecksum: 6a2e6f22f40fc898c7caf5aa038adfb7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -460,6 +460,18 @@ generatedFiles:
   - docs/models/components/attestationstorage.md
   - docs/models/components/attestation.md
   - docs/models/components/security.md
+  - docs/sdks/livepeer/README.md
+  - docs/sdks/stream/README.md
+  - docs/sdks/multistream/README.md
+  - docs/sdks/webhook/README.md
+  - docs/sdks/asset/README.md
+  - docs/sdks/session/README.md
+  - docs/sdks/room/README.md
+  - docs/sdks/metrics/README.md
+  - docs/sdks/accesscontrol/README.md
+  - docs/sdks/task/README.md
+  - docs/sdks/transcode/README.md
+  - docs/sdks/playback/README.md
   - USAGE.md
   - .gitattributes
   - src/hooks/hooks.ts

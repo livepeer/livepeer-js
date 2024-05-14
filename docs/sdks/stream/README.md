@@ -40,7 +40,7 @@ also be added upon the creation of a new stream by adding
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { InputCreatorIdType, Profile, Type } from "livepeer/models/components";
+import { Profile, Type } from "livepeer/models/components";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -59,10 +59,6 @@ async function run() {
         lon: -104.988,
       },
     },
-  creatorId:     {
-        type: InputCreatorIdType.Unverified,
-        value: "<value>",
-      },
     playbackPolicy: {
       type: Type.Webhook,
       webhookId: "1bde4o2i6xycudoy",
@@ -75,7 +71,7 @@ async function run() {
       {
         width: 1280,
         name: "720p",
-        height: 489382,
+        height: 486589,
         bitrate: 3000000,
         fps: 30,
         fpsDen: 1,
@@ -97,9 +93,6 @@ async function run() {
           },
         },
       ],
-    },
-    userTags: {
-      "key": 8592.13,
     },
   });
 
@@ -142,9 +135,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const streamsonly = "<value>";
-  
-  const result = await livepeer.stream.getAll(streamsonly);
+  const result = await livepeer.stream.getAll("<value>");
 
   // Handle the result
   console.log(result)
@@ -185,9 +176,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.stream.get(id);
+  const result = await livepeer.stream.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -229,9 +218,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const streamPatchPayload = {
-  creatorId: "<value>",
+  const result = await livepeer.stream.update("<value>", {
     record: false,
     multistream: {
       targets: [
@@ -258,7 +245,7 @@ async function run() {
       {
         width: 1280,
         name: "720p",
-        height: 24555,
+        height: 857478,
         bitrate: 3000000,
         fps: 30,
         fpsDen: 1,
@@ -267,12 +254,7 @@ async function run() {
         profile: Profile.H264Baseline,
       },
     ],
-    userTags: {
-      "key": 156.52,
-    },
-  };
-  
-  const result = await livepeer.stream.update(id, streamPatchPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -318,9 +300,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.stream.delete(id);
+  const result = await livepeer.stream.delete("<value>");
 
   // Handle the result
   console.log(result)
@@ -369,9 +349,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.stream.terminate(id);
+  const result = await livepeer.stream.terminate("<value>");
 
   // Handle the result
   console.log(result)
@@ -419,9 +397,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.stream.startPull(id);
+  const result = await livepeer.stream.startPull("<value>");
 
   // Handle the result
   console.log(result)
@@ -509,9 +485,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.stream.getClips(id);
+  const result = await livepeer.stream.getClips("<value>");
 
   // Handle the result
   console.log(result)
@@ -552,8 +526,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const targetAddPayload = {
+  const result = await livepeer.stream.addMultistreamTarget("<value>", {
     profile: "720p0",
     videoOnly: false,
     id: "PUSH123",
@@ -561,9 +534,7 @@ async function run() {
       name: "My target",
       url: "rtmps://live.my-service.tv/channel/secretKey",
     },
-  };
-  
-  const result = await livepeer.stream.addMultistreamTarget(id, targetAddPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -605,10 +576,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const targetId = "<value>";
-  
-  const result = await livepeer.stream.removeMultistreamTarget(id, targetId);
+  const result = await livepeer.stream.removeMultistreamTarget("<value>", "<value>");
 
   // Handle the result
   console.log(result)

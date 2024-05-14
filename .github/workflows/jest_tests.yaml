@@ -32,7 +32,7 @@ jobs:
       run: npm run build --if-present
 
     - name: Run tests
-      run: npm test
+      run: npm run test
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2

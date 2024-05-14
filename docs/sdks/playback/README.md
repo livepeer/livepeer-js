@@ -23,9 +23,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.playback.get(id);
+  const result = await livepeer.playback.get("<value>");
 
   // Handle the result
   console.log(result)

@@ -64,9 +64,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const taskId = "<value>";
-  
-  const result = await livepeer.task.get(taskId);
+  const result = await livepeer.task.get("<value>");
 
   // Handle the result
   console.log(result)

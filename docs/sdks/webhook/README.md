@@ -74,11 +74,12 @@ const livepeer = new Livepeer({
 async function run() {
   const result = await livepeer.webhook.create({
     name: "test_webhook",
-    url: "https://my-service.com/webhook",
+    projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
       Events.StreamStarted,
       Events.StreamIdle,
     ],
+    url: "https://my-service.com/webhook",
     sharedSecret: "my-secret",
     streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
   });
@@ -94,7 +95,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.WebhookPayload](../../models/components/webhookpayload.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.WebhookInput](../../models/components/webhookinput.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
@@ -122,9 +123,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.webhook.get(id);
+  const result = await livepeer.webhook.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -166,19 +165,17 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const webhookPayload = {
+  const result = await livepeer.webhook.update("<value>", {
     name: "test_webhook",
-    url: "https://my-service.com/webhook",
+    projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
       Events.StreamStarted,
       Events.StreamIdle,
     ],
+    url: "https://my-service.com/webhook",
     sharedSecret: "my-secret",
     streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-  };
-  
-  const result = await livepeer.webhook.update(id, webhookPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -192,7 +189,7 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `id`                                                                                                                                                                           | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
-| `webhookPayload`                                                                                                                                                               | [components.WebhookPayload](../../models/components/webhookpayload.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `webhook`                                                                                                                                                                      | [components.WebhookInput](../../models/components/webhookinput.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
@@ -220,9 +217,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.webhook.delete(id);
+  const result = await livepeer.webhook.delete("<value>");
 
   // Handle the result
   console.log(result)
@@ -263,9 +258,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.webhook.getLogs(id);
+  const result = await livepeer.webhook.getLogs("<value>");
 
   // Handle the result
   console.log(result)
@@ -306,10 +299,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const logId = "<value>";
-  
-  const result = await livepeer.webhook.getLog(id, logId);
+  const result = await livepeer.webhook.getLog("<value>", "<value>");
 
   // Handle the result
   console.log(result)
@@ -354,10 +344,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const logId = "<value>";
-  
-  const result = await livepeer.webhook.resendLog(id, logId);
+  const result = await livepeer.webhook.resendLog("<value>", "<value>");
 
   // Handle the result
   console.log(result)

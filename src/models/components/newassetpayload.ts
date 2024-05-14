@@ -66,7 +66,7 @@ export type NewAssetPayload = {
      * Decides if the output video should include C2PA signature
      */
     c2pa?: boolean | undefined;
-    profiles?: Array<TranscodeProfile> | undefined;
+    profiles?: Array<TranscodeProfile> | null | undefined;
     /**
      * How many seconds the duration of each output segment should be
      */
@@ -184,7 +184,7 @@ export namespace NewAssetPayload$ {
             storage: z.lazy(() => NewAssetPayloadStorage$.inboundSchema).optional(),
             encryption: z.lazy(() => NewAssetPayloadEncryption$.inboundSchema).optional(),
             c2pa: z.boolean().optional(),
-            profiles: z.array(TranscodeProfile$.inboundSchema).optional(),
+            profiles: z.nullable(z.array(TranscodeProfile$.inboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
         })
         .transform((v) => {
@@ -213,7 +213,7 @@ export namespace NewAssetPayload$ {
         storage?: NewAssetPayloadStorage$.Outbound | undefined;
         encryption?: NewAssetPayloadEncryption$.Outbound | undefined;
         c2pa?: boolean | undefined;
-        profiles?: Array<TranscodeProfile$.Outbound> | undefined;
+        profiles?: Array<TranscodeProfile$.Outbound> | null | undefined;
         targetSegmentSizeSecs?: number | undefined;
     };
 
@@ -227,7 +227,7 @@ export namespace NewAssetPayload$ {
             storage: z.lazy(() => NewAssetPayloadStorage$.outboundSchema).optional(),
             encryption: z.lazy(() => NewAssetPayloadEncryption$.outboundSchema).optional(),
             c2pa: z.boolean().optional(),
-            profiles: z.array(TranscodeProfile$.outboundSchema).optional(),
+            profiles: z.nullable(z.array(TranscodeProfile$.outboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
         })
         .transform((v) => {

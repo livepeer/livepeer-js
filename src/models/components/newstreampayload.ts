@@ -25,7 +25,7 @@ export type NewStreamPayload = {
      * Whether the playback policy for a asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
-    profiles?: Array<FfmpegProfile> | undefined;
+    profiles?: Array<FfmpegProfile> | null | undefined;
     /**
      * Should this stream be recorded? Uses default settings. For more
      *
@@ -49,7 +49,7 @@ export namespace NewStreamPayload$ {
             pull: Pull$.inboundSchema.optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.inboundSchema)).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.inboundSchema.optional(),
             userTags: z.record(UserTags$.inboundSchema).optional(),
@@ -72,7 +72,7 @@ export namespace NewStreamPayload$ {
         pull?: Pull$.Outbound | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
-        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+        profiles?: Array<FfmpegProfile$.Outbound> | null | undefined;
         record?: boolean | undefined;
         multistream?: Multistream$.Outbound | undefined;
         userTags?: Record<string, UserTags$.Outbound> | undefined;
@@ -84,7 +84,7 @@ export namespace NewStreamPayload$ {
             pull: Pull$.outboundSchema.optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.outboundSchema)).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.outboundSchema.optional(),
             userTags: z.record(UserTags$.outboundSchema).optional(),

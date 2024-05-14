@@ -28,7 +28,7 @@ export type StreamPatchPayload = {
      * Whether the playback policy for a asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
-    profiles?: Array<FfmpegProfile> | undefined;
+    profiles?: Array<FfmpegProfile> | null | undefined;
     /**
      * User input tags associated with the stream
      */
@@ -44,7 +44,7 @@ export namespace StreamPatchPayload$ {
             suspended: z.boolean().optional(),
             multistream: Multistream$.inboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.inboundSchema)).optional(),
             userTags: z.record(UserTags$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -65,7 +65,7 @@ export namespace StreamPatchPayload$ {
         suspended?: boolean | undefined;
         multistream?: Multistream$.Outbound | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
-        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+        profiles?: Array<FfmpegProfile$.Outbound> | null | undefined;
         userTags?: Record<string, UserTags$.Outbound> | undefined;
     };
 
@@ -76,7 +76,7 @@ export namespace StreamPatchPayload$ {
             suspended: z.boolean().optional(),
             multistream: Multistream$.outboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.outboundSchema)).optional(),
             userTags: z.record(UserTags$.outboundSchema).optional(),
         })
         .transform((v) => {

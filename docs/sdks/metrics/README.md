@@ -21,20 +21,13 @@ Requires a private (non-CORS) API key to be used.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { BreakdownBy } from "livepeer/models/operations";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await livepeer.metrics.getViewership({
-  from: 980301,
-  to: 366854,
-    breakdownBy: [
-      BreakdownBy.PlaybackId,
-    ],
-  });
+  const result = await livepeer.metrics.getViewership({});
 
   // Handle the result
   console.log(result)
@@ -70,20 +63,13 @@ Requires a proof of ownership to be sent in the request, which for now is just t
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { QueryParamBreakdownBy } from "livepeer/models/operations";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await livepeer.metrics.getCreatorViewership({
-  from: new Date("2022-06-17T03:28:06.363Z"),
-  to: 702371,
-    breakdownBy: [
-      QueryParamBreakdownBy.DeviceType,
-    ],
-  });
+  const result = await livepeer.metrics.getCreatorViewership({});
 
   // Handle the result
   console.log(result)
@@ -127,9 +113,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const playbackId = "<value>";
-  
-  const result = await livepeer.metrics.getPublicViewership(playbackId);
+  const result = await livepeer.metrics.getPublicViewership("<value>");
 
   // Handle the result
   console.log(result)
@@ -171,12 +155,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const from = 224089;
-  const to = 231125;
-  const timeStep = GetUsageMetricsQueryParamTimeStep.Day;
-  const creatorId = "<value>";
-  
-  const result = await livepeer.metrics.getUsage(from, to, timeStep, creatorId);
+  const result = await livepeer.metrics.getUsage(224089, 231125, GetUsageMetricsQueryParamTimeStep.Day, "<value>");
 
   // Handle the result
   console.log(result)
