@@ -91,20 +91,29 @@ export type Attestation = {
 };
 
 /** @internal */
-export const PrimaryType$: z.ZodNativeEnum<typeof PrimaryType> = z.nativeEnum(PrimaryType);
+export namespace PrimaryType$ {
+    export const inboundSchema = z.nativeEnum(PrimaryType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Name$: z.ZodNativeEnum<typeof Name> = z.nativeEnum(Name);
+export namespace Name$ {
+    export const inboundSchema = z.nativeEnum(Name);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Version$: z.ZodNativeEnum<typeof Version> = z.nativeEnum(Version);
+export namespace Version$ {
+    export const inboundSchema = z.nativeEnum(Version);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Domain$ {
     export const inboundSchema: z.ZodType<Domain, z.ZodTypeDef, unknown> = z
         .object({
-            name: Name$,
-            version: Version$,
+            name: Name$.inboundSchema,
+            version: Version$.inboundSchema,
         })
         .transform((v) => {
             return {
@@ -114,14 +123,14 @@ export namespace Domain$ {
         });
 
     export type Outbound = {
-        name: Name;
-        version: Version;
+        name: string;
+        version: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Domain> = z
         .object({
-            name: Name$,
-            version: Version$,
+            name: Name$.outboundSchema,
+            version: Version$.outboundSchema,
         })
         .transform((v) => {
             return {
@@ -206,7 +215,10 @@ export namespace Message$ {
 }
 
 /** @internal */
-export const SignatureType$: z.ZodNativeEnum<typeof SignatureType> = z.nativeEnum(SignatureType);
+export namespace SignatureType$ {
+    export const inboundSchema = z.nativeEnum(SignatureType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace AttestationIpfs$ {
@@ -277,12 +289,12 @@ export namespace Attestation$ {
     export const inboundSchema: z.ZodType<Attestation, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
-            primaryType: PrimaryType$,
+            primaryType: PrimaryType$.inboundSchema,
             domain: z.lazy(() => Domain$.inboundSchema),
             message: z.lazy(() => Message$.inboundSchema),
             signature: z.string(),
             createdAt: z.number().optional(),
-            signatureType: SignatureType$.optional(),
+            signatureType: SignatureType$.inboundSchema.optional(),
             storage: z.lazy(() => AttestationStorage$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -300,24 +312,24 @@ export namespace Attestation$ {
 
     export type Outbound = {
         id?: string | undefined;
-        primaryType: PrimaryType;
+        primaryType: string;
         domain: Domain$.Outbound;
         message: Message$.Outbound;
         signature: string;
         createdAt?: number | undefined;
-        signatureType?: SignatureType | undefined;
+        signatureType?: string | undefined;
         storage?: AttestationStorage$.Outbound | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Attestation> = z
         .object({
             id: z.string().optional(),
-            primaryType: PrimaryType$,
+            primaryType: PrimaryType$.outboundSchema,
             domain: z.lazy(() => Domain$.outboundSchema),
             message: z.lazy(() => Message$.outboundSchema),
             signature: z.string(),
             createdAt: z.number().optional(),
-            signatureType: SignatureType$.optional(),
+            signatureType: SignatureType$.outboundSchema.optional(),
             storage: z.lazy(() => AttestationStorage$.outboundSchema).optional(),
         })
         .transform((v) => {

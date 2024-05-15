@@ -27,10 +27,6 @@ export type SigningKey = {
      * Disable the signing key to allow rotation safely
      */
     disabled?: boolean | undefined;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
 };
 
 /** @internal */
@@ -44,7 +40,6 @@ export namespace SigningKey$ {
             lastSeen: z.number().optional(),
             publicKey: z.string(),
             disabled: z.boolean().optional(),
-            projectId: z.string().optional(),
         })
         .transform((v) => {
             return {
@@ -55,7 +50,6 @@ export namespace SigningKey$ {
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 publicKey: v.publicKey,
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
             };
         });
 
@@ -67,7 +61,6 @@ export namespace SigningKey$ {
         lastSeen?: number | undefined;
         publicKey: string;
         disabled?: boolean | undefined;
-        projectId?: string | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, SigningKey> = z
@@ -79,7 +72,6 @@ export namespace SigningKey$ {
             lastSeen: z.number().optional(),
             publicKey: z.string(),
             disabled: z.boolean().optional(),
-            projectId: z.string().optional(),
         })
         .transform((v) => {
             return {
@@ -90,7 +82,6 @@ export namespace SigningKey$ {
                 ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
                 publicKey: v.publicKey,
                 ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
             };
         });
 }

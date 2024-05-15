@@ -64,10 +64,6 @@ export type Session = {
      */
     parentId?: string | undefined;
     /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
-    /**
      * Whether the stream should be recorded. Uses default settings. For more customization, create and configure an object store.
      *
      * @remarks
@@ -94,8 +90,10 @@ export type Session = {
 };
 
 /** @internal */
-export const RecordingStatus$: z.ZodNativeEnum<typeof RecordingStatus> =
-    z.nativeEnum(RecordingStatus);
+export namespace RecordingStatus$ {
+    export const inboundSchema = z.nativeEnum(RecordingStatus);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Session$ {
@@ -118,9 +116,8 @@ export namespace Session$ {
             issues: z.nullable(z.array(z.string())).optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
-            projectId: z.string().optional(),
             record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.optional(),
+            recordingStatus: RecordingStatus$.inboundSchema.optional(),
             recordingUrl: z.string().optional(),
             mp4Url: z.string().optional(),
             playbackId: z.string().optional(),
@@ -153,7 +150,6 @@ export namespace Session$ {
                 ...(v.issues === undefined ? null : { issues: v.issues }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.record === undefined ? null : { record: v.record }),
                 ...(v.recordingStatus === undefined
                     ? null
@@ -183,9 +179,8 @@ export namespace Session$ {
         issues?: Array<string> | null | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
-        projectId?: string | undefined;
         record?: boolean | undefined;
-        recordingStatus?: RecordingStatus | undefined;
+        recordingStatus?: string | undefined;
         recordingUrl?: string | undefined;
         mp4Url?: string | undefined;
         playbackId?: string | undefined;
@@ -211,9 +206,8 @@ export namespace Session$ {
             issues: z.nullable(z.array(z.string())).optional(),
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
-            projectId: z.string().optional(),
             record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.optional(),
+            recordingStatus: RecordingStatus$.outboundSchema.optional(),
             recordingUrl: z.string().optional(),
             mp4Url: z.string().optional(),
             playbackId: z.string().optional(),
@@ -246,7 +240,6 @@ export namespace Session$ {
                 ...(v.issues === undefined ? null : { issues: v.issues }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.record === undefined ? null : { record: v.record }),
                 ...(v.recordingStatus === undefined
                     ? null

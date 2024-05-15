@@ -74,7 +74,6 @@ const livepeer = new Livepeer({
 async function run() {
   const result = await livepeer.webhook.create({
     name: "test_webhook",
-    projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
       Events.StreamStarted,
       Events.StreamIdle,
@@ -167,7 +166,6 @@ const livepeer = new Livepeer({
 async function run() {
   const result = await livepeer.webhook.update("<value>", {
     name: "test_webhook",
-    projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
       Events.StreamStarted,
       Events.StreamIdle,

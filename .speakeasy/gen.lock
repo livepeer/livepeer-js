@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: 00bb67b4da79d0c7cf7adad96dcb5426
+  docChecksum: c6cd3eedbf5e01595a0c3fbecba26c2d
   docVersion: 1.0.0
-  speakeasyVersion: 1.287.0
-  generationVersion: 2.331.0
-  releaseVersion: 3.2.1
-  configChecksum: 6a2e6f22f40fc898c7caf5aa038adfb7
+  speakeasyVersion: 1.290.1
+  generationVersion: 2.332.4
+  releaseVersion: 3.2.2
+  configChecksum: 24a4bebf98b9758abcccdef5853258a4
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -57,6 +57,7 @@ generatedFiles:
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/types/blobs.ts
+  - src/types/enums.ts
   - src/types/index.ts
   - src/types/operations.ts
   - src/types/rfcdate.ts
@@ -218,6 +219,8 @@ generatedFiles:
   - docs/models/operations/task.md
   - docs/models/operations/requestuploaddata.md
   - docs/models/operations/requestuploadresponse.md
+  - docs/models/operations/uploadassetassettask.md
+  - docs/models/operations/uploadassetdataoutput.md
   - docs/models/operations/uploadassettask.md
   - docs/models/operations/uploadassetdata.md
   - docs/models/operations/uploadassetresponse.md

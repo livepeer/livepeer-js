@@ -79,10 +79,6 @@ export type Webhook = {
      */
     userId?: string | undefined;
     /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
-    /**
      * Timestamp (in milliseconds) at which stream object was created
      */
     createdAt?: number | undefined;
@@ -100,10 +96,6 @@ export type Webhook = {
 
 export type WebhookInput = {
     name: string;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
     events?: Array<Events> | undefined;
     url: string;
     /**
@@ -117,7 +109,10 @@ export type WebhookInput = {
 };
 
 /** @internal */
-export const Events$: z.ZodNativeEnum<typeof Events> = z.nativeEnum(Events);
+export namespace Events$ {
+    export const inboundSchema = z.nativeEnum(Events);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace LastFailure$ {
@@ -205,9 +200,8 @@ export namespace Webhook$ {
             name: z.string(),
             kind: z.string().optional(),
             userId: z.string().optional(),
-            projectId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(Events$.inboundSchema).optional(),
             url: z.string(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.inboundSchema).optional(),
@@ -218,7 +212,6 @@ export namespace Webhook$ {
                 name: v.name,
                 ...(v.kind === undefined ? null : { kind: v.kind }),
                 ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
@@ -232,9 +225,8 @@ export namespace Webhook$ {
         name: string;
         kind?: string | undefined;
         userId?: string | undefined;
-        projectId?: string | undefined;
         createdAt?: number | undefined;
-        events?: Array<Events> | undefined;
+        events?: Array<string> | undefined;
         url: string;
         streamId?: string | undefined;
         status?: Status$.Outbound | undefined;
@@ -246,9 +238,8 @@ export namespace Webhook$ {
             name: z.string(),
             kind: z.string().optional(),
             userId: z.string().optional(),
-            projectId: z.string().optional(),
             createdAt: z.number().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(Events$.outboundSchema).optional(),
             url: z.string(),
             streamId: z.string().optional(),
             status: z.lazy(() => Status$.outboundSchema).optional(),
@@ -259,7 +250,6 @@ export namespace Webhook$ {
                 name: v.name,
                 ...(v.kind === undefined ? null : { kind: v.kind }),
                 ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
@@ -274,8 +264,7 @@ export namespace WebhookInput$ {
     export const inboundSchema: z.ZodType<WebhookInput, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
-            projectId: z.string().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(Events$.inboundSchema).optional(),
             url: z.string(),
             sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
@@ -283,7 +272,6 @@ export namespace WebhookInput$ {
         .transform((v) => {
             return {
                 name: v.name,
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
                 ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
@@ -293,8 +281,7 @@ export namespace WebhookInput$ {
 
     export type Outbound = {
         name: string;
-        projectId?: string | undefined;
-        events?: Array<Events> | undefined;
+        events?: Array<string> | undefined;
         url: string;
         sharedSecret?: string | undefined;
         streamId?: string | undefined;
@@ -303,8 +290,7 @@ export namespace WebhookInput$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookInput> = z
         .object({
             name: z.string(),
-            projectId: z.string().optional(),
-            events: z.array(Events$).optional(),
+            events: z.array(Events$.outboundSchema).optional(),
             url: z.string(),
             sharedSecret: z.string().optional(),
             streamId: z.string().optional(),
@@ -312,7 +298,6 @@ export namespace WebhookInput$ {
         .transform((v) => {
             return {
                 name: v.name,
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.events === undefined ? null : { events: v.events }),
                 url: v.url,
                 ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),

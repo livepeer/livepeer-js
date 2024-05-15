@@ -1,6 +1,6 @@
 # UploadAssetData
 
-Success
+Import in progress
 
 
 ## Fields

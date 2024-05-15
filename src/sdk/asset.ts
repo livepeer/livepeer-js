@@ -260,7 +260,7 @@ export class Asset extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
+        if (this.matchResponse(response, 201, "application/json")) {
             const responseBody = await response.json();
             const result = schemas$.parse(
                 responseBody,
@@ -365,7 +365,20 @@ export class Asset extends ClientSDK {
                 (val$) => {
                     return operations.UploadAssetResponse$.inboundSchema.parse({
                         ...responseFields$,
-                        data: val$,
+                        "200_application/json_data": val$,
+                    });
+                },
+                "Response validation failed"
+            );
+            return result;
+        } else if (this.matchResponse(response, 201, "application/json")) {
+            const responseBody = await response.json();
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return operations.UploadAssetResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        "201_application/json_data": val$,
                     });
                 },
                 "Response validation failed"

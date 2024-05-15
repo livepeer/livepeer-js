@@ -163,11 +163,7 @@ export type Stream = {
      * Whether the playback policy for a asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
-    profiles?: Array<FfmpegProfile> | null | undefined;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
+    profiles?: Array<FfmpegProfile> | undefined;
     /**
      * Should this stream be recorded? Uses default settings. For more
      *
@@ -223,7 +219,10 @@ export namespace StreamUserTags$ {
 }
 
 /** @internal */
-export const StreamIsMobile$: z.ZodNativeEnum<typeof StreamIsMobile> = z.nativeEnum(StreamIsMobile);
+export namespace StreamIsMobile$ {
+    export const inboundSchema = z.nativeEnum(StreamIsMobile);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace StreamLocation$ {
@@ -263,7 +262,7 @@ export namespace StreamPull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: StreamIsMobile$.default(StreamIsMobile.Zero),
+            isMobile: StreamIsMobile$.inboundSchema.default(StreamIsMobile.Zero),
             location: z.lazy(() => StreamLocation$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -278,7 +277,7 @@ export namespace StreamPull$ {
     export type Outbound = {
         source: string;
         headers?: Record<string, string> | undefined;
-        isMobile: StreamIsMobile;
+        isMobile: number;
         location?: StreamLocation$.Outbound | undefined;
     };
 
@@ -286,7 +285,7 @@ export namespace StreamPull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: StreamIsMobile$.default(StreamIsMobile.Zero),
+            isMobile: StreamIsMobile$.outboundSchema.default(StreamIsMobile.Zero),
             location: z.lazy(() => StreamLocation$.outboundSchema).optional(),
         })
         .transform((v) => {
@@ -367,8 +366,7 @@ export namespace Stream$ {
             pull: z.lazy(() => StreamPull$.inboundSchema).optional(),
             playbackId: z.string().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            profiles: z.nullable(z.array(FfmpegProfile$.inboundSchema)).optional(),
-            projectId: z.string().optional(),
+            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: z.lazy(() => StreamMultistream$.inboundSchema).optional(),
             suspended: z.boolean().optional(),
@@ -413,7 +411,6 @@ export namespace Stream$ {
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
                 ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.record === undefined ? null : { record: v.record }),
                 ...(v.multistream === undefined ? null : { multistream: v.multistream }),
                 ...(v.suspended === undefined ? null : { suspended: v.suspended }),
@@ -450,8 +447,7 @@ export namespace Stream$ {
         pull?: StreamPull$.Outbound | undefined;
         playbackId?: string | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
-        profiles?: Array<FfmpegProfile$.Outbound> | null | undefined;
-        projectId?: string | undefined;
+        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
         record?: boolean | undefined;
         multistream?: StreamMultistream$.Outbound | undefined;
         suspended?: boolean | undefined;
@@ -490,8 +486,7 @@ export namespace Stream$ {
             pull: z.lazy(() => StreamPull$.outboundSchema).optional(),
             playbackId: z.string().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            profiles: z.nullable(z.array(FfmpegProfile$.outboundSchema)).optional(),
-            projectId: z.string().optional(),
+            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: z.lazy(() => StreamMultistream$.outboundSchema).optional(),
             suspended: z.boolean().optional(),
@@ -536,7 +531,6 @@ export namespace Stream$ {
                 ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
                 ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
                 ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
                 ...(v.record === undefined ? null : { record: v.record }),
                 ...(v.multistream === undefined ? null : { multistream: v.multistream }),
                 ...(v.suspended === undefined ? null : { suspended: v.suspended }),

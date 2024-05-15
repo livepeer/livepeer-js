@@ -83,25 +83,35 @@ export type PlaybackInfo = {
 };
 
 /** @internal */
-export const PlaybackInfoType$: z.ZodNativeEnum<typeof PlaybackInfoType> =
-    z.nativeEnum(PlaybackInfoType);
+export namespace PlaybackInfoType$ {
+    export const inboundSchema = z.nativeEnum(PlaybackInfoType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Live$: z.ZodNativeEnum<typeof Live> = z.nativeEnum(Live);
+export namespace Live$ {
+    export const inboundSchema = z.nativeEnum(Live);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Hrn$: z.ZodNativeEnum<typeof Hrn> = z.nativeEnum(Hrn);
+export namespace Hrn$ {
+    export const inboundSchema = z.nativeEnum(Hrn);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const PlaybackInfoSchemasType$: z.ZodNativeEnum<typeof PlaybackInfoSchemasType> =
-    z.nativeEnum(PlaybackInfoSchemasType);
+export namespace PlaybackInfoSchemasType$ {
+    export const inboundSchema = z.nativeEnum(PlaybackInfoSchemasType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace PlaybackInfoSource$ {
     export const inboundSchema: z.ZodType<PlaybackInfoSource, z.ZodTypeDef, unknown> = z
         .object({
-            hrn: Hrn$,
-            type: PlaybackInfoSchemasType$,
+            hrn: Hrn$.inboundSchema,
+            type: PlaybackInfoSchemasType$.inboundSchema,
             url: z.string(),
             size: z.number().optional(),
             width: z.number().optional(),
@@ -121,8 +131,8 @@ export namespace PlaybackInfoSource$ {
         });
 
     export type Outbound = {
-        hrn: Hrn;
-        type: PlaybackInfoSchemasType;
+        hrn: string;
+        type: string;
         url: string;
         size?: number | undefined;
         width?: number | undefined;
@@ -132,8 +142,8 @@ export namespace PlaybackInfoSource$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfoSource> = z
         .object({
-            hrn: Hrn$,
-            type: PlaybackInfoSchemasType$,
+            hrn: Hrn$.outboundSchema,
+            type: PlaybackInfoSchemasType$.outboundSchema,
             url: z.string(),
             size: z.number().optional(),
             width: z.number().optional(),
@@ -154,19 +164,23 @@ export namespace PlaybackInfoSource$ {
 }
 
 /** @internal */
-export const PlaybackInfoHrn$: z.ZodNativeEnum<typeof PlaybackInfoHrn> =
-    z.nativeEnum(PlaybackInfoHrn);
+export namespace PlaybackInfoHrn$ {
+    export const inboundSchema = z.nativeEnum(PlaybackInfoHrn);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const PlaybackInfoSchemasMetaType$: z.ZodNativeEnum<typeof PlaybackInfoSchemasMetaType> =
-    z.nativeEnum(PlaybackInfoSchemasMetaType);
+export namespace PlaybackInfoSchemasMetaType$ {
+    export const inboundSchema = z.nativeEnum(PlaybackInfoSchemasMetaType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace DvrPlayback$ {
     export const inboundSchema: z.ZodType<DvrPlayback, z.ZodTypeDef, unknown> = z
         .object({
-            hrn: PlaybackInfoHrn$.optional(),
-            type: PlaybackInfoSchemasMetaType$.optional(),
+            hrn: PlaybackInfoHrn$.inboundSchema.optional(),
+            type: PlaybackInfoSchemasMetaType$.inboundSchema.optional(),
             url: z.string().optional(),
             error: z.string().optional(),
         })
@@ -180,16 +194,16 @@ export namespace DvrPlayback$ {
         });
 
     export type Outbound = {
-        hrn?: PlaybackInfoHrn | undefined;
-        type?: PlaybackInfoSchemasMetaType | undefined;
+        hrn?: string | undefined;
+        type?: string | undefined;
         url?: string | undefined;
         error?: string | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, DvrPlayback> = z
         .object({
-            hrn: PlaybackInfoHrn$.optional(),
-            type: PlaybackInfoSchemasMetaType$.optional(),
+            hrn: PlaybackInfoHrn$.outboundSchema.optional(),
+            type: PlaybackInfoSchemasMetaType$.outboundSchema.optional(),
             url: z.string().optional(),
             error: z.string().optional(),
         })
@@ -207,7 +221,7 @@ export namespace DvrPlayback$ {
 export namespace Meta$ {
     export const inboundSchema: z.ZodType<Meta, z.ZodTypeDef, unknown> = z
         .object({
-            live: Live$.optional(),
+            live: Live$.inboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             source: z.array(z.lazy(() => PlaybackInfoSource$.inboundSchema)),
             dvrPlayback: z.array(z.lazy(() => DvrPlayback$.inboundSchema)).optional(),
@@ -224,7 +238,7 @@ export namespace Meta$ {
         });
 
     export type Outbound = {
-        live?: Live | undefined;
+        live?: number | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         source: Array<PlaybackInfoSource$.Outbound>;
         dvrPlayback?: Array<DvrPlayback$.Outbound> | undefined;
@@ -233,7 +247,7 @@ export namespace Meta$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Meta> = z
         .object({
-            live: Live$.optional(),
+            live: Live$.outboundSchema.optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             source: z.array(z.lazy(() => PlaybackInfoSource$.outboundSchema)),
             dvrPlayback: z.array(z.lazy(() => DvrPlayback$.outboundSchema)).optional(),
@@ -254,7 +268,7 @@ export namespace Meta$ {
 export namespace PlaybackInfo$ {
     export const inboundSchema: z.ZodType<PlaybackInfo, z.ZodTypeDef, unknown> = z
         .object({
-            type: PlaybackInfoType$,
+            type: PlaybackInfoType$.inboundSchema,
             meta: z.lazy(() => Meta$.inboundSchema),
         })
         .transform((v) => {
@@ -265,13 +279,13 @@ export namespace PlaybackInfo$ {
         });
 
     export type Outbound = {
-        type: PlaybackInfoType;
+        type: string;
         meta: Meta$.Outbound;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfo> = z
         .object({
-            type: PlaybackInfoType$,
+            type: PlaybackInfoType$.outboundSchema,
             meta: z.lazy(() => Meta$.outboundSchema),
         })
         .transform((v) => {

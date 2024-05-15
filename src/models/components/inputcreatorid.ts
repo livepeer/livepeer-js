@@ -16,14 +16,16 @@ export type One = {
 export type InputCreatorId = One | string;
 
 /** @internal */
-export const InputCreatorIdType$: z.ZodNativeEnum<typeof InputCreatorIdType> =
-    z.nativeEnum(InputCreatorIdType);
+export namespace InputCreatorIdType$ {
+    export const inboundSchema = z.nativeEnum(InputCreatorIdType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace One$ {
     export const inboundSchema: z.ZodType<One, z.ZodTypeDef, unknown> = z
         .object({
-            type: InputCreatorIdType$,
+            type: InputCreatorIdType$.inboundSchema,
             value: z.string(),
         })
         .transform((v) => {
@@ -34,13 +36,13 @@ export namespace One$ {
         });
 
     export type Outbound = {
-        type: InputCreatorIdType;
+        type: string;
         value: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, One> = z
         .object({
-            type: InputCreatorIdType$,
+            type: InputCreatorIdType$.outboundSchema,
             value: z.string(),
         })
         .transform((v) => {

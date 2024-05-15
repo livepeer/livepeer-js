@@ -38,10 +38,16 @@ export type FfmpegProfile = {
 };
 
 /** @internal */
-export const Profile$: z.ZodNativeEnum<typeof Profile> = z.nativeEnum(Profile);
+export namespace Profile$ {
+    export const inboundSchema = z.nativeEnum(Profile);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Encoder$: z.ZodNativeEnum<typeof Encoder> = z.nativeEnum(Encoder);
+export namespace Encoder$ {
+    export const inboundSchema = z.nativeEnum(Encoder);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace FfmpegProfile$ {
@@ -55,8 +61,8 @@ export namespace FfmpegProfile$ {
             fpsDen: z.number().int().optional(),
             quality: z.number().int().optional(),
             gop: z.string().optional(),
-            profile: Profile$.optional(),
-            encoder: Encoder$.optional(),
+            profile: Profile$.inboundSchema.optional(),
+            encoder: Encoder$.inboundSchema.optional(),
         })
         .transform((v) => {
             return {
@@ -82,8 +88,8 @@ export namespace FfmpegProfile$ {
         fpsDen?: number | undefined;
         quality?: number | undefined;
         gop?: string | undefined;
-        profile?: Profile | undefined;
-        encoder?: Encoder | undefined;
+        profile?: string | undefined;
+        encoder?: string | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, FfmpegProfile> = z
@@ -96,8 +102,8 @@ export namespace FfmpegProfile$ {
             fpsDen: z.number().int().optional(),
             quality: z.number().int().optional(),
             gop: z.string().optional(),
-            profile: Profile$.optional(),
-            encoder: Encoder$.optional(),
+            profile: Profile$.outboundSchema.optional(),
+            encoder: Encoder$.outboundSchema.optional(),
         })
         .transform((v) => {
             return {

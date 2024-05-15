@@ -72,9 +72,10 @@ export type GetUsageMetricsResponse = {
 };
 
 /** @internal */
-export const GetUsageMetricsQueryParamTimeStep$: z.ZodNativeEnum<
-    typeof GetUsageMetricsQueryParamTimeStep
-> = z.nativeEnum(GetUsageMetricsQueryParamTimeStep);
+export namespace GetUsageMetricsQueryParamTimeStep$ {
+    export const inboundSchema = z.nativeEnum(GetUsageMetricsQueryParamTimeStep);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace GetUsageMetricsRequest$ {
@@ -82,7 +83,7 @@ export namespace GetUsageMetricsRequest$ {
         .object({
             from: z.number().int().optional(),
             to: z.number().int().optional(),
-            timeStep: GetUsageMetricsQueryParamTimeStep$.optional(),
+            timeStep: GetUsageMetricsQueryParamTimeStep$.inboundSchema.optional(),
             creatorId: z.string().optional(),
         })
         .transform((v) => {
@@ -97,7 +98,7 @@ export namespace GetUsageMetricsRequest$ {
     export type Outbound = {
         from?: number | undefined;
         to?: number | undefined;
-        timeStep?: GetUsageMetricsQueryParamTimeStep | undefined;
+        timeStep?: string | undefined;
         creatorId?: string | undefined;
     };
 
@@ -105,7 +106,7 @@ export namespace GetUsageMetricsRequest$ {
         .object({
             from: z.number().int().optional(),
             to: z.number().int().optional(),
-            timeStep: GetUsageMetricsQueryParamTimeStep$.optional(),
+            timeStep: GetUsageMetricsQueryParamTimeStep$.outboundSchema.optional(),
             creatorId: z.string().optional(),
         })
         .transform((v) => {

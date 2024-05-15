@@ -432,17 +432,22 @@ export type AssetInput = {
 };
 
 /** @internal */
-export const AssetType$: z.ZodNativeEnum<typeof AssetType> = z.nativeEnum(AssetType);
+export namespace AssetType$ {
+    export const inboundSchema = z.nativeEnum(AssetType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const AssetSchemasSource3Type$: z.ZodNativeEnum<typeof AssetSchemasSource3Type> =
-    z.nativeEnum(AssetSchemasSource3Type);
+export namespace AssetSchemasSource3Type$ {
+    export const inboundSchema = z.nativeEnum(AssetSchemasSource3Type);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Asset3Output$ {
     export const inboundSchema: z.ZodType<Asset3Output, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasSource3Type$,
+            type: AssetSchemasSource3Type$.inboundSchema,
             encryption: EncryptionOutput$.inboundSchema.optional(),
             sourceId: z.string().optional(),
             sessionId: z.string().optional(),
@@ -463,7 +468,7 @@ export namespace Asset3Output$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasSource3Type;
+        type: string;
         encryption?: EncryptionOutput$.Outbound | undefined;
         sourceId?: string | undefined;
         sessionId?: string | undefined;
@@ -474,7 +479,7 @@ export namespace Asset3Output$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset3Output> = z
         .object({
-            type: AssetSchemasSource3Type$,
+            type: AssetSchemasSource3Type$.outboundSchema,
             encryption: EncryptionOutput$.outboundSchema.optional(),
             sourceId: z.string().optional(),
             sessionId: z.string().optional(),
@@ -496,14 +501,16 @@ export namespace Asset3Output$ {
 }
 
 /** @internal */
-export const AssetSchemasSourceType$: z.ZodNativeEnum<typeof AssetSchemasSourceType> =
-    z.nativeEnum(AssetSchemasSourceType);
+export namespace AssetSchemasSourceType$ {
+    export const inboundSchema = z.nativeEnum(AssetSchemasSourceType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Two$ {
     export const inboundSchema: z.ZodType<Two, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasSourceType$,
+            type: AssetSchemasSourceType$.inboundSchema,
             sessionId: z.string(),
         })
         .transform((v) => {
@@ -514,13 +521,13 @@ export namespace Two$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasSourceType;
+        type: string;
         sessionId: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Two> = z
         .object({
-            type: AssetSchemasSourceType$,
+            type: AssetSchemasSourceType$.outboundSchema,
             sessionId: z.string(),
         })
         .transform((v) => {
@@ -532,14 +539,16 @@ export namespace Two$ {
 }
 
 /** @internal */
-export const AssetSchemasType$: z.ZodNativeEnum<typeof AssetSchemasType> =
-    z.nativeEnum(AssetSchemasType);
+export namespace AssetSchemasType$ {
+    export const inboundSchema = z.nativeEnum(AssetSchemasType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Asset1Output$ {
     export const inboundSchema: z.ZodType<Asset1Output, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasType$,
+            type: AssetSchemasType$.inboundSchema,
             url: z.string(),
             gatewayUrl: z.string().optional(),
             encryption: EncryptionOutput$.inboundSchema.optional(),
@@ -554,7 +563,7 @@ export namespace Asset1Output$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasType;
+        type: string;
         url: string;
         gatewayUrl?: string | undefined;
         encryption?: EncryptionOutput$.Outbound | undefined;
@@ -562,7 +571,7 @@ export namespace Asset1Output$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset1Output> = z
         .object({
-            type: AssetSchemasType$,
+            type: AssetSchemasType$.outboundSchema,
             url: z.string(),
             gatewayUrl: z.string().optional(),
             encryption: EncryptionOutput$.outboundSchema.optional(),
@@ -594,8 +603,10 @@ export namespace AssetSource$ {
 }
 
 /** @internal */
-export const AssetNftMetadataTemplate$: z.ZodNativeEnum<typeof AssetNftMetadataTemplate> =
-    z.nativeEnum(AssetNftMetadataTemplate);
+export namespace AssetNftMetadataTemplate$ {
+    export const inboundSchema = z.nativeEnum(AssetNftMetadataTemplate);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace AssetNftMetadata$ {
@@ -610,7 +621,9 @@ export namespace AssetNftMetadata$ {
 export namespace AssetSpec$ {
     export const inboundSchema: z.ZodType<AssetSpec, z.ZodTypeDef, unknown> = z
         .object({
-            nftMetadataTemplate: AssetNftMetadataTemplate$.default(AssetNftMetadataTemplate.File),
+            nftMetadataTemplate: AssetNftMetadataTemplate$.inboundSchema.default(
+                AssetNftMetadataTemplate.File
+            ),
             nftMetadata: z.lazy(() => AssetNftMetadata$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -621,13 +634,15 @@ export namespace AssetSpec$ {
         });
 
     export type Outbound = {
-        nftMetadataTemplate: AssetNftMetadataTemplate;
+        nftMetadataTemplate: string;
         nftMetadata?: AssetNftMetadata$.Outbound | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetSpec> = z
         .object({
-            nftMetadataTemplate: AssetNftMetadataTemplate$.default(AssetNftMetadataTemplate.File),
+            nftMetadataTemplate: AssetNftMetadataTemplate$.outboundSchema.default(
+                AssetNftMetadataTemplate.File
+            ),
             nftMetadata: z.lazy(() => AssetNftMetadata$.outboundSchema).optional(),
         })
         .transform((v) => {
@@ -713,13 +728,16 @@ export namespace AssetStorage$ {
 }
 
 /** @internal */
-export const AssetPhase$: z.ZodNativeEnum<typeof AssetPhase> = z.nativeEnum(AssetPhase);
+export namespace AssetPhase$ {
+    export const inboundSchema = z.nativeEnum(AssetPhase);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace AssetStatus$ {
     export const inboundSchema: z.ZodType<AssetStatus, z.ZodTypeDef, unknown> = z
         .object({
-            phase: AssetPhase$,
+            phase: AssetPhase$.inboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -734,7 +752,7 @@ export namespace AssetStatus$ {
         });
 
     export type Outbound = {
-        phase: AssetPhase;
+        phase: string;
         updatedAt: number;
         progress?: number | undefined;
         errorMessage?: string | undefined;
@@ -742,7 +760,7 @@ export namespace AssetStatus$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetStatus> = z
         .object({
-            phase: AssetPhase$,
+            phase: AssetPhase$.outboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -790,14 +808,16 @@ export namespace Hash$ {
 }
 
 /** @internal */
-export const AssetSchemasVideoSpecType$: z.ZodNativeEnum<typeof AssetSchemasVideoSpecType> =
-    z.nativeEnum(AssetSchemasVideoSpecType);
+export namespace AssetSchemasVideoSpecType$ {
+    export const inboundSchema = z.nativeEnum(AssetSchemasVideoSpecType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Tracks$ {
     export const inboundSchema: z.ZodType<Tracks, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasVideoSpecType$,
+            type: AssetSchemasVideoSpecType$.inboundSchema,
             codec: z.string(),
             startTime: z.number().optional(),
             duration: z.number().optional(),
@@ -828,7 +848,7 @@ export namespace Tracks$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasVideoSpecType;
+        type: string;
         codec: string;
         startTime?: number | undefined;
         duration?: number | undefined;
@@ -844,7 +864,7 @@ export namespace Tracks$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Tracks> = z
         .object({
-            type: AssetSchemasVideoSpecType$,
+            type: AssetSchemasVideoSpecType$.outboundSchema,
             codec: z.string(),
             startTime: z.number().optional(),
             duration: z.number().optional(),
@@ -922,7 +942,7 @@ export namespace Asset$ {
     export const inboundSchema: z.ZodType<Asset, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
-            type: AssetType$.optional(),
+            type: AssetType$.inboundSchema.optional(),
             playbackId: z.string().optional(),
             userId: z.string().optional(),
             playbackUrl: z.string().optional(),
@@ -971,7 +991,7 @@ export namespace Asset$ {
 
     export type Outbound = {
         id: string;
-        type?: AssetType | undefined;
+        type?: string | undefined;
         playbackId?: string | undefined;
         userId?: string | undefined;
         playbackUrl?: string | undefined;
@@ -993,7 +1013,7 @@ export namespace Asset$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset> = z
         .object({
             id: z.string(),
-            type: AssetType$.optional(),
+            type: AssetType$.outboundSchema.optional(),
             playbackId: z.string().optional(),
             userId: z.string().optional(),
             playbackUrl: z.string().optional(),
@@ -1045,7 +1065,7 @@ export namespace Asset$ {
 export namespace Asset3$ {
     export const inboundSchema: z.ZodType<Asset3, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasSource3Type$,
+            type: AssetSchemasSource3Type$.inboundSchema,
             encryption: Encryption$.inboundSchema.optional(),
             sourceId: z.string().optional(),
             sessionId: z.string().optional(),
@@ -1066,7 +1086,7 @@ export namespace Asset3$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasSource3Type;
+        type: string;
         encryption?: Encryption$.Outbound | undefined;
         sourceId?: string | undefined;
         sessionId?: string | undefined;
@@ -1077,7 +1097,7 @@ export namespace Asset3$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset3> = z
         .object({
-            type: AssetSchemasSource3Type$,
+            type: AssetSchemasSource3Type$.outboundSchema,
             encryption: Encryption$.outboundSchema.optional(),
             sourceId: z.string().optional(),
             sessionId: z.string().optional(),
@@ -1102,7 +1122,7 @@ export namespace Asset3$ {
 export namespace Asset1$ {
     export const inboundSchema: z.ZodType<Asset1, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetSchemasType$,
+            type: AssetSchemasType$.inboundSchema,
             url: z.string(),
             gatewayUrl: z.string().optional(),
             encryption: Encryption$.inboundSchema.optional(),
@@ -1117,7 +1137,7 @@ export namespace Asset1$ {
         });
 
     export type Outbound = {
-        type: AssetSchemasType;
+        type: string;
         url: string;
         gatewayUrl?: string | undefined;
         encryption?: Encryption$.Outbound | undefined;
@@ -1125,7 +1145,7 @@ export namespace Asset1$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset1> = z
         .object({
-            type: AssetSchemasType$,
+            type: AssetSchemasType$.outboundSchema,
             url: z.string(),
             gatewayUrl: z.string().optional(),
             encryption: Encryption$.outboundSchema.optional(),
@@ -1224,7 +1244,7 @@ export namespace AssetStorageInput$ {
 export namespace AssetInput$ {
     export const inboundSchema: z.ZodType<AssetInput, z.ZodTypeDef, unknown> = z
         .object({
-            type: AssetType$.optional(),
+            type: AssetType$.inboundSchema.optional(),
             playbackId: z.string().optional(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
@@ -1255,7 +1275,7 @@ export namespace AssetInput$ {
         });
 
     export type Outbound = {
-        type?: AssetType | undefined;
+        type?: string | undefined;
         playbackId?: string | undefined;
         staticMp4?: boolean | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
@@ -1269,7 +1289,7 @@ export namespace AssetInput$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetInput> = z
         .object({
-            type: AssetType$.optional(),
+            type: AssetType$.outboundSchema.optional(),
             playbackId: z.string().optional(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),

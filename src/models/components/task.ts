@@ -399,7 +399,10 @@ export type Task = {
 };
 
 /** @internal */
-export const TaskType$: z.ZodNativeEnum<typeof TaskType> = z.nativeEnum(TaskType);
+export namespace TaskType$ {
+    export const inboundSchema = z.nativeEnum(TaskType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Upload$ {
@@ -742,8 +745,10 @@ export namespace ClipStrategy$ {
 }
 
 /** @internal */
-export const CatalystPipelineStrategy$: z.ZodNativeEnum<typeof CatalystPipelineStrategy> =
-    z.nativeEnum(CatalystPipelineStrategy);
+export namespace CatalystPipelineStrategy$ {
+    export const inboundSchema = z.nativeEnum(CatalystPipelineStrategy);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Clip$ {
@@ -751,7 +756,7 @@ export namespace Clip$ {
         .object({
             url: z.string().optional(),
             clipStrategy: z.lazy(() => ClipStrategy$.inboundSchema).optional(),
-            catalystPipelineStrategy: CatalystPipelineStrategy$.optional(),
+            catalystPipelineStrategy: CatalystPipelineStrategy$.inboundSchema.optional(),
             sessionId: z.string().optional(),
             inputId: z.string().optional(),
         })
@@ -770,7 +775,7 @@ export namespace Clip$ {
     export type Outbound = {
         url?: string | undefined;
         clipStrategy?: ClipStrategy$.Outbound | undefined;
-        catalystPipelineStrategy?: CatalystPipelineStrategy | undefined;
+        catalystPipelineStrategy?: string | undefined;
         sessionId?: string | undefined;
         inputId?: string | undefined;
     };
@@ -779,7 +784,7 @@ export namespace Clip$ {
         .object({
             url: z.string().optional(),
             clipStrategy: z.lazy(() => ClipStrategy$.outboundSchema).optional(),
-            catalystPipelineStrategy: CatalystPipelineStrategy$.optional(),
+            catalystPipelineStrategy: CatalystPipelineStrategy$.outboundSchema.optional(),
             sessionId: z.string().optional(),
             inputId: z.string().optional(),
         })
@@ -846,13 +851,16 @@ export namespace Params$ {
 }
 
 /** @internal */
-export const TaskPhase$: z.ZodNativeEnum<typeof TaskPhase> = z.nativeEnum(TaskPhase);
+export namespace TaskPhase$ {
+    export const inboundSchema = z.nativeEnum(TaskPhase);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace TaskStatus$ {
     export const inboundSchema: z.ZodType<TaskStatus, z.ZodTypeDef, unknown> = z
         .object({
-            phase: TaskPhase$,
+            phase: TaskPhase$.inboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -869,7 +877,7 @@ export namespace TaskStatus$ {
         });
 
     export type Outbound = {
-        phase: TaskPhase;
+        phase: string;
         updatedAt: number;
         progress?: number | undefined;
         errorMessage?: string | undefined;
@@ -878,7 +886,7 @@ export namespace TaskStatus$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TaskStatus> = z
         .object({
-            phase: TaskPhase$,
+            phase: TaskPhase$.outboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -1112,7 +1120,7 @@ export namespace Task$ {
     export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
-            type: TaskType$.optional(),
+            type: TaskType$.inboundSchema.optional(),
             createdAt: z.number().optional(),
             scheduledAt: z.number().optional(),
             inputAssetId: z.string().optional(),
@@ -1139,7 +1147,7 @@ export namespace Task$ {
 
     export type Outbound = {
         id?: string | undefined;
-        type?: TaskType | undefined;
+        type?: string | undefined;
         createdAt?: number | undefined;
         scheduledAt?: number | undefined;
         inputAssetId?: string | undefined;
@@ -1153,7 +1161,7 @@ export namespace Task$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Task> = z
         .object({
             id: z.string().optional(),
-            type: TaskType$.optional(),
+            type: TaskType$.outboundSchema.optional(),
             createdAt: z.number().optional(),
             scheduledAt: z.number().optional(),
             inputAssetId: z.string().optional(),

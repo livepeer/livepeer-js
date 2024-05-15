@@ -49,8 +49,10 @@ export type Spec = {
 };
 
 /** @internal */
-export const NftMetadataTemplate$: z.ZodNativeEnum<typeof NftMetadataTemplate> =
-    z.nativeEnum(NftMetadataTemplate);
+export namespace NftMetadataTemplate$ {
+    export const inboundSchema = z.nativeEnum(NftMetadataTemplate);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace NftMetadata$ {
@@ -65,7 +67,9 @@ export namespace NftMetadata$ {
 export namespace Spec$ {
     export const inboundSchema: z.ZodType<Spec, z.ZodTypeDef, unknown> = z
         .object({
-            nftMetadataTemplate: NftMetadataTemplate$.default(NftMetadataTemplate.File),
+            nftMetadataTemplate: NftMetadataTemplate$.inboundSchema.default(
+                NftMetadataTemplate.File
+            ),
             nftMetadata: z.lazy(() => NftMetadata$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -76,13 +80,15 @@ export namespace Spec$ {
         });
 
     export type Outbound = {
-        nftMetadataTemplate: NftMetadataTemplate;
+        nftMetadataTemplate: string;
         nftMetadata?: NftMetadata$.Outbound | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Spec> = z
         .object({
-            nftMetadataTemplate: NftMetadataTemplate$.default(NftMetadataTemplate.File),
+            nftMetadataTemplate: NftMetadataTemplate$.outboundSchema.default(
+                NftMetadataTemplate.File
+            ),
             nftMetadata: z.lazy(() => NftMetadata$.outboundSchema).optional(),
         })
         .transform((v) => {

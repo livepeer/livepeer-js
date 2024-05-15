@@ -66,7 +66,10 @@ export type Pull = {
 };
 
 /** @internal */
-export const IsMobile$: z.ZodNativeEnum<typeof IsMobile> = z.nativeEnum(IsMobile);
+export namespace IsMobile$ {
+    export const inboundSchema = z.nativeEnum(IsMobile);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Location$ {
@@ -106,7 +109,7 @@ export namespace Pull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: IsMobile$.default(IsMobile.Zero),
+            isMobile: IsMobile$.inboundSchema.default(IsMobile.Zero),
             location: z.lazy(() => Location$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -121,7 +124,7 @@ export namespace Pull$ {
     export type Outbound = {
         source: string;
         headers?: Record<string, string> | undefined;
-        isMobile: IsMobile;
+        isMobile: number;
         location?: Location$.Outbound | undefined;
     };
 
@@ -129,7 +132,7 @@ export namespace Pull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: IsMobile$.default(IsMobile.Zero),
+            isMobile: IsMobile$.outboundSchema.default(IsMobile.Zero),
             location: z.lazy(() => Location$.outboundSchema).optional(),
         })
         .transform((v) => {
