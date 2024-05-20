@@ -10,6 +10,9 @@ export type SigningKey = {
      * Name of the signing key
      */
     name?: string | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     userId?: string | undefined;
     /**
      * Timestamp (in milliseconds) at which the signing-key was created
@@ -28,17 +31,7 @@ export type SigningKey = {
 
 /** @internal */
 export namespace SigningKey$ {
-    export type Inbound = {
-        id?: string | undefined;
-        name?: string | undefined;
-        userId?: string | undefined;
-        createdAt?: number | undefined;
-        lastSeen?: number | undefined;
-        publicKey: string;
-        disabled?: boolean | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<SigningKey, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<SigningKey, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             name: z.string().optional(),

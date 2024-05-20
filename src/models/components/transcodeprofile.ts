@@ -41,29 +41,20 @@ export type TranscodeProfile = {
 };
 
 /** @internal */
-export const TranscodeProfileProfile$: z.ZodNativeEnum<typeof TranscodeProfileProfile> =
-    z.nativeEnum(TranscodeProfileProfile);
+export namespace TranscodeProfileProfile$ {
+    export const inboundSchema = z.nativeEnum(TranscodeProfileProfile);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const TranscodeProfileEncoder$: z.ZodNativeEnum<typeof TranscodeProfileEncoder> =
-    z.nativeEnum(TranscodeProfileEncoder);
+export namespace TranscodeProfileEncoder$ {
+    export const inboundSchema = z.nativeEnum(TranscodeProfileEncoder);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace TranscodeProfile$ {
-    export type Inbound = {
-        width?: number | undefined;
-        name?: string | undefined;
-        height?: number | undefined;
-        bitrate: number;
-        quality?: number | undefined;
-        fps?: number | undefined;
-        fpsDen?: number | undefined;
-        gop?: string | undefined;
-        profile?: TranscodeProfileProfile | undefined;
-        encoder?: TranscodeProfileEncoder | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, unknown> = z
         .object({
             width: z.number().int().optional(),
             name: z.string().optional(),
@@ -73,8 +64,8 @@ export namespace TranscodeProfile$ {
             fps: z.number().int().optional(),
             fpsDen: z.number().int().optional(),
             gop: z.string().optional(),
-            profile: TranscodeProfileProfile$.optional(),
-            encoder: TranscodeProfileEncoder$.optional(),
+            profile: TranscodeProfileProfile$.inboundSchema.optional(),
+            encoder: TranscodeProfileEncoder$.inboundSchema.optional(),
         })
         .transform((v) => {
             return {
@@ -100,8 +91,8 @@ export namespace TranscodeProfile$ {
         fps?: number | undefined;
         fpsDen?: number | undefined;
         gop?: string | undefined;
-        profile?: TranscodeProfileProfile | undefined;
-        encoder?: TranscodeProfileEncoder | undefined;
+        profile?: string | undefined;
+        encoder?: string | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodeProfile> = z
@@ -114,8 +105,8 @@ export namespace TranscodeProfile$ {
             fps: z.number().int().optional(),
             fpsDen: z.number().int().optional(),
             gop: z.string().optional(),
-            profile: TranscodeProfileProfile$.optional(),
-            encoder: TranscodeProfileEncoder$.optional(),
+            profile: TranscodeProfileProfile$.outboundSchema.optional(),
+            encoder: TranscodeProfileEncoder$.outboundSchema.optional(),
         })
         .transform((v) => {
             return {

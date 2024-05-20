@@ -68,14 +68,10 @@ export type GetPublicViewershipMetricsResponse = {
 
 /** @internal */
 export namespace GetPublicViewershipMetricsRequest$ {
-    export type Inbound = {
-        playbackId: string;
-    };
-
     export const inboundSchema: z.ZodType<
         GetPublicViewershipMetricsRequest,
         z.ZodTypeDef,
-        Inbound
+        unknown
     > = z
         .object({
             playbackId: z.string(),
@@ -107,14 +103,7 @@ export namespace GetPublicViewershipMetricsRequest$ {
 
 /** @internal */
 export namespace GetPublicViewershipMetricsData$ {
-    export type Inbound = {
-        playbackId?: string | undefined;
-        dStorageUrl?: string | undefined;
-        viewCount?: number | undefined;
-        playtimeMins?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetPublicViewershipMetricsData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetPublicViewershipMetricsData, z.ZodTypeDef, unknown> = z
         .object({
             playbackId: z.string().optional(),
             dStorageUrl: z.string().optional(),
@@ -157,18 +146,10 @@ export namespace GetPublicViewershipMetricsData$ {
 
 /** @internal */
 export namespace GetPublicViewershipMetricsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: GetPublicViewershipMetricsData$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
     export const inboundSchema: z.ZodType<
         GetPublicViewershipMetricsResponse,
         z.ZodTypeDef,
-        Inbound
+        unknown
     > = z
         .object({
             ContentType: z.string(),

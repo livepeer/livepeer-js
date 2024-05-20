@@ -113,16 +113,15 @@ export type GetViewershipMetricsResponse = {
 
 /** @internal */
 export namespace From$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<From, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<From, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, From> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -131,16 +130,15 @@ export namespace From$ {
 
 /** @internal */
 export namespace To$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<To, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<To, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, To> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -148,25 +146,20 @@ export namespace To$ {
 }
 
 /** @internal */
-export const TimeStep$: z.ZodNativeEnum<typeof TimeStep> = z.nativeEnum(TimeStep);
+export namespace TimeStep$ {
+    export const inboundSchema = z.nativeEnum(TimeStep);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const BreakdownBy$: z.ZodNativeEnum<typeof BreakdownBy> = z.nativeEnum(BreakdownBy);
+export namespace BreakdownBy$ {
+    export const inboundSchema = z.nativeEnum(BreakdownBy);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace GetViewershipMetricsRequest$ {
-    export type Inbound = {
-        playbackId?: string | undefined;
-        from?: string | number | undefined;
-        to?: string | number | undefined;
-        timeStep?: TimeStep | undefined;
-        assetId?: string | undefined;
-        streamId?: string | undefined;
-        creatorId?: string | undefined;
-        "breakdownBy[]"?: Array<BreakdownBy> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetViewershipMetricsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetViewershipMetricsRequest, z.ZodTypeDef, unknown> = z
         .object({
             playbackId: z.string().optional(),
             from: z
@@ -187,11 +180,11 @@ export namespace GetViewershipMetricsRequest$ {
                     z.number().int(),
                 ])
                 .optional(),
-            timeStep: TimeStep$.optional(),
+            timeStep: TimeStep$.inboundSchema.optional(),
             assetId: z.string().optional(),
             streamId: z.string().optional(),
             creatorId: z.string().optional(),
-            "breakdownBy[]": z.array(BreakdownBy$).optional(),
+            "breakdownBy[]": z.array(BreakdownBy$.inboundSchema).optional(),
         })
         .transform((v) => {
             return {
@@ -210,11 +203,11 @@ export namespace GetViewershipMetricsRequest$ {
         playbackId?: string | undefined;
         from?: string | number | undefined;
         to?: string | number | undefined;
-        timeStep?: TimeStep | undefined;
+        timeStep?: string | undefined;
         assetId?: string | undefined;
         streamId?: string | undefined;
         creatorId?: string | undefined;
-        "breakdownBy[]"?: Array<BreakdownBy> | undefined;
+        "breakdownBy[]"?: Array<string> | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetViewershipMetricsRequest> = z
@@ -224,11 +217,11 @@ export namespace GetViewershipMetricsRequest$ {
                 .union([z.date().transform((v) => v.toISOString()), z.number().int()])
                 .optional(),
             to: z.union([z.date().transform((v) => v.toISOString()), z.number().int()]).optional(),
-            timeStep: TimeStep$.optional(),
+            timeStep: TimeStep$.outboundSchema.optional(),
             assetId: z.string().optional(),
             streamId: z.string().optional(),
             creatorId: z.string().optional(),
-            breakdownBy: z.array(BreakdownBy$).optional(),
+            breakdownBy: z.array(BreakdownBy$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
@@ -246,15 +239,7 @@ export namespace GetViewershipMetricsRequest$ {
 
 /** @internal */
 export namespace GetViewershipMetricsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.ViewershipMetric$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetViewershipMetricsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetViewershipMetricsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

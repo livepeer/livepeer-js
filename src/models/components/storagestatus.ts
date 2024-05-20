@@ -55,17 +55,14 @@ export type StorageStatus = {
 };
 
 /** @internal */
-export const Phase$: z.ZodNativeEnum<typeof Phase> = z.nativeEnum(Phase);
+export namespace Phase$ {
+    export const inboundSchema = z.nativeEnum(Phase);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Tasks$ {
-    export type Inbound = {
-        pending?: string | undefined;
-        last?: string | undefined;
-        failed?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z
         .object({
             pending: z.string().optional(),
             last: z.string().optional(),
@@ -102,16 +99,9 @@ export namespace Tasks$ {
 
 /** @internal */
 export namespace StorageStatus$ {
-    export type Inbound = {
-        phase: Phase;
-        progress?: number | undefined;
-        errorMessage?: string | undefined;
-        tasks: Tasks$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, unknown> = z
         .object({
-            phase: Phase$,
+            phase: Phase$.inboundSchema,
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
             tasks: z.lazy(() => Tasks$.inboundSchema),
@@ -126,7 +116,7 @@ export namespace StorageStatus$ {
         });
 
     export type Outbound = {
-        phase: Phase;
+        phase: string;
         progress?: number | undefined;
         errorMessage?: string | undefined;
         tasks: Tasks$.Outbound;
@@ -134,7 +124,7 @@ export namespace StorageStatus$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StorageStatus> = z
         .object({
-            phase: Phase$,
+            phase: Phase$.outboundSchema,
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
             tasks: z.lazy(() => Tasks$.outboundSchema),

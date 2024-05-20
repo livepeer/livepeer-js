@@ -24,8 +24,8 @@ export type NewStreamPayload = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
-    profiles?: Array<FfmpegProfile> | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
+    profiles?: Array<FfmpegProfile> | null | undefined;
     /**
      * Should this stream be recorded? Uses default settings. For more
      *
@@ -38,29 +38,18 @@ export type NewStreamPayload = {
     /**
      * User input tags associated with the stream
      */
-    userTags?: Record<string, UserTags> | undefined;
+    userTags?: { [k: string]: UserTags } | undefined;
 };
 
 /** @internal */
 export namespace NewStreamPayload$ {
-    export type Inbound = {
-        name: string;
-        pull?: Pull$.Inbound | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        profiles?: Array<FfmpegProfile$.Inbound> | undefined;
-        record?: boolean | undefined;
-        multistream?: Multistream$.Inbound | undefined;
-        userTags?: Record<string, UserTags$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewStreamPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewStreamPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
             pull: Pull$.inboundSchema.optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
-            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.inboundSchema)).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.inboundSchema.optional(),
             userTags: z.record(UserTags$.inboundSchema).optional(),
@@ -82,11 +71,11 @@ export namespace NewStreamPayload$ {
         name: string;
         pull?: Pull$.Outbound | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
-        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
+        profiles?: Array<FfmpegProfile$.Outbound> | null | undefined;
         record?: boolean | undefined;
         multistream?: Multistream$.Outbound | undefined;
-        userTags?: Record<string, UserTags$.Outbound> | undefined;
+        userTags?: { [k: string]: UserTags$.Outbound } | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewStreamPayload> = z
@@ -94,8 +83,8 @@ export namespace NewStreamPayload$ {
             name: z.string(),
             pull: Pull$.outboundSchema.optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
-            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
+            profiles: z.nullable(z.array(FfmpegProfile$.outboundSchema)).optional(),
             record: z.boolean().optional(),
             multistream: Multistream$.outboundSchema.optional(),
             userTags: z.record(UserTags$.outboundSchema).optional(),

@@ -68,7 +68,6 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.multistream.create({
-    userId: "66E2161C-7670-4D05-B71D-DA2D6979556F",
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
 
@@ -111,9 +110,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.multistream.get(id);
+  const result = await livepeer.multistream.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -154,13 +151,9 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const multistreamTargetPatchPayload = {
-    userId: "66E2161C-7670-4D05-B71D-DA2D6979556F",
+  const result = await livepeer.multistream.update("<value>", {
     url: "rtmps://live.my-service.tv/channel/secretKey",
-  };
-  
-  const result = await livepeer.multistream.update(id, multistreamTargetPatchPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -204,9 +197,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.multistream.delete(id);
+  const result = await livepeer.multistream.delete("<value>");
 
   // Handle the result
   console.log(result)

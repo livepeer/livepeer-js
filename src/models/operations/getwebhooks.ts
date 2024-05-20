@@ -31,15 +31,7 @@ export type GetWebhooksResponse = {
 
 /** @internal */
 export namespace GetWebhooksResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.Webhook$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetWebhooksResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetWebhooksResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

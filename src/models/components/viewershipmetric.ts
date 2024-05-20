@@ -117,32 +117,7 @@ export type ViewershipMetric = {
 
 /** @internal */
 export namespace ViewershipMetric$ {
-    export type Inbound = {
-        playbackId?: string | undefined;
-        creatorId?: string | undefined;
-        viewerId?: string | undefined;
-        dStorageUrl?: string | undefined;
-        timestamp?: number | undefined;
-        device?: string | undefined;
-        deviceType?: string | undefined;
-        cpu?: string | undefined;
-        os?: string | undefined;
-        browser?: string | undefined;
-        browserEngine?: string | undefined;
-        continent?: string | undefined;
-        country?: string | undefined;
-        subdivision?: string | undefined;
-        timezone?: string | undefined;
-        geohash?: string | undefined;
-        viewCount: number;
-        playtimeMins: number;
-        ttffMs?: number | undefined;
-        rebufferRatio?: number | undefined;
-        errorRate?: number | undefined;
-        exitsBeforeStart?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ViewershipMetric, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ViewershipMetric, z.ZodTypeDef, unknown> = z
         .object({
             playbackId: z.string().optional(),
             creatorId: z.string().optional(),

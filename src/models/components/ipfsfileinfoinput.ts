@@ -13,11 +13,7 @@ export type IpfsFileInfoInput = {
 
 /** @internal */
 export namespace IpfsFileInfoInput$ {
-    export type Inbound = {
-        cid: string;
-    };
-
-    export const inboundSchema: z.ZodType<IpfsFileInfoInput, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<IpfsFileInfoInput, z.ZodTypeDef, unknown> = z
         .object({
             cid: z.string(),
         })

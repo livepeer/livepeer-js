@@ -31,15 +31,7 @@ export type CreateStreamResponse = {
 
 /** @internal */
 export namespace CreateStreamResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        stream?: components.Stream$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateStreamResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateStreamResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

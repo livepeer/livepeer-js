@@ -31,15 +31,7 @@ export type GetTasksResponse = {
 
 /** @internal */
 export namespace GetTasksResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.Task$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetTasksResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetTasksResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

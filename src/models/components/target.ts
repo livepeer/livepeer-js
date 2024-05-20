@@ -54,12 +54,7 @@ export type Target = {
 
 /** @internal */
 export namespace TargetSpec$ {
-    export type Inbound = {
-        name?: string | undefined;
-        url: string;
-    };
-
-    export const inboundSchema: z.ZodType<TargetSpec, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TargetSpec, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string().optional(),
             url: z.string(),
@@ -91,14 +86,7 @@ export namespace TargetSpec$ {
 
 /** @internal */
 export namespace Target$ {
-    export type Inbound = {
-        profile: string;
-        videoOnly?: boolean | undefined;
-        id?: string | undefined;
-        spec?: TargetSpec$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Target, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
         .object({
             profile: z.string(),
             videoOnly: z.boolean().default(false),

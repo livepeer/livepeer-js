@@ -137,7 +137,6 @@ import {
   AssetSchemasSourceType,
   AssetType,
   CreatorIdType,
-  InputCreatorIdType,
   TranscodeProfileEncoder,
   TranscodeProfileProfile,
   Type,
@@ -153,7 +152,6 @@ async function run() {
     projectId: {
       type: AssetType.Video,
       playbackId: "eaw4nk06ts2d0mzb",
-      userId: "66E2161C-7670-4D05-B71D-DA2D6979556F",
       playbackPolicy: {
         type: Type.Webhook,
         webhookId: "1bde4o2i6xycudoy",
@@ -170,16 +168,6 @@ async function run() {
           type: CreatorIdType.Unverified,
           value: "user123",
         },
-      storage: {
-        ipfs: {
-          spec: {
-            nftMetadata: {},
-          },
-          nftMetadata: {
-            cid: "<value>",
-          },
-        },
-      },
       name: "filename.mp4",
       projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
       hash: [
@@ -197,16 +185,6 @@ async function run() {
         "streamerId": "my-custom-id",
       },
       refreshInterval: 600,
-    },
-  creatorId:     {
-        type: InputCreatorIdType.Unverified,
-        value: "<value>",
-      },
-    storage: {
-    ipfs: false,
-    },
-    encryption: {
-      encryptedKey: "<value>",
     },
     profiles: [
       {
@@ -274,18 +252,7 @@ async function run() {
       },
       refreshInterval: 600,
     },
-  creatorId: "<value>",
-    storage: {
-    ipfs:     {
-          spec: {
-            nftMetadata: {},
-          },
-        },
-    },
     url: "https://s3.amazonaws.com/my-bucket/path/filename.mp4",
-    encryption: {
-      encryptedKey: "<value>",
-    },
     profiles: [
       {
         width: 1280,
@@ -340,9 +307,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const assetId = "<value>";
-  
-  const result = await livepeer.asset.get(assetId);
+  const result = await livepeer.asset.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -384,10 +349,8 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const assetId = "<value>";
-  const assetPatchPayload = {
+  const result = await livepeer.asset.update("<value>", {
     name: "filename.mp4",
-  creatorId: "<value>",
     playbackPolicy: {
       type: Type.Webhook,
       webhookId: "1bde4o2i6xycudoy",
@@ -396,16 +359,7 @@ async function run() {
       },
       refreshInterval: 600,
     },
-    storage: {
-    ipfs:     {
-          spec: {
-            nftMetadata: {},
-          },
-        },
-    },
-  };
-  
-  const result = await livepeer.asset.update(assetId, assetPatchPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -447,9 +401,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const assetId = "<value>";
-  
-  const result = await livepeer.asset.delete(assetId);
+  const result = await livepeer.asset.delete("<value>");
 
   // Handle the result
   console.log(result)

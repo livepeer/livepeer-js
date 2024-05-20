@@ -21,13 +21,7 @@ export type RoomUserUpdatePayload = {
 
 /** @internal */
 export namespace RoomUserUpdatePayload$ {
-    export type Inbound = {
-        canPublish?: boolean | undefined;
-        canPublishData?: boolean | undefined;
-        metadata?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<RoomUserUpdatePayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RoomUserUpdatePayload, z.ZodTypeDef, unknown> = z
         .object({
             canPublish: z.boolean().default(true),
             canPublishData: z.boolean().default(true),

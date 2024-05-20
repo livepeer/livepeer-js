@@ -39,12 +39,7 @@ export type UpdateSigningKeyResponse = {
 
 /** @internal */
 export namespace UpdateSigningKeyRequestBody$ {
-    export type Inbound = {
-        disabled?: boolean | undefined;
-        name?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateSigningKeyRequestBody, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateSigningKeyRequestBody, z.ZodTypeDef, unknown> = z
         .object({
             disabled: z.boolean().optional(),
             name: z.string().optional(),
@@ -76,12 +71,7 @@ export namespace UpdateSigningKeyRequestBody$ {
 
 /** @internal */
 export namespace UpdateSigningKeyRequest$ {
-    export type Inbound = {
-        keyId: string;
-        RequestBody: UpdateSigningKeyRequestBody$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateSigningKeyRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateSigningKeyRequest, z.ZodTypeDef, unknown> = z
         .object({
             keyId: z.string(),
             RequestBody: z.lazy(() => UpdateSigningKeyRequestBody$.inboundSchema),
@@ -113,14 +103,7 @@ export namespace UpdateSigningKeyRequest$ {
 
 /** @internal */
 export namespace UpdateSigningKeyResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateSigningKeyResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateSigningKeyResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

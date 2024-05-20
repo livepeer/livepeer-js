@@ -11,6 +11,7 @@ describe("Streams API", () => {
     it("should create a stream and match the structure of direct API call", async () => {
       const body = {
         name: "My Stream",
+				profiles: null
       };
 
       const { stream } = await sdk.stream.create(body);

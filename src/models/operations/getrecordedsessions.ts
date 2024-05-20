@@ -46,12 +46,7 @@ export type GetRecordedSessionsResponse = {
 
 /** @internal */
 export namespace GetRecordedSessionsRequest$ {
-    export type Inbound = {
-        parentId: string;
-        record?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetRecordedSessionsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetRecordedSessionsRequest, z.ZodTypeDef, unknown> = z
         .object({
             parentId: z.string(),
             record: z.number().int().optional(),
@@ -83,15 +78,7 @@ export namespace GetRecordedSessionsRequest$ {
 
 /** @internal */
 export namespace GetRecordedSessionsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.Session$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetRecordedSessionsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetRecordedSessionsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

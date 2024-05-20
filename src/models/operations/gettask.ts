@@ -33,11 +33,7 @@ export type GetTaskResponse = {
 
 /** @internal */
 export namespace GetTaskRequest$ {
-    export type Inbound = {
-        taskId: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetTaskRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetTaskRequest, z.ZodTypeDef, unknown> = z
         .object({
             taskId: z.string(),
         })
@@ -64,14 +60,7 @@ export namespace GetTaskRequest$ {
 
 /** @internal */
 export namespace GetTaskResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        task?: components.Task$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetTaskResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetTaskResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

@@ -25,14 +25,7 @@ export type RoomUserPayload = {
 
 /** @internal */
 export namespace RoomUserPayload$ {
-    export type Inbound = {
-        name: string;
-        canPublish?: boolean | undefined;
-        canPublishData?: boolean | undefined;
-        metadata?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<RoomUserPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RoomUserPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
             canPublish: z.boolean().optional(),

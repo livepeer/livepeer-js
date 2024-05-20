@@ -182,7 +182,6 @@ async function run() {
         encoder: TranscodeProfileEncoder.H264,
       },
     ],
-  creatorId: "<value>",
   });
 
   // Handle the result

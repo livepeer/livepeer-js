@@ -13,6 +13,20 @@ export type Stream3 = string | number;
 export type StreamUserTags = string | number | Array<string | number>;
 
 /**
+ * 0: not mobile, 1: mobile screen share, 2: mobile camera.
+ */
+export enum Stream1 {
+    Zero = 0,
+    One = 1,
+    Two = 2,
+}
+
+/**
+ * Indicates whether the stream will be pulled from a mobile source.
+ */
+export type StreamIsMobile = Stream1 | boolean;
+
+/**
  * Approximate location of the pull source. The location is used to
  *
  * @remarks
@@ -50,7 +64,11 @@ export type StreamPull = {
     /**
      * Headers to be sent with the request to the pull source.
      */
-    headers?: Record<string, string> | undefined;
+    headers?: { [k: string]: string } | undefined;
+    /**
+     * Indicates whether the stream will be pulled from a mobile source.
+     */
+    isMobile?: Stream1 | boolean | undefined;
     /**
      * Approximate location of the pull source. The location is used to
      *
@@ -76,12 +94,15 @@ export type Renditions = {};
 export type Stream = {
     id?: string | undefined;
     name: string;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     kind?: string | undefined;
     creatorId?: CreatorId | undefined;
     /**
      * User input tags associated with the stream
      */
-    userTags?: Record<string, string | number | Array<string | number>> | undefined;
+    userTags?: { [k: string]: string | number | Array<string | number> } | undefined;
     lastSeen?: number | undefined;
     sourceSegments?: number | undefined;
     transcodedSegments?: number | undefined;
@@ -146,7 +167,7 @@ export type Stream = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     profiles?: Array<FfmpegProfile> | undefined;
     /**
      * Should this stream be recorded? Uses default settings. For more
@@ -165,19 +186,21 @@ export type Stream = {
      * Timestamp (in milliseconds) when the stream was last terminated
      */
     lastTerminatedAt?: number | null | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     userId?: string | undefined;
     renditions?: Renditions | undefined;
 };
 
 /** @internal */
 export namespace Stream3$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<Stream3, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Stream3, z.ZodTypeDef, unknown> = z.union([
         z.string(),
         z.number(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Stream3> = z.union([
         z.string(),
         z.number(),
@@ -186,14 +209,13 @@ export namespace Stream3$ {
 
 /** @internal */
 export namespace StreamUserTags$ {
-    export type Inbound = string | number | Array<string | number>;
-
-    export type Outbound = string | number | Array<string | number>;
-    export const inboundSchema: z.ZodType<StreamUserTags, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<StreamUserTags, z.ZodTypeDef, unknown> = z.union([
         z.string(),
         z.number(),
         z.array(z.union([z.string(), z.number()])),
     ]);
+
+    export type Outbound = string | number | Array<string | number>;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamUserTags> = z.union([
         z.string(),
         z.number(),
@@ -202,13 +224,28 @@ export namespace StreamUserTags$ {
 }
 
 /** @internal */
-export namespace StreamLocation$ {
-    export type Inbound = {
-        lat: number;
-        lon: number;
-    };
+export namespace Stream1$ {
+    export const inboundSchema = z.nativeEnum(Stream1);
+    export const outboundSchema = inboundSchema;
+}
 
-    export const inboundSchema: z.ZodType<StreamLocation, z.ZodTypeDef, Inbound> = z
+/** @internal */
+export namespace StreamIsMobile$ {
+    export const inboundSchema: z.ZodType<StreamIsMobile, z.ZodTypeDef, unknown> = z.union([
+        Stream1$.inboundSchema,
+        z.boolean(),
+    ]);
+
+    export type Outbound = number | boolean;
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamIsMobile> = z.union([
+        Stream1$.outboundSchema,
+        z.boolean(),
+    ]);
+}
+
+/** @internal */
+export namespace StreamLocation$ {
+    export const inboundSchema: z.ZodType<StreamLocation, z.ZodTypeDef, unknown> = z
         .object({
             lat: z.number(),
             lon: z.number(),
@@ -240,29 +277,26 @@ export namespace StreamLocation$ {
 
 /** @internal */
 export namespace StreamPull$ {
-    export type Inbound = {
-        source: string;
-        headers?: Record<string, string> | undefined;
-        location?: StreamLocation$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<StreamPull, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StreamPull, z.ZodTypeDef, unknown> = z
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
+            isMobile: z.union([Stream1$.inboundSchema, z.boolean()]).optional(),
             location: z.lazy(() => StreamLocation$.inboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
+                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });
 
     export type Outbound = {
         source: string;
-        headers?: Record<string, string> | undefined;
+        headers?: { [k: string]: string } | undefined;
+        isMobile?: number | boolean | undefined;
         location?: StreamLocation$.Outbound | undefined;
     };
 
@@ -270,12 +304,14 @@ export namespace StreamPull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
+            isMobile: z.union([Stream1$.outboundSchema, z.boolean()]).optional(),
             location: z.lazy(() => StreamLocation$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
+                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });
@@ -283,11 +319,7 @@ export namespace StreamPull$ {
 
 /** @internal */
 export namespace StreamMultistream$ {
-    export type Inbound = {
-        targets?: Array<TargetOutput$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<StreamMultistream, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<StreamMultistream, z.ZodTypeDef, unknown> = z
         .object({
             targets: z.array(TargetOutput$.inboundSchema).optional(),
         })
@@ -314,9 +346,7 @@ export namespace StreamMultistream$ {
 
 /** @internal */
 export namespace Renditions$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<Renditions, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<Renditions, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -325,41 +355,7 @@ export namespace Renditions$ {
 
 /** @internal */
 export namespace Stream$ {
-    export type Inbound = {
-        id?: string | undefined;
-        name: string;
-        kind?: string | undefined;
-        creatorId?: CreatorId$.Inbound | undefined;
-        userTags?: Record<string, string | number | Array<string | number>> | undefined;
-        lastSeen?: number | undefined;
-        sourceSegments?: number | undefined;
-        transcodedSegments?: number | undefined;
-        sourceSegmentsDuration?: number | undefined;
-        transcodedSegmentsDuration?: number | undefined;
-        sourceBytes?: number | undefined;
-        transcodedBytes?: number | undefined;
-        ingestRate?: number | undefined;
-        outgoingRate?: number | undefined;
-        isActive?: boolean | undefined;
-        isHealthy?: boolean | null | undefined;
-        issues?: Array<string> | null | undefined;
-        createdByTokenName?: string | undefined;
-        createdAt?: number | undefined;
-        parentId?: string | undefined;
-        streamKey?: string | undefined;
-        pull?: StreamPull$.Inbound | undefined;
-        playbackId?: string | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        profiles?: Array<FfmpegProfile$.Inbound> | undefined;
-        record?: boolean | undefined;
-        multistream?: StreamMultistream$.Inbound | undefined;
-        suspended?: boolean | undefined;
-        lastTerminatedAt?: number | null | undefined;
-        userId?: string | undefined;
-        renditions?: Renditions$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Stream, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Stream, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             name: z.string(),
@@ -388,7 +384,7 @@ export namespace Stream$ {
             streamKey: z.string().optional(),
             pull: z.lazy(() => StreamPull$.inboundSchema).optional(),
             playbackId: z.string().optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: z.lazy(() => StreamMultistream$.inboundSchema).optional(),
@@ -450,7 +446,7 @@ export namespace Stream$ {
         name: string;
         kind?: string | undefined;
         creatorId?: CreatorId$.Outbound | undefined;
-        userTags?: Record<string, string | number | Array<string | number>> | undefined;
+        userTags?: { [k: string]: string | number | Array<string | number> } | undefined;
         lastSeen?: number | undefined;
         sourceSegments?: number | undefined;
         transcodedSegments?: number | undefined;
@@ -469,7 +465,7 @@ export namespace Stream$ {
         streamKey?: string | undefined;
         pull?: StreamPull$.Outbound | undefined;
         playbackId?: string | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         profiles?: Array<FfmpegProfile$.Outbound> | undefined;
         record?: boolean | undefined;
         multistream?: StreamMultistream$.Outbound | undefined;
@@ -508,7 +504,7 @@ export namespace Stream$ {
             streamKey: z.string().optional(),
             pull: z.lazy(() => StreamPull$.outboundSchema).optional(),
             playbackId: z.string().optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
             record: z.boolean().optional(),
             multistream: z.lazy(() => StreamMultistream$.outboundSchema).optional(),

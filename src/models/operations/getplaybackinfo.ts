@@ -33,11 +33,7 @@ export type GetPlaybackInfoResponse = {
 
 /** @internal */
 export namespace GetPlaybackInfoRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetPlaybackInfoRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetPlaybackInfoRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -64,14 +60,7 @@ export namespace GetPlaybackInfoRequest$ {
 
 /** @internal */
 export namespace GetPlaybackInfoResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        "playback-info"?: components.PlaybackInfo$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetPlaybackInfoResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetPlaybackInfoResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

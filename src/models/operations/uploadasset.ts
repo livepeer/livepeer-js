@@ -6,12 +6,24 @@ import * as components from "../components";
 import * as errors from "../errors";
 import * as z from "zod";
 
-export type UploadAssetTask = {
-    id?: string | undefined;
+export type UploadAssetAssetTask = {
+    id: string;
 };
 
 /**
- * Success
+ * Upload started
+ */
+export type UploadAssetDataOutput = {
+    asset: components.Asset;
+    task: UploadAssetAssetTask;
+};
+
+export type UploadAssetTask = {
+    id: string;
+};
+
+/**
+ * Upload in progress
  */
 export type UploadAssetData = {
     asset: components.Asset;
@@ -32,9 +44,13 @@ export type UploadAssetResponse = {
      */
     rawResponse: Response;
     /**
-     * Success
+     * Upload in progress
      */
-    data?: UploadAssetData | undefined;
+    twoHundredApplicationJsonData?: UploadAssetData | undefined;
+    /**
+     * Upload started
+     */
+    twoHundredAndOneApplicationJsonData?: UploadAssetDataOutput | undefined;
     /**
      * Error
      */
@@ -42,44 +58,94 @@ export type UploadAssetResponse = {
 };
 
 /** @internal */
-export namespace UploadAssetTask$ {
-    export type Inbound = {
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetTask, z.ZodTypeDef, Inbound> = z
+export namespace UploadAssetAssetTask$ {
+    export const inboundSchema: z.ZodType<UploadAssetAssetTask, z.ZodTypeDef, unknown> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 
     export type Outbound = {
-        id?: string | undefined;
+        id: string;
+    };
+
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UploadAssetAssetTask> = z
+        .object({
+            id: z.string(),
+        })
+        .transform((v) => {
+            return {
+                id: v.id,
+            };
+        });
+}
+
+/** @internal */
+export namespace UploadAssetDataOutput$ {
+    export const inboundSchema: z.ZodType<UploadAssetDataOutput, z.ZodTypeDef, unknown> = z
+        .object({
+            asset: components.Asset$.inboundSchema,
+            task: z.lazy(() => UploadAssetAssetTask$.inboundSchema),
+        })
+        .transform((v) => {
+            return {
+                asset: v.asset,
+                task: v.task,
+            };
+        });
+
+    export type Outbound = {
+        asset: components.Asset$.Outbound;
+        task: UploadAssetAssetTask$.Outbound;
+    };
+
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UploadAssetDataOutput> = z
+        .object({
+            asset: components.Asset$.outboundSchema,
+            task: z.lazy(() => UploadAssetAssetTask$.outboundSchema),
+        })
+        .transform((v) => {
+            return {
+                asset: v.asset,
+                task: v.task,
+            };
+        });
+}
+
+/** @internal */
+export namespace UploadAssetTask$ {
+    export const inboundSchema: z.ZodType<UploadAssetTask, z.ZodTypeDef, unknown> = z
+        .object({
+            id: z.string(),
+        })
+        .transform((v) => {
+            return {
+                id: v.id,
+            };
+        });
+
+    export type Outbound = {
+        id: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UploadAssetTask> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 }
 
 /** @internal */
 export namespace UploadAssetData$ {
-    export type Inbound = {
-        asset: components.Asset$.Inbound;
-        task: UploadAssetTask$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UploadAssetData, z.ZodTypeDef, unknown> = z
         .object({
             asset: components.Asset$.inboundSchema,
             task: z.lazy(() => UploadAssetTask$.inboundSchema),
@@ -111,20 +177,15 @@ export namespace UploadAssetData$ {
 
 /** @internal */
 export namespace UploadAssetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: UploadAssetData$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UploadAssetResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UploadAssetResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),
             RawResponse: z.instanceof(Response),
-            data: z.lazy(() => UploadAssetData$.inboundSchema).optional(),
+            "200_application/json_data": z.lazy(() => UploadAssetData$.inboundSchema).optional(),
+            "201_application/json_data": z
+                .lazy(() => UploadAssetDataOutput$.inboundSchema)
+                .optional(),
             error: errors.ErrorT$.inboundSchema.optional(),
         })
         .transform((v) => {
@@ -132,7 +193,12 @@ export namespace UploadAssetResponse$ {
                 contentType: v.ContentType,
                 statusCode: v.StatusCode,
                 rawResponse: v.RawResponse,
-                ...(v.data === undefined ? null : { data: v.data }),
+                ...(v["200_application/json_data"] === undefined
+                    ? null
+                    : { twoHundredApplicationJsonData: v["200_application/json_data"] }),
+                ...(v["201_application/json_data"] === undefined
+                    ? null
+                    : { twoHundredAndOneApplicationJsonData: v["201_application/json_data"] }),
                 ...(v.error === undefined ? null : { error: v.error }),
             };
         });
@@ -141,7 +207,8 @@ export namespace UploadAssetResponse$ {
         ContentType: string;
         StatusCode: number;
         RawResponse: never;
-        data?: UploadAssetData$.Outbound | undefined;
+        "200_application/json_data"?: UploadAssetData$.Outbound | undefined;
+        "201_application/json_data"?: UploadAssetDataOutput$.Outbound | undefined;
         error?: errors.ErrorT$.Outbound | undefined;
     };
 
@@ -152,7 +219,10 @@ export namespace UploadAssetResponse$ {
             rawResponse: z.instanceof(Response).transform(() => {
                 throw new Error("Response cannot be serialized");
             }),
-            data: z.lazy(() => UploadAssetData$.outboundSchema).optional(),
+            twoHundredApplicationJsonData: z.lazy(() => UploadAssetData$.outboundSchema).optional(),
+            twoHundredAndOneApplicationJsonData: z
+                .lazy(() => UploadAssetDataOutput$.outboundSchema)
+                .optional(),
             error: errors.ErrorT$.outboundSchema.optional(),
         })
         .transform((v) => {
@@ -160,7 +230,12 @@ export namespace UploadAssetResponse$ {
                 ContentType: v.contentType,
                 StatusCode: v.statusCode,
                 RawResponse: v.rawResponse,
-                ...(v.data === undefined ? null : { data: v.data }),
+                ...(v.twoHundredApplicationJsonData === undefined
+                    ? null
+                    : { "200_application/json_data": v.twoHundredApplicationJsonData }),
+                ...(v.twoHundredAndOneApplicationJsonData === undefined
+                    ? null
+                    : { "201_application/json_data": v.twoHundredAndOneApplicationJsonData }),
                 ...(v.error === undefined ? null : { error: v.error }),
             };
         });

@@ -24,7 +24,7 @@ export type Custom = {
     /**
      * Headers to add to the export request
      */
-    headers?: Record<string, string> | undefined;
+    headers?: { [k: string]: string } | undefined;
 };
 
 export type ExportTaskParams1 = {
@@ -41,11 +41,7 @@ export type ExportTaskParams = ExportTaskParams1 | ExportTaskParams2;
 
 /** @internal */
 export namespace ExportTaskParams2$ {
-    export type Inbound = {
-        ipfs: IpfsExportParams$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<ExportTaskParams2, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ExportTaskParams2, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: IpfsExportParams$.inboundSchema,
         })
@@ -72,13 +68,7 @@ export namespace ExportTaskParams2$ {
 
 /** @internal */
 export namespace Custom$ {
-    export type Inbound = {
-        url: string;
-        method?: string | undefined;
-        headers?: Record<string, string> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Custom, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Custom, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string(),
             method: z.string().default("PUT"),
@@ -95,7 +85,7 @@ export namespace Custom$ {
     export type Outbound = {
         url: string;
         method: string;
-        headers?: Record<string, string> | undefined;
+        headers?: { [k: string]: string } | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Custom> = z
@@ -115,11 +105,7 @@ export namespace Custom$ {
 
 /** @internal */
 export namespace ExportTaskParams1$ {
-    export type Inbound = {
-        custom: Custom$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<ExportTaskParams1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ExportTaskParams1, z.ZodTypeDef, unknown> = z
         .object({
             custom: z.lazy(() => Custom$.inboundSchema),
         })
@@ -146,13 +132,12 @@ export namespace ExportTaskParams1$ {
 
 /** @internal */
 export namespace ExportTaskParams$ {
-    export type Inbound = ExportTaskParams1$.Inbound | ExportTaskParams2$.Inbound;
-
-    export type Outbound = ExportTaskParams1$.Outbound | ExportTaskParams2$.Outbound;
-    export const inboundSchema: z.ZodType<ExportTaskParams, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<ExportTaskParams, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => ExportTaskParams1$.inboundSchema),
         z.lazy(() => ExportTaskParams2$.inboundSchema),
     ]);
+
+    export type Outbound = ExportTaskParams1$.Outbound | ExportTaskParams2$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ExportTaskParams> = z.union([
         z.lazy(() => ExportTaskParams1$.outboundSchema),
         z.lazy(() => ExportTaskParams2$.outboundSchema),

@@ -13,11 +13,7 @@ export type CreateRoomResponse = {
 
 /** @internal */
 export namespace CreateRoomResponse$ {
-    export type Inbound = {
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
         })

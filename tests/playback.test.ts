@@ -9,7 +9,7 @@ describe("Playback API", () => {
 
   describe("Retrieve a playback", () => {
     it("should retrieve a playback and match the structure of direct API call", async () => {
-      const playbackId = "4987hy62r22yec2v";
+      const playbackId = "32a5kyjjh8yf6wy5";
 
       const { playbackInfo } = await sdk.playback.get(playbackId);
 

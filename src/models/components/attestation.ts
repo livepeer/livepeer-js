@@ -91,25 +91,29 @@ export type Attestation = {
 };
 
 /** @internal */
-export const PrimaryType$: z.ZodNativeEnum<typeof PrimaryType> = z.nativeEnum(PrimaryType);
+export namespace PrimaryType$ {
+    export const inboundSchema = z.nativeEnum(PrimaryType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Name$: z.ZodNativeEnum<typeof Name> = z.nativeEnum(Name);
+export namespace Name$ {
+    export const inboundSchema = z.nativeEnum(Name);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const Version$: z.ZodNativeEnum<typeof Version> = z.nativeEnum(Version);
+export namespace Version$ {
+    export const inboundSchema = z.nativeEnum(Version);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Domain$ {
-    export type Inbound = {
-        name: Name;
-        version: Version;
-    };
-
-    export const inboundSchema: z.ZodType<Domain, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Domain, z.ZodTypeDef, unknown> = z
         .object({
-            name: Name$,
-            version: Version$,
+            name: Name$.inboundSchema,
+            version: Version$.inboundSchema,
         })
         .transform((v) => {
             return {
@@ -119,14 +123,14 @@ export namespace Domain$ {
         });
 
     export type Outbound = {
-        name: Name;
-        version: Version;
+        name: string;
+        version: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Domain> = z
         .object({
-            name: Name$,
-            version: Version$,
+            name: Name$.outboundSchema,
+            version: Version$.outboundSchema,
         })
         .transform((v) => {
             return {
@@ -138,12 +142,7 @@ export namespace Domain$ {
 
 /** @internal */
 export namespace Attestations$ {
-    export type Inbound = {
-        role: string;
-        address: string;
-    };
-
-    export const inboundSchema: z.ZodType<Attestations, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Attestations, z.ZodTypeDef, unknown> = z
         .object({
             role: z.string(),
             address: z.string(),
@@ -175,14 +174,7 @@ export namespace Attestations$ {
 
 /** @internal */
 export namespace Message$ {
-    export type Inbound = {
-        video: string;
-        attestations: Array<Attestations$.Inbound>;
-        signer: string;
-        timestamp: number;
-    };
-
-    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Message, z.ZodTypeDef, unknown> = z
         .object({
             video: z.string(),
             attestations: z.array(z.lazy(() => Attestations$.inboundSchema)),
@@ -223,16 +215,14 @@ export namespace Message$ {
 }
 
 /** @internal */
-export const SignatureType$: z.ZodNativeEnum<typeof SignatureType> = z.nativeEnum(SignatureType);
+export namespace SignatureType$ {
+    export const inboundSchema = z.nativeEnum(SignatureType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace AttestationIpfs$ {
-    export type Inbound = {
-        $ref?: any | undefined;
-        updatedAt?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<AttestationIpfs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<AttestationIpfs, z.ZodTypeDef, unknown> = z
         .object({
             $ref: z.any().optional(),
             updatedAt: z.number().optional(),
@@ -264,12 +254,7 @@ export namespace AttestationIpfs$ {
 
 /** @internal */
 export namespace AttestationStorage$ {
-    export type Inbound = {
-        ipfs?: AttestationIpfs$.Inbound | undefined;
-        status?: StorageStatus$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<AttestationStorage, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<AttestationStorage, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z.lazy(() => AttestationIpfs$.inboundSchema).optional(),
             status: StorageStatus$.inboundSchema.optional(),
@@ -301,26 +286,15 @@ export namespace AttestationStorage$ {
 
 /** @internal */
 export namespace Attestation$ {
-    export type Inbound = {
-        id?: string | undefined;
-        primaryType: PrimaryType;
-        domain: Domain$.Inbound;
-        message: Message$.Inbound;
-        signature: string;
-        createdAt?: number | undefined;
-        signatureType?: SignatureType | undefined;
-        storage?: AttestationStorage$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Attestation, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Attestation, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
-            primaryType: PrimaryType$,
+            primaryType: PrimaryType$.inboundSchema,
             domain: z.lazy(() => Domain$.inboundSchema),
             message: z.lazy(() => Message$.inboundSchema),
             signature: z.string(),
             createdAt: z.number().optional(),
-            signatureType: SignatureType$.optional(),
+            signatureType: SignatureType$.inboundSchema.optional(),
             storage: z.lazy(() => AttestationStorage$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -338,24 +312,24 @@ export namespace Attestation$ {
 
     export type Outbound = {
         id?: string | undefined;
-        primaryType: PrimaryType;
+        primaryType: string;
         domain: Domain$.Outbound;
         message: Message$.Outbound;
         signature: string;
         createdAt?: number | undefined;
-        signatureType?: SignatureType | undefined;
+        signatureType?: string | undefined;
         storage?: AttestationStorage$.Outbound | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Attestation> = z
         .object({
             id: z.string().optional(),
-            primaryType: PrimaryType$,
+            primaryType: PrimaryType$.outboundSchema,
             domain: z.lazy(() => Domain$.outboundSchema),
             message: z.lazy(() => Message$.outboundSchema),
             signature: z.string(),
             createdAt: z.number().optional(),
-            signatureType: SignatureType$.optional(),
+            signatureType: SignatureType$.outboundSchema.optional(),
             storage: z.lazy(() => AttestationStorage$.outboundSchema).optional(),
         })
         .transform((v) => {

@@ -22,7 +22,7 @@ export type PlaybackPolicy = {
     /**
      * User-defined webhook context
      */
-    webhookContext?: Record<string, any> | undefined;
+    webhookContext?: { [k: string]: any } | undefined;
     /**
      * Interval (in seconds) at which the playback policy should be
      *
@@ -34,20 +34,16 @@ export type PlaybackPolicy = {
 };
 
 /** @internal */
-export const Type$: z.ZodNativeEnum<typeof Type> = z.nativeEnum(Type);
+export namespace Type$ {
+    export const inboundSchema = z.nativeEnum(Type);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace PlaybackPolicy$ {
-    export type Inbound = {
-        type: Type;
-        webhookId?: string | undefined;
-        webhookContext?: Record<string, any> | undefined;
-        refreshInterval?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, unknown> = z
         .object({
-            type: Type$,
+            type: Type$.inboundSchema,
             webhookId: z.string().optional(),
             webhookContext: z.record(z.any()).optional(),
             refreshInterval: z.number().optional(),
@@ -64,15 +60,15 @@ export namespace PlaybackPolicy$ {
         });
 
     export type Outbound = {
-        type: Type;
+        type: string;
         webhookId?: string | undefined;
-        webhookContext?: Record<string, any> | undefined;
+        webhookContext?: { [k: string]: any } | undefined;
         refreshInterval?: number | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackPolicy> = z
         .object({
-            type: Type$,
+            type: Type$.outboundSchema,
             webhookId: z.string().optional(),
             webhookContext: z.record(z.any()).optional(),
             refreshInterval: z.number().optional(),

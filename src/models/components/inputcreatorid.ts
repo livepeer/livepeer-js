@@ -8,27 +8,24 @@ export enum InputCreatorIdType {
     Unverified = "unverified",
 }
 
-export type One = {
+export type InputCreatorId1 = {
     type: InputCreatorIdType;
     value: string;
 };
 
-export type InputCreatorId = One | string;
+export type InputCreatorId = InputCreatorId1 | string;
 
 /** @internal */
-export const InputCreatorIdType$: z.ZodNativeEnum<typeof InputCreatorIdType> =
-    z.nativeEnum(InputCreatorIdType);
+export namespace InputCreatorIdType$ {
+    export const inboundSchema = z.nativeEnum(InputCreatorIdType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export namespace One$ {
-    export type Inbound = {
-        type: InputCreatorIdType;
-        value: string;
-    };
-
-    export const inboundSchema: z.ZodType<One, z.ZodTypeDef, Inbound> = z
+export namespace InputCreatorId1$ {
+    export const inboundSchema: z.ZodType<InputCreatorId1, z.ZodTypeDef, unknown> = z
         .object({
-            type: InputCreatorIdType$,
+            type: InputCreatorIdType$.inboundSchema,
             value: z.string(),
         })
         .transform((v) => {
@@ -39,13 +36,13 @@ export namespace One$ {
         });
 
     export type Outbound = {
-        type: InputCreatorIdType;
+        type: string;
         value: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, One> = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, InputCreatorId1> = z
         .object({
-            type: InputCreatorIdType$,
+            type: InputCreatorIdType$.outboundSchema,
             value: z.string(),
         })
         .transform((v) => {
@@ -58,15 +55,14 @@ export namespace One$ {
 
 /** @internal */
 export namespace InputCreatorId$ {
-    export type Inbound = One$.Inbound | string;
-
-    export type Outbound = One$.Outbound | string;
-    export const inboundSchema: z.ZodType<InputCreatorId, z.ZodTypeDef, Inbound> = z.union([
-        z.lazy(() => One$.inboundSchema),
+    export const inboundSchema: z.ZodType<InputCreatorId, z.ZodTypeDef, unknown> = z.union([
+        z.lazy(() => InputCreatorId1$.inboundSchema),
         z.string(),
     ]);
+
+    export type Outbound = InputCreatorId1$.Outbound | string;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, InputCreatorId> = z.union([
-        z.lazy(() => One$.outboundSchema),
+        z.lazy(() => InputCreatorId1$.outboundSchema),
         z.string(),
     ]);
 }

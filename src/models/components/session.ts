@@ -11,12 +11,19 @@ import * as z from "zod";
 export enum RecordingStatus {
     Waiting = "waiting",
     Ready = "ready",
+    Failed = "failed",
     None = "none",
 }
 
 export type Session = {
     id?: string | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     kind?: string | undefined;
+    /**
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
     userId?: string | undefined;
     name: string;
     lastSeen?: number | undefined;
@@ -83,38 +90,14 @@ export type Session = {
 };
 
 /** @internal */
-export const RecordingStatus$: z.ZodNativeEnum<typeof RecordingStatus> =
-    z.nativeEnum(RecordingStatus);
+export namespace RecordingStatus$ {
+    export const inboundSchema = z.nativeEnum(RecordingStatus);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Session$ {
-    export type Inbound = {
-        id?: string | undefined;
-        kind?: string | undefined;
-        userId?: string | undefined;
-        name: string;
-        lastSeen?: number | undefined;
-        sourceSegments?: number | undefined;
-        transcodedSegments?: number | undefined;
-        sourceSegmentsDuration?: number | undefined;
-        transcodedSegmentsDuration?: number | undefined;
-        sourceBytes?: number | undefined;
-        transcodedBytes?: number | undefined;
-        ingestRate?: number | undefined;
-        outgoingRate?: number | undefined;
-        isHealthy?: boolean | null | undefined;
-        issues?: Array<string> | null | undefined;
-        createdAt?: number | undefined;
-        parentId?: string | undefined;
-        record?: boolean | undefined;
-        recordingStatus?: RecordingStatus | undefined;
-        recordingUrl?: string | undefined;
-        mp4Url?: string | undefined;
-        playbackId?: string | undefined;
-        profiles?: Array<FfmpegProfile$.Inbound> | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Session, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Session, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             kind: z.string().optional(),
@@ -134,7 +117,7 @@ export namespace Session$ {
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
             record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.optional(),
+            recordingStatus: RecordingStatus$.inboundSchema.optional(),
             recordingUrl: z.string().optional(),
             mp4Url: z.string().optional(),
             playbackId: z.string().optional(),
@@ -197,7 +180,7 @@ export namespace Session$ {
         createdAt?: number | undefined;
         parentId?: string | undefined;
         record?: boolean | undefined;
-        recordingStatus?: RecordingStatus | undefined;
+        recordingStatus?: string | undefined;
         recordingUrl?: string | undefined;
         mp4Url?: string | undefined;
         playbackId?: string | undefined;
@@ -224,7 +207,7 @@ export namespace Session$ {
             createdAt: z.number().optional(),
             parentId: z.string().optional(),
             record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.optional(),
+            recordingStatus: RecordingStatus$.outboundSchema.optional(),
             recordingUrl: z.string().optional(),
             mp4Url: z.string().optional(),
             playbackId: z.string().optional(),

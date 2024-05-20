@@ -76,9 +76,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.room.get(id);
+  const result = await livepeer.room.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -121,9 +119,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.room.delete(id);
+  const result = await livepeer.room.delete("<value>");
 
   // Handle the result
   console.log(result)
@@ -168,12 +164,9 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const roomEgressPayload = {
+  const result = await livepeer.room.startEgress("<value>", {
     streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-  };
-  
-  const result = await livepeer.room.startEgress(id, roomEgressPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -217,9 +210,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.room.stopEgress(id);
+  const result = await livepeer.room.stopEgress("<value>");
 
   // Handle the result
   console.log(result)
@@ -265,14 +256,11 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const roomUserPayload = {
+  const result = await livepeer.room.createUser("<value>", {
     name: "name",
     canPublish: true,
     canPublishData: true,
-  };
-  
-  const result = await livepeer.room.createUser(id, roomUserPayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -316,10 +304,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const userId = "<value>";
-  
-  const result = await livepeer.room.getUser(id, userId);
+  const result = await livepeer.room.getUser("<value>", "<value>");
 
   // Handle the result
   console.log(result)
@@ -363,14 +348,10 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const userId = "<value>";
-  const roomUserUpdatePayload = {
+  const result = await livepeer.room.updateUser("<value>", "<value>", {
     canPublish: true,
     canPublishData: true,
-  };
-  
-  const result = await livepeer.room.updateUser(id, userId, roomUserUpdatePayload);
+  });
 
   // Handle the result
   console.log(result)
@@ -415,10 +396,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  const userId = "<value>";
-  
-  const result = await livepeer.room.deleteUser(id, userId);
+  const result = await livepeer.room.deleteUser("<value>", "<value>");
 
   // Handle the result
   console.log(result)

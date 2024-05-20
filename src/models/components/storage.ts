@@ -33,11 +33,7 @@ export type Storage = {
 
 /** @internal */
 export namespace Storage1$ {
-    export type Inbound = {
-        spec?: Spec$.Inbound | null | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Storage1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Storage1, z.ZodTypeDef, unknown> = z
         .object({
             spec: z.nullable(Spec$.inboundSchema).optional(),
         })
@@ -64,13 +60,12 @@ export namespace Storage1$ {
 
 /** @internal */
 export namespace Ipfs$ {
-    export type Inbound = Storage1$.Inbound | boolean;
-
-    export type Outbound = Storage1$.Outbound | boolean;
-    export const inboundSchema: z.ZodType<Ipfs, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<Ipfs, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => Storage1$.inboundSchema),
         z.boolean(),
     ]);
+
+    export type Outbound = Storage1$.Outbound | boolean;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Ipfs> = z.union([
         z.lazy(() => Storage1$.outboundSchema),
         z.boolean(),
@@ -79,11 +74,7 @@ export namespace Ipfs$ {
 
 /** @internal */
 export namespace Storage$ {
-    export type Inbound = {
-        ipfs?: Storage1$.Inbound | boolean | null | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Storage, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Storage, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z
                 .nullable(z.union([z.lazy(() => Storage1$.inboundSchema), z.boolean()]))

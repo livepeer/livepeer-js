@@ -21,13 +21,7 @@ export type IpfsFileInfo = {
 
 /** @internal */
 export namespace IpfsFileInfo$ {
-    export type Inbound = {
-        cid: string;
-        url?: string | undefined;
-        gatewayUrl?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<IpfsFileInfo, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<IpfsFileInfo, z.ZodTypeDef, unknown> = z
         .object({
             cid: z.string(),
             url: z.string().optional(),

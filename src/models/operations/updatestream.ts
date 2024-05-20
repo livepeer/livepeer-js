@@ -35,12 +35,7 @@ export type UpdateStreamResponse = {
 
 /** @internal */
 export namespace UpdateStreamRequest$ {
-    export type Inbound = {
-        id: string;
-        "stream-patch-payload": components.StreamPatchPayload$.Inbound;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateStreamRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateStreamRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             "stream-patch-payload": components.StreamPatchPayload$.inboundSchema,
@@ -72,14 +67,7 @@ export namespace UpdateStreamRequest$ {
 
 /** @internal */
 export namespace UpdateStreamResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<UpdateStreamResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<UpdateStreamResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

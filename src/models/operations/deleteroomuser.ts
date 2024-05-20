@@ -31,12 +31,7 @@ export type DeleteRoomUserResponse = {
 
 /** @internal */
 export namespace DeleteRoomUserRequest$ {
-    export type Inbound = {
-        id: string;
-        userId: string;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteRoomUserRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteRoomUserRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             userId: z.string(),
@@ -68,14 +63,7 @@ export namespace DeleteRoomUserRequest$ {
 
 /** @internal */
 export namespace DeleteRoomUserResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<DeleteRoomUserResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<DeleteRoomUserResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

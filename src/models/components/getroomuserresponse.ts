@@ -29,15 +29,7 @@ export type GetRoomUserResponse = {
 
 /** @internal */
 export namespace GetRoomUserResponse$ {
-    export type Inbound = {
-        id?: string | undefined;
-        joinedAt?: number | undefined;
-        name?: string | undefined;
-        isPublisher?: boolean | undefined;
-        metadata?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetRoomUserResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetRoomUserResponse, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             joinedAt: z.number().int().optional(),

@@ -167,16 +167,17 @@ export class Transcode extends ClientSDK {
      *
      */
     async create(
-        input: components.TranscodePayload,
+        request: components.TranscodePayload,
         options?: RequestOptions
     ): Promise<operations.TranscodeVideoResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.TranscodePayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -202,7 +203,7 @@ export class Transcode extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -215,12 +216,13 @@ export class Transcode extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {

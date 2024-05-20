@@ -58,7 +58,7 @@ export type NewAssetPayload = {
     /**
      * Whether the playback policy for a asset or stream is public or signed
      */
-    playbackPolicy?: PlaybackPolicy | undefined;
+    playbackPolicy?: PlaybackPolicy | null | undefined;
     creatorId?: InputCreatorId | undefined;
     storage?: NewAssetPayloadStorage | undefined;
     encryption?: NewAssetPayloadEncryption | undefined;
@@ -66,7 +66,7 @@ export type NewAssetPayload = {
      * Decides if the output video should include C2PA signature
      */
     c2pa?: boolean | undefined;
-    profiles?: Array<TranscodeProfile> | undefined;
+    profiles?: Array<TranscodeProfile> | null | undefined;
     /**
      * How many seconds the duration of each output segment should be
      */
@@ -75,11 +75,7 @@ export type NewAssetPayload = {
 
 /** @internal */
 export namespace NewAssetPayload1$ {
-    export type Inbound = {
-        spec?: Spec$.Inbound | null | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewAssetPayload1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewAssetPayload1, z.ZodTypeDef, unknown> = z
         .object({
             spec: z.nullable(Spec$.inboundSchema).optional(),
         })
@@ -106,13 +102,12 @@ export namespace NewAssetPayload1$ {
 
 /** @internal */
 export namespace NewAssetPayloadIpfs$ {
-    export type Inbound = NewAssetPayload1$.Inbound | boolean;
-
-    export type Outbound = NewAssetPayload1$.Outbound | boolean;
-    export const inboundSchema: z.ZodType<NewAssetPayloadIpfs, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<NewAssetPayloadIpfs, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => NewAssetPayload1$.inboundSchema),
         z.boolean(),
     ]);
+
+    export type Outbound = NewAssetPayload1$.Outbound | boolean;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayloadIpfs> = z.union([
         z.lazy(() => NewAssetPayload1$.outboundSchema),
         z.boolean(),
@@ -121,11 +116,7 @@ export namespace NewAssetPayloadIpfs$ {
 
 /** @internal */
 export namespace NewAssetPayloadStorage$ {
-    export type Inbound = {
-        ipfs?: NewAssetPayload1$.Inbound | boolean | null | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewAssetPayloadStorage, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewAssetPayloadStorage, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z
                 .nullable(z.union([z.lazy(() => NewAssetPayload1$.inboundSchema), z.boolean()]))
@@ -156,11 +147,7 @@ export namespace NewAssetPayloadStorage$ {
 
 /** @internal */
 export namespace NewAssetPayloadEncryption$ {
-    export type Inbound = {
-        encryptedKey: string;
-    };
-
-    export const inboundSchema: z.ZodType<NewAssetPayloadEncryption, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewAssetPayloadEncryption, z.ZodTypeDef, unknown> = z
         .object({
             encryptedKey: z.string(),
         })
@@ -187,30 +174,17 @@ export namespace NewAssetPayloadEncryption$ {
 
 /** @internal */
 export namespace NewAssetPayload$ {
-    export type Inbound = {
-        name: string;
-        projectId?: AssetInput$.Inbound | undefined;
-        staticMp4?: boolean | undefined;
-        playbackPolicy?: PlaybackPolicy$.Inbound | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        storage?: NewAssetPayloadStorage$.Inbound | undefined;
-        encryption?: NewAssetPayloadEncryption$.Inbound | undefined;
-        c2pa?: boolean | undefined;
-        profiles?: Array<TranscodeProfile$.Inbound> | undefined;
-        targetSegmentSizeSecs?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<NewAssetPayload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<NewAssetPayload, z.ZodTypeDef, unknown> = z
         .object({
             name: z.string(),
             projectId: AssetInput$.inboundSchema.optional(),
             staticMp4: z.boolean().optional(),
-            playbackPolicy: PlaybackPolicy$.inboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             creatorId: InputCreatorId$.inboundSchema.optional(),
             storage: z.lazy(() => NewAssetPayloadStorage$.inboundSchema).optional(),
             encryption: z.lazy(() => NewAssetPayloadEncryption$.inboundSchema).optional(),
             c2pa: z.boolean().optional(),
-            profiles: z.array(TranscodeProfile$.inboundSchema).optional(),
+            profiles: z.nullable(z.array(TranscodeProfile$.inboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
         })
         .transform((v) => {
@@ -234,12 +208,12 @@ export namespace NewAssetPayload$ {
         name: string;
         projectId?: AssetInput$.Outbound | undefined;
         staticMp4?: boolean | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | undefined;
+        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         creatorId?: InputCreatorId$.Outbound | undefined;
         storage?: NewAssetPayloadStorage$.Outbound | undefined;
         encryption?: NewAssetPayloadEncryption$.Outbound | undefined;
         c2pa?: boolean | undefined;
-        profiles?: Array<TranscodeProfile$.Outbound> | undefined;
+        profiles?: Array<TranscodeProfile$.Outbound> | null | undefined;
         targetSegmentSizeSecs?: number | undefined;
     };
 
@@ -248,12 +222,12 @@ export namespace NewAssetPayload$ {
             name: z.string(),
             projectId: AssetInput$.outboundSchema.optional(),
             staticMp4: z.boolean().optional(),
-            playbackPolicy: PlaybackPolicy$.outboundSchema.optional(),
+            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             creatorId: InputCreatorId$.outboundSchema.optional(),
             storage: z.lazy(() => NewAssetPayloadStorage$.outboundSchema).optional(),
             encryption: z.lazy(() => NewAssetPayloadEncryption$.outboundSchema).optional(),
             c2pa: z.boolean().optional(),
-            profiles: z.array(TranscodeProfile$.outboundSchema).optional(),
+            profiles: z.nullable(z.array(TranscodeProfile$.outboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
         })
         .transform((v) => {

@@ -67,7 +67,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -79,12 +79,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -201,16 +202,17 @@ export class Asset extends ClientSDK {
      *
      */
     async create(
-        input: components.NewAssetPayload,
+        request: components.NewAssetPayload,
         options?: RequestOptions
     ): Promise<operations.RequestUploadResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.NewAssetPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -236,7 +238,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -249,12 +251,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -297,16 +300,17 @@ export class Asset extends ClientSDK {
      * Upload asset via URL
      */
     async createViaUrl(
-        input: components.NewAssetFromUrlPayload,
+        request: components.NewAssetFromUrlPayload,
         options?: RequestOptions
     ): Promise<operations.UploadAssetResponse> {
+        const input$ = request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Content-Type", "application/json");
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => components.NewAssetFromUrlPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -332,7 +336,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -345,12 +349,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -360,7 +365,20 @@ export class Asset extends ClientSDK {
                 (val$) => {
                     return operations.UploadAssetResponse$.inboundSchema.parse({
                         ...responseFields$,
-                        data: val$,
+                        "200_application/json_data": val$,
+                    });
+                },
+                "Response validation failed"
+            );
+            return result;
+        } else if (this.matchResponse(response, 201, "application/json")) {
+            const responseBody = await response.json();
+            const result = schemas$.parse(
+                responseBody,
+                (val$) => {
+                    return operations.UploadAssetResponse$.inboundSchema.parse({
+                        ...responseFields$,
+                        "201_application/json_data": val$,
                     });
                 },
                 "Response validation failed"
@@ -433,7 +451,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -446,12 +464,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -540,7 +559,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -553,12 +572,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -644,7 +664,7 @@ export class Asset extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -657,12 +677,13 @@ export class Asset extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchStatusCode(response, 204)) {

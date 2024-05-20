@@ -13,11 +13,7 @@ export type Encryption = {
 
 /** @internal */
 export namespace Encryption$ {
-    export type Inbound = {
-        encryptedKey: string;
-    };
-
-    export const inboundSchema: z.ZodType<Encryption, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Encryption, z.ZodTypeDef, unknown> = z
         .object({
             encryptedKey: z.string(),
         })

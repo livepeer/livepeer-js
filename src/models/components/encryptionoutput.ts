@@ -8,9 +8,7 @@ export type EncryptionOutput = {};
 
 /** @internal */
 export namespace EncryptionOutput$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<EncryptionOutput, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<EncryptionOutput, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 

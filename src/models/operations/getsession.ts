@@ -38,11 +38,7 @@ export type GetSessionResponse = {
 
 /** @internal */
 export namespace GetSessionRequest$ {
-    export type Inbound = {
-        id: string;
-    };
-
-    export const inboundSchema: z.ZodType<GetSessionRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetSessionRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
         })
@@ -69,15 +65,7 @@ export namespace GetSessionRequest$ {
 
 /** @internal */
 export namespace GetSessionResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        session?: components.Session$.Inbound | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetSessionResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetSessionResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

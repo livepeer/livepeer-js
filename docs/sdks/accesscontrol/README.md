@@ -109,9 +109,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const keyId = "<value>";
-  
-  const result = await livepeer.accessControl.delete(keyId);
+  const result = await livepeer.accessControl.delete("<value>");
 
   // Handle the result
   console.log(result)
@@ -152,9 +150,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const keyId = "<value>";
-  
-  const result = await livepeer.accessControl.get(keyId);
+  const result = await livepeer.accessControl.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -195,10 +191,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const keyId = "<value>";
-  const requestBody = {};
-  
-  const result = await livepeer.accessControl.update(keyId, requestBody);
+  const result = await livepeer.accessControl.update("<value>", {});
 
   // Handle the result
   console.log(result)

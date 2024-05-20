@@ -101,16 +101,15 @@ export type GetCreatorViewershipMetricsResponse = {
 
 /** @internal */
 export namespace QueryParamFrom$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<QueryParamFrom, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<QueryParamFrom, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, QueryParamFrom> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -119,16 +118,15 @@ export namespace QueryParamFrom$ {
 
 /** @internal */
 export namespace QueryParamTo$ {
-    export type Inbound = string | number;
-
-    export type Outbound = string | number;
-    export const inboundSchema: z.ZodType<QueryParamTo, z.ZodTypeDef, Inbound> = z.union([
+    export const inboundSchema: z.ZodType<QueryParamTo, z.ZodTypeDef, unknown> = z.union([
         z
             .string()
             .datetime({ offset: true })
             .transform((v) => new Date(v)),
         z.number().int(),
     ]);
+
+    export type Outbound = string | number;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, QueryParamTo> = z.union([
         z.date().transform((v) => v.toISOString()),
         z.number().int(),
@@ -136,29 +134,23 @@ export namespace QueryParamTo$ {
 }
 
 /** @internal */
-export const QueryParamTimeStep$: z.ZodNativeEnum<typeof QueryParamTimeStep> =
-    z.nativeEnum(QueryParamTimeStep);
+export namespace QueryParamTimeStep$ {
+    export const inboundSchema = z.nativeEnum(QueryParamTimeStep);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
-export const QueryParamBreakdownBy$: z.ZodNativeEnum<typeof QueryParamBreakdownBy> =
-    z.nativeEnum(QueryParamBreakdownBy);
+export namespace QueryParamBreakdownBy$ {
+    export const inboundSchema = z.nativeEnum(QueryParamBreakdownBy);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace GetCreatorViewershipMetricsRequest$ {
-    export type Inbound = {
-        from?: string | number | undefined;
-        to?: string | number | undefined;
-        timeStep?: QueryParamTimeStep | undefined;
-        assetId?: string | undefined;
-        streamId?: string | undefined;
-        creatorId?: string | undefined;
-        "breakdownBy[]"?: Array<QueryParamBreakdownBy> | undefined;
-    };
-
     export const inboundSchema: z.ZodType<
         GetCreatorViewershipMetricsRequest,
         z.ZodTypeDef,
-        Inbound
+        unknown
     > = z
         .object({
             from: z
@@ -179,11 +171,11 @@ export namespace GetCreatorViewershipMetricsRequest$ {
                     z.number().int(),
                 ])
                 .optional(),
-            timeStep: QueryParamTimeStep$.optional(),
+            timeStep: QueryParamTimeStep$.inboundSchema.optional(),
             assetId: z.string().optional(),
             streamId: z.string().optional(),
             creatorId: z.string().optional(),
-            "breakdownBy[]": z.array(QueryParamBreakdownBy$).optional(),
+            "breakdownBy[]": z.array(QueryParamBreakdownBy$.inboundSchema).optional(),
         })
         .transform((v) => {
             return {
@@ -200,11 +192,11 @@ export namespace GetCreatorViewershipMetricsRequest$ {
     export type Outbound = {
         from?: string | number | undefined;
         to?: string | number | undefined;
-        timeStep?: QueryParamTimeStep | undefined;
+        timeStep?: string | undefined;
         assetId?: string | undefined;
         streamId?: string | undefined;
         creatorId?: string | undefined;
-        "breakdownBy[]"?: Array<QueryParamBreakdownBy> | undefined;
+        "breakdownBy[]"?: Array<string> | undefined;
     };
 
     export const outboundSchema: z.ZodType<
@@ -217,11 +209,11 @@ export namespace GetCreatorViewershipMetricsRequest$ {
                 .union([z.date().transform((v) => v.toISOString()), z.number().int()])
                 .optional(),
             to: z.union([z.date().transform((v) => v.toISOString()), z.number().int()]).optional(),
-            timeStep: QueryParamTimeStep$.optional(),
+            timeStep: QueryParamTimeStep$.outboundSchema.optional(),
             assetId: z.string().optional(),
             streamId: z.string().optional(),
             creatorId: z.string().optional(),
-            breakdownBy: z.array(QueryParamBreakdownBy$).optional(),
+            breakdownBy: z.array(QueryParamBreakdownBy$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
@@ -238,18 +230,10 @@ export namespace GetCreatorViewershipMetricsRequest$ {
 
 /** @internal */
 export namespace GetCreatorViewershipMetricsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.ViewershipMetric$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
     export const inboundSchema: z.ZodType<
         GetCreatorViewershipMetricsResponse,
         z.ZodTypeDef,
-        Inbound
+        unknown
     > = z
         .object({
             ContentType: z.string(),

@@ -19,18 +19,16 @@ export type CreatorId1 = {
 export type CreatorId = CreatorId1;
 
 /** @internal */
-export const CreatorIdType$: z.ZodNativeEnum<typeof CreatorIdType> = z.nativeEnum(CreatorIdType);
+export namespace CreatorIdType$ {
+    export const inboundSchema = z.nativeEnum(CreatorIdType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace CreatorId1$ {
-    export type Inbound = {
-        type: CreatorIdType;
-        value: string;
-    };
-
-    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, unknown> = z
         .object({
-            type: CreatorIdType$,
+            type: CreatorIdType$.inboundSchema,
             value: z.string(),
         })
         .transform((v) => {
@@ -41,13 +39,13 @@ export namespace CreatorId1$ {
         });
 
     export type Outbound = {
-        type: CreatorIdType;
+        type: string;
         value: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreatorId1> = z
         .object({
-            type: CreatorIdType$,
+            type: CreatorIdType$.outboundSchema,
             value: z.string(),
         })
         .transform((v) => {
@@ -60,12 +58,11 @@ export namespace CreatorId1$ {
 
 /** @internal */
 export namespace CreatorId$ {
-    export type Inbound = CreatorId1$.Inbound;
-
-    export type Outbound = CreatorId1$.Outbound;
-    export const inboundSchema: z.ZodType<CreatorId, z.ZodTypeDef, Inbound> = z.lazy(
+    export const inboundSchema: z.ZodType<CreatorId, z.ZodTypeDef, unknown> = z.lazy(
         () => CreatorId1$.inboundSchema
     );
+
+    export type Outbound = CreatorId1$.Outbound;
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreatorId> = z.lazy(
         () => CreatorId1$.outboundSchema
     );

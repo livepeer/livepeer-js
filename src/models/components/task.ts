@@ -278,7 +278,7 @@ export type TaskStatus = {
  */
 export type TaskUpload = {
     assetSpec?: Asset | undefined;
-    additionalProperties: Record<string, any>;
+    additionalProperties: { [k: string]: any };
 };
 
 export type TaskIpfs = {
@@ -399,19 +399,14 @@ export type Task = {
 };
 
 /** @internal */
-export const TaskType$: z.ZodNativeEnum<typeof TaskType> = z.nativeEnum(TaskType);
+export namespace TaskType$ {
+    export const inboundSchema = z.nativeEnum(TaskType);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Upload$ {
-    export type Inbound = {
-        url?: string | undefined;
-        encryption?: EncryptionOutput$.Inbound | undefined;
-        c2pa?: boolean | undefined;
-        profiles?: Array<TranscodeProfile$.Inbound> | undefined;
-        targetSegmentSizeSecs?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Upload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Upload, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string().optional(),
             encryption: EncryptionOutput$.inboundSchema.optional(),
@@ -462,9 +457,7 @@ export namespace Upload$ {
 
 /** @internal */
 export namespace Content$ {
-    export type Inbound = {};
-
-    export const inboundSchema: z.ZodType<Content, z.ZodTypeDef, Inbound> = z.object({});
+    export const inboundSchema: z.ZodType<Content, z.ZodTypeDef, unknown> = z.object({});
 
     export type Outbound = {};
 
@@ -473,14 +466,7 @@ export namespace Content$ {
 
 /** @internal */
 export namespace TaskExportData$ {
-    export type Inbound = {
-        content: Content$.Inbound;
-        ipfs?: IpfsExportParams$.Inbound | undefined;
-        type?: string | undefined;
-        id?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskExportData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskExportData, z.ZodTypeDef, unknown> = z
         .object({
             content: z.lazy(() => Content$.inboundSchema),
             ipfs: IpfsExportParams$.inboundSchema.optional(),
@@ -522,11 +508,7 @@ export namespace TaskExportData$ {
 
 /** @internal */
 export namespace TaskInput$ {
-    export type Inbound = {
-        url?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskInput, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskInput, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string().optional(),
         })
@@ -553,11 +535,7 @@ export namespace TaskInput$ {
 
 /** @internal */
 export namespace TaskStorage$ {
-    export type Inbound = {
-        url?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskStorage, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskStorage, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string().optional(),
         })
@@ -584,11 +562,7 @@ export namespace TaskStorage$ {
 
 /** @internal */
 export namespace TaskHls$ {
-    export type Inbound = {
-        path?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskHls, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskHls, z.ZodTypeDef, unknown> = z
         .object({
             path: z.string().optional(),
         })
@@ -615,11 +589,7 @@ export namespace TaskHls$ {
 
 /** @internal */
 export namespace TaskMp4$ {
-    export type Inbound = {
-        path?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskMp4, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskMp4, z.ZodTypeDef, unknown> = z
         .object({
             path: z.string().optional(),
         })
@@ -646,12 +616,7 @@ export namespace TaskMp4$ {
 
 /** @internal */
 export namespace TaskOutputs$ {
-    export type Inbound = {
-        hls?: TaskHls$.Inbound | undefined;
-        mp4?: TaskMp4$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskOutputs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskOutputs, z.ZodTypeDef, unknown> = z
         .object({
             hls: z.lazy(() => TaskHls$.inboundSchema).optional(),
             mp4: z.lazy(() => TaskMp4$.inboundSchema).optional(),
@@ -683,17 +648,7 @@ export namespace TaskOutputs$ {
 
 /** @internal */
 export namespace TranscodeFile$ {
-    export type Inbound = {
-        input?: TaskInput$.Inbound | undefined;
-        storage?: TaskStorage$.Inbound | undefined;
-        outputs?: TaskOutputs$.Inbound | undefined;
-        profiles?: Array<TranscodeProfile$.Inbound> | undefined;
-        targetSegmentSizeSecs?: number | undefined;
-        creatorId?: InputCreatorId$.Inbound | undefined;
-        c2pa?: boolean | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TranscodeFile, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TranscodeFile, z.ZodTypeDef, unknown> = z
         .object({
             input: z.lazy(() => TaskInput$.inboundSchema).optional(),
             storage: z.lazy(() => TaskStorage$.inboundSchema).optional(),
@@ -754,13 +709,7 @@ export namespace TranscodeFile$ {
 
 /** @internal */
 export namespace ClipStrategy$ {
-    export type Inbound = {
-        startTime?: number | undefined;
-        endTime?: number | undefined;
-        playbackId?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ClipStrategy, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ClipStrategy, z.ZodTypeDef, unknown> = z
         .object({
             startTime: z.number().optional(),
             endTime: z.number().optional(),
@@ -796,24 +745,18 @@ export namespace ClipStrategy$ {
 }
 
 /** @internal */
-export const CatalystPipelineStrategy$: z.ZodNativeEnum<typeof CatalystPipelineStrategy> =
-    z.nativeEnum(CatalystPipelineStrategy);
+export namespace CatalystPipelineStrategy$ {
+    export const inboundSchema = z.nativeEnum(CatalystPipelineStrategy);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace Clip$ {
-    export type Inbound = {
-        url?: string | undefined;
-        clipStrategy?: ClipStrategy$.Inbound | undefined;
-        catalystPipelineStrategy?: CatalystPipelineStrategy | undefined;
-        sessionId?: string | undefined;
-        inputId?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Clip, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Clip, z.ZodTypeDef, unknown> = z
         .object({
             url: z.string().optional(),
             clipStrategy: z.lazy(() => ClipStrategy$.inboundSchema).optional(),
-            catalystPipelineStrategy: CatalystPipelineStrategy$.optional(),
+            catalystPipelineStrategy: CatalystPipelineStrategy$.inboundSchema.optional(),
             sessionId: z.string().optional(),
             inputId: z.string().optional(),
         })
@@ -832,7 +775,7 @@ export namespace Clip$ {
     export type Outbound = {
         url?: string | undefined;
         clipStrategy?: ClipStrategy$.Outbound | undefined;
-        catalystPipelineStrategy?: CatalystPipelineStrategy | undefined;
+        catalystPipelineStrategy?: string | undefined;
         sessionId?: string | undefined;
         inputId?: string | undefined;
     };
@@ -841,7 +784,7 @@ export namespace Clip$ {
         .object({
             url: z.string().optional(),
             clipStrategy: z.lazy(() => ClipStrategy$.outboundSchema).optional(),
-            catalystPipelineStrategy: CatalystPipelineStrategy$.optional(),
+            catalystPipelineStrategy: CatalystPipelineStrategy$.outboundSchema.optional(),
             sessionId: z.string().optional(),
             inputId: z.string().optional(),
         })
@@ -860,15 +803,7 @@ export namespace Clip$ {
 
 /** @internal */
 export namespace Params$ {
-    export type Inbound = {
-        upload?: Upload$.Inbound | undefined;
-        export?: ExportTaskParams$.Inbound | undefined;
-        exportData?: TaskExportData$.Inbound | undefined;
-        "transcode-file"?: TranscodeFile$.Inbound | undefined;
-        clip?: Clip$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Params, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Params, z.ZodTypeDef, unknown> = z
         .object({
             upload: z.lazy(() => Upload$.inboundSchema).optional(),
             export: ExportTaskParams$.inboundSchema.optional(),
@@ -916,21 +851,16 @@ export namespace Params$ {
 }
 
 /** @internal */
-export const TaskPhase$: z.ZodNativeEnum<typeof TaskPhase> = z.nativeEnum(TaskPhase);
+export namespace TaskPhase$ {
+    export const inboundSchema = z.nativeEnum(TaskPhase);
+    export const outboundSchema = inboundSchema;
+}
 
 /** @internal */
 export namespace TaskStatus$ {
-    export type Inbound = {
-        phase: TaskPhase;
-        updatedAt: number;
-        progress?: number | undefined;
-        errorMessage?: string | undefined;
-        retries?: number | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskStatus, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskStatus, z.ZodTypeDef, unknown> = z
         .object({
-            phase: TaskPhase$,
+            phase: TaskPhase$.inboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -947,7 +877,7 @@ export namespace TaskStatus$ {
         });
 
     export type Outbound = {
-        phase: TaskPhase;
+        phase: string;
         updatedAt: number;
         progress?: number | undefined;
         errorMessage?: string | undefined;
@@ -956,7 +886,7 @@ export namespace TaskStatus$ {
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TaskStatus> = z
         .object({
-            phase: TaskPhase$,
+            phase: TaskPhase$.outboundSchema,
             updatedAt: z.number(),
             progress: z.number().optional(),
             errorMessage: z.string().optional(),
@@ -975,13 +905,7 @@ export namespace TaskStatus$ {
 
 /** @internal */
 export namespace TaskUpload$ {
-    export type Inbound = {
-        [additionalProperties: string]: unknown;
-
-        assetSpec?: Asset$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskUpload, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskUpload, z.ZodTypeDef, unknown> = z
         .object({
             assetSpec: Asset$.inboundSchema.optional(),
         })
@@ -1015,16 +939,7 @@ export namespace TaskUpload$ {
 
 /** @internal */
 export namespace TaskIpfs$ {
-    export type Inbound = {
-        videoFileCid: string;
-        videoFileUrl?: string | undefined;
-        videoFileGatewayUrl?: string | undefined;
-        nftMetadataCid?: string | undefined;
-        nftMetadataUrl?: string | undefined;
-        nftMetadataGatewayUrl?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<TaskIpfs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskIpfs, z.ZodTypeDef, unknown> = z
         .object({
             videoFileCid: z.string(),
             videoFileUrl: z.string().optional(),
@@ -1084,11 +999,7 @@ export namespace TaskIpfs$ {
 
 /** @internal */
 export namespace Export$ {
-    export type Inbound = {
-        ipfs?: TaskIpfs$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Export, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Export, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z.lazy(() => TaskIpfs$.inboundSchema).optional(),
         })
@@ -1115,11 +1026,7 @@ export namespace Export$ {
 
 /** @internal */
 export namespace TaskSchemasIpfs$ {
-    export type Inbound = {
-        cid: string;
-    };
-
-    export const inboundSchema: z.ZodType<TaskSchemasIpfs, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<TaskSchemasIpfs, z.ZodTypeDef, unknown> = z
         .object({
             cid: z.string(),
         })
@@ -1146,11 +1053,7 @@ export namespace TaskSchemasIpfs$ {
 
 /** @internal */
 export namespace ExportData$ {
-    export type Inbound = {
-        ipfs?: TaskSchemasIpfs$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<ExportData, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<ExportData, z.ZodTypeDef, unknown> = z
         .object({
             ipfs: z.lazy(() => TaskSchemasIpfs$.inboundSchema).optional(),
         })
@@ -1177,13 +1080,7 @@ export namespace ExportData$ {
 
 /** @internal */
 export namespace Output$ {
-    export type Inbound = {
-        upload?: TaskUpload$.Inbound | undefined;
-        export?: Export$.Inbound | undefined;
-        exportData?: ExportData$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Output, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
         .object({
             upload: z.lazy(() => TaskUpload$.inboundSchema).optional(),
             export: z.lazy(() => Export$.inboundSchema).optional(),
@@ -1220,23 +1117,10 @@ export namespace Output$ {
 
 /** @internal */
 export namespace Task$ {
-    export type Inbound = {
-        id?: string | undefined;
-        type?: TaskType | undefined;
-        createdAt?: number | undefined;
-        scheduledAt?: number | undefined;
-        inputAssetId?: string | undefined;
-        outputAssetId?: string | undefined;
-        requesterId?: string | undefined;
-        params?: Params$.Inbound | undefined;
-        status?: TaskStatus$.Inbound | undefined;
-        output?: Output$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
-            type: TaskType$.optional(),
+            type: TaskType$.inboundSchema.optional(),
             createdAt: z.number().optional(),
             scheduledAt: z.number().optional(),
             inputAssetId: z.string().optional(),
@@ -1263,7 +1147,7 @@ export namespace Task$ {
 
     export type Outbound = {
         id?: string | undefined;
-        type?: TaskType | undefined;
+        type?: string | undefined;
         createdAt?: number | undefined;
         scheduledAt?: number | undefined;
         inputAssetId?: string | undefined;
@@ -1277,7 +1161,7 @@ export namespace Task$ {
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Task> = z
         .object({
             id: z.string().optional(),
-            type: TaskType$.optional(),
+            type: TaskType$.outboundSchema.optional(),
             createdAt: z.number().optional(),
             scheduledAt: z.number().optional(),
             inputAssetId: z.string().optional(),

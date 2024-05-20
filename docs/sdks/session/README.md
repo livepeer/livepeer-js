@@ -26,9 +26,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.session.getClips(id);
+  const result = await livepeer.session.getClips("<value>");
 
   // Handle the result
   console.log(result)
@@ -109,9 +107,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const id = "<value>";
-  
-  const result = await livepeer.session.get(id);
+  const result = await livepeer.session.get("<value>");
 
   // Handle the result
   console.log(result)
@@ -152,10 +148,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const parentId = "<value>";
-  const record = 1;
-  
-  const result = await livepeer.session.getRecorded(parentId, record);
+  const result = await livepeer.session.getRecorded("<value>", 1);
 
   // Handle the result
   console.log(result)

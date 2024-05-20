@@ -37,12 +37,7 @@ export type RemoveMultistreamTargetResponse = {
 
 /** @internal */
 export namespace RemoveMultistreamTargetRequest$ {
-    export type Inbound = {
-        id: string;
-        targetId: string;
-    };
-
-    export const inboundSchema: z.ZodType<RemoveMultistreamTargetRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RemoveMultistreamTargetRequest, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string(),
             targetId: z.string(),
@@ -75,14 +70,7 @@ export namespace RemoveMultistreamTargetRequest$ {
 
 /** @internal */
 export namespace RemoveMultistreamTargetResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<RemoveMultistreamTargetResponse, z.ZodTypeDef, Inbound> =
+    export const inboundSchema: z.ZodType<RemoveMultistreamTargetResponse, z.ZodTypeDef, unknown> =
         z
             .object({
                 ContentType: z.string(),

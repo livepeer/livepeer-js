@@ -46,15 +46,16 @@ export class Metrics extends ClientSDK {
      *
      */
     async getViewership(
-        input: operations.GetViewershipMetricsRequest,
+        request: operations.GetViewershipMetricsRequest,
         options?: RequestOptions
     ): Promise<operations.GetViewershipMetricsResponse> {
+        const input$ = typeof request === "undefined" ? {} : request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.GetViewershipMetricsRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -109,7 +110,7 @@ export class Metrics extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -122,12 +123,13 @@ export class Metrics extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -174,15 +176,16 @@ export class Metrics extends ClientSDK {
      *
      */
     async getCreatorViewership(
-        input: operations.GetCreatorViewershipMetricsRequest,
+        request: operations.GetCreatorViewershipMetricsRequest,
         options?: RequestOptions
     ): Promise<operations.GetCreatorViewershipMetricsResponse> {
+        const input$ = typeof request === "undefined" ? {} : request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
 
         const payload$ = schemas$.parse(
-            input,
+            input$,
             (value$) => operations.GetCreatorViewershipMetricsRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
@@ -233,7 +236,7 @@ export class Metrics extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -246,12 +249,13 @@ export class Metrics extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -345,7 +349,7 @@ export class Metrics extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -358,12 +362,13 @@ export class Metrics extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {
@@ -406,18 +411,10 @@ export class Metrics extends ClientSDK {
      * Query usage metrics
      */
     async getUsage(
-        from?: number | undefined,
-        to?: number | undefined,
-        timeStep?: operations.GetUsageMetricsQueryParamTimeStep | undefined,
-        creatorId?: string | undefined,
+        request: operations.GetUsageMetricsRequest,
         options?: RequestOptions
     ): Promise<operations.GetUsageMetricsResponse> {
-        const input$: operations.GetUsageMetricsRequest = {
-            from: from,
-            to: to,
-            timeStep: timeStep,
-            creatorId: creatorId,
-        };
+        const input$ = typeof request === "undefined" ? {} : request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
@@ -432,6 +429,10 @@ export class Metrics extends ClientSDK {
         const path$ = this.templateURLComponent("/data/usage/query")();
 
         const query$ = [
+            enc$.encodeForm("breakdownBy[]", payload$["breakdownBy[]"], {
+                explode: true,
+                charEncoding: "percent",
+            }),
             enc$.encodeForm("creatorId", payload$.creatorId, {
                 explode: true,
                 charEncoding: "percent",
@@ -462,7 +463,7 @@ export class Metrics extends ClientSDK {
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
         const doOptions = { context, errorCodes: ["4XX", "5XX"] };
-        const request = this.createRequest$(
+        const request$ = this.createRequest$(
             context,
             {
                 security: securitySettings$,
@@ -475,12 +476,13 @@ export class Metrics extends ClientSDK {
             options
         );
 
-        const response = await this.do$(request, doOptions);
+        const response = await this.do$(request$, doOptions);
 
         const responseFields$ = {
             ContentType: response.headers.get("content-type") ?? "application/octet-stream",
             StatusCode: response.status,
             RawResponse: response,
+            Headers: {},
         };
 
         if (this.matchResponse(response, 200, "application/json")) {

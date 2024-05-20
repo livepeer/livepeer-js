@@ -35,11 +35,7 @@ export type GetStreamsResponse = {
 
 /** @internal */
 export namespace GetStreamsRequest$ {
-    export type Inbound = {
-        streamsonly?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetStreamsRequest, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetStreamsRequest, z.ZodTypeDef, unknown> = z
         .object({
             streamsonly: z.string().optional(),
         })
@@ -66,15 +62,7 @@ export namespace GetStreamsRequest$ {
 
 /** @internal */
 export namespace GetStreamsResponse$ {
-    export type Inbound = {
-        ContentType: string;
-        StatusCode: number;
-        RawResponse: Response;
-        data?: Array<components.Stream$.Inbound> | undefined;
-        error?: errors.ErrorT$.Inbound | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<GetStreamsResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<GetStreamsResponse, z.ZodTypeDef, unknown> = z
         .object({
             ContentType: z.string(),
             StatusCode: z.number().int(),

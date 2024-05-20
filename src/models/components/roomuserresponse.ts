@@ -21,13 +21,7 @@ export type RoomUserResponse = {
 
 /** @internal */
 export namespace RoomUserResponse$ {
-    export type Inbound = {
-        id?: string | undefined;
-        joinUrl?: string | undefined;
-        token?: string | undefined;
-    };
-
-    export const inboundSchema: z.ZodType<RoomUserResponse, z.ZodTypeDef, Inbound> = z
+    export const inboundSchema: z.ZodType<RoomUserResponse, z.ZodTypeDef, unknown> = z
         .object({
             id: z.string().optional(),
             joinUrl: z.string().optional(),

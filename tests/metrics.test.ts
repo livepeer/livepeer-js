@@ -9,7 +9,9 @@ describe("Metrics (Viewership) API", () => {
 
   describe("Query usage metrics", () => {
     it("should query usage metrics and match the structure of direct API call", async () => {
-      const { usageMetric } = await sdk.metrics.getUsage();
+      const { usageMetric } = await sdk.metrics.getUsage({
+        
+      });
 
       const response = await fetch(`${API_BASE_URL}/data/usage/query`, {
         method: "GET",

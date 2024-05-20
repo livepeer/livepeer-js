@@ -21,20 +21,13 @@ Requires a private (non-CORS) API key to be used.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { BreakdownBy } from "livepeer/models/operations";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await livepeer.metrics.getViewership({
-  from: 980301,
-  to: 366854,
-    breakdownBy: [
-      BreakdownBy.PlaybackId,
-    ],
-  });
+  const result = await livepeer.metrics.getViewership({});
 
   // Handle the result
   console.log(result)
@@ -70,20 +63,13 @@ Requires a proof of ownership to be sent in the request, which for now is just t
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { QueryParamBreakdownBy } from "livepeer/models/operations";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const result = await livepeer.metrics.getCreatorViewership({
-  from: new Date("2022-06-17T03:28:06.363Z"),
-  to: 702371,
-    breakdownBy: [
-      QueryParamBreakdownBy.DeviceType,
-    ],
-  });
+  const result = await livepeer.metrics.getCreatorViewership({});
 
   // Handle the result
   console.log(result)
@@ -127,9 +113,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const playbackId = "<value>";
-  
-  const result = await livepeer.metrics.getPublicViewership(playbackId);
+  const result = await livepeer.metrics.getPublicViewership("<value>");
 
   // Handle the result
   console.log(result)
@@ -164,19 +148,13 @@ Query usage metrics
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { GetUsageMetricsQueryParamTimeStep } from "livepeer/models/operations";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
 });
 
 async function run() {
-  const from = 224089;
-  const to = 231125;
-  const timeStep = GetUsageMetricsQueryParamTimeStep.Day;
-  const creatorId = "<value>";
-  
-  const result = await livepeer.metrics.getUsage(from, to, timeStep, creatorId);
+  const result = await livepeer.metrics.getUsage({});
 
   // Handle the result
   console.log(result)
@@ -189,10 +167,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `from`                                                                                                                                                                         | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Start millis timestamp for the query range (inclusive)<br/>                                                                                                                    |
-| `to`                                                                                                                                                                           | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | End millis timestamp for the query range (exclusive)<br/>                                                                                                                      |
-| `timeStep`                                                                                                                                                                     | [operations.GetUsageMetricsQueryParamTimeStep](../../models/operations/getusagemetricsqueryparamtimestep.md)                                                                   | :heavy_minus_sign:                                                                                                                                                             | The time step to aggregate viewership metrics by<br/>                                                                                                                          |
-| `creatorId`                                                                                                                                                                    | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The creator ID to filter the query results<br/>                                                                                                                                |
+| `request`                                                                                                                                                                      | [operations.GetUsageMetricsRequest](../../models/operations/getusagemetricsrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 
