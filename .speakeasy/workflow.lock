@@ -2,16 +2,16 @@ speakeasyVersion: 1.293.1
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:5fe95adf98d3558833a4413475def3451e55a63465cdbbea94de06c0bf03105c
-        sourceBlobDigest: sha256:0561ad65098145927f1d60a8ba370296d6e91cbb1430f9880f6a884d594b870e
+        sourceRevisionDigest: sha256:3871bf226359b14fa14ef5934fb2545bdcc19b74bbac620897478a2f851f07f4
+        sourceBlobDigest: sha256:abca49b452693969bce9971bf8edef9bee4a738150d590eb8f73e9080debf4e2
         tags:
             - latest
 targets:
     livepeer-ts:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:5fe95adf98d3558833a4413475def3451e55a63465cdbbea94de06c0bf03105c
-        sourceBlobDigest: sha256:0561ad65098145927f1d60a8ba370296d6e91cbb1430f9880f6a884d594b870e
+        sourceRevisionDigest: sha256:3871bf226359b14fa14ef5934fb2545bdcc19b74bbac620897478a2f851f07f4
+        sourceBlobDigest: sha256:abca49b452693969bce9971bf8edef9bee4a738150d590eb8f73e9080debf4e2
         outLocation: .
 workflow:
     workflowVersion: 1.0.0
