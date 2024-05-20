@@ -7,11 +7,11 @@ import * as errors from "../errors";
 import * as z from "zod";
 
 export type UploadAssetAssetTask = {
-    id?: string | undefined;
+    id: string;
 };
 
 /**
- * Success
+ * Upload started
  */
 export type UploadAssetDataOutput = {
     asset: components.Asset;
@@ -19,11 +19,11 @@ export type UploadAssetDataOutput = {
 };
 
 export type UploadAssetTask = {
-    id?: string | undefined;
+    id: string;
 };
 
 /**
- * Import in progress
+ * Upload in progress
  */
 export type UploadAssetData = {
     asset: components.Asset;
@@ -44,11 +44,11 @@ export type UploadAssetResponse = {
      */
     rawResponse: Response;
     /**
-     * Import in progress
+     * Upload in progress
      */
     twoHundredApplicationJsonData?: UploadAssetData | undefined;
     /**
-     * Success
+     * Upload started
      */
     twoHundredAndOneApplicationJsonData?: UploadAssetDataOutput | undefined;
     /**
@@ -61,25 +61,25 @@ export type UploadAssetResponse = {
 export namespace UploadAssetAssetTask$ {
     export const inboundSchema: z.ZodType<UploadAssetAssetTask, z.ZodTypeDef, unknown> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 
     export type Outbound = {
-        id?: string | undefined;
+        id: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UploadAssetAssetTask> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 }
@@ -120,25 +120,25 @@ export namespace UploadAssetDataOutput$ {
 export namespace UploadAssetTask$ {
     export const inboundSchema: z.ZodType<UploadAssetTask, z.ZodTypeDef, unknown> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 
     export type Outbound = {
-        id?: string | undefined;
+        id: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, UploadAssetTask> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 }

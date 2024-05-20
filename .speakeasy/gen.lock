@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: c6cd3eedbf5e01595a0c3fbecba26c2d
+  docChecksum: c12afd029507bb4c81908e836702453b
   docVersion: 1.0.0
-  speakeasyVersion: 1.290.1
-  generationVersion: 2.332.4
-  releaseVersion: 3.2.2
-  configChecksum: 24a4bebf98b9758abcccdef5853258a4
+  speakeasyVersion: 1.293.1
+  generationVersion: 2.333.3
+  releaseVersion: 3.2.3
+  configChecksum: 058149de5b65dc6ddfe44cee24fcaad8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -24,7 +24,7 @@ features:
     nullables: 0.1.0
     responseFormat: 0.2.3
     sdkHooks: 0.1.0
-    unions: 2.85.4
+    unions: 2.85.5
 generatedFiles:
   - src/sdk/stream.ts
   - src/sdk/multistream.ts
@@ -270,6 +270,7 @@ generatedFiles:
   - docs/models/operations/getpublicviewershipmetricsdata.md
   - docs/models/operations/getpublicviewershipmetricsresponse.md
   - docs/models/operations/getusagemetricsqueryparamtimestep.md
+  - docs/models/operations/getusagemetricsqueryparambreakdownby.md
   - docs/models/operations/getusagemetricsrequest.md
   - docs/models/operations/getusagemetricsresponse.md
   - docs/models/operations/createsigningkeyresponse.md
@@ -290,6 +291,7 @@ generatedFiles:
   - docs/models/errors/errort.md
   - docs/models/components/stream3.md
   - docs/models/components/streamusertags.md
+  - docs/models/components/stream1.md
   - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
@@ -312,8 +314,9 @@ generatedFiles:
   - docs/models/components/targetspec.md
   - docs/models/components/target.md
   - docs/models/components/inputcreatoridtype.md
-  - docs/models/components/one.md
+  - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md
+  - docs/models/components/one.md
   - docs/models/components/ismobile.md
   - docs/models/components/location.md
   - docs/models/components/pull.md

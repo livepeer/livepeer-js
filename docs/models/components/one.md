@@ -1,9 +1,12 @@
 # One
 
+0: not mobile, 1: mobile screen share, 2: mobile camera.
 
-## Fields
 
-| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `type`                                                                         | [components.InputCreatorIdType](../../models/components/inputcreatoridtype.md) | :heavy_check_mark:                                                             | N/A                                                                            |
-| `value`                                                                        | *string*                                                                       | :heavy_check_mark:                                                             | N/A                                                                            |
+## Values
+
+| Name   | Value  |
+| ------ | ------ |
+| `Zero` | 0      |
+| `One`  | 1      |
+| `Two`  | 2      |

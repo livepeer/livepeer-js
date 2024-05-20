@@ -7,7 +7,7 @@ import * as errors from "../errors";
 import * as z from "zod";
 
 export type Task = {
-    id?: string | undefined;
+    id: string;
 };
 
 /**
@@ -53,25 +53,25 @@ export type RequestUploadResponse = {
 export namespace Task$ {
     export const inboundSchema: z.ZodType<Task, z.ZodTypeDef, unknown> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 
     export type Outbound = {
-        id?: string | undefined;
+        id: string;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Task> = z
         .object({
-            id: z.string().optional(),
+            id: z.string(),
         })
         .transform((v) => {
             return {
-                ...(v.id === undefined ? null : { id: v.id }),
+                id: v.id,
             };
         });
 }

@@ -40,7 +40,7 @@ export type Room = {
      * internal ID for egress output
      */
     egressId?: string | undefined;
-    participants: Record<string, Participants>;
+    participants: { [k: string]: Participants };
 };
 
 /** @internal */
@@ -110,7 +110,7 @@ export namespace Room$ {
         createdAt?: number | undefined;
         updatedAt?: number | undefined;
         egressId?: string | undefined;
-        participants: Record<string, Participants$.Outbound>;
+        participants: { [k: string]: Participants$.Outbound };
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Room> = z

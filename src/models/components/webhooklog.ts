@@ -16,7 +16,7 @@ export type Request = {
     /**
      * HTTP request headers
      */
-    headers?: Record<string, string> | undefined;
+    headers?: { [k: string]: string } | undefined;
     /**
      * request body
      */
@@ -89,7 +89,7 @@ export namespace Request$ {
     export type Outbound = {
         url?: string | undefined;
         method?: string | undefined;
-        headers?: Record<string, string> | undefined;
+        headers?: { [k: string]: string } | undefined;
         body?: string | undefined;
     };
 

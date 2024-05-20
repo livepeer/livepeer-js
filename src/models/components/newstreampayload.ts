@@ -38,7 +38,7 @@ export type NewStreamPayload = {
     /**
      * User input tags associated with the stream
      */
-    userTags?: Record<string, UserTags> | undefined;
+    userTags?: { [k: string]: UserTags } | undefined;
 };
 
 /** @internal */
@@ -75,7 +75,7 @@ export namespace NewStreamPayload$ {
         profiles?: Array<FfmpegProfile$.Outbound> | null | undefined;
         record?: boolean | undefined;
         multistream?: Multistream$.Outbound | undefined;
-        userTags?: Record<string, UserTags$.Outbound> | undefined;
+        userTags?: { [k: string]: UserTags$.Outbound } | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewStreamPayload> = z

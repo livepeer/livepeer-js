@@ -411,18 +411,10 @@ export class Metrics extends ClientSDK {
      * Query usage metrics
      */
     async getUsage(
-        from?: number | undefined,
-        to?: number | undefined,
-        timeStep?: operations.GetUsageMetricsQueryParamTimeStep | undefined,
-        creatorId?: string | undefined,
+        request: operations.GetUsageMetricsRequest,
         options?: RequestOptions
     ): Promise<operations.GetUsageMetricsResponse> {
-        const input$: operations.GetUsageMetricsRequest = {
-            from: from,
-            to: to,
-            timeStep: timeStep,
-            creatorId: creatorId,
-        };
+        const input$ = typeof request === "undefined" ? {} : request;
         const headers$ = new Headers();
         headers$.set("user-agent", SDK_METADATA.userAgent);
         headers$.set("Accept", "application/json");
@@ -437,6 +429,10 @@ export class Metrics extends ClientSDK {
         const path$ = this.templateURLComponent("/data/usage/query")();
 
         const query$ = [
+            enc$.encodeForm("breakdownBy[]", payload$["breakdownBy[]"], {
+                explode: true,
+                charEncoding: "percent",
+            }),
             enc$.encodeForm("creatorId", payload$.creatorId, {
                 explode: true,
                 charEncoding: "percent",

@@ -22,7 +22,7 @@ export type PlaybackPolicy = {
     /**
      * User-defined webhook context
      */
-    webhookContext?: Record<string, any> | undefined;
+    webhookContext?: { [k: string]: any } | undefined;
     /**
      * Interval (in seconds) at which the playback policy should be
      *
@@ -62,7 +62,7 @@ export namespace PlaybackPolicy$ {
     export type Outbound = {
         type: string;
         webhookId?: string | undefined;
-        webhookContext?: Record<string, any> | undefined;
+        webhookContext?: { [k: string]: any } | undefined;
         refreshInterval?: number | undefined;
     };
 

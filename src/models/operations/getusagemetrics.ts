@@ -17,6 +17,10 @@ export enum GetUsageMetricsQueryParamTimeStep {
     Day = "day",
 }
 
+export enum GetUsageMetricsQueryParamBreakdownBy {
+    CreatorId = "creatorId",
+}
+
 export type GetUsageMetricsRequest = {
     /**
      * Start millis timestamp for the query range (inclusive)
@@ -46,6 +50,14 @@ export type GetUsageMetricsRequest = {
      *
      */
     creatorId?: string | undefined;
+    /**
+     * The list of fields to break down the query results. Currently the
+     *
+     * @remarks
+     * only supported breakdown is by `creatorId`.
+     *
+     */
+    breakdownBy?: Array<GetUsageMetricsQueryParamBreakdownBy> | undefined;
 };
 
 export type GetUsageMetricsResponse = {
@@ -78,6 +90,12 @@ export namespace GetUsageMetricsQueryParamTimeStep$ {
 }
 
 /** @internal */
+export namespace GetUsageMetricsQueryParamBreakdownBy$ {
+    export const inboundSchema = z.nativeEnum(GetUsageMetricsQueryParamBreakdownBy);
+    export const outboundSchema = inboundSchema;
+}
+
+/** @internal */
 export namespace GetUsageMetricsRequest$ {
     export const inboundSchema: z.ZodType<GetUsageMetricsRequest, z.ZodTypeDef, unknown> = z
         .object({
@@ -85,6 +103,9 @@ export namespace GetUsageMetricsRequest$ {
             to: z.number().int().optional(),
             timeStep: GetUsageMetricsQueryParamTimeStep$.inboundSchema.optional(),
             creatorId: z.string().optional(),
+            "breakdownBy[]": z
+                .array(GetUsageMetricsQueryParamBreakdownBy$.inboundSchema)
+                .optional(),
         })
         .transform((v) => {
             return {
@@ -92,6 +113,7 @@ export namespace GetUsageMetricsRequest$ {
                 ...(v.to === undefined ? null : { to: v.to }),
                 ...(v.timeStep === undefined ? null : { timeStep: v.timeStep }),
                 ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
+                ...(v["breakdownBy[]"] === undefined ? null : { breakdownBy: v["breakdownBy[]"] }),
             };
         });
 
@@ -100,6 +122,7 @@ export namespace GetUsageMetricsRequest$ {
         to?: number | undefined;
         timeStep?: string | undefined;
         creatorId?: string | undefined;
+        "breakdownBy[]"?: Array<string> | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetUsageMetricsRequest> = z
@@ -108,6 +131,7 @@ export namespace GetUsageMetricsRequest$ {
             to: z.number().int().optional(),
             timeStep: GetUsageMetricsQueryParamTimeStep$.outboundSchema.optional(),
             creatorId: z.string().optional(),
+            breakdownBy: z.array(GetUsageMetricsQueryParamBreakdownBy$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
@@ -115,6 +139,7 @@ export namespace GetUsageMetricsRequest$ {
                 ...(v.to === undefined ? null : { to: v.to }),
                 ...(v.timeStep === undefined ? null : { timeStep: v.timeStep }),
                 ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
+                ...(v.breakdownBy === undefined ? null : { "breakdownBy[]": v.breakdownBy }),
             };
         });
 }

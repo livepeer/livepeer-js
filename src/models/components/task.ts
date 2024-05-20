@@ -278,7 +278,7 @@ export type TaskStatus = {
  */
 export type TaskUpload = {
     assetSpec?: Asset | undefined;
-    additionalProperties: Record<string, any>;
+    additionalProperties: { [k: string]: any };
 };
 
 export type TaskIpfs = {

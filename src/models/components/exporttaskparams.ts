@@ -24,7 +24,7 @@ export type Custom = {
     /**
      * Headers to add to the export request
      */
-    headers?: Record<string, string> | undefined;
+    headers?: { [k: string]: string } | undefined;
 };
 
 export type ExportTaskParams1 = {
@@ -85,7 +85,7 @@ export namespace Custom$ {
     export type Outbound = {
         url: string;
         method: string;
-        headers?: Record<string, string> | undefined;
+        headers?: { [k: string]: string } | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Custom> = z

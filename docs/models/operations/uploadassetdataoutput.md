@@ -1,6 +1,6 @@
 # UploadAssetDataOutput
 
-Success
+Upload started
 
 
 ## Fields

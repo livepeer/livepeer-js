@@ -13,13 +13,18 @@ export type Stream3 = string | number;
 export type StreamUserTags = string | number | Array<string | number>;
 
 /**
- * If true, the stream will be pulled from a mobile source.
+ * 0: not mobile, 1: mobile screen share, 2: mobile camera.
  */
-export enum StreamIsMobile {
+export enum Stream1 {
     Zero = 0,
     One = 1,
     Two = 2,
 }
+
+/**
+ * Indicates whether the stream will be pulled from a mobile source.
+ */
+export type StreamIsMobile = Stream1 | boolean;
 
 /**
  * Approximate location of the pull source. The location is used to
@@ -59,11 +64,11 @@ export type StreamPull = {
     /**
      * Headers to be sent with the request to the pull source.
      */
-    headers?: Record<string, string> | undefined;
+    headers?: { [k: string]: string } | undefined;
     /**
-     * If true, the stream will be pulled from a mobile source.
+     * Indicates whether the stream will be pulled from a mobile source.
      */
-    isMobile?: StreamIsMobile | undefined;
+    isMobile?: Stream1 | boolean | undefined;
     /**
      * Approximate location of the pull source. The location is used to
      *
@@ -97,7 +102,7 @@ export type Stream = {
     /**
      * User input tags associated with the stream
      */
-    userTags?: Record<string, string | number | Array<string | number>> | undefined;
+    userTags?: { [k: string]: string | number | Array<string | number> } | undefined;
     lastSeen?: number | undefined;
     sourceSegments?: number | undefined;
     transcodedSegments?: number | undefined;
@@ -219,9 +224,23 @@ export namespace StreamUserTags$ {
 }
 
 /** @internal */
-export namespace StreamIsMobile$ {
-    export const inboundSchema = z.nativeEnum(StreamIsMobile);
+export namespace Stream1$ {
+    export const inboundSchema = z.nativeEnum(Stream1);
     export const outboundSchema = inboundSchema;
+}
+
+/** @internal */
+export namespace StreamIsMobile$ {
+    export const inboundSchema: z.ZodType<StreamIsMobile, z.ZodTypeDef, unknown> = z.union([
+        Stream1$.inboundSchema,
+        z.boolean(),
+    ]);
+
+    export type Outbound = number | boolean;
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamIsMobile> = z.union([
+        Stream1$.outboundSchema,
+        z.boolean(),
+    ]);
 }
 
 /** @internal */
@@ -262,22 +281,22 @@ export namespace StreamPull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: StreamIsMobile$.inboundSchema.default(StreamIsMobile.Zero),
+            isMobile: z.union([Stream1$.inboundSchema, z.boolean()]).optional(),
             location: z.lazy(() => StreamLocation$.inboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
-                isMobile: v.isMobile,
+                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });
 
     export type Outbound = {
         source: string;
-        headers?: Record<string, string> | undefined;
-        isMobile: number;
+        headers?: { [k: string]: string } | undefined;
+        isMobile?: number | boolean | undefined;
         location?: StreamLocation$.Outbound | undefined;
     };
 
@@ -285,14 +304,14 @@ export namespace StreamPull$ {
         .object({
             source: z.string(),
             headers: z.record(z.string()).optional(),
-            isMobile: StreamIsMobile$.outboundSchema.default(StreamIsMobile.Zero),
+            isMobile: z.union([Stream1$.outboundSchema, z.boolean()]).optional(),
             location: z.lazy(() => StreamLocation$.outboundSchema).optional(),
         })
         .transform((v) => {
             return {
                 source: v.source,
                 ...(v.headers === undefined ? null : { headers: v.headers }),
-                isMobile: v.isMobile,
+                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
                 ...(v.location === undefined ? null : { location: v.location }),
             };
         });
@@ -427,7 +446,7 @@ export namespace Stream$ {
         name: string;
         kind?: string | undefined;
         creatorId?: CreatorId$.Outbound | undefined;
-        userTags?: Record<string, string | number | Array<string | number>> | undefined;
+        userTags?: { [k: string]: string | number | Array<string | number> } | undefined;
         lastSeen?: number | undefined;
         sourceSegments?: number | undefined;
         transcodedSegments?: number | undefined;
