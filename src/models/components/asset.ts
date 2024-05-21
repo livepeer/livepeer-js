@@ -3,10 +3,8 @@
  */
 
 import { CreatorId, CreatorId$ } from "./creatorid";
-import { Encryption, Encryption$ } from "./encryption";
 import { EncryptionOutput, EncryptionOutput$ } from "./encryptionoutput";
 import { IpfsFileInfo, IpfsFileInfo$ } from "./ipfsfileinfo";
-import { IpfsFileInfoInput, IpfsFileInfoInput$ } from "./ipfsfileinfoinput";
 import { PlaybackPolicy, PlaybackPolicy$ } from "./playbackpolicy";
 import { StorageStatus, StorageStatus$ } from "./storagestatus";
 import * as z from "zod";
@@ -24,7 +22,7 @@ export enum AssetSchemasSource3Type {
     Clip = "clip",
 }
 
-export type Asset3Output = {
+export type Asset3 = {
     type: AssetSchemasSource3Type;
     encryption?: EncryptionOutput | undefined;
     /**
@@ -65,7 +63,7 @@ export enum AssetSchemasType {
     Url = "url",
 }
 
-export type Asset1Output = {
+export type Asset1 = {
     type: AssetSchemasType;
     /**
      * URL from which the asset was uploaded.
@@ -78,7 +76,7 @@ export type Asset1Output = {
     encryption?: EncryptionOutput | undefined;
 };
 
-export type AssetSource = Two | Asset1Output | Asset3Output;
+export type Source = Two | Asset1 | Asset3;
 
 /**
  * Name of the NFT metadata template to export. 'player'
@@ -304,7 +302,7 @@ export type Asset = {
      * Whether the playback policy for a asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
-    source: Two | Asset1Output | Asset3Output;
+    source: Two | Asset1 | Asset3;
     creatorId?: CreatorId | undefined;
     storage?: AssetStorage | undefined;
     /**
@@ -344,93 +342,6 @@ export type Asset = {
     videoSpec?: VideoSpec | undefined;
 };
 
-export type Asset3 = {
-    type: AssetSchemasSource3Type;
-    encryption?: Encryption | undefined;
-    /**
-     * ID of the asset or stream from which this asset was created.
-     */
-    sourceId?: string | undefined;
-    /**
-     * ID of the session from which this asset was created.
-     */
-    sessionId?: string | undefined;
-    /**
-     * Playback ID of the asset or stream from which this asset was created.
-     */
-    playbackId?: string | undefined;
-    /**
-     * ID of the requester from which this asset was created.
-     */
-    requesterId?: string | undefined;
-    /**
-     * ID of the asset from which this asset was created.
-     */
-    assetId?: string | undefined;
-};
-
-export type Asset1 = {
-    type: AssetSchemasType;
-    /**
-     * URL from which the asset was uploaded.
-     */
-    url: string;
-    /**
-     * Gateway URL from asset if parsed from provided URL on upload.
-     */
-    gatewayUrl?: string | undefined;
-    encryption?: Encryption | undefined;
-};
-
-export type Source = Two | Asset1 | Asset3;
-
-export type AssetIpfsInput = {
-    spec?: AssetSpec | undefined;
-    dollarRef?: any | undefined;
-    nftMetadata?: IpfsFileInfoInput | undefined;
-};
-
-export type AssetStorageInput = {
-    ipfs?: AssetIpfsInput | undefined;
-};
-
-export type AssetInput = {
-    /**
-     * Type of the asset.
-     */
-    type?: AssetType | undefined;
-    /**
-     * The playback ID to use with the Playback Info endpoint to retrieve playback URLs.
-     */
-    playbackId?: string | undefined;
-    /**
-     * Whether to generate MP4s for the asset.
-     */
-    staticMp4?: boolean | undefined;
-    /**
-     * Whether the playback policy for a asset or stream is public or signed
-     */
-    playbackPolicy?: PlaybackPolicy | null | undefined;
-    source: Two | Asset1 | Asset3;
-    creatorId?: CreatorId | undefined;
-    storage?: AssetStorageInput | undefined;
-    /**
-     * The name of the asset. This is not necessarily the filename - it can be a custom name or title.
-     *
-     * @remarks
-     *
-     */
-    name: string;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
-    /**
-     * Hash of the asset
-     */
-    hash?: Array<Hash> | undefined;
-};
-
 /** @internal */
 export namespace AssetType$ {
     export const inboundSchema = z.nativeEnum(AssetType);
@@ -444,8 +355,8 @@ export namespace AssetSchemasSource3Type$ {
 }
 
 /** @internal */
-export namespace Asset3Output$ {
-    export const inboundSchema: z.ZodType<Asset3Output, z.ZodTypeDef, unknown> = z
+export namespace Asset3$ {
+    export const inboundSchema: z.ZodType<Asset3, z.ZodTypeDef, unknown> = z
         .object({
             type: AssetSchemasSource3Type$.inboundSchema,
             encryption: EncryptionOutput$.inboundSchema.optional(),
@@ -477,7 +388,7 @@ export namespace Asset3Output$ {
         assetId?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset3Output> = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset3> = z
         .object({
             type: AssetSchemasSource3Type$.outboundSchema,
             encryption: EncryptionOutput$.outboundSchema.optional(),
@@ -545,8 +456,8 @@ export namespace AssetSchemasType$ {
 }
 
 /** @internal */
-export namespace Asset1Output$ {
-    export const inboundSchema: z.ZodType<Asset1Output, z.ZodTypeDef, unknown> = z
+export namespace Asset1$ {
+    export const inboundSchema: z.ZodType<Asset1, z.ZodTypeDef, unknown> = z
         .object({
             type: AssetSchemasType$.inboundSchema,
             url: z.string(),
@@ -569,7 +480,7 @@ export namespace Asset1Output$ {
         encryption?: EncryptionOutput$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset1Output> = z
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset1> = z
         .object({
             type: AssetSchemasType$.outboundSchema,
             url: z.string(),
@@ -587,18 +498,18 @@ export namespace Asset1Output$ {
 }
 
 /** @internal */
-export namespace AssetSource$ {
-    export const inboundSchema: z.ZodType<AssetSource, z.ZodTypeDef, unknown> = z.union([
+export namespace Source$ {
+    export const inboundSchema: z.ZodType<Source, z.ZodTypeDef, unknown> = z.union([
         z.lazy(() => Two$.inboundSchema),
-        z.lazy(() => Asset1Output$.inboundSchema),
-        z.lazy(() => Asset3Output$.inboundSchema),
+        z.lazy(() => Asset1$.inboundSchema),
+        z.lazy(() => Asset3$.inboundSchema),
     ]);
 
-    export type Outbound = Two$.Outbound | Asset1Output$.Outbound | Asset3Output$.Outbound;
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetSource> = z.union([
+    export type Outbound = Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Source> = z.union([
         z.lazy(() => Two$.outboundSchema),
-        z.lazy(() => Asset1Output$.outboundSchema),
-        z.lazy(() => Asset3Output$.outboundSchema),
+        z.lazy(() => Asset1$.outboundSchema),
+        z.lazy(() => Asset3$.outboundSchema),
     ]);
 }
 
@@ -950,8 +861,8 @@ export namespace Asset$ {
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
             source: z.union([
                 z.lazy(() => Two$.inboundSchema),
-                z.lazy(() => Asset1Output$.inboundSchema),
-                z.lazy(() => Asset3Output$.inboundSchema),
+                z.lazy(() => Asset1$.inboundSchema),
+                z.lazy(() => Asset3$.inboundSchema),
             ]),
             creatorId: CreatorId$.inboundSchema.optional(),
             storage: z.lazy(() => AssetStorage$.inboundSchema).optional(),
@@ -997,7 +908,7 @@ export namespace Asset$ {
         playbackUrl?: string | undefined;
         downloadUrl?: string | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
-        source: Two$.Outbound | Asset1Output$.Outbound | Asset3Output$.Outbound;
+        source: Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
         creatorId?: CreatorId$.Outbound | undefined;
         storage?: AssetStorage$.Outbound | undefined;
         status?: AssetStatus$.Outbound | undefined;
@@ -1021,8 +932,8 @@ export namespace Asset$ {
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
             source: z.union([
                 z.lazy(() => Two$.outboundSchema),
-                z.lazy(() => Asset1Output$.outboundSchema),
-                z.lazy(() => Asset3Output$.outboundSchema),
+                z.lazy(() => Asset1$.outboundSchema),
+                z.lazy(() => Asset3$.outboundSchema),
             ]),
             creatorId: CreatorId$.outboundSchema.optional(),
             storage: z.lazy(() => AssetStorage$.outboundSchema).optional(),
@@ -1057,265 +968,6 @@ export namespace Asset$ {
                 ...(v.size === undefined ? null : { size: v.size }),
                 ...(v.hash === undefined ? null : { hash: v.hash }),
                 ...(v.videoSpec === undefined ? null : { videoSpec: v.videoSpec }),
-            };
-        });
-}
-
-/** @internal */
-export namespace Asset3$ {
-    export const inboundSchema: z.ZodType<Asset3, z.ZodTypeDef, unknown> = z
-        .object({
-            type: AssetSchemasSource3Type$.inboundSchema,
-            encryption: Encryption$.inboundSchema.optional(),
-            sourceId: z.string().optional(),
-            sessionId: z.string().optional(),
-            playbackId: z.string().optional(),
-            requesterId: z.string().optional(),
-            assetId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.sourceId === undefined ? null : { sourceId: v.sourceId }),
-                ...(v.sessionId === undefined ? null : { sessionId: v.sessionId }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.requesterId === undefined ? null : { requesterId: v.requesterId }),
-                ...(v.assetId === undefined ? null : { assetId: v.assetId }),
-            };
-        });
-
-    export type Outbound = {
-        type: string;
-        encryption?: Encryption$.Outbound | undefined;
-        sourceId?: string | undefined;
-        sessionId?: string | undefined;
-        playbackId?: string | undefined;
-        requesterId?: string | undefined;
-        assetId?: string | undefined;
-    };
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset3> = z
-        .object({
-            type: AssetSchemasSource3Type$.outboundSchema,
-            encryption: Encryption$.outboundSchema.optional(),
-            sourceId: z.string().optional(),
-            sessionId: z.string().optional(),
-            playbackId: z.string().optional(),
-            requesterId: z.string().optional(),
-            assetId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.sourceId === undefined ? null : { sourceId: v.sourceId }),
-                ...(v.sessionId === undefined ? null : { sessionId: v.sessionId }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.requesterId === undefined ? null : { requesterId: v.requesterId }),
-                ...(v.assetId === undefined ? null : { assetId: v.assetId }),
-            };
-        });
-}
-
-/** @internal */
-export namespace Asset1$ {
-    export const inboundSchema: z.ZodType<Asset1, z.ZodTypeDef, unknown> = z
-        .object({
-            type: AssetSchemasType$.inboundSchema,
-            url: z.string(),
-            gatewayUrl: z.string().optional(),
-            encryption: Encryption$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                url: v.url,
-                ...(v.gatewayUrl === undefined ? null : { gatewayUrl: v.gatewayUrl }),
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-            };
-        });
-
-    export type Outbound = {
-        type: string;
-        url: string;
-        gatewayUrl?: string | undefined;
-        encryption?: Encryption$.Outbound | undefined;
-    };
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Asset1> = z
-        .object({
-            type: AssetSchemasType$.outboundSchema,
-            url: z.string(),
-            gatewayUrl: z.string().optional(),
-            encryption: Encryption$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                url: v.url,
-                ...(v.gatewayUrl === undefined ? null : { gatewayUrl: v.gatewayUrl }),
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-            };
-        });
-}
-
-/** @internal */
-export namespace Source$ {
-    export const inboundSchema: z.ZodType<Source, z.ZodTypeDef, unknown> = z.union([
-        z.lazy(() => Two$.inboundSchema),
-        z.lazy(() => Asset1$.inboundSchema),
-        z.lazy(() => Asset3$.inboundSchema),
-    ]);
-
-    export type Outbound = Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Source> = z.union([
-        z.lazy(() => Two$.outboundSchema),
-        z.lazy(() => Asset1$.outboundSchema),
-        z.lazy(() => Asset3$.outboundSchema),
-    ]);
-}
-
-/** @internal */
-export namespace AssetIpfsInput$ {
-    export const inboundSchema: z.ZodType<AssetIpfsInput, z.ZodTypeDef, unknown> = z
-        .object({
-            spec: z.lazy(() => AssetSpec$.inboundSchema).optional(),
-            $ref: z.any().optional(),
-            nftMetadata: IpfsFileInfoInput$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-                ...(v.$ref === undefined ? null : { dollarRef: v.$ref }),
-                ...(v.nftMetadata === undefined ? null : { nftMetadata: v.nftMetadata }),
-            };
-        });
-
-    export type Outbound = {
-        spec?: AssetSpec$.Outbound | undefined;
-        $ref?: any | undefined;
-        nftMetadata?: IpfsFileInfoInput$.Outbound | undefined;
-    };
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetIpfsInput> = z
-        .object({
-            spec: z.lazy(() => AssetSpec$.outboundSchema).optional(),
-            dollarRef: z.any().optional(),
-            nftMetadata: IpfsFileInfoInput$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-                ...(v.dollarRef === undefined ? null : { $ref: v.dollarRef }),
-                ...(v.nftMetadata === undefined ? null : { nftMetadata: v.nftMetadata }),
-            };
-        });
-}
-
-/** @internal */
-export namespace AssetStorageInput$ {
-    export const inboundSchema: z.ZodType<AssetStorageInput, z.ZodTypeDef, unknown> = z
-        .object({
-            ipfs: z.lazy(() => AssetIpfsInput$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
-        });
-
-    export type Outbound = {
-        ipfs?: AssetIpfsInput$.Outbound | undefined;
-    };
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetStorageInput> = z
-        .object({
-            ipfs: z.lazy(() => AssetIpfsInput$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
-        });
-}
-
-/** @internal */
-export namespace AssetInput$ {
-    export const inboundSchema: z.ZodType<AssetInput, z.ZodTypeDef, unknown> = z
-        .object({
-            type: AssetType$.inboundSchema.optional(),
-            playbackId: z.string().optional(),
-            staticMp4: z.boolean().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            source: z.union([
-                z.lazy(() => Two$.inboundSchema),
-                z.lazy(() => Asset1$.inboundSchema),
-                z.lazy(() => Asset3$.inboundSchema),
-            ]),
-            creatorId: CreatorId$.inboundSchema.optional(),
-            storage: z.lazy(() => AssetStorageInput$.inboundSchema).optional(),
-            name: z.string(),
-            projectId: z.string().optional(),
-            hash: z.array(z.lazy(() => Hash$.inboundSchema)).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                source: v.source,
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                name: v.name,
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
-                ...(v.hash === undefined ? null : { hash: v.hash }),
-            };
-        });
-
-    export type Outbound = {
-        type?: string | undefined;
-        playbackId?: string | undefined;
-        staticMp4?: boolean | undefined;
-        playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
-        source: Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
-        creatorId?: CreatorId$.Outbound | undefined;
-        storage?: AssetStorageInput$.Outbound | undefined;
-        name: string;
-        projectId?: string | undefined;
-        hash?: Array<Hash$.Outbound> | undefined;
-    };
-
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetInput> = z
-        .object({
-            type: AssetType$.outboundSchema.optional(),
-            playbackId: z.string().optional(),
-            staticMp4: z.boolean().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            source: z.union([
-                z.lazy(() => Two$.outboundSchema),
-                z.lazy(() => Asset1$.outboundSchema),
-                z.lazy(() => Asset3$.outboundSchema),
-            ]),
-            creatorId: CreatorId$.outboundSchema.optional(),
-            storage: z.lazy(() => AssetStorageInput$.outboundSchema).optional(),
-            name: z.string(),
-            projectId: z.string().optional(),
-            hash: z.array(z.lazy(() => Hash$.outboundSchema)).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                source: v.source,
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                name: v.name,
-                ...(v.projectId === undefined ? null : { projectId: v.projectId }),
-                ...(v.hash === undefined ? null : { hash: v.hash }),
             };
         });
 }
