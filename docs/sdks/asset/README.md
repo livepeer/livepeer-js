@@ -133,14 +133,7 @@ definition above.
 
 ```typescript
 import { Livepeer } from "livepeer";
-import {
-  AssetSchemasSourceType,
-  AssetType,
-  CreatorIdType,
-  TranscodeProfileEncoder,
-  TranscodeProfileProfile,
-  Type,
-} from "livepeer/models/components";
+import { TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
 
 const livepeer = new Livepeer({
   apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -149,34 +142,6 @@ const livepeer = new Livepeer({
 async function run() {
   const result = await livepeer.asset.create({
     name: "filename.mp4",
-    projectId: {
-      type: AssetType.Video,
-      playbackId: "eaw4nk06ts2d0mzb",
-      playbackPolicy: {
-        type: Type.Webhook,
-        webhookId: "1bde4o2i6xycudoy",
-        webhookContext: {
-          "streamerId": "my-custom-id",
-        },
-        refreshInterval: 600,
-      },
-    source:     {
-          type: AssetSchemasSourceType.Recording,
-          sessionId: "<value>",
-        },
-    creatorId:     {
-          type: CreatorIdType.Unverified,
-          value: "user123",
-        },
-      name: "filename.mp4",
-      projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-      hash: [
-        {
-          hash: "9b560b28b85378a5004117539196ab24e21bbd75b0e9eb1a8bc7c5fd80dc5b57",
-          algorithm: "sha256",
-        },
-      ],
-    },
     staticMp4: true,
     playbackPolicy: {
       type: Type.Webhook,

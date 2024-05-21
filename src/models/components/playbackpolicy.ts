@@ -31,6 +31,10 @@ export type PlaybackPolicy = {
      *
      */
     refreshInterval?: number | undefined;
+    /**
+     * List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
+     */
+    allowedOrigins?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -47,6 +51,7 @@ export namespace PlaybackPolicy$ {
             webhookId: z.string().optional(),
             webhookContext: z.record(z.any()).optional(),
             refreshInterval: z.number().optional(),
+            allowedOrigins: z.array(z.string()).optional(),
         })
         .transform((v) => {
             return {
@@ -56,6 +61,7 @@ export namespace PlaybackPolicy$ {
                 ...(v.refreshInterval === undefined
                     ? null
                     : { refreshInterval: v.refreshInterval }),
+                ...(v.allowedOrigins === undefined ? null : { allowedOrigins: v.allowedOrigins }),
             };
         });
 
@@ -64,6 +70,7 @@ export namespace PlaybackPolicy$ {
         webhookId?: string | undefined;
         webhookContext?: { [k: string]: any } | undefined;
         refreshInterval?: number | undefined;
+        allowedOrigins?: Array<string> | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackPolicy> = z
@@ -72,6 +79,7 @@ export namespace PlaybackPolicy$ {
             webhookId: z.string().optional(),
             webhookContext: z.record(z.any()).optional(),
             refreshInterval: z.number().optional(),
+            allowedOrigins: z.array(z.string()).optional(),
         })
         .transform((v) => {
             return {
@@ -81,6 +89,7 @@ export namespace PlaybackPolicy$ {
                 ...(v.refreshInterval === undefined
                     ? null
                     : { refreshInterval: v.refreshInterval }),
+                ...(v.allowedOrigins === undefined ? null : { allowedOrigins: v.allowedOrigins }),
             };
         });
 }

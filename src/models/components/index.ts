@@ -16,7 +16,6 @@ export * from "./getroomuserresponse";
 export * from "./inputcreatorid";
 export * from "./ipfsexportparams";
 export * from "./ipfsfileinfo";
-export * from "./ipfsfileinfoinput";
 export * from "./multistream";
 export * from "./multistreamtarget";
 export * from "./multistreamtargetinput";
