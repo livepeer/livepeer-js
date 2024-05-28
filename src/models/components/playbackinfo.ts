@@ -69,7 +69,7 @@ export type DvrPlayback = {
 export type Meta = {
     live?: Live | undefined;
     /**
-     * Whether the playback policy for a asset or stream is public or signed
+     * Whether the playback policy for an asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
     source: Array<PlaybackInfoSource>;

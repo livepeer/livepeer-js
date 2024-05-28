@@ -202,7 +202,7 @@ run();
 
 ### Response
 
-**Promise<[operations.TranscodeVideoResponse](../../models/operations/transcodevideoresponse.md)>**
+**Promise\<[operations.TranscodeVideoResponse](../../models/operations/transcodevideoresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

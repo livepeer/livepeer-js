@@ -46,7 +46,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSessionClipsResponse](../../models/operations/getsessionclipsresponse.md)>**
+**Promise\<[operations.GetSessionClipsResponse](../../models/operations/getsessionclipsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -86,7 +86,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSessionsResponse](../../models/operations/getsessionsresponse.md)>**
+**Promise\<[operations.GetSessionsResponse](../../models/operations/getsessionsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -127,7 +127,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSessionResponse](../../models/operations/getsessionresponse.md)>**
+**Promise\<[operations.GetSessionResponse](../../models/operations/getsessionresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -148,7 +148,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.session.getRecorded("<value>", 1);
+  const result = await livepeer.session.getRecorded("<value>", true);
 
   // Handle the result
   console.log(result)
@@ -162,14 +162,14 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `parentId`                                                                                                                                                                     | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | ID of the parent stream                                                                                                                                                        |                                                                                                                                                                                |
-| `record`                                                                                                                                                                       | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Flag indicating if the response should only include recorded<br/>sessions<br/>                                                                                                 | [object Object]                                                                                                                                                                |
+| `record`                                                                                                                                                                       | *operations.RecordT*                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                             | Flag indicating if the response should only include recorded<br/>sessions<br/>                                                                                                 | [object Object]                                                                                                                                                                |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
 
 
 ### Response
 
-**Promise<[operations.GetRecordedSessionsResponse](../../models/operations/getrecordedsessionsresponse.md)>**
+**Promise\<[operations.GetRecordedSessionsResponse](../../models/operations/getrecordedsessionsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

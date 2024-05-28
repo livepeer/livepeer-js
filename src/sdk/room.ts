@@ -9,7 +9,6 @@ import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
 import * as components from "../models/components";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Room extends ClientSDK {
@@ -94,40 +93,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateRoomResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "create-room-response": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateRoomResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.CreateRoomResponse>()
+            .json(200, operations.CreateRoomResponse$, { key: "create-room-response" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.CreateRoomResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -195,40 +167,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRoomResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        room: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRoomResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetRoomResponse>()
+            .json(200, operations.GetRoomResponse$, { key: "room" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetRoomResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -296,35 +241,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.DeleteRoomResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.DeleteRoomResponse>()
+            .void(204, operations.DeleteRoomResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.DeleteRoomResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.DeleteRoomResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -403,35 +326,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.StartRoomEgressResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.StartRoomEgressResponse>()
+            .void(204, operations.StartRoomEgressResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.StartRoomEgressResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.StartRoomEgressResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -502,35 +403,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.StopRoomEgressResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.StopRoomEgressResponse>()
+            .void(204, operations.StopRoomEgressResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.StopRoomEgressResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.StopRoomEgressResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -610,40 +489,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 201, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "room-user-response": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.CreateRoomUserResponse>()
+            .json(201, operations.CreateRoomUserResponse$, { key: "room-user-response" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.CreateRoomUserResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -720,40 +572,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "get-room-user-response": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetRoomUserResponse>()
+            .json(200, operations.GetRoomUserResponse$, { key: "get-room-user-response" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetRoomUserResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -838,35 +663,13 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.UpdateRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.UpdateRoomUserResponse>()
+            .void(204, operations.UpdateRoomUserResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.UpdateRoomUserResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.UpdateRoomUserResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -943,34 +746,12 @@ export class Room extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.DeleteRoomUserResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.DeleteRoomUserResponse>()
+            .void(204, operations.DeleteRoomUserResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.DeleteRoomUserResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.DeleteRoomUserResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 }

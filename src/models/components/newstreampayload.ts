@@ -22,7 +22,7 @@ export type NewStreamPayload = {
     pull?: Pull | undefined;
     creatorId?: InputCreatorId | undefined;
     /**
-     * Whether the playback policy for a asset or stream is public or signed
+     * Whether the playback policy for an asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
     profiles?: Array<FfmpegProfile> | null | undefined;

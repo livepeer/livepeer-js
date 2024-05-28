@@ -17,7 +17,7 @@ export type AssetPatchPayload = {
     name?: string | undefined;
     creatorId?: InputCreatorId | undefined;
     /**
-     * Whether the playback policy for a asset or stream is public or signed
+     * Whether the playback policy for an asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
     storage?: Storage | undefined;

@@ -11,7 +11,7 @@ export enum Type {
 }
 
 /**
- * Whether the playback policy for a asset or stream is public or signed
+ * Whether the playback policy for an asset or stream is public or signed
  */
 export type PlaybackPolicy = {
     type: Type;

@@ -47,7 +47,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetAssetsResponse](../../models/operations/getassetsresponse.md)>**
+**Promise\<[operations.GetAssetsResponse](../../models/operations/getassetsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -184,7 +184,7 @@ run();
 
 ### Response
 
-**Promise<[operations.RequestUploadResponse](../../models/operations/requestuploadresponse.md)>**
+**Promise\<[operations.RequestUploadResponse](../../models/operations/requestuploadresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -251,7 +251,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UploadAssetResponse](../../models/operations/uploadassetresponse.md)>**
+**Promise\<[operations.UploadAssetResponse](../../models/operations/uploadassetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -292,7 +292,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetAssetResponse](../../models/operations/getassetresponse.md)>**
+**Promise\<[operations.GetAssetResponse](../../models/operations/getassetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -345,7 +345,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md)>**
+**Promise\<[operations.UpdateAssetResponse](../../models/operations/updateassetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -386,7 +386,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md)>**
+**Promise\<[operations.DeleteAssetResponse](../../models/operations/deleteassetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

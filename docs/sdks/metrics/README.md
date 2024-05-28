@@ -47,7 +47,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetViewershipMetricsResponse](../../models/operations/getviewershipmetricsresponse.md)>**
+**Promise\<[operations.GetViewershipMetricsResponse](../../models/operations/getviewershipmetricsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -89,7 +89,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetCreatorViewershipMetricsResponse](../../models/operations/getcreatorviewershipmetricsresponse.md)>**
+**Promise\<[operations.GetCreatorViewershipMetricsResponse](../../models/operations/getcreatorviewershipmetricsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -133,7 +133,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetPublicViewershipMetricsResponse](../../models/operations/getpublicviewershipmetricsresponse.md)>**
+**Promise\<[operations.GetPublicViewershipMetricsResponse](../../models/operations/getpublicviewershipmetricsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -174,7 +174,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md)>**
+**Promise\<[operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

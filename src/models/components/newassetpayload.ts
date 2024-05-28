@@ -54,7 +54,7 @@ export type NewAssetPayload = {
      */
     staticMp4?: boolean | undefined;
     /**
-     * Whether the playback policy for a asset or stream is public or signed
+     * Whether the playback policy for an asset or stream is public or signed
      */
     playbackPolicy?: PlaybackPolicy | null | undefined;
     creatorId?: InputCreatorId | undefined;

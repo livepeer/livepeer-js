@@ -43,7 +43,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetPlaybackInfoResponse](../../models/operations/getplaybackinforesponse.md)>**
+**Promise\<[operations.GetPlaybackInfoResponse](../../models/operations/getplaybackinforesponse.md)\>**
 ### Errors
 
 | Error Object     | Status Code      | Content Type     |
