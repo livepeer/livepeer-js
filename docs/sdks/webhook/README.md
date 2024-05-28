@@ -49,7 +49,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetWebhooksResponse](../../models/operations/getwebhooksresponse.md)>**
+**Promise\<[operations.GetWebhooksResponse](../../models/operations/getwebhooksresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -101,7 +101,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateWebhookResponse](../../models/operations/createwebhookresponse.md)>**
+**Promise\<[operations.CreateWebhookResponse](../../models/operations/createwebhookresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -142,7 +142,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetWebhookResponse](../../models/operations/getwebhookresponse.md)>**
+**Promise\<[operations.GetWebhookResponse](../../models/operations/getwebhookresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -194,7 +194,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateWebhookResponse](../../models/operations/updatewebhookresponse.md)>**
+**Promise\<[operations.UpdateWebhookResponse](../../models/operations/updatewebhookresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -235,7 +235,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteWebhookResponse](../../models/operations/deletewebhookresponse.md)>**
+**Promise\<[operations.DeleteWebhookResponse](../../models/operations/deletewebhookresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -276,7 +276,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetWebhookLogsResponse](../../models/operations/getwebhooklogsresponse.md)>**
+**Promise\<[operations.GetWebhookLogsResponse](../../models/operations/getwebhooklogsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -318,7 +318,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetWebhookLogResponse](../../models/operations/getwebhooklogresponse.md)>**
+**Promise\<[operations.GetWebhookLogResponse](../../models/operations/getwebhooklogresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -363,7 +363,7 @@ run();
 
 ### Response
 
-**Promise<[operations.ResendWebhookResponse](../../models/operations/resendwebhookresponse.md)>**
+**Promise\<[operations.ResendWebhookResponse](../../models/operations/resendwebhookresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

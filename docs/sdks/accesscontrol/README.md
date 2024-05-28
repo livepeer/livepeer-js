@@ -48,7 +48,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateSigningKeyResponse](../../models/operations/createsigningkeyresponse.md)>**
+**Promise\<[operations.CreateSigningKeyResponse](../../models/operations/createsigningkeyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -88,7 +88,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSigningKeysResponse](../../models/operations/getsigningkeysresponse.md)>**
+**Promise\<[operations.GetSigningKeysResponse](../../models/operations/getsigningkeysresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -129,7 +129,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteSigningKeyResponse](../../models/operations/deletesigningkeyresponse.md)>**
+**Promise\<[operations.DeleteSigningKeyResponse](../../models/operations/deletesigningkeyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -170,7 +170,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetSigningKeyResponse](../../models/operations/getsigningkeyresponse.md)>**
+**Promise\<[operations.GetSigningKeyResponse](../../models/operations/getsigningkeyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -212,7 +212,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateSigningKeyResponse](../../models/operations/updatesigningkeyresponse.md)>**
+**Promise\<[operations.UpdateSigningKeyResponse](../../models/operations/updatesigningkeyresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

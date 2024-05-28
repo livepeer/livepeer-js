@@ -8,7 +8,6 @@ import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Session extends ClientSDK {
@@ -104,40 +103,13 @@ export class Session extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionClipsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionClipsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetSessionClipsResponse>()
+            .json(200, operations.GetSessionClipsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetSessionClipsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -189,40 +161,13 @@ export class Session extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetSessionsResponse>()
+            .json(200, operations.GetSessionsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetSessionsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -288,40 +233,13 @@ export class Session extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        session: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSessionResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetSessionResponse>()
+            .json(200, operations.GetSessionResponse$, { key: "session" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetSessionResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -329,7 +247,7 @@ export class Session extends ClientSDK {
      */
     async getRecorded(
         parentId: string,
-        record?: number | undefined,
+        record?: operations.RecordT | undefined,
         options?: RequestOptions
     ): Promise<operations.GetRecordedSessionsResponse> {
         const input$: operations.GetRecordedSessionsRequest = {
@@ -399,39 +317,12 @@ export class Session extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRecordedSessionsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetRecordedSessionsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetRecordedSessionsResponse>()
+            .json(200, operations.GetRecordedSessionsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetRecordedSessionsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

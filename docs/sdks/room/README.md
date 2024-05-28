@@ -53,7 +53,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateRoomResponse](../../models/operations/createroomresponse.md)>**
+**Promise\<[operations.CreateRoomResponse](../../models/operations/createroomresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -96,7 +96,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetRoomResponse](../../models/operations/getroomresponse.md)>**
+**Promise\<[operations.GetRoomResponse](../../models/operations/getroomresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -139,7 +139,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteRoomResponse](../../models/operations/deleteroomresponse.md)>**
+**Promise\<[operations.DeleteRoomResponse](../../models/operations/deleteroomresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -187,7 +187,7 @@ run();
 
 ### Response
 
-**Promise<[operations.StartRoomEgressResponse](../../models/operations/startroomegressresponse.md)>**
+**Promise\<[operations.StartRoomEgressResponse](../../models/operations/startroomegressresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -230,7 +230,7 @@ run();
 
 ### Response
 
-**Promise<[operations.StopRoomEgressResponse](../../models/operations/stoproomegressresponse.md)>**
+**Promise\<[operations.StopRoomEgressResponse](../../models/operations/stoproomegressresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -281,7 +281,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateRoomUserResponse](../../models/operations/createroomuserresponse.md)>**
+**Promise\<[operations.CreateRoomUserResponse](../../models/operations/createroomuserresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -325,7 +325,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetRoomUserResponse](../../models/operations/getroomuserresponse.md)>**
+**Promise\<[operations.GetRoomUserResponse](../../models/operations/getroomuserresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -373,7 +373,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateRoomUserResponse](../../models/operations/updateroomuserresponse.md)>**
+**Promise\<[operations.UpdateRoomUserResponse](../../models/operations/updateroomuserresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -417,7 +417,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteRoomUserResponse](../../models/operations/deleteroomuserresponse.md)>**
+**Promise\<[operations.DeleteRoomUserResponse](../../models/operations/deleteroomuserresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

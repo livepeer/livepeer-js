@@ -1,18 +1,20 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: c51b40791605d2618ac3ad4165afbd94
+  docChecksum: 7ba25410590c0bb782c3126be1635630
   docVersion: 1.0.0
-  speakeasyVersion: 1.294.0
-  generationVersion: 2.333.3
-  releaseVersion: 3.2.4
-  configChecksum: fc57f6422f19ddcc9e76a39858b010cd
+  speakeasyVersion: 1.296.1
+  generationVersion: 2.338.1
+  releaseVersion: 3.2.5
+  configChecksum: 7f698e9547ebbc0f35e5f8dc1fd3f8e1
+  repoURL: https://github.com/livepeer/livepeer-js.git
+  installationURL: https://github.com/livepeer/livepeer-js
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.4
+    core: 3.9.9
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -48,6 +50,7 @@ generatedFiles:
   - src/lib/config.ts
   - src/lib/encodings.ts
   - src/lib/http.ts
+  - src/lib/is-plain-object.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
   - src/lib/sdks.ts
@@ -234,6 +237,7 @@ generatedFiles:
   - docs/models/operations/getsessionsresponse.md
   - docs/models/operations/getsessionrequest.md
   - docs/models/operations/getsessionresponse.md
+  - docs/models/operations/recordt.md
   - docs/models/operations/getrecordedsessionsrequest.md
   - docs/models/operations/getrecordedsessionsresponse.md
   - docs/models/operations/createroomresponse.md

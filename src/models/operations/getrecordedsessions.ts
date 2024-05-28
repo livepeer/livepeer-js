@@ -6,6 +6,15 @@ import * as components from "../components";
 import * as errors from "../errors";
 import * as z from "zod";
 
+/**
+ * Flag indicating if the response should only include recorded
+ *
+ * @remarks
+ * sessions
+ *
+ */
+export type RecordT = boolean | number;
+
 export type GetRecordedSessionsRequest = {
     /**
      * ID of the parent stream
@@ -18,7 +27,7 @@ export type GetRecordedSessionsRequest = {
      * sessions
      *
      */
-    record?: number | undefined;
+    record?: boolean | number | undefined;
 };
 
 export type GetRecordedSessionsResponse = {
@@ -45,11 +54,25 @@ export type GetRecordedSessionsResponse = {
 };
 
 /** @internal */
+export namespace RecordT$ {
+    export const inboundSchema: z.ZodType<RecordT, z.ZodTypeDef, unknown> = z.union([
+        z.boolean(),
+        z.number().int(),
+    ]);
+
+    export type Outbound = boolean | number;
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RecordT> = z.union([
+        z.boolean(),
+        z.number().int(),
+    ]);
+}
+
+/** @internal */
 export namespace GetRecordedSessionsRequest$ {
     export const inboundSchema: z.ZodType<GetRecordedSessionsRequest, z.ZodTypeDef, unknown> = z
         .object({
             parentId: z.string(),
-            record: z.number().int().optional(),
+            record: z.union([z.boolean(), z.number().int()]).optional(),
         })
         .transform((v) => {
             return {
@@ -60,13 +83,13 @@ export namespace GetRecordedSessionsRequest$ {
 
     export type Outbound = {
         parentId: string;
-        record?: number | undefined;
+        record?: boolean | number | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetRecordedSessionsRequest> = z
         .object({
             parentId: z.string(),
-            record: z.number().int().optional(),
+            record: z.union([z.boolean(), z.number().int()]).optional(),
         })
         .transform((v) => {
             return {

@@ -8,7 +8,6 @@ import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Metrics extends ClientSDK {
@@ -132,40 +131,13 @@ export class Metrics extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetViewershipMetricsResponse>()
+            .json(200, operations.GetViewershipMetricsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetViewershipMetricsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -258,40 +230,13 @@ export class Metrics extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetCreatorViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetCreatorViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetCreatorViewershipMetricsResponse>()
+            .json(200, operations.GetCreatorViewershipMetricsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetCreatorViewershipMetricsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -371,40 +316,13 @@ export class Metrics extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetPublicViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetPublicViewershipMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetPublicViewershipMetricsResponse>()
+            .json(200, operations.GetPublicViewershipMetricsResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetPublicViewershipMetricsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -485,39 +403,12 @@ export class Metrics extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetUsageMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "usage-metric": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetUsageMetricsResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetUsageMetricsResponse>()
+            .json(200, operations.GetUsageMetricsResponse$, { key: "usage-metric" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetUsageMetricsResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

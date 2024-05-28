@@ -8,7 +8,6 @@ import * as enc$ from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class AccessControl extends ClientSDK {
@@ -92,40 +91,13 @@ export class AccessControl extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "signing-key": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.CreateSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.CreateSigningKeyResponse>()
+            .json(200, operations.CreateSigningKeyResponse$, { key: "signing-key" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.CreateSigningKeyResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -177,40 +149,13 @@ export class AccessControl extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSigningKeysResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        data: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSigningKeysResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetSigningKeysResponse>()
+            .json(200, operations.GetSigningKeysResponse$, { key: "data" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetSigningKeysResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -282,35 +227,13 @@ export class AccessControl extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.DeleteSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.DeleteSigningKeyResponse>()
+            .void(204, operations.DeleteSigningKeyResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.DeleteSigningKeyResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.DeleteSigningKeyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 
     /**
@@ -379,40 +302,13 @@ export class AccessControl extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        "signing-key": val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.GetSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.GetSigningKeyResponse>()
+            .json(200, operations.GetSigningKeyResponse$, { key: "signing-key" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.GetSigningKeyResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 
     /**
@@ -487,34 +383,12 @@ export class AccessControl extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchStatusCode(response, 204)) {
-            // fallthrough
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.UpdateSigningKeyResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.UpdateSigningKeyResponse>()
+            .void(204, operations.UpdateSigningKeyResponse$)
+            .fail(["4XX", "5XX"])
+            .json("default", operations.UpdateSigningKeyResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
 
-        return schemas$.parse(
-            undefined,
-            () => operations.UpdateSigningKeyResponse$.inboundSchema.parse(responseFields$),
-            "Response validation failed"
-        );
+        return result$;
     }
 }

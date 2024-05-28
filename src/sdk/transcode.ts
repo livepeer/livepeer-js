@@ -9,7 +9,6 @@ import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
 import * as components from "../models/components";
-import * as errors from "../models/errors";
 import * as operations from "../models/operations";
 
 export class Transcode extends ClientSDK {
@@ -225,39 +224,12 @@ export class Transcode extends ClientSDK {
             Headers: {},
         };
 
-        if (this.matchResponse(response, 200, "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.TranscodeVideoResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        task: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else if (this.matchResponse(response, "default", "application/json")) {
-            const responseBody = await response.json();
-            const result = schemas$.parse(
-                responseBody,
-                (val$) => {
-                    return operations.TranscodeVideoResponse$.inboundSchema.parse({
-                        ...responseFields$,
-                        error: val$,
-                    });
-                },
-                "Response validation failed"
-            );
-            return result;
-        } else {
-            const responseBody = await response.text();
-            throw new errors.SDKError(
-                "Unexpected API response status or content-type",
-                response,
-                responseBody
-            );
-        }
+        const [result$] = await this.matcher<operations.TranscodeVideoResponse>()
+            .json(200, operations.TranscodeVideoResponse$, { key: "task" })
+            .fail(["4XX", "5XX"])
+            .json("default", operations.TranscodeVideoResponse$, { key: "error" })
+            .match(response, { extraFields: responseFields$ });
+
+        return result$;
     }
 }

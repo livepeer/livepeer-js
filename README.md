@@ -463,13 +463,13 @@ run();
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add https://github.com/livepeer/livepeer-js
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET>
+yarn add https://github.com/livepeer/livepeer-js
 ```
 <!-- End SDK Installation [installation] -->
 

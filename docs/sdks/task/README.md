@@ -43,7 +43,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetTasksResponse](../../models/operations/gettasksresponse.md)>**
+**Promise\<[operations.GetTasksResponse](../../models/operations/gettasksresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -84,7 +84,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetTaskResponse](../../models/operations/gettaskresponse.md)>**
+**Promise\<[operations.GetTaskResponse](../../models/operations/gettaskresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

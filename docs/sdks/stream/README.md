@@ -114,7 +114,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateStreamResponse](../../models/operations/createstreamresponse.md)>**
+**Promise\<[operations.CreateStreamResponse](../../models/operations/createstreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -155,7 +155,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetStreamsResponse](../../models/operations/getstreamsresponse.md)>**
+**Promise\<[operations.GetStreamsResponse](../../models/operations/getstreamsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -196,7 +196,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetStreamResponse](../../models/operations/getstreamresponse.md)>**
+**Promise\<[operations.GetStreamResponse](../../models/operations/getstreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -275,7 +275,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md)>**
+**Promise\<[operations.UpdateStreamResponse](../../models/operations/updatestreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -320,7 +320,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteStreamResponse](../../models/operations/deletestreamresponse.md)>**
+**Promise\<[operations.DeleteStreamResponse](../../models/operations/deletestreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -369,7 +369,7 @@ run();
 
 ### Response
 
-**Promise<[operations.TerminateStreamResponse](../../models/operations/terminatestreamresponse.md)>**
+**Promise\<[operations.TerminateStreamResponse](../../models/operations/terminatestreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -417,7 +417,7 @@ run();
 
 ### Response
 
-**Promise<[operations.StartPullStreamResponse](../../models/operations/startpullstreamresponse.md)>**
+**Promise\<[operations.StartPullStreamResponse](../../models/operations/startpullstreamresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -464,7 +464,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateClipResponse](../../models/operations/createclipresponse.md)>**
+**Promise\<[operations.CreateClipResponse](../../models/operations/createclipresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -505,7 +505,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetClipsResponse](../../models/operations/getclipsresponse.md)>**
+**Promise\<[operations.GetClipsResponse](../../models/operations/getclipsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -555,7 +555,7 @@ run();
 
 ### Response
 
-**Promise<[operations.AddMultistreamTargetResponse](../../models/operations/addmultistreamtargetresponse.md)>**
+**Promise\<[operations.AddMultistreamTargetResponse](../../models/operations/addmultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -597,7 +597,7 @@ run();
 
 ### Response
 
-**Promise<[operations.RemoveMultistreamTargetResponse](../../models/operations/removemultistreamtargetresponse.md)>**
+**Promise\<[operations.RemoveMultistreamTargetResponse](../../models/operations/removemultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

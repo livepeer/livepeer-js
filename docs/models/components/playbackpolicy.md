@@ -1,6 +1,6 @@
 # PlaybackPolicy
 
-Whether the playback policy for a asset or stream is public or signed
+Whether the playback policy for an asset or stream is public or signed
 
 
 ## Fields

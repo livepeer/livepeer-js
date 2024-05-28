@@ -46,7 +46,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetMultistreamTargetsResponse](../../models/operations/getmultistreamtargetsresponse.md)>**
+**Promise\<[operations.GetMultistreamTargetsResponse](../../models/operations/getmultistreamtargetsresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -89,7 +89,7 @@ run();
 
 ### Response
 
-**Promise<[operations.CreateMultistreamTargetResponse](../../models/operations/createmultistreamtargetresponse.md)>**
+**Promise\<[operations.CreateMultistreamTargetResponse](../../models/operations/createmultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -130,7 +130,7 @@ run();
 
 ### Response
 
-**Promise<[operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md)>**
+**Promise\<[operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -174,7 +174,7 @@ run();
 
 ### Response
 
-**Promise<[operations.UpdateMultistreamTargetResponse](../../models/operations/updatemultistreamtargetresponse.md)>**
+**Promise\<[operations.UpdateMultistreamTargetResponse](../../models/operations/updatemultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
@@ -217,7 +217,7 @@ run();
 
 ### Response
 
-**Promise<[operations.DeleteMultistreamTargetResponse](../../models/operations/deletemultistreamtargetresponse.md)>**
+**Promise\<[operations.DeleteMultistreamTargetResponse](../../models/operations/deletemultistreamtargetresponse.md)\>**
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
