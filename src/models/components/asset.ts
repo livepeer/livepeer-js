@@ -335,7 +335,7 @@ export type Asset = {
     /**
      * Hash of the asset
      */
-    hash?: Array<Hash> | undefined;
+    hash?: Array<Hash> | null | undefined;
     /**
      * Video metadata
      */
@@ -872,7 +872,7 @@ export namespace Asset$ {
             createdAt: z.number().optional(),
             createdByTokenName: z.string().optional(),
             size: z.number().optional(),
-            hash: z.array(z.lazy(() => Hash$.inboundSchema)).optional(),
+            hash: z.nullable(z.array(z.lazy(() => Hash$.inboundSchema))).optional(),
             videoSpec: z.lazy(() => VideoSpec$.inboundSchema).optional(),
         })
         .transform((v) => {
@@ -917,7 +917,7 @@ export namespace Asset$ {
         createdAt?: number | undefined;
         createdByTokenName?: string | undefined;
         size?: number | undefined;
-        hash?: Array<Hash$.Outbound> | undefined;
+        hash?: Array<Hash$.Outbound> | null | undefined;
         videoSpec?: VideoSpec$.Outbound | undefined;
     };
 
@@ -943,7 +943,7 @@ export namespace Asset$ {
             createdAt: z.number().optional(),
             createdByTokenName: z.string().optional(),
             size: z.number().optional(),
-            hash: z.array(z.lazy(() => Hash$.outboundSchema)).optional(),
+            hash: z.nullable(z.array(z.lazy(() => Hash$.outboundSchema))).optional(),
             videoSpec: z.lazy(() => VideoSpec$.outboundSchema).optional(),
         })
         .transform((v) => {
