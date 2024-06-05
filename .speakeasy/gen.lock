@@ -3,10 +3,10 @@ id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
   docChecksum: b534222e8195f9c182c64e92d4c02912
   docVersion: 1.0.0
-  speakeasyVersion: 1.299.5
-  generationVersion: 2.338.10
-  releaseVersion: 3.2.7
-  configChecksum: dc3e3950ff4230039b982fb6b6e74c80
+  speakeasyVersion: 1.299.7
+  generationVersion: 2.338.12
+  releaseVersion: 3.2.8
+  configChecksum: 55085eee99ac73a09b40abe853be6747
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.10
+    core: 3.9.11
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
