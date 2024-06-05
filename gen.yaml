@@ -11,7 +11,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
 typescript:
-  version: 3.2.7
+  version: 3.2.8
   additionalDependencies:
     dependencies: {}
     devDependencies: {}

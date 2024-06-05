@@ -1,6 +1,6 @@
 {
   "name": "livepeer",
-  "version": "3.2.7",
+  "version": "3.2.8",
   "author": "Livepeer",
   "main": "./index.js",
   "sideEffects": false,
