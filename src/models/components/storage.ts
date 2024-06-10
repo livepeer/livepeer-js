@@ -33,29 +33,17 @@ export type Storage = {
 
 /** @internal */
 export namespace Storage1$ {
-    export const inboundSchema: z.ZodType<Storage1, z.ZodTypeDef, unknown> = z
-        .object({
-            spec: z.nullable(Spec$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Storage1, z.ZodTypeDef, unknown> = z.object({
+        spec: z.nullable(Spec$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         spec?: Spec$.Outbound | null | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Storage1> = z
-        .object({
-            spec: z.nullable(Spec$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Storage1> = z.object({
+        spec: z.nullable(Spec$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
@@ -74,31 +62,15 @@ export namespace Ipfs$ {
 
 /** @internal */
 export namespace Storage$ {
-    export const inboundSchema: z.ZodType<Storage, z.ZodTypeDef, unknown> = z
-        .object({
-            ipfs: z
-                .nullable(z.union([z.lazy(() => Storage1$.inboundSchema), z.boolean()]))
-                .optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Storage, z.ZodTypeDef, unknown> = z.object({
+        ipfs: z.nullable(z.union([z.lazy(() => Storage1$.inboundSchema), z.boolean()])).optional(),
+    });
 
     export type Outbound = {
         ipfs?: Storage1$.Outbound | boolean | null | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Storage> = z
-        .object({
-            ipfs: z
-                .nullable(z.union([z.lazy(() => Storage1$.outboundSchema), z.boolean()]))
-                .optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Storage> = z.object({
+        ipfs: z.nullable(z.union([z.lazy(() => Storage1$.outboundSchema), z.boolean()])).optional(),
+    });
 }

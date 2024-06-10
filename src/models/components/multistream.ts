@@ -18,27 +18,15 @@ export type Multistream = {
 
 /** @internal */
 export namespace Multistream$ {
-    export const inboundSchema: z.ZodType<Multistream, z.ZodTypeDef, unknown> = z
-        .object({
-            targets: z.array(Target$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.targets === undefined ? null : { targets: v.targets }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Multistream, z.ZodTypeDef, unknown> = z.object({
+        targets: z.array(Target$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         targets?: Array<Target$.Outbound> | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Multistream> = z
-        .object({
-            targets: z.array(Target$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.targets === undefined ? null : { targets: v.targets }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Multistream> = z.object({
+        targets: z.array(Target$.outboundSchema).optional(),
+    });
 }

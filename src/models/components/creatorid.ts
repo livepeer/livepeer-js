@@ -26,34 +26,20 @@ export namespace CreatorIdType$ {
 
 /** @internal */
 export namespace CreatorId1$ {
-    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, unknown> = z
-        .object({
-            type: CreatorIdType$.inboundSchema,
-            value: z.string(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                value: v.value,
-            };
-        });
+    export const inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, unknown> = z.object({
+        type: CreatorIdType$.inboundSchema,
+        value: z.string(),
+    });
 
     export type Outbound = {
         type: string;
         value: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreatorId1> = z
-        .object({
-            type: CreatorIdType$.outboundSchema,
-            value: z.string(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                value: v.value,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreatorId1> = z.object({
+        type: CreatorIdType$.outboundSchema,
+        value: z.string(),
+    });
 }
 
 /** @internal */

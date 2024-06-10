@@ -29,23 +29,13 @@ export type GetRoomUserResponse = {
 
 /** @internal */
 export namespace GetRoomUserResponse$ {
-    export const inboundSchema: z.ZodType<GetRoomUserResponse, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            joinedAt: z.number().int().optional(),
-            name: z.string().optional(),
-            isPublisher: z.boolean().default(true),
-            metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.joinedAt === undefined ? null : { joinedAt: v.joinedAt }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                isPublisher: v.isPublisher,
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
-        });
+    export const inboundSchema: z.ZodType<GetRoomUserResponse, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        joinedAt: z.number().int().optional(),
+        name: z.string().optional(),
+        isPublisher: z.boolean().default(true),
+        metadata: z.string().optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
@@ -55,21 +45,11 @@ export namespace GetRoomUserResponse$ {
         metadata?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetRoomUserResponse> = z
-        .object({
-            id: z.string().optional(),
-            joinedAt: z.number().int().optional(),
-            name: z.string().optional(),
-            isPublisher: z.boolean().default(true),
-            metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.joinedAt === undefined ? null : { joinedAt: v.joinedAt }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                isPublisher: v.isPublisher,
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, GetRoomUserResponse> = z.object({
+        id: z.string().optional(),
+        joinedAt: z.number().int().optional(),
+        name: z.string().optional(),
+        isPublisher: z.boolean().default(true),
+        metadata: z.string().optional(),
+    });
 }

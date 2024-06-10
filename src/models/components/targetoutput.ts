@@ -29,19 +29,11 @@ export type TargetOutput = {
 
 /** @internal */
 export namespace TargetOutput$ {
-    export const inboundSchema: z.ZodType<TargetOutput, z.ZodTypeDef, unknown> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-            };
-        });
+    export const inboundSchema: z.ZodType<TargetOutput, z.ZodTypeDef, unknown> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+    });
 
     export type Outbound = {
         profile: string;
@@ -49,17 +41,9 @@ export namespace TargetOutput$ {
         id?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetOutput> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetOutput> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+    });
 }

@@ -54,53 +54,30 @@ export type Target = {
 
 /** @internal */
 export namespace TargetSpec$ {
-    export const inboundSchema: z.ZodType<TargetSpec, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string().optional(),
-            url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-            };
-        });
+    export const inboundSchema: z.ZodType<TargetSpec, z.ZodTypeDef, unknown> = z.object({
+        name: z.string().optional(),
+        url: z.string(),
+    });
 
     export type Outbound = {
         name?: string | undefined;
         url: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetSpec> = z
-        .object({
-            name: z.string().optional(),
-            url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetSpec> = z.object({
+        name: z.string().optional(),
+        url: z.string(),
+    });
 }
 
 /** @internal */
 export namespace Target$ {
-    export const inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-            spec: z.lazy(() => TargetSpec$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+        spec: z.lazy(() => TargetSpec$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         profile: string;
@@ -109,19 +86,10 @@ export namespace Target$ {
         spec?: TargetSpec$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Target> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-            spec: z.lazy(() => TargetSpec$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Target> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+        spec: z.lazy(() => TargetSpec$.outboundSchema).optional(),
+    });
 }

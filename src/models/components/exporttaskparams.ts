@@ -41,46 +41,26 @@ export type ExportTaskParams = ExportTaskParams1 | ExportTaskParams2;
 
 /** @internal */
 export namespace ExportTaskParams2$ {
-    export const inboundSchema: z.ZodType<ExportTaskParams2, z.ZodTypeDef, unknown> = z
-        .object({
-            ipfs: IpfsExportParams$.inboundSchema,
-        })
-        .transform((v) => {
-            return {
-                ipfs: v.ipfs,
-            };
-        });
+    export const inboundSchema: z.ZodType<ExportTaskParams2, z.ZodTypeDef, unknown> = z.object({
+        ipfs: IpfsExportParams$.inboundSchema,
+    });
 
     export type Outbound = {
         ipfs: IpfsExportParams$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ExportTaskParams2> = z
-        .object({
-            ipfs: IpfsExportParams$.outboundSchema,
-        })
-        .transform((v) => {
-            return {
-                ipfs: v.ipfs,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ExportTaskParams2> = z.object({
+        ipfs: IpfsExportParams$.outboundSchema,
+    });
 }
 
 /** @internal */
 export namespace Custom$ {
-    export const inboundSchema: z.ZodType<Custom, z.ZodTypeDef, unknown> = z
-        .object({
-            url: z.string(),
-            method: z.string().default("PUT"),
-            headers: z.record(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                url: v.url,
-                method: v.method,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Custom, z.ZodTypeDef, unknown> = z.object({
+        url: z.string(),
+        method: z.string().default("PUT"),
+        headers: z.record(z.string()).optional(),
+    });
 
     export type Outbound = {
         url: string;
@@ -88,46 +68,26 @@ export namespace Custom$ {
         headers?: { [k: string]: string } | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Custom> = z
-        .object({
-            url: z.string(),
-            method: z.string().default("PUT"),
-            headers: z.record(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                url: v.url,
-                method: v.method,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Custom> = z.object({
+        url: z.string(),
+        method: z.string().default("PUT"),
+        headers: z.record(z.string()).optional(),
+    });
 }
 
 /** @internal */
 export namespace ExportTaskParams1$ {
-    export const inboundSchema: z.ZodType<ExportTaskParams1, z.ZodTypeDef, unknown> = z
-        .object({
-            custom: z.lazy(() => Custom$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                custom: v.custom,
-            };
-        });
+    export const inboundSchema: z.ZodType<ExportTaskParams1, z.ZodTypeDef, unknown> = z.object({
+        custom: z.lazy(() => Custom$.inboundSchema),
+    });
 
     export type Outbound = {
         custom: Custom$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ExportTaskParams1> = z
-        .object({
-            custom: z.lazy(() => Custom$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                custom: v.custom,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ExportTaskParams1> = z.object({
+        custom: z.lazy(() => Custom$.outboundSchema),
+    });
 }
 
 /** @internal */

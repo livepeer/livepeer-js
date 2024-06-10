@@ -1,7 +1,7 @@
 {
   "name": "livepeer",
-  "version": "3.2.8",
-  "author": "Livepeer",
+  "version": "3.2.9",
+  "author": "Livepeer",  
   "main": "./index.js",
   "sideEffects": false,
   "repository": {
@@ -11,14 +11,12 @@
   "scripts": {
     "lint": "eslint --max-warnings=0 src",
     "build": "tsc",
-    "test": "jest",
     "prepare": "npm run build"
   },
   "peerDependencies": {
     "zod": ">= 3"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
     "@types/jsonpath": "^0.2.4",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
     "@typescript-eslint/parser": "^7.7.1",
@@ -29,8 +27,6 @@
     "zod": "^3.23.4"
   },
   "dependencies": {
-    "jest": "^29.7.0",
-    "jest-junit": "^16.0.0",
-    "ts-jest": "^29.1.4"
+    
   }
 }

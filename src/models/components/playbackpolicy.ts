@@ -45,25 +45,13 @@ export namespace Type$ {
 
 /** @internal */
 export namespace PlaybackPolicy$ {
-    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, unknown> = z
-        .object({
-            type: Type$.inboundSchema,
-            webhookId: z.string().optional(),
-            webhookContext: z.record(z.any()).optional(),
-            refreshInterval: z.number().optional(),
-            allowedOrigins: z.array(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                ...(v.webhookId === undefined ? null : { webhookId: v.webhookId }),
-                ...(v.webhookContext === undefined ? null : { webhookContext: v.webhookContext }),
-                ...(v.refreshInterval === undefined
-                    ? null
-                    : { refreshInterval: v.refreshInterval }),
-                ...(v.allowedOrigins === undefined ? null : { allowedOrigins: v.allowedOrigins }),
-            };
-        });
+    export const inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, unknown> = z.object({
+        type: Type$.inboundSchema,
+        webhookId: z.string().optional(),
+        webhookContext: z.record(z.any()).optional(),
+        refreshInterval: z.number().optional(),
+        allowedOrigins: z.array(z.string()).optional(),
+    });
 
     export type Outbound = {
         type: string;
@@ -73,23 +61,11 @@ export namespace PlaybackPolicy$ {
         allowedOrigins?: Array<string> | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackPolicy> = z
-        .object({
-            type: Type$.outboundSchema,
-            webhookId: z.string().optional(),
-            webhookContext: z.record(z.any()).optional(),
-            refreshInterval: z.number().optional(),
-            allowedOrigins: z.array(z.string()).optional(),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                ...(v.webhookId === undefined ? null : { webhookId: v.webhookId }),
-                ...(v.webhookContext === undefined ? null : { webhookContext: v.webhookContext }),
-                ...(v.refreshInterval === undefined
-                    ? null
-                    : { refreshInterval: v.refreshInterval }),
-                ...(v.allowedOrigins === undefined ? null : { allowedOrigins: v.allowedOrigins }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackPolicy> = z.object({
+        type: Type$.outboundSchema,
+        webhookId: z.string().optional(),
+        webhookContext: z.record(z.any()).optional(),
+        refreshInterval: z.number().optional(),
+        allowedOrigins: z.array(z.string()).optional(),
+    });
 }

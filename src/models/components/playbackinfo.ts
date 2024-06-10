@@ -108,27 +108,15 @@ export namespace PlaybackInfoSchemasType$ {
 
 /** @internal */
 export namespace PlaybackInfoSource$ {
-    export const inboundSchema: z.ZodType<PlaybackInfoSource, z.ZodTypeDef, unknown> = z
-        .object({
-            hrn: Hrn$.inboundSchema,
-            type: PlaybackInfoSchemasType$.inboundSchema,
-            url: z.string(),
-            size: z.number().optional(),
-            width: z.number().optional(),
-            height: z.number().optional(),
-            bitrate: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                hrn: v.hrn,
-                type: v.type,
-                url: v.url,
-                ...(v.size === undefined ? null : { size: v.size }),
-                ...(v.width === undefined ? null : { width: v.width }),
-                ...(v.height === undefined ? null : { height: v.height }),
-                ...(v.bitrate === undefined ? null : { bitrate: v.bitrate }),
-            };
-        });
+    export const inboundSchema: z.ZodType<PlaybackInfoSource, z.ZodTypeDef, unknown> = z.object({
+        hrn: Hrn$.inboundSchema,
+        type: PlaybackInfoSchemasType$.inboundSchema,
+        url: z.string(),
+        size: z.number().optional(),
+        width: z.number().optional(),
+        height: z.number().optional(),
+        bitrate: z.number().optional(),
+    });
 
     export type Outbound = {
         hrn: string;
@@ -140,27 +128,15 @@ export namespace PlaybackInfoSource$ {
         bitrate?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfoSource> = z
-        .object({
-            hrn: Hrn$.outboundSchema,
-            type: PlaybackInfoSchemasType$.outboundSchema,
-            url: z.string(),
-            size: z.number().optional(),
-            width: z.number().optional(),
-            height: z.number().optional(),
-            bitrate: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                hrn: v.hrn,
-                type: v.type,
-                url: v.url,
-                ...(v.size === undefined ? null : { size: v.size }),
-                ...(v.width === undefined ? null : { width: v.width }),
-                ...(v.height === undefined ? null : { height: v.height }),
-                ...(v.bitrate === undefined ? null : { bitrate: v.bitrate }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfoSource> = z.object({
+        hrn: Hrn$.outboundSchema,
+        type: PlaybackInfoSchemasType$.outboundSchema,
+        url: z.string(),
+        size: z.number().optional(),
+        width: z.number().optional(),
+        height: z.number().optional(),
+        bitrate: z.number().optional(),
+    });
 }
 
 /** @internal */
@@ -177,21 +153,12 @@ export namespace PlaybackInfoSchemasMetaType$ {
 
 /** @internal */
 export namespace DvrPlayback$ {
-    export const inboundSchema: z.ZodType<DvrPlayback, z.ZodTypeDef, unknown> = z
-        .object({
-            hrn: PlaybackInfoHrn$.inboundSchema.optional(),
-            type: PlaybackInfoSchemasMetaType$.inboundSchema.optional(),
-            url: z.string().optional(),
-            error: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.hrn === undefined ? null : { hrn: v.hrn }),
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.error === undefined ? null : { error: v.error }),
-            };
-        });
+    export const inboundSchema: z.ZodType<DvrPlayback, z.ZodTypeDef, unknown> = z.object({
+        hrn: PlaybackInfoHrn$.inboundSchema.optional(),
+        type: PlaybackInfoSchemasMetaType$.inboundSchema.optional(),
+        url: z.string().optional(),
+        error: z.string().optional(),
+    });
 
     export type Outbound = {
         hrn?: string | undefined;
@@ -200,42 +167,23 @@ export namespace DvrPlayback$ {
         error?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, DvrPlayback> = z
-        .object({
-            hrn: PlaybackInfoHrn$.outboundSchema.optional(),
-            type: PlaybackInfoSchemasMetaType$.outboundSchema.optional(),
-            url: z.string().optional(),
-            error: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.hrn === undefined ? null : { hrn: v.hrn }),
-                ...(v.type === undefined ? null : { type: v.type }),
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.error === undefined ? null : { error: v.error }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, DvrPlayback> = z.object({
+        hrn: PlaybackInfoHrn$.outboundSchema.optional(),
+        type: PlaybackInfoSchemasMetaType$.outboundSchema.optional(),
+        url: z.string().optional(),
+        error: z.string().optional(),
+    });
 }
 
 /** @internal */
 export namespace Meta$ {
-    export const inboundSchema: z.ZodType<Meta, z.ZodTypeDef, unknown> = z
-        .object({
-            live: Live$.inboundSchema.optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            source: z.array(z.lazy(() => PlaybackInfoSource$.inboundSchema)),
-            dvrPlayback: z.array(z.lazy(() => DvrPlayback$.inboundSchema)).optional(),
-            attestation: Attestation$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.live === undefined ? null : { live: v.live }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                source: v.source,
-                ...(v.dvrPlayback === undefined ? null : { dvrPlayback: v.dvrPlayback }),
-                ...(v.attestation === undefined ? null : { attestation: v.attestation }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Meta, z.ZodTypeDef, unknown> = z.object({
+        live: Live$.inboundSchema.optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
+        source: z.array(z.lazy(() => PlaybackInfoSource$.inboundSchema)),
+        dvrPlayback: z.array(z.lazy(() => DvrPlayback$.inboundSchema)).optional(),
+        attestation: Attestation$.inboundSchema.optional(),
+    });
 
     export type Outbound = {
         live?: number | undefined;
@@ -245,53 +193,29 @@ export namespace Meta$ {
         attestation?: Attestation$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Meta> = z
-        .object({
-            live: Live$.outboundSchema.optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            source: z.array(z.lazy(() => PlaybackInfoSource$.outboundSchema)),
-            dvrPlayback: z.array(z.lazy(() => DvrPlayback$.outboundSchema)).optional(),
-            attestation: Attestation$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.live === undefined ? null : { live: v.live }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                source: v.source,
-                ...(v.dvrPlayback === undefined ? null : { dvrPlayback: v.dvrPlayback }),
-                ...(v.attestation === undefined ? null : { attestation: v.attestation }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Meta> = z.object({
+        live: Live$.outboundSchema.optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
+        source: z.array(z.lazy(() => PlaybackInfoSource$.outboundSchema)),
+        dvrPlayback: z.array(z.lazy(() => DvrPlayback$.outboundSchema)).optional(),
+        attestation: Attestation$.outboundSchema.optional(),
+    });
 }
 
 /** @internal */
 export namespace PlaybackInfo$ {
-    export const inboundSchema: z.ZodType<PlaybackInfo, z.ZodTypeDef, unknown> = z
-        .object({
-            type: PlaybackInfoType$.inboundSchema,
-            meta: z.lazy(() => Meta$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                meta: v.meta,
-            };
-        });
+    export const inboundSchema: z.ZodType<PlaybackInfo, z.ZodTypeDef, unknown> = z.object({
+        type: PlaybackInfoType$.inboundSchema,
+        meta: z.lazy(() => Meta$.inboundSchema),
+    });
 
     export type Outbound = {
         type: string;
         meta: Meta$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfo> = z
-        .object({
-            type: PlaybackInfoType$.outboundSchema,
-            meta: z.lazy(() => Meta$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                meta: v.meta,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, PlaybackInfo> = z.object({
+        type: PlaybackInfoType$.outboundSchema,
+        meta: z.lazy(() => Meta$.outboundSchema),
+    });
 }

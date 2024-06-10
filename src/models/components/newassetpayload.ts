@@ -73,29 +73,17 @@ export type NewAssetPayload = {
 
 /** @internal */
 export namespace NewAssetPayload1$ {
-    export const inboundSchema: z.ZodType<NewAssetPayload1, z.ZodTypeDef, unknown> = z
-        .object({
-            spec: z.nullable(Spec$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const inboundSchema: z.ZodType<NewAssetPayload1, z.ZodTypeDef, unknown> = z.object({
+        spec: z.nullable(Spec$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         spec?: Spec$.Outbound | null | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayload1> = z
-        .object({
-            spec: z.nullable(Spec$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayload1> = z.object({
+        spec: z.nullable(Spec$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
@@ -114,91 +102,56 @@ export namespace NewAssetPayloadIpfs$ {
 
 /** @internal */
 export namespace NewAssetPayloadStorage$ {
-    export const inboundSchema: z.ZodType<NewAssetPayloadStorage, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<NewAssetPayloadStorage, z.ZodTypeDef, unknown> = z.object(
+        {
             ipfs: z
                 .nullable(z.union([z.lazy(() => NewAssetPayload1$.inboundSchema), z.boolean()]))
                 .optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
-        });
+        }
+    );
 
     export type Outbound = {
         ipfs?: NewAssetPayload1$.Outbound | boolean | null | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayloadStorage> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayloadStorage> =
+        z.object({
             ipfs: z
                 .nullable(z.union([z.lazy(() => NewAssetPayload1$.outboundSchema), z.boolean()]))
                 .optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.ipfs === undefined ? null : { ipfs: v.ipfs }),
-            };
         });
 }
 
 /** @internal */
 export namespace NewAssetPayloadEncryption$ {
-    export const inboundSchema: z.ZodType<NewAssetPayloadEncryption, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<NewAssetPayloadEncryption, z.ZodTypeDef, unknown> =
+        z.object({
             encryptedKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                encryptedKey: v.encryptedKey,
-            };
         });
 
     export type Outbound = {
         encryptedKey: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayloadEncryption> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayloadEncryption> =
+        z.object({
             encryptedKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                encryptedKey: v.encryptedKey,
-            };
         });
 }
 
 /** @internal */
 export namespace NewAssetPayload$ {
-    export const inboundSchema: z.ZodType<NewAssetPayload, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string(),
-            staticMp4: z.boolean().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            creatorId: InputCreatorId$.inboundSchema.optional(),
-            storage: z.lazy(() => NewAssetPayloadStorage$.inboundSchema).optional(),
-            encryption: z.lazy(() => NewAssetPayloadEncryption$.inboundSchema).optional(),
-            c2pa: z.boolean().optional(),
-            profiles: z.nullable(z.array(TranscodeProfile$.inboundSchema)).optional(),
-            targetSegmentSizeSecs: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-            };
-        });
+    export const inboundSchema: z.ZodType<NewAssetPayload, z.ZodTypeDef, unknown> = z.object({
+        name: z.string(),
+        staticMp4: z.boolean().optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
+        creatorId: InputCreatorId$.inboundSchema.optional(),
+        storage: z.lazy(() => NewAssetPayloadStorage$.inboundSchema).optional(),
+        encryption: z.lazy(() => NewAssetPayloadEncryption$.inboundSchema).optional(),
+        c2pa: z.boolean().optional(),
+        profiles: z.nullable(z.array(TranscodeProfile$.inboundSchema)).optional(),
+        targetSegmentSizeSecs: z.number().optional(),
+    });
 
     export type Outbound = {
         name: string;
@@ -212,31 +165,15 @@ export namespace NewAssetPayload$ {
         targetSegmentSizeSecs?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayload> = z
-        .object({
-            name: z.string(),
-            staticMp4: z.boolean().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            creatorId: InputCreatorId$.outboundSchema.optional(),
-            storage: z.lazy(() => NewAssetPayloadStorage$.outboundSchema).optional(),
-            encryption: z.lazy(() => NewAssetPayloadEncryption$.outboundSchema).optional(),
-            c2pa: z.boolean().optional(),
-            profiles: z.nullable(z.array(TranscodeProfile$.outboundSchema)).optional(),
-            targetSegmentSizeSecs: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetPayload> = z.object({
+        name: z.string(),
+        staticMp4: z.boolean().optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
+        creatorId: InputCreatorId$.outboundSchema.optional(),
+        storage: z.lazy(() => NewAssetPayloadStorage$.outboundSchema).optional(),
+        encryption: z.lazy(() => NewAssetPayloadEncryption$.outboundSchema).optional(),
+        c2pa: z.boolean().optional(),
+        profiles: z.nullable(z.array(TranscodeProfile$.outboundSchema)).optional(),
+        targetSegmentSizeSecs: z.number().optional(),
+    });
 }

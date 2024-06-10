@@ -50,8 +50,8 @@ export type NewAssetFromUrlPayload = {
 
 /** @internal */
 export namespace NewAssetFromUrlPayload$ {
-    export const inboundSchema: z.ZodType<NewAssetFromUrlPayload, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<NewAssetFromUrlPayload, z.ZodTypeDef, unknown> = z.object(
+        {
             name: z.string(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
@@ -62,23 +62,8 @@ export namespace NewAssetFromUrlPayload$ {
             c2pa: z.boolean().optional(),
             profiles: z.nullable(z.array(TranscodeProfile$.inboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                url: v.url,
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-            };
-        });
+        }
+    );
 
     export type Outbound = {
         name: string;
@@ -93,8 +78,8 @@ export namespace NewAssetFromUrlPayload$ {
         targetSegmentSizeSecs?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetFromUrlPayload> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, NewAssetFromUrlPayload> =
+        z.object({
             name: z.string(),
             staticMp4: z.boolean().optional(),
             playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
@@ -105,21 +90,5 @@ export namespace NewAssetFromUrlPayload$ {
             c2pa: z.boolean().optional(),
             profiles: z.nullable(z.array(TranscodeProfile$.outboundSchema)).optional(),
             targetSegmentSizeSecs: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.staticMp4 === undefined ? null : { staticMp4: v.staticMp4 }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-                url: v.url,
-                ...(v.encryption === undefined ? null : { encryption: v.encryption }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-            };
         });
 }
