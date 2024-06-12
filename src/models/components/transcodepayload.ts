@@ -232,55 +232,31 @@ export namespace TranscodePayloadType$ {
 
 /** @internal */
 export namespace Credentials$ {
-    export const inboundSchema: z.ZodType<Credentials, z.ZodTypeDef, unknown> = z
-        .object({
-            accessKeyId: z.string(),
-            secretAccessKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                accessKeyId: v.accessKeyId,
-                secretAccessKey: v.secretAccessKey,
-            };
-        });
+    export const inboundSchema: z.ZodType<Credentials, z.ZodTypeDef, unknown> = z.object({
+        accessKeyId: z.string(),
+        secretAccessKey: z.string(),
+    });
 
     export type Outbound = {
         accessKeyId: string;
         secretAccessKey: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Credentials> = z
-        .object({
-            accessKeyId: z.string(),
-            secretAccessKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                accessKeyId: v.accessKeyId,
-                secretAccessKey: v.secretAccessKey,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Credentials> = z.object({
+        accessKeyId: z.string(),
+        secretAccessKey: z.string(),
+    });
 }
 
 /** @internal */
 export namespace TranscodePayload2$ {
-    export const inboundSchema: z.ZodType<TranscodePayload2, z.ZodTypeDef, unknown> = z
-        .object({
-            type: TranscodePayloadType$.inboundSchema,
-            endpoint: z.string(),
-            bucket: z.string(),
-            path: z.string(),
-            credentials: z.lazy(() => Credentials$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                endpoint: v.endpoint,
-                bucket: v.bucket,
-                path: v.path,
-                credentials: v.credentials,
-            };
-        });
+    export const inboundSchema: z.ZodType<TranscodePayload2, z.ZodTypeDef, unknown> = z.object({
+        type: TranscodePayloadType$.inboundSchema,
+        endpoint: z.string(),
+        bucket: z.string(),
+        path: z.string(),
+        credentials: z.lazy(() => Credentials$.inboundSchema),
+    });
 
     export type Outbound = {
         type: string;
@@ -290,50 +266,28 @@ export namespace TranscodePayload2$ {
         credentials: Credentials$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload2> = z
-        .object({
-            type: TranscodePayloadType$.outboundSchema,
-            endpoint: z.string(),
-            bucket: z.string(),
-            path: z.string(),
-            credentials: z.lazy(() => Credentials$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                endpoint: v.endpoint,
-                bucket: v.bucket,
-                path: v.path,
-                credentials: v.credentials,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload2> = z.object({
+        type: TranscodePayloadType$.outboundSchema,
+        endpoint: z.string(),
+        bucket: z.string(),
+        path: z.string(),
+        credentials: z.lazy(() => Credentials$.outboundSchema),
+    });
 }
 
 /** @internal */
 export namespace TranscodePayload1$ {
-    export const inboundSchema: z.ZodType<TranscodePayload1, z.ZodTypeDef, unknown> = z
-        .object({
-            url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                url: v.url,
-            };
-        });
+    export const inboundSchema: z.ZodType<TranscodePayload1, z.ZodTypeDef, unknown> = z.object({
+        url: z.string(),
+    });
 
     export type Outbound = {
         url: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload1> = z
-        .object({
-            url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                url: v.url,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload1> = z.object({
+        url: z.string(),
+    });
 }
 
 /** @internal */
@@ -362,15 +316,9 @@ export namespace TranscodePayloadSchemasCredentials$ {
         TranscodePayloadSchemasCredentials,
         z.ZodTypeDef,
         unknown
-    > = z
-        .object({
-            proof: z.string(),
-        })
-        .transform((v) => {
-            return {
-                proof: v.proof,
-            };
-        });
+    > = z.object({
+        proof: z.string(),
+    });
 
     export type Outbound = {
         proof: string;
@@ -380,29 +328,17 @@ export namespace TranscodePayloadSchemasCredentials$ {
         Outbound,
         z.ZodTypeDef,
         TranscodePayloadSchemasCredentials
-    > = z
-        .object({
-            proof: z.string(),
-        })
-        .transform((v) => {
-            return {
-                proof: v.proof,
-            };
-        });
+    > = z.object({
+        proof: z.string(),
+    });
 }
 
 /** @internal */
 export namespace TranscodePayloadSchemas2$ {
-    export const inboundSchema: z.ZodType<TranscodePayloadSchemas2, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<TranscodePayloadSchemas2, z.ZodTypeDef, unknown> =
+        z.object({
             type: TranscodePayloadSchemasStorageType$.inboundSchema,
             credentials: z.lazy(() => TranscodePayloadSchemasCredentials$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                credentials: v.credentials,
-            };
         });
 
     export type Outbound = {
@@ -410,16 +346,10 @@ export namespace TranscodePayloadSchemas2$ {
         credentials: TranscodePayloadSchemasCredentials$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadSchemas2> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadSchemas2> =
+        z.object({
             type: TranscodePayloadSchemasStorageType$.outboundSchema,
             credentials: z.lazy(() => TranscodePayloadSchemasCredentials$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                credentials: v.credentials,
-            };
         });
 }
 
@@ -431,16 +361,10 @@ export namespace TranscodePayloadSchemasType$ {
 
 /** @internal */
 export namespace TranscodePayloadCredentials$ {
-    export const inboundSchema: z.ZodType<TranscodePayloadCredentials, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<TranscodePayloadCredentials, z.ZodTypeDef, unknown> =
+        z.object({
             accessKeyId: z.string(),
             secretAccessKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                accessKeyId: v.accessKeyId,
-                secretAccessKey: v.secretAccessKey,
-            };
         });
 
     export type Outbound = {
@@ -448,35 +372,21 @@ export namespace TranscodePayloadCredentials$ {
         secretAccessKey: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadCredentials> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadCredentials> =
+        z.object({
             accessKeyId: z.string(),
             secretAccessKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                accessKeyId: v.accessKeyId,
-                secretAccessKey: v.secretAccessKey,
-            };
         });
 }
 
 /** @internal */
 export namespace TranscodePayloadSchemas1$ {
-    export const inboundSchema: z.ZodType<TranscodePayloadSchemas1, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<TranscodePayloadSchemas1, z.ZodTypeDef, unknown> =
+        z.object({
             type: TranscodePayloadSchemasType$.inboundSchema,
             endpoint: z.string(),
             bucket: z.string(),
             credentials: z.lazy(() => TranscodePayloadCredentials$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                endpoint: v.endpoint,
-                bucket: v.bucket,
-                credentials: v.credentials,
-            };
         });
 
     export type Outbound = {
@@ -486,20 +396,12 @@ export namespace TranscodePayloadSchemas1$ {
         credentials: TranscodePayloadCredentials$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadSchemas1> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayloadSchemas1> =
+        z.object({
             type: TranscodePayloadSchemasType$.outboundSchema,
             endpoint: z.string(),
             bucket: z.string(),
             credentials: z.lazy(() => TranscodePayloadCredentials$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                type: v.type,
-                endpoint: v.endpoint,
-                bucket: v.bucket,
-                credentials: v.credentials,
-            };
         });
 }
 
@@ -522,100 +424,56 @@ export namespace TranscodePayloadStorage$ {
 
 /** @internal */
 export namespace Hls$ {
-    export const inboundSchema: z.ZodType<Hls, z.ZodTypeDef, unknown> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const inboundSchema: z.ZodType<Hls, z.ZodTypeDef, unknown> = z.object({
+        path: z.string(),
+    });
 
     export type Outbound = {
         path: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Hls> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Hls> = z.object({
+        path: z.string(),
+    });
 }
 
 /** @internal */
 export namespace Mp4$ {
-    export const inboundSchema: z.ZodType<Mp4, z.ZodTypeDef, unknown> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const inboundSchema: z.ZodType<Mp4, z.ZodTypeDef, unknown> = z.object({
+        path: z.string(),
+    });
 
     export type Outbound = {
         path: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Mp4> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Mp4> = z.object({
+        path: z.string(),
+    });
 }
 
 /** @internal */
 export namespace Fmp4$ {
-    export const inboundSchema: z.ZodType<Fmp4, z.ZodTypeDef, unknown> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const inboundSchema: z.ZodType<Fmp4, z.ZodTypeDef, unknown> = z.object({
+        path: z.string(),
+    });
 
     export type Outbound = {
         path: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Fmp4> = z
-        .object({
-            path: z.string(),
-        })
-        .transform((v) => {
-            return {
-                path: v.path,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Fmp4> = z.object({
+        path: z.string(),
+    });
 }
 
 /** @internal */
 export namespace Outputs$ {
-    export const inboundSchema: z.ZodType<Outputs, z.ZodTypeDef, unknown> = z
-        .object({
-            hls: z.lazy(() => Hls$.inboundSchema).optional(),
-            mp4: z.lazy(() => Mp4$.inboundSchema).optional(),
-            fmp4: z.lazy(() => Fmp4$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.hls === undefined ? null : { hls: v.hls }),
-                ...(v.mp4 === undefined ? null : { mp4: v.mp4 }),
-                ...(v.fmp4 === undefined ? null : { fmp4: v.fmp4 }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Outputs, z.ZodTypeDef, unknown> = z.object({
+        hls: z.lazy(() => Hls$.inboundSchema).optional(),
+        mp4: z.lazy(() => Mp4$.inboundSchema).optional(),
+        fmp4: z.lazy(() => Fmp4$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         hls?: Hls$.Outbound | undefined;
@@ -623,52 +481,30 @@ export namespace Outputs$ {
         fmp4?: Fmp4$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Outputs> = z
-        .object({
-            hls: z.lazy(() => Hls$.outboundSchema).optional(),
-            mp4: z.lazy(() => Mp4$.outboundSchema).optional(),
-            fmp4: z.lazy(() => Fmp4$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.hls === undefined ? null : { hls: v.hls }),
-                ...(v.mp4 === undefined ? null : { mp4: v.mp4 }),
-                ...(v.fmp4 === undefined ? null : { fmp4: v.fmp4 }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Outputs> = z.object({
+        hls: z.lazy(() => Hls$.outboundSchema).optional(),
+        mp4: z.lazy(() => Mp4$.outboundSchema).optional(),
+        fmp4: z.lazy(() => Fmp4$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
 export namespace TranscodePayload$ {
-    export const inboundSchema: z.ZodType<TranscodePayload, z.ZodTypeDef, unknown> = z
-        .object({
-            input: z.union([
-                z.lazy(() => TranscodePayload1$.inboundSchema),
-                z.lazy(() => TranscodePayload2$.inboundSchema),
-            ]),
-            storage: z.union([
-                z.lazy(() => TranscodePayloadSchemas2$.inboundSchema),
-                z.lazy(() => TranscodePayloadSchemas1$.inboundSchema),
-            ]),
-            outputs: z.lazy(() => Outputs$.inboundSchema),
-            profiles: z.array(TranscodeProfile$.inboundSchema).optional(),
-            targetSegmentSizeSecs: z.number().optional(),
-            creatorId: InputCreatorId$.inboundSchema.optional(),
-            c2pa: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                input: v.input,
-                storage: v.storage,
-                outputs: v.outputs,
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-            };
-        });
+    export const inboundSchema: z.ZodType<TranscodePayload, z.ZodTypeDef, unknown> = z.object({
+        input: z.union([
+            z.lazy(() => TranscodePayload1$.inboundSchema),
+            z.lazy(() => TranscodePayload2$.inboundSchema),
+        ]),
+        storage: z.union([
+            z.lazy(() => TranscodePayloadSchemas2$.inboundSchema),
+            z.lazy(() => TranscodePayloadSchemas1$.inboundSchema),
+        ]),
+        outputs: z.lazy(() => Outputs$.inboundSchema),
+        profiles: z.array(TranscodeProfile$.inboundSchema).optional(),
+        targetSegmentSizeSecs: z.number().optional(),
+        creatorId: InputCreatorId$.inboundSchema.optional(),
+        c2pa: z.boolean().optional(),
+    });
 
     export type Outbound = {
         input: TranscodePayload1$.Outbound | TranscodePayload2$.Outbound;
@@ -680,33 +516,19 @@ export namespace TranscodePayload$ {
         c2pa?: boolean | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload> = z
-        .object({
-            input: z.union([
-                z.lazy(() => TranscodePayload1$.outboundSchema),
-                z.lazy(() => TranscodePayload2$.outboundSchema),
-            ]),
-            storage: z.union([
-                z.lazy(() => TranscodePayloadSchemas2$.outboundSchema),
-                z.lazy(() => TranscodePayloadSchemas1$.outboundSchema),
-            ]),
-            outputs: z.lazy(() => Outputs$.outboundSchema),
-            profiles: z.array(TranscodeProfile$.outboundSchema).optional(),
-            targetSegmentSizeSecs: z.number().optional(),
-            creatorId: InputCreatorId$.outboundSchema.optional(),
-            c2pa: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                input: v.input,
-                storage: v.storage,
-                outputs: v.outputs,
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.targetSegmentSizeSecs === undefined
-                    ? null
-                    : { targetSegmentSizeSecs: v.targetSegmentSizeSecs }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.c2pa === undefined ? null : { c2pa: v.c2pa }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodePayload> = z.object({
+        input: z.union([
+            z.lazy(() => TranscodePayload1$.outboundSchema),
+            z.lazy(() => TranscodePayload2$.outboundSchema),
+        ]),
+        storage: z.union([
+            z.lazy(() => TranscodePayloadSchemas2$.outboundSchema),
+            z.lazy(() => TranscodePayloadSchemas1$.outboundSchema),
+        ]),
+        outputs: z.lazy(() => Outputs$.outboundSchema),
+        profiles: z.array(TranscodeProfile$.outboundSchema).optional(),
+        targetSegmentSizeSecs: z.number().optional(),
+        creatorId: InputCreatorId$.outboundSchema.optional(),
+        c2pa: z.boolean().optional(),
+    });
 }

@@ -21,19 +21,11 @@ export type IpfsFileInfo = {
 
 /** @internal */
 export namespace IpfsFileInfo$ {
-    export const inboundSchema: z.ZodType<IpfsFileInfo, z.ZodTypeDef, unknown> = z
-        .object({
-            cid: z.string(),
-            url: z.string().optional(),
-            gatewayUrl: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                cid: v.cid,
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.gatewayUrl === undefined ? null : { gatewayUrl: v.gatewayUrl }),
-            };
-        });
+    export const inboundSchema: z.ZodType<IpfsFileInfo, z.ZodTypeDef, unknown> = z.object({
+        cid: z.string(),
+        url: z.string().optional(),
+        gatewayUrl: z.string().optional(),
+    });
 
     export type Outbound = {
         cid: string;
@@ -41,17 +33,9 @@ export namespace IpfsFileInfo$ {
         gatewayUrl?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, IpfsFileInfo> = z
-        .object({
-            cid: z.string(),
-            url: z.string().optional(),
-            gatewayUrl: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                cid: v.cid,
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.gatewayUrl === undefined ? null : { gatewayUrl: v.gatewayUrl }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, IpfsFileInfo> = z.object({
+        cid: z.string(),
+        url: z.string().optional(),
+        gatewayUrl: z.string().optional(),
+    });
 }

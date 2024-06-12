@@ -78,6 +78,25 @@ export type StreamPull = {
     location?: StreamLocation | undefined;
 };
 
+/**
+ * Configuration for recording the stream. This can only be set if
+ *
+ * @remarks
+ * `record` is true.
+ *
+ */
+export type StreamRecordingSpec = {
+    /**
+     * Profiles to record the stream in. If not specified, the stream
+     *
+     * @remarks
+     * will be recorded in the same profiles as the stream itself. Keep
+     * in mind that the source rendition will always be recorded.
+     *
+     */
+    profiles?: Array<FfmpegProfile> | undefined;
+};
+
 export type StreamMultistream = {
     /**
      * References to targets where this stream will be simultaneously
@@ -170,6 +189,10 @@ export type Stream = {
     playbackPolicy?: PlaybackPolicy | null | undefined;
     profiles?: Array<FfmpegProfile> | undefined;
     /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
+    /**
      * Should this stream be recorded? Uses default settings. For more
      *
      * @remarks
@@ -177,6 +200,14 @@ export type Stream = {
      *
      */
     record?: boolean | undefined;
+    /**
+     * Configuration for recording the stream. This can only be set if
+     *
+     * @remarks
+     * `record` is true.
+     *
+     */
+    recordingSpec?: StreamRecordingSpec | undefined;
     multistream?: StreamMultistream | undefined;
     /**
      * If currently suspended
@@ -245,53 +276,30 @@ export namespace StreamIsMobile$ {
 
 /** @internal */
 export namespace StreamLocation$ {
-    export const inboundSchema: z.ZodType<StreamLocation, z.ZodTypeDef, unknown> = z
-        .object({
-            lat: z.number(),
-            lon: z.number(),
-        })
-        .transform((v) => {
-            return {
-                lat: v.lat,
-                lon: v.lon,
-            };
-        });
+    export const inboundSchema: z.ZodType<StreamLocation, z.ZodTypeDef, unknown> = z.object({
+        lat: z.number(),
+        lon: z.number(),
+    });
 
     export type Outbound = {
         lat: number;
         lon: number;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamLocation> = z
-        .object({
-            lat: z.number(),
-            lon: z.number(),
-        })
-        .transform((v) => {
-            return {
-                lat: v.lat,
-                lon: v.lon,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamLocation> = z.object({
+        lat: z.number(),
+        lon: z.number(),
+    });
 }
 
 /** @internal */
 export namespace StreamPull$ {
-    export const inboundSchema: z.ZodType<StreamPull, z.ZodTypeDef, unknown> = z
-        .object({
-            source: z.string(),
-            headers: z.record(z.string()).optional(),
-            isMobile: z.union([Stream1$.inboundSchema, z.boolean()]).optional(),
-            location: z.lazy(() => StreamLocation$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                source: v.source,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
-                ...(v.location === undefined ? null : { location: v.location }),
-            };
-        });
+    export const inboundSchema: z.ZodType<StreamPull, z.ZodTypeDef, unknown> = z.object({
+        source: z.string(),
+        headers: z.record(z.string()).optional(),
+        isMobile: z.union([Stream1$.inboundSchema, z.boolean()]).optional(),
+        location: z.lazy(() => StreamLocation$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         source: string;
@@ -300,48 +308,42 @@ export namespace StreamPull$ {
         location?: StreamLocation$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamPull> = z
-        .object({
-            source: z.string(),
-            headers: z.record(z.string()).optional(),
-            isMobile: z.union([Stream1$.outboundSchema, z.boolean()]).optional(),
-            location: z.lazy(() => StreamLocation$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                source: v.source,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
-                ...(v.location === undefined ? null : { location: v.location }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamPull> = z.object({
+        source: z.string(),
+        headers: z.record(z.string()).optional(),
+        isMobile: z.union([Stream1$.outboundSchema, z.boolean()]).optional(),
+        location: z.lazy(() => StreamLocation$.outboundSchema).optional(),
+    });
+}
+
+/** @internal */
+export namespace StreamRecordingSpec$ {
+    export const inboundSchema: z.ZodType<StreamRecordingSpec, z.ZodTypeDef, unknown> = z.object({
+        profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+    });
+
+    export type Outbound = {
+        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+    };
+
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamRecordingSpec> = z.object({
+        profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
 export namespace StreamMultistream$ {
-    export const inboundSchema: z.ZodType<StreamMultistream, z.ZodTypeDef, unknown> = z
-        .object({
-            targets: z.array(TargetOutput$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.targets === undefined ? null : { targets: v.targets }),
-            };
-        });
+    export const inboundSchema: z.ZodType<StreamMultistream, z.ZodTypeDef, unknown> = z.object({
+        targets: z.array(TargetOutput$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         targets?: Array<TargetOutput$.Outbound> | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamMultistream> = z
-        .object({
-            targets: z.array(TargetOutput$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.targets === undefined ? null : { targets: v.targets }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StreamMultistream> = z.object({
+        targets: z.array(TargetOutput$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
@@ -355,91 +357,43 @@ export namespace Renditions$ {
 
 /** @internal */
 export namespace Stream$ {
-    export const inboundSchema: z.ZodType<Stream, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string(),
-            kind: z.string().optional(),
-            creatorId: CreatorId$.inboundSchema.optional(),
-            userTags: z
-                .record(
-                    z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))])
-                )
-                .optional(),
-            lastSeen: z.number().optional(),
-            sourceSegments: z.number().optional(),
-            transcodedSegments: z.number().optional(),
-            sourceSegmentsDuration: z.number().optional(),
-            transcodedSegmentsDuration: z.number().optional(),
-            sourceBytes: z.number().optional(),
-            transcodedBytes: z.number().optional(),
-            ingestRate: z.number().optional(),
-            outgoingRate: z.number().optional(),
-            isActive: z.boolean().optional(),
-            isHealthy: z.nullable(z.boolean()).optional(),
-            issues: z.nullable(z.array(z.string())).optional(),
-            createdByTokenName: z.string().optional(),
-            createdAt: z.number().optional(),
-            parentId: z.string().optional(),
-            streamKey: z.string().optional(),
-            pull: z.lazy(() => StreamPull$.inboundSchema).optional(),
-            playbackId: z.string().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
-            record: z.boolean().optional(),
-            multistream: z.lazy(() => StreamMultistream$.inboundSchema).optional(),
-            suspended: z.boolean().optional(),
-            lastTerminatedAt: z.nullable(z.number()).optional(),
-            userId: z.string().optional(),
-            renditions: z.lazy(() => Renditions$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                name: v.name,
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.userTags === undefined ? null : { userTags: v.userTags }),
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),
-                ...(v.transcodedSegments === undefined
-                    ? null
-                    : { transcodedSegments: v.transcodedSegments }),
-                ...(v.sourceSegmentsDuration === undefined
-                    ? null
-                    : { sourceSegmentsDuration: v.sourceSegmentsDuration }),
-                ...(v.transcodedSegmentsDuration === undefined
-                    ? null
-                    : { transcodedSegmentsDuration: v.transcodedSegmentsDuration }),
-                ...(v.sourceBytes === undefined ? null : { sourceBytes: v.sourceBytes }),
-                ...(v.transcodedBytes === undefined
-                    ? null
-                    : { transcodedBytes: v.transcodedBytes }),
-                ...(v.ingestRate === undefined ? null : { ingestRate: v.ingestRate }),
-                ...(v.outgoingRate === undefined ? null : { outgoingRate: v.outgoingRate }),
-                ...(v.isActive === undefined ? null : { isActive: v.isActive }),
-                ...(v.isHealthy === undefined ? null : { isHealthy: v.isHealthy }),
-                ...(v.issues === undefined ? null : { issues: v.issues }),
-                ...(v.createdByTokenName === undefined
-                    ? null
-                    : { createdByTokenName: v.createdByTokenName }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.streamKey === undefined ? null : { streamKey: v.streamKey }),
-                ...(v.pull === undefined ? null : { pull: v.pull }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.record === undefined ? null : { record: v.record }),
-                ...(v.multistream === undefined ? null : { multistream: v.multistream }),
-                ...(v.suspended === undefined ? null : { suspended: v.suspended }),
-                ...(v.lastTerminatedAt === undefined
-                    ? null
-                    : { lastTerminatedAt: v.lastTerminatedAt }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.renditions === undefined ? null : { renditions: v.renditions }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Stream, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        name: z.string(),
+        kind: z.string().optional(),
+        creatorId: CreatorId$.inboundSchema.optional(),
+        userTags: z
+            .record(z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))]))
+            .optional(),
+        lastSeen: z.number().optional(),
+        sourceSegments: z.number().optional(),
+        transcodedSegments: z.number().optional(),
+        sourceSegmentsDuration: z.number().optional(),
+        transcodedSegmentsDuration: z.number().optional(),
+        sourceBytes: z.number().optional(),
+        transcodedBytes: z.number().optional(),
+        ingestRate: z.number().optional(),
+        outgoingRate: z.number().optional(),
+        isActive: z.boolean().optional(),
+        isHealthy: z.nullable(z.boolean()).optional(),
+        issues: z.nullable(z.array(z.string())).optional(),
+        createdByTokenName: z.string().optional(),
+        createdAt: z.number().optional(),
+        parentId: z.string().optional(),
+        streamKey: z.string().optional(),
+        pull: z.lazy(() => StreamPull$.inboundSchema).optional(),
+        playbackId: z.string().optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
+        profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+        projectId: z.string().optional(),
+        record: z.boolean().optional(),
+        recordingSpec: z.lazy(() => StreamRecordingSpec$.inboundSchema).optional(),
+        multistream: z.lazy(() => StreamMultistream$.inboundSchema).optional(),
+        suspended: z.boolean().optional(),
+        lastTerminatedAt: z.nullable(z.number()).optional(),
+        userId: z.string().optional(),
+        renditions: z.lazy(() => Renditions$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
@@ -467,7 +421,9 @@ export namespace Stream$ {
         playbackId?: string | undefined;
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+        projectId?: string | undefined;
         record?: boolean | undefined;
+        recordingSpec?: StreamRecordingSpec$.Outbound | undefined;
         multistream?: StreamMultistream$.Outbound | undefined;
         suspended?: boolean | undefined;
         lastTerminatedAt?: number | null | undefined;
@@ -475,89 +431,41 @@ export namespace Stream$ {
         renditions?: Renditions$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Stream> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string(),
-            kind: z.string().optional(),
-            creatorId: CreatorId$.outboundSchema.optional(),
-            userTags: z
-                .record(
-                    z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))])
-                )
-                .optional(),
-            lastSeen: z.number().optional(),
-            sourceSegments: z.number().optional(),
-            transcodedSegments: z.number().optional(),
-            sourceSegmentsDuration: z.number().optional(),
-            transcodedSegmentsDuration: z.number().optional(),
-            sourceBytes: z.number().optional(),
-            transcodedBytes: z.number().optional(),
-            ingestRate: z.number().optional(),
-            outgoingRate: z.number().optional(),
-            isActive: z.boolean().optional(),
-            isHealthy: z.nullable(z.boolean()).optional(),
-            issues: z.nullable(z.array(z.string())).optional(),
-            createdByTokenName: z.string().optional(),
-            createdAt: z.number().optional(),
-            parentId: z.string().optional(),
-            streamKey: z.string().optional(),
-            pull: z.lazy(() => StreamPull$.outboundSchema).optional(),
-            playbackId: z.string().optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
-            record: z.boolean().optional(),
-            multistream: z.lazy(() => StreamMultistream$.outboundSchema).optional(),
-            suspended: z.boolean().optional(),
-            lastTerminatedAt: z.nullable(z.number()).optional(),
-            userId: z.string().optional(),
-            renditions: z.lazy(() => Renditions$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                name: v.name,
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.userTags === undefined ? null : { userTags: v.userTags }),
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),
-                ...(v.transcodedSegments === undefined
-                    ? null
-                    : { transcodedSegments: v.transcodedSegments }),
-                ...(v.sourceSegmentsDuration === undefined
-                    ? null
-                    : { sourceSegmentsDuration: v.sourceSegmentsDuration }),
-                ...(v.transcodedSegmentsDuration === undefined
-                    ? null
-                    : { transcodedSegmentsDuration: v.transcodedSegmentsDuration }),
-                ...(v.sourceBytes === undefined ? null : { sourceBytes: v.sourceBytes }),
-                ...(v.transcodedBytes === undefined
-                    ? null
-                    : { transcodedBytes: v.transcodedBytes }),
-                ...(v.ingestRate === undefined ? null : { ingestRate: v.ingestRate }),
-                ...(v.outgoingRate === undefined ? null : { outgoingRate: v.outgoingRate }),
-                ...(v.isActive === undefined ? null : { isActive: v.isActive }),
-                ...(v.isHealthy === undefined ? null : { isHealthy: v.isHealthy }),
-                ...(v.issues === undefined ? null : { issues: v.issues }),
-                ...(v.createdByTokenName === undefined
-                    ? null
-                    : { createdByTokenName: v.createdByTokenName }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.streamKey === undefined ? null : { streamKey: v.streamKey }),
-                ...(v.pull === undefined ? null : { pull: v.pull }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-                ...(v.record === undefined ? null : { record: v.record }),
-                ...(v.multistream === undefined ? null : { multistream: v.multistream }),
-                ...(v.suspended === undefined ? null : { suspended: v.suspended }),
-                ...(v.lastTerminatedAt === undefined
-                    ? null
-                    : { lastTerminatedAt: v.lastTerminatedAt }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.renditions === undefined ? null : { renditions: v.renditions }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Stream> = z.object({
+        id: z.string().optional(),
+        name: z.string(),
+        kind: z.string().optional(),
+        creatorId: CreatorId$.outboundSchema.optional(),
+        userTags: z
+            .record(z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))]))
+            .optional(),
+        lastSeen: z.number().optional(),
+        sourceSegments: z.number().optional(),
+        transcodedSegments: z.number().optional(),
+        sourceSegmentsDuration: z.number().optional(),
+        transcodedSegmentsDuration: z.number().optional(),
+        sourceBytes: z.number().optional(),
+        transcodedBytes: z.number().optional(),
+        ingestRate: z.number().optional(),
+        outgoingRate: z.number().optional(),
+        isActive: z.boolean().optional(),
+        isHealthy: z.nullable(z.boolean()).optional(),
+        issues: z.nullable(z.array(z.string())).optional(),
+        createdByTokenName: z.string().optional(),
+        createdAt: z.number().optional(),
+        parentId: z.string().optional(),
+        streamKey: z.string().optional(),
+        pull: z.lazy(() => StreamPull$.outboundSchema).optional(),
+        playbackId: z.string().optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
+        profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+        projectId: z.string().optional(),
+        record: z.boolean().optional(),
+        recordingSpec: z.lazy(() => StreamRecordingSpec$.outboundSchema).optional(),
+        multistream: z.lazy(() => StreamMultistream$.outboundSchema).optional(),
+        suspended: z.boolean().optional(),
+        lastTerminatedAt: z.nullable(z.number()).optional(),
+        userId: z.string().optional(),
+        renditions: z.lazy(() => Renditions$.outboundSchema).optional(),
+    });
 }

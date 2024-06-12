@@ -13,27 +13,15 @@ export type Encryption = {
 
 /** @internal */
 export namespace Encryption$ {
-    export const inboundSchema: z.ZodType<Encryption, z.ZodTypeDef, unknown> = z
-        .object({
-            encryptedKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                encryptedKey: v.encryptedKey,
-            };
-        });
+    export const inboundSchema: z.ZodType<Encryption, z.ZodTypeDef, unknown> = z.object({
+        encryptedKey: z.string(),
+    });
 
     export type Outbound = {
         encryptedKey: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Encryption> = z
-        .object({
-            encryptedKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                encryptedKey: v.encryptedKey,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Encryption> = z.object({
+        encryptedKey: z.string(),
+    });
 }

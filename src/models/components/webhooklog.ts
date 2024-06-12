@@ -70,21 +70,12 @@ export type WebhookLog = {
 
 /** @internal */
 export namespace Request$ {
-    export const inboundSchema: z.ZodType<Request, z.ZodTypeDef, unknown> = z
-        .object({
-            url: z.string().optional(),
-            method: z.string().optional(),
-            headers: z.record(z.string()).optional(),
-            body: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.method === undefined ? null : { method: v.method }),
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.body === undefined ? null : { body: v.body }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Request, z.ZodTypeDef, unknown> = z.object({
+        url: z.string().optional(),
+        method: z.string().optional(),
+        headers: z.record(z.string()).optional(),
+        body: z.string().optional(),
+    });
 
     export type Outbound = {
         url?: string | undefined;
@@ -93,38 +84,21 @@ export namespace Request$ {
         body?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Request> = z
-        .object({
-            url: z.string().optional(),
-            method: z.string().optional(),
-            headers: z.record(z.string()).optional(),
-            body: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.url === undefined ? null : { url: v.url }),
-                ...(v.method === undefined ? null : { method: v.method }),
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.body === undefined ? null : { body: v.body }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Request> = z.object({
+        url: z.string().optional(),
+        method: z.string().optional(),
+        headers: z.record(z.string()).optional(),
+        body: z.string().optional(),
+    });
 }
 
 /** @internal */
 export namespace Response$ {
-    export const inboundSchema: z.ZodType<Response, z.ZodTypeDef, unknown> = z
-        .object({
-            body: z.string().optional(),
-            status: z.number().optional(),
-            statusText: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.body === undefined ? null : { body: v.body }),
-                ...(v.status === undefined ? null : { status: v.status }),
-                ...(v.statusText === undefined ? null : { statusText: v.statusText }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Response, z.ZodTypeDef, unknown> = z.object({
+        body: z.string().optional(),
+        status: z.number().optional(),
+        statusText: z.string().optional(),
+    });
 
     export type Outbound = {
         body?: string | undefined;
@@ -132,46 +106,25 @@ export namespace Response$ {
         statusText?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Response> = z
-        .object({
-            body: z.string().optional(),
-            status: z.number().optional(),
-            statusText: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.body === undefined ? null : { body: v.body }),
-                ...(v.status === undefined ? null : { status: v.status }),
-                ...(v.statusText === undefined ? null : { statusText: v.statusText }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Response> = z.object({
+        body: z.string().optional(),
+        status: z.number().optional(),
+        statusText: z.string().optional(),
+    });
 }
 
 /** @internal */
 export namespace WebhookLog$ {
-    export const inboundSchema: z.ZodType<WebhookLog, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string(),
-            webhookId: z.string(),
-            event: z.string().optional(),
-            createdAt: z.number().optional(),
-            duration: z.number().optional(),
-            success: z.boolean().optional(),
-            request: z.lazy(() => Request$.inboundSchema).optional(),
-            response: z.lazy(() => Response$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                id: v.id,
-                webhookId: v.webhookId,
-                ...(v.event === undefined ? null : { event: v.event }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.duration === undefined ? null : { duration: v.duration }),
-                ...(v.success === undefined ? null : { success: v.success }),
-                ...(v.request === undefined ? null : { request: v.request }),
-                ...(v.response === undefined ? null : { response: v.response }),
-            };
-        });
+    export const inboundSchema: z.ZodType<WebhookLog, z.ZodTypeDef, unknown> = z.object({
+        id: z.string(),
+        webhookId: z.string(),
+        event: z.string().optional(),
+        createdAt: z.number().optional(),
+        duration: z.number().optional(),
+        success: z.boolean().optional(),
+        request: z.lazy(() => Request$.inboundSchema).optional(),
+        response: z.lazy(() => Response$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         id: string;
@@ -184,27 +137,14 @@ export namespace WebhookLog$ {
         response?: Response$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookLog> = z
-        .object({
-            id: z.string(),
-            webhookId: z.string(),
-            event: z.string().optional(),
-            createdAt: z.number().optional(),
-            duration: z.number().optional(),
-            success: z.boolean().optional(),
-            request: z.lazy(() => Request$.outboundSchema).optional(),
-            response: z.lazy(() => Response$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                id: v.id,
-                webhookId: v.webhookId,
-                ...(v.event === undefined ? null : { event: v.event }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.duration === undefined ? null : { duration: v.duration }),
-                ...(v.success === undefined ? null : { success: v.success }),
-                ...(v.request === undefined ? null : { request: v.request }),
-                ...(v.response === undefined ? null : { response: v.response }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookLog> = z.object({
+        id: z.string(),
+        webhookId: z.string(),
+        event: z.string().optional(),
+        createdAt: z.number().optional(),
+        duration: z.number().optional(),
+        success: z.boolean().optional(),
+        request: z.lazy(() => Request$.outboundSchema).optional(),
+        response: z.lazy(() => Response$.outboundSchema).optional(),
+    });
 }

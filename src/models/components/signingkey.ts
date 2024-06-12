@@ -27,31 +27,24 @@ export type SigningKey = {
      * Disable the signing key to allow rotation safely
      */
     disabled?: boolean | undefined;
+    /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
 };
 
 /** @internal */
 export namespace SigningKey$ {
-    export const inboundSchema: z.ZodType<SigningKey, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            userId: z.string().optional(),
-            createdAt: z.number().optional(),
-            lastSeen: z.number().optional(),
-            publicKey: z.string(),
-            disabled: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                publicKey: v.publicKey,
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-            };
-        });
+    export const inboundSchema: z.ZodType<SigningKey, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        userId: z.string().optional(),
+        createdAt: z.number().optional(),
+        lastSeen: z.number().optional(),
+        publicKey: z.string(),
+        disabled: z.boolean().optional(),
+        projectId: z.string().optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
@@ -61,27 +54,17 @@ export namespace SigningKey$ {
         lastSeen?: number | undefined;
         publicKey: string;
         disabled?: boolean | undefined;
+        projectId?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, SigningKey> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            userId: z.string().optional(),
-            createdAt: z.number().optional(),
-            lastSeen: z.number().optional(),
-            publicKey: z.string(),
-            disabled: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                publicKey: v.publicKey,
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, SigningKey> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        userId: z.string().optional(),
+        createdAt: z.number().optional(),
+        lastSeen: z.number().optional(),
+        publicKey: z.string(),
+        disabled: z.boolean().optional(),
+        projectId: z.string().optional(),
+    });
 }

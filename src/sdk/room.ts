@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$, encodeSimple as encodeSimple$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -123,7 +123,7 @@ export class Room extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/room/{id}")(pathParams$);
 
@@ -197,7 +197,7 @@ export class Room extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/room/{id}")(pathParams$);
 
@@ -279,10 +279,10 @@ export class Room extends ClientSDK {
             (value$) => operations.StartRoomEgressRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["room-egress-payload"], { explode: true });
+        const body$ = encodeJSON$("body", payload$["room-egress-payload"], { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/room/{id}/egress")(pathParams$);
 
@@ -359,7 +359,7 @@ export class Room extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/room/{id}/egress")(pathParams$);
 
@@ -442,10 +442,10 @@ export class Room extends ClientSDK {
             (value$) => operations.CreateRoomUserRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["room-user-payload"], { explode: true });
+        const body$ = encodeJSON$("body", payload$["room-user-payload"], { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/room/{id}/user")(pathParams$);
 
@@ -524,8 +524,8 @@ export class Room extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            userId: enc$.encodeSimple("userId", payload$.userId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            userId: encodeSimple$("userId", payload$.userId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -610,13 +610,11 @@ export class Room extends ClientSDK {
             (value$) => operations.UpdateRoomUserRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["room-user-update-payload"], {
-            explode: true,
-        });
+        const body$ = encodeJSON$("body", payload$["room-user-update-payload"], { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            userId: enc$.encodeSimple("userId", payload$.userId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            userId: encodeSimple$("userId", payload$.userId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -698,8 +696,8 @@ export class Room extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            userId: enc$.encodeSimple("userId", payload$.userId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            userId: encodeSimple$("userId", payload$.userId, {
                 explode: false,
                 charEncoding: "percent",
             }),

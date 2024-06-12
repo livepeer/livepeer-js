@@ -92,53 +92,30 @@ export namespace IsMobile$ {
 
 /** @internal */
 export namespace Location$ {
-    export const inboundSchema: z.ZodType<Location, z.ZodTypeDef, unknown> = z
-        .object({
-            lat: z.number(),
-            lon: z.number(),
-        })
-        .transform((v) => {
-            return {
-                lat: v.lat,
-                lon: v.lon,
-            };
-        });
+    export const inboundSchema: z.ZodType<Location, z.ZodTypeDef, unknown> = z.object({
+        lat: z.number(),
+        lon: z.number(),
+    });
 
     export type Outbound = {
         lat: number;
         lon: number;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Location> = z
-        .object({
-            lat: z.number(),
-            lon: z.number(),
-        })
-        .transform((v) => {
-            return {
-                lat: v.lat,
-                lon: v.lon,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Location> = z.object({
+        lat: z.number(),
+        lon: z.number(),
+    });
 }
 
 /** @internal */
 export namespace Pull$ {
-    export const inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z
-        .object({
-            source: z.string(),
-            headers: z.record(z.string()).optional(),
-            isMobile: z.union([One$.inboundSchema, z.boolean()]).optional(),
-            location: z.lazy(() => Location$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                source: v.source,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
-                ...(v.location === undefined ? null : { location: v.location }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z.object({
+        source: z.string(),
+        headers: z.record(z.string()).optional(),
+        isMobile: z.union([One$.inboundSchema, z.boolean()]).optional(),
+        location: z.lazy(() => Location$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         source: string;
@@ -147,19 +124,10 @@ export namespace Pull$ {
         location?: Location$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Pull> = z
-        .object({
-            source: z.string(),
-            headers: z.record(z.string()).optional(),
-            isMobile: z.union([One$.outboundSchema, z.boolean()]).optional(),
-            location: z.lazy(() => Location$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                source: v.source,
-                ...(v.headers === undefined ? null : { headers: v.headers }),
-                ...(v.isMobile === undefined ? null : { isMobile: v.isMobile }),
-                ...(v.location === undefined ? null : { location: v.location }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Pull> = z.object({
+        source: z.string(),
+        headers: z.record(z.string()).optional(),
+        isMobile: z.union([One$.outboundSchema, z.boolean()]).optional(),
+        location: z.lazy(() => Location$.outboundSchema).optional(),
+    });
 }

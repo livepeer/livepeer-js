@@ -54,53 +54,32 @@ export type TargetAddPayload = {
 
 /** @internal */
 export namespace TargetAddPayloadSpec$ {
-    export const inboundSchema: z.ZodType<TargetAddPayloadSpec, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string().optional(),
-            url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-            };
-        });
+    export const inboundSchema: z.ZodType<TargetAddPayloadSpec, z.ZodTypeDef, unknown> = z.object({
+        name: z.string().optional(),
+        url: z.string(),
+    });
 
     export type Outbound = {
         name?: string | undefined;
         url: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetAddPayloadSpec> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetAddPayloadSpec> = z.object(
+        {
             name: z.string().optional(),
             url: z.string(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-            };
-        });
+        }
+    );
 }
 
 /** @internal */
 export namespace TargetAddPayload$ {
-    export const inboundSchema: z.ZodType<TargetAddPayload, z.ZodTypeDef, unknown> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-            spec: z.lazy(() => TargetAddPayloadSpec$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const inboundSchema: z.ZodType<TargetAddPayload, z.ZodTypeDef, unknown> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+        spec: z.lazy(() => TargetAddPayloadSpec$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         profile: string;
@@ -109,19 +88,10 @@ export namespace TargetAddPayload$ {
         spec?: TargetAddPayloadSpec$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetAddPayload> = z
-        .object({
-            profile: z.string(),
-            videoOnly: z.boolean().default(false),
-            id: z.string().optional(),
-            spec: z.lazy(() => TargetAddPayloadSpec$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                profile: v.profile,
-                videoOnly: v.videoOnly,
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.spec === undefined ? null : { spec: v.spec }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TargetAddPayload> = z.object({
+        profile: z.string(),
+        videoOnly: z.boolean().default(false),
+        id: z.string().optional(),
+        spec: z.lazy(() => TargetAddPayloadSpec$.outboundSchema).optional(),
+    });
 }

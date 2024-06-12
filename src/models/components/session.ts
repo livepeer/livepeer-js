@@ -3,6 +3,7 @@
  */
 
 import { FfmpegProfile, FfmpegProfile$ } from "./ffmpegprofile";
+import { RecordingSpec, RecordingSpec$ } from "./recordingspec";
 import * as z from "zod";
 
 /**
@@ -64,6 +65,10 @@ export type Session = {
      */
     parentId?: string | undefined;
     /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
+    /**
      * Whether the stream should be recorded. Uses default settings. For more customization, create and configure an object store.
      *
      * @remarks
@@ -87,6 +92,14 @@ export type Session = {
      */
     playbackId?: string | undefined;
     profiles?: Array<FfmpegProfile> | undefined;
+    /**
+     * Configuration for recording the stream. This can only be set if
+     *
+     * @remarks
+     * `record` is true.
+     *
+     */
+    recordingSpec?: RecordingSpec | undefined;
 };
 
 /** @internal */
@@ -97,69 +110,33 @@ export namespace RecordingStatus$ {
 
 /** @internal */
 export namespace Session$ {
-    export const inboundSchema: z.ZodType<Session, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            kind: z.string().optional(),
-            userId: z.string().optional(),
-            name: z.string(),
-            lastSeen: z.number().optional(),
-            sourceSegments: z.number().optional(),
-            transcodedSegments: z.number().optional(),
-            sourceSegmentsDuration: z.number().optional(),
-            transcodedSegmentsDuration: z.number().optional(),
-            sourceBytes: z.number().optional(),
-            transcodedBytes: z.number().optional(),
-            ingestRate: z.number().optional(),
-            outgoingRate: z.number().optional(),
-            isHealthy: z.nullable(z.boolean()).optional(),
-            issues: z.nullable(z.array(z.string())).optional(),
-            createdAt: z.number().optional(),
-            parentId: z.string().optional(),
-            record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.inboundSchema.optional(),
-            recordingUrl: z.string().optional(),
-            mp4Url: z.string().optional(),
-            playbackId: z.string().optional(),
-            profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                name: v.name,
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),
-                ...(v.transcodedSegments === undefined
-                    ? null
-                    : { transcodedSegments: v.transcodedSegments }),
-                ...(v.sourceSegmentsDuration === undefined
-                    ? null
-                    : { sourceSegmentsDuration: v.sourceSegmentsDuration }),
-                ...(v.transcodedSegmentsDuration === undefined
-                    ? null
-                    : { transcodedSegmentsDuration: v.transcodedSegmentsDuration }),
-                ...(v.sourceBytes === undefined ? null : { sourceBytes: v.sourceBytes }),
-                ...(v.transcodedBytes === undefined
-                    ? null
-                    : { transcodedBytes: v.transcodedBytes }),
-                ...(v.ingestRate === undefined ? null : { ingestRate: v.ingestRate }),
-                ...(v.outgoingRate === undefined ? null : { outgoingRate: v.outgoingRate }),
-                ...(v.isHealthy === undefined ? null : { isHealthy: v.isHealthy }),
-                ...(v.issues === undefined ? null : { issues: v.issues }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.record === undefined ? null : { record: v.record }),
-                ...(v.recordingStatus === undefined
-                    ? null
-                    : { recordingStatus: v.recordingStatus }),
-                ...(v.recordingUrl === undefined ? null : { recordingUrl: v.recordingUrl }),
-                ...(v.mp4Url === undefined ? null : { mp4Url: v.mp4Url }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Session, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        kind: z.string().optional(),
+        userId: z.string().optional(),
+        name: z.string(),
+        lastSeen: z.number().optional(),
+        sourceSegments: z.number().optional(),
+        transcodedSegments: z.number().optional(),
+        sourceSegmentsDuration: z.number().optional(),
+        transcodedSegmentsDuration: z.number().optional(),
+        sourceBytes: z.number().optional(),
+        transcodedBytes: z.number().optional(),
+        ingestRate: z.number().optional(),
+        outgoingRate: z.number().optional(),
+        isHealthy: z.nullable(z.boolean()).optional(),
+        issues: z.nullable(z.array(z.string())).optional(),
+        createdAt: z.number().optional(),
+        parentId: z.string().optional(),
+        projectId: z.string().optional(),
+        record: z.boolean().optional(),
+        recordingStatus: RecordingStatus$.inboundSchema.optional(),
+        recordingUrl: z.string().optional(),
+        mp4Url: z.string().optional(),
+        playbackId: z.string().optional(),
+        profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
+        recordingSpec: RecordingSpec$.inboundSchema.optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
@@ -179,75 +156,41 @@ export namespace Session$ {
         issues?: Array<string> | null | undefined;
         createdAt?: number | undefined;
         parentId?: string | undefined;
+        projectId?: string | undefined;
         record?: boolean | undefined;
         recordingStatus?: string | undefined;
         recordingUrl?: string | undefined;
         mp4Url?: string | undefined;
         playbackId?: string | undefined;
         profiles?: Array<FfmpegProfile$.Outbound> | undefined;
+        recordingSpec?: RecordingSpec$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Session> = z
-        .object({
-            id: z.string().optional(),
-            kind: z.string().optional(),
-            userId: z.string().optional(),
-            name: z.string(),
-            lastSeen: z.number().optional(),
-            sourceSegments: z.number().optional(),
-            transcodedSegments: z.number().optional(),
-            sourceSegmentsDuration: z.number().optional(),
-            transcodedSegmentsDuration: z.number().optional(),
-            sourceBytes: z.number().optional(),
-            transcodedBytes: z.number().optional(),
-            ingestRate: z.number().optional(),
-            outgoingRate: z.number().optional(),
-            isHealthy: z.nullable(z.boolean()).optional(),
-            issues: z.nullable(z.array(z.string())).optional(),
-            createdAt: z.number().optional(),
-            parentId: z.string().optional(),
-            record: z.boolean().optional(),
-            recordingStatus: RecordingStatus$.outboundSchema.optional(),
-            recordingUrl: z.string().optional(),
-            mp4Url: z.string().optional(),
-            playbackId: z.string().optional(),
-            profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                name: v.name,
-                ...(v.lastSeen === undefined ? null : { lastSeen: v.lastSeen }),
-                ...(v.sourceSegments === undefined ? null : { sourceSegments: v.sourceSegments }),
-                ...(v.transcodedSegments === undefined
-                    ? null
-                    : { transcodedSegments: v.transcodedSegments }),
-                ...(v.sourceSegmentsDuration === undefined
-                    ? null
-                    : { sourceSegmentsDuration: v.sourceSegmentsDuration }),
-                ...(v.transcodedSegmentsDuration === undefined
-                    ? null
-                    : { transcodedSegmentsDuration: v.transcodedSegmentsDuration }),
-                ...(v.sourceBytes === undefined ? null : { sourceBytes: v.sourceBytes }),
-                ...(v.transcodedBytes === undefined
-                    ? null
-                    : { transcodedBytes: v.transcodedBytes }),
-                ...(v.ingestRate === undefined ? null : { ingestRate: v.ingestRate }),
-                ...(v.outgoingRate === undefined ? null : { outgoingRate: v.outgoingRate }),
-                ...(v.isHealthy === undefined ? null : { isHealthy: v.isHealthy }),
-                ...(v.issues === undefined ? null : { issues: v.issues }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.parentId === undefined ? null : { parentId: v.parentId }),
-                ...(v.record === undefined ? null : { record: v.record }),
-                ...(v.recordingStatus === undefined
-                    ? null
-                    : { recordingStatus: v.recordingStatus }),
-                ...(v.recordingUrl === undefined ? null : { recordingUrl: v.recordingUrl }),
-                ...(v.mp4Url === undefined ? null : { mp4Url: v.mp4Url }),
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.profiles === undefined ? null : { profiles: v.profiles }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Session> = z.object({
+        id: z.string().optional(),
+        kind: z.string().optional(),
+        userId: z.string().optional(),
+        name: z.string(),
+        lastSeen: z.number().optional(),
+        sourceSegments: z.number().optional(),
+        transcodedSegments: z.number().optional(),
+        sourceSegmentsDuration: z.number().optional(),
+        transcodedSegmentsDuration: z.number().optional(),
+        sourceBytes: z.number().optional(),
+        transcodedBytes: z.number().optional(),
+        ingestRate: z.number().optional(),
+        outgoingRate: z.number().optional(),
+        isHealthy: z.nullable(z.boolean()).optional(),
+        issues: z.nullable(z.array(z.string())).optional(),
+        createdAt: z.number().optional(),
+        parentId: z.string().optional(),
+        projectId: z.string().optional(),
+        record: z.boolean().optional(),
+        recordingStatus: RecordingStatus$.outboundSchema.optional(),
+        recordingUrl: z.string().optional(),
+        mp4Url: z.string().optional(),
+        playbackId: z.string().optional(),
+        profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
+        recordingSpec: RecordingSpec$.outboundSchema.optional(),
+    });
 }

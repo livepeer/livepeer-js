@@ -25,21 +25,12 @@ export type RoomUserPayload = {
 
 /** @internal */
 export namespace RoomUserPayload$ {
-    export const inboundSchema: z.ZodType<RoomUserPayload, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string(),
-            canPublish: z.boolean().optional(),
-            canPublishData: z.boolean().optional(),
-            metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.canPublish === undefined ? null : { canPublish: v.canPublish }),
-                ...(v.canPublishData === undefined ? null : { canPublishData: v.canPublishData }),
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
-        });
+    export const inboundSchema: z.ZodType<RoomUserPayload, z.ZodTypeDef, unknown> = z.object({
+        name: z.string(),
+        canPublish: z.boolean().optional(),
+        canPublishData: z.boolean().optional(),
+        metadata: z.string().optional(),
+    });
 
     export type Outbound = {
         name: string;
@@ -48,19 +39,10 @@ export namespace RoomUserPayload$ {
         metadata?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RoomUserPayload> = z
-        .object({
-            name: z.string(),
-            canPublish: z.boolean().optional(),
-            canPublishData: z.boolean().optional(),
-            metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.canPublish === undefined ? null : { canPublish: v.canPublish }),
-                ...(v.canPublishData === undefined ? null : { canPublishData: v.canPublishData }),
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RoomUserPayload> = z.object({
+        name: z.string(),
+        canPublish: z.boolean().optional(),
+        canPublishData: z.boolean().optional(),
+        metadata: z.string().optional(),
+    });
 }

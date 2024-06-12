@@ -62,19 +62,11 @@ export namespace Phase$ {
 
 /** @internal */
 export namespace Tasks$ {
-    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z
-        .object({
-            pending: z.string().optional(),
-            last: z.string().optional(),
-            failed: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.pending === undefined ? null : { pending: v.pending }),
-                ...(v.last === undefined ? null : { last: v.last }),
-                ...(v.failed === undefined ? null : { failed: v.failed }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z.object({
+        pending: z.string().optional(),
+        last: z.string().optional(),
+        failed: z.string().optional(),
+    });
 
     export type Outbound = {
         pending?: string | undefined;
@@ -82,38 +74,21 @@ export namespace Tasks$ {
         failed?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Tasks> = z
-        .object({
-            pending: z.string().optional(),
-            last: z.string().optional(),
-            failed: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.pending === undefined ? null : { pending: v.pending }),
-                ...(v.last === undefined ? null : { last: v.last }),
-                ...(v.failed === undefined ? null : { failed: v.failed }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Tasks> = z.object({
+        pending: z.string().optional(),
+        last: z.string().optional(),
+        failed: z.string().optional(),
+    });
 }
 
 /** @internal */
 export namespace StorageStatus$ {
-    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, unknown> = z
-        .object({
-            phase: Phase$.inboundSchema,
-            progress: z.number().optional(),
-            errorMessage: z.string().optional(),
-            tasks: z.lazy(() => Tasks$.inboundSchema),
-        })
-        .transform((v) => {
-            return {
-                phase: v.phase,
-                ...(v.progress === undefined ? null : { progress: v.progress }),
-                ...(v.errorMessage === undefined ? null : { errorMessage: v.errorMessage }),
-                tasks: v.tasks,
-            };
-        });
+    export const inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, unknown> = z.object({
+        phase: Phase$.inboundSchema,
+        progress: z.number().optional(),
+        errorMessage: z.string().optional(),
+        tasks: z.lazy(() => Tasks$.inboundSchema),
+    });
 
     export type Outbound = {
         phase: string;
@@ -122,19 +97,10 @@ export namespace StorageStatus$ {
         tasks: Tasks$.Outbound;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StorageStatus> = z
-        .object({
-            phase: Phase$.outboundSchema,
-            progress: z.number().optional(),
-            errorMessage: z.string().optional(),
-            tasks: z.lazy(() => Tasks$.outboundSchema),
-        })
-        .transform((v) => {
-            return {
-                phase: v.phase,
-                ...(v.progress === undefined ? null : { progress: v.progress }),
-                ...(v.errorMessage === undefined ? null : { errorMessage: v.errorMessage }),
-                tasks: v.tasks,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, StorageStatus> = z.object({
+        phase: Phase$.outboundSchema,
+        progress: z.number().optional(),
+        errorMessage: z.string().optional(),
+        tasks: z.lazy(() => Tasks$.outboundSchema),
+    });
 }

@@ -31,23 +31,13 @@ export type MultistreamTarget = {
 
 /** @internal */
 export namespace MultistreamTarget$ {
-    export const inboundSchema: z.ZodType<MultistreamTarget, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            userId: z.string().optional(),
-            disabled: z.boolean().optional(),
-            createdAt: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-            };
-        });
+    export const inboundSchema: z.ZodType<MultistreamTarget, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        userId: z.string().optional(),
+        disabled: z.boolean().optional(),
+        createdAt: z.number().optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
@@ -57,21 +47,11 @@ export namespace MultistreamTarget$ {
         createdAt?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTarget> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string().optional(),
-            userId: z.string().optional(),
-            disabled: z.boolean().optional(),
-            createdAt: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTarget> = z.object({
+        id: z.string().optional(),
+        name: z.string().optional(),
+        userId: z.string().optional(),
+        disabled: z.boolean().optional(),
+        createdAt: z.number().optional(),
+    });
 }

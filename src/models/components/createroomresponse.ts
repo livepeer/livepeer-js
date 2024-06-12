@@ -13,27 +13,15 @@ export type CreateRoomResponse = {
 
 /** @internal */
 export namespace CreateRoomResponse$ {
-    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-            };
-        });
+    export const inboundSchema: z.ZodType<CreateRoomResponse, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreateRoomResponse> = z
-        .object({
-            id: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, CreateRoomResponse> = z.object({
+        id: z.string().optional(),
+    });
 }

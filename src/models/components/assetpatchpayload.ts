@@ -25,21 +25,12 @@ export type AssetPatchPayload = {
 
 /** @internal */
 export namespace AssetPatchPayload$ {
-    export const inboundSchema: z.ZodType<AssetPatchPayload, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string().optional(),
-            creatorId: InputCreatorId$.inboundSchema.optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
-            storage: Storage$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-            };
-        });
+    export const inboundSchema: z.ZodType<AssetPatchPayload, z.ZodTypeDef, unknown> = z.object({
+        name: z.string().optional(),
+        creatorId: InputCreatorId$.inboundSchema.optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.inboundSchema).optional(),
+        storage: Storage$.inboundSchema.optional(),
+    });
 
     export type Outbound = {
         name?: string | undefined;
@@ -48,19 +39,10 @@ export namespace AssetPatchPayload$ {
         storage?: Storage$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetPatchPayload> = z
-        .object({
-            name: z.string().optional(),
-            creatorId: InputCreatorId$.outboundSchema.optional(),
-            playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
-            storage: Storage$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.playbackPolicy === undefined ? null : { playbackPolicy: v.playbackPolicy }),
-                ...(v.storage === undefined ? null : { storage: v.storage }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, AssetPatchPayload> = z.object({
+        name: z.string().optional(),
+        creatorId: InputCreatorId$.outboundSchema.optional(),
+        playbackPolicy: z.nullable(PlaybackPolicy$.outboundSchema).optional(),
+        storage: Storage$.outboundSchema.optional(),
+    });
 }

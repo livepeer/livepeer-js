@@ -29,23 +29,13 @@ export type ClipPayload = {
 
 /** @internal */
 export namespace ClipPayload$ {
-    export const inboundSchema: z.ZodType<ClipPayload, z.ZodTypeDef, unknown> = z
-        .object({
-            playbackId: z.string(),
-            startTime: z.number(),
-            endTime: z.number().optional(),
-            name: z.string().optional(),
-            sessionId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                playbackId: v.playbackId,
-                startTime: v.startTime,
-                ...(v.endTime === undefined ? null : { endTime: v.endTime }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.sessionId === undefined ? null : { sessionId: v.sessionId }),
-            };
-        });
+    export const inboundSchema: z.ZodType<ClipPayload, z.ZodTypeDef, unknown> = z.object({
+        playbackId: z.string(),
+        startTime: z.number(),
+        endTime: z.number().optional(),
+        name: z.string().optional(),
+        sessionId: z.string().optional(),
+    });
 
     export type Outbound = {
         playbackId: string;
@@ -55,21 +45,11 @@ export namespace ClipPayload$ {
         sessionId?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ClipPayload> = z
-        .object({
-            playbackId: z.string(),
-            startTime: z.number(),
-            endTime: z.number().optional(),
-            name: z.string().optional(),
-            sessionId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                playbackId: v.playbackId,
-                startTime: v.startTime,
-                ...(v.endTime === undefined ? null : { endTime: v.endTime }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.sessionId === undefined ? null : { sessionId: v.sessionId }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ClipPayload> = z.object({
+        playbackId: z.string(),
+        startTime: z.number(),
+        endTime: z.number().optional(),
+        name: z.string().optional(),
+        sessionId: z.string().optional(),
+    });
 }

@@ -117,59 +117,30 @@ export type ViewershipMetric = {
 
 /** @internal */
 export namespace ViewershipMetric$ {
-    export const inboundSchema: z.ZodType<ViewershipMetric, z.ZodTypeDef, unknown> = z
-        .object({
-            playbackId: z.string().optional(),
-            creatorId: z.string().optional(),
-            viewerId: z.string().optional(),
-            dStorageUrl: z.string().optional(),
-            timestamp: z.number().optional(),
-            device: z.string().optional(),
-            deviceType: z.string().optional(),
-            cpu: z.string().optional(),
-            os: z.string().optional(),
-            browser: z.string().optional(),
-            browserEngine: z.string().optional(),
-            continent: z.string().optional(),
-            country: z.string().optional(),
-            subdivision: z.string().optional(),
-            timezone: z.string().optional(),
-            geohash: z.string().optional(),
-            viewCount: z.number().int(),
-            playtimeMins: z.number(),
-            ttffMs: z.number().optional(),
-            rebufferRatio: z.number().optional(),
-            errorRate: z.number().optional(),
-            exitsBeforeStart: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.viewerId === undefined ? null : { viewerId: v.viewerId }),
-                ...(v.dStorageUrl === undefined ? null : { dStorageUrl: v.dStorageUrl }),
-                ...(v.timestamp === undefined ? null : { timestamp: v.timestamp }),
-                ...(v.device === undefined ? null : { device: v.device }),
-                ...(v.deviceType === undefined ? null : { deviceType: v.deviceType }),
-                ...(v.cpu === undefined ? null : { cpu: v.cpu }),
-                ...(v.os === undefined ? null : { os: v.os }),
-                ...(v.browser === undefined ? null : { browser: v.browser }),
-                ...(v.browserEngine === undefined ? null : { browserEngine: v.browserEngine }),
-                ...(v.continent === undefined ? null : { continent: v.continent }),
-                ...(v.country === undefined ? null : { country: v.country }),
-                ...(v.subdivision === undefined ? null : { subdivision: v.subdivision }),
-                ...(v.timezone === undefined ? null : { timezone: v.timezone }),
-                ...(v.geohash === undefined ? null : { geohash: v.geohash }),
-                viewCount: v.viewCount,
-                playtimeMins: v.playtimeMins,
-                ...(v.ttffMs === undefined ? null : { ttffMs: v.ttffMs }),
-                ...(v.rebufferRatio === undefined ? null : { rebufferRatio: v.rebufferRatio }),
-                ...(v.errorRate === undefined ? null : { errorRate: v.errorRate }),
-                ...(v.exitsBeforeStart === undefined
-                    ? null
-                    : { exitsBeforeStart: v.exitsBeforeStart }),
-            };
-        });
+    export const inboundSchema: z.ZodType<ViewershipMetric, z.ZodTypeDef, unknown> = z.object({
+        playbackId: z.string().optional(),
+        creatorId: z.string().optional(),
+        viewerId: z.string().optional(),
+        dStorageUrl: z.string().optional(),
+        timestamp: z.number().optional(),
+        device: z.string().optional(),
+        deviceType: z.string().optional(),
+        cpu: z.string().optional(),
+        os: z.string().optional(),
+        browser: z.string().optional(),
+        browserEngine: z.string().optional(),
+        continent: z.string().optional(),
+        country: z.string().optional(),
+        subdivision: z.string().optional(),
+        timezone: z.string().optional(),
+        geohash: z.string().optional(),
+        viewCount: z.number().int(),
+        playtimeMins: z.number(),
+        ttffMs: z.number().optional(),
+        rebufferRatio: z.number().optional(),
+        errorRate: z.number().optional(),
+        exitsBeforeStart: z.number().optional(),
+    });
 
     export type Outbound = {
         playbackId?: string | undefined;
@@ -196,57 +167,28 @@ export namespace ViewershipMetric$ {
         exitsBeforeStart?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ViewershipMetric> = z
-        .object({
-            playbackId: z.string().optional(),
-            creatorId: z.string().optional(),
-            viewerId: z.string().optional(),
-            dStorageUrl: z.string().optional(),
-            timestamp: z.number().optional(),
-            device: z.string().optional(),
-            deviceType: z.string().optional(),
-            cpu: z.string().optional(),
-            os: z.string().optional(),
-            browser: z.string().optional(),
-            browserEngine: z.string().optional(),
-            continent: z.string().optional(),
-            country: z.string().optional(),
-            subdivision: z.string().optional(),
-            timezone: z.string().optional(),
-            geohash: z.string().optional(),
-            viewCount: z.number().int(),
-            playtimeMins: z.number(),
-            ttffMs: z.number().optional(),
-            rebufferRatio: z.number().optional(),
-            errorRate: z.number().optional(),
-            exitsBeforeStart: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.playbackId === undefined ? null : { playbackId: v.playbackId }),
-                ...(v.creatorId === undefined ? null : { creatorId: v.creatorId }),
-                ...(v.viewerId === undefined ? null : { viewerId: v.viewerId }),
-                ...(v.dStorageUrl === undefined ? null : { dStorageUrl: v.dStorageUrl }),
-                ...(v.timestamp === undefined ? null : { timestamp: v.timestamp }),
-                ...(v.device === undefined ? null : { device: v.device }),
-                ...(v.deviceType === undefined ? null : { deviceType: v.deviceType }),
-                ...(v.cpu === undefined ? null : { cpu: v.cpu }),
-                ...(v.os === undefined ? null : { os: v.os }),
-                ...(v.browser === undefined ? null : { browser: v.browser }),
-                ...(v.browserEngine === undefined ? null : { browserEngine: v.browserEngine }),
-                ...(v.continent === undefined ? null : { continent: v.continent }),
-                ...(v.country === undefined ? null : { country: v.country }),
-                ...(v.subdivision === undefined ? null : { subdivision: v.subdivision }),
-                ...(v.timezone === undefined ? null : { timezone: v.timezone }),
-                ...(v.geohash === undefined ? null : { geohash: v.geohash }),
-                viewCount: v.viewCount,
-                playtimeMins: v.playtimeMins,
-                ...(v.ttffMs === undefined ? null : { ttffMs: v.ttffMs }),
-                ...(v.rebufferRatio === undefined ? null : { rebufferRatio: v.rebufferRatio }),
-                ...(v.errorRate === undefined ? null : { errorRate: v.errorRate }),
-                ...(v.exitsBeforeStart === undefined
-                    ? null
-                    : { exitsBeforeStart: v.exitsBeforeStart }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, ViewershipMetric> = z.object({
+        playbackId: z.string().optional(),
+        creatorId: z.string().optional(),
+        viewerId: z.string().optional(),
+        dStorageUrl: z.string().optional(),
+        timestamp: z.number().optional(),
+        device: z.string().optional(),
+        deviceType: z.string().optional(),
+        cpu: z.string().optional(),
+        os: z.string().optional(),
+        browser: z.string().optional(),
+        browserEngine: z.string().optional(),
+        continent: z.string().optional(),
+        country: z.string().optional(),
+        subdivision: z.string().optional(),
+        timezone: z.string().optional(),
+        geohash: z.string().optional(),
+        viewCount: z.number().int(),
+        playtimeMins: z.number(),
+        ttffMs: z.number().optional(),
+        rebufferRatio: z.number().optional(),
+        errorRate: z.number().optional(),
+        exitsBeforeStart: z.number().optional(),
+    });
 }
