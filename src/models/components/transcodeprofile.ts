@@ -54,33 +54,18 @@ export namespace TranscodeProfileEncoder$ {
 
 /** @internal */
 export namespace TranscodeProfile$ {
-    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, unknown> = z
-        .object({
-            width: z.number().int().optional(),
-            name: z.string().optional(),
-            height: z.number().int().optional(),
-            bitrate: z.number().int(),
-            quality: z.number().int().optional(),
-            fps: z.number().int().optional(),
-            fpsDen: z.number().int().optional(),
-            gop: z.string().optional(),
-            profile: TranscodeProfileProfile$.inboundSchema.optional(),
-            encoder: TranscodeProfileEncoder$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.width === undefined ? null : { width: v.width }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.height === undefined ? null : { height: v.height }),
-                bitrate: v.bitrate,
-                ...(v.quality === undefined ? null : { quality: v.quality }),
-                ...(v.fps === undefined ? null : { fps: v.fps }),
-                ...(v.fpsDen === undefined ? null : { fpsDen: v.fpsDen }),
-                ...(v.gop === undefined ? null : { gop: v.gop }),
-                ...(v.profile === undefined ? null : { profile: v.profile }),
-                ...(v.encoder === undefined ? null : { encoder: v.encoder }),
-            };
-        });
+    export const inboundSchema: z.ZodType<TranscodeProfile, z.ZodTypeDef, unknown> = z.object({
+        width: z.number().int().optional(),
+        name: z.string().optional(),
+        height: z.number().int().optional(),
+        bitrate: z.number().int(),
+        quality: z.number().int().optional(),
+        fps: z.number().int().optional(),
+        fpsDen: z.number().int().optional(),
+        gop: z.string().optional(),
+        profile: TranscodeProfileProfile$.inboundSchema.optional(),
+        encoder: TranscodeProfileEncoder$.inboundSchema.optional(),
+    });
 
     export type Outbound = {
         width?: number | undefined;
@@ -95,31 +80,16 @@ export namespace TranscodeProfile$ {
         encoder?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodeProfile> = z
-        .object({
-            width: z.number().int().optional(),
-            name: z.string().optional(),
-            height: z.number().int().optional(),
-            bitrate: z.number().int(),
-            quality: z.number().int().optional(),
-            fps: z.number().int().optional(),
-            fpsDen: z.number().int().optional(),
-            gop: z.string().optional(),
-            profile: TranscodeProfileProfile$.outboundSchema.optional(),
-            encoder: TranscodeProfileEncoder$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.width === undefined ? null : { width: v.width }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.height === undefined ? null : { height: v.height }),
-                bitrate: v.bitrate,
-                ...(v.quality === undefined ? null : { quality: v.quality }),
-                ...(v.fps === undefined ? null : { fps: v.fps }),
-                ...(v.fpsDen === undefined ? null : { fpsDen: v.fpsDen }),
-                ...(v.gop === undefined ? null : { gop: v.gop }),
-                ...(v.profile === undefined ? null : { profile: v.profile }),
-                ...(v.encoder === undefined ? null : { encoder: v.encoder }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, TranscodeProfile> = z.object({
+        width: z.number().int().optional(),
+        name: z.string().optional(),
+        height: z.number().int().optional(),
+        bitrate: z.number().int(),
+        quality: z.number().int().optional(),
+        fps: z.number().int().optional(),
+        fpsDen: z.number().int().optional(),
+        gop: z.string().optional(),
+        profile: TranscodeProfileProfile$.outboundSchema.optional(),
+        encoder: TranscodeProfileEncoder$.outboundSchema.optional(),
+    });
 }

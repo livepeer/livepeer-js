@@ -4,7 +4,11 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeJSON as encodeJSON$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -72,7 +76,7 @@ export class Stream extends ClientSDK {
             (value$) => components.NewStreamPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/stream")();
 
@@ -148,14 +152,9 @@ export class Stream extends ClientSDK {
 
         const path$ = this.templateURLComponent("/stream")();
 
-        const query$ = [
-            enc$.encodeForm("streamsonly", payload$.streamsonly, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            streamsonly: payload$.streamsonly,
+        });
 
         let security$;
         if (typeof this.options$.apiKey === "function") {
@@ -223,7 +222,7 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}")(pathParams$);
 
@@ -298,10 +297,10 @@ export class Stream extends ClientSDK {
             (value$) => operations.UpdateStreamRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["stream-patch-payload"], { explode: true });
+        const body$ = encodeJSON$("body", payload$["stream-patch-payload"], { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}")(pathParams$);
 
@@ -380,7 +379,7 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}")(pathParams$);
 
@@ -466,7 +465,7 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}/terminate")(pathParams$);
 
@@ -551,7 +550,7 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}/start-pull")(pathParams$);
 
@@ -622,7 +621,7 @@ export class Stream extends ClientSDK {
             (value$) => components.ClipPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/clip")();
 
@@ -694,7 +693,7 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}/clips")(pathParams$);
 
@@ -769,10 +768,10 @@ export class Stream extends ClientSDK {
             (value$) => operations.AddMultistreamTargetRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["target-add-payload"], { explode: true });
+        const body$ = encodeJSON$("body", payload$["target-add-payload"], { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/stream/{id}/create-multistream-target")(
             pathParams$
@@ -851,8 +850,8 @@ export class Stream extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            targetId: enc$.encodeSimple("targetId", payload$.targetId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            targetId: encodeSimple$("targetId", payload$.targetId, {
                 explode: false,
                 charEncoding: "percent",
             }),

@@ -79,6 +79,10 @@ export type Webhook = {
      */
     userId?: string | undefined;
     /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
+    /**
      * Timestamp (in milliseconds) at which stream object was created
      */
     createdAt?: number | undefined;
@@ -96,6 +100,10 @@ export type Webhook = {
 
 export type WebhookInput = {
     name: string;
+    /**
+     * The ID of the project
+     */
+    projectId?: string | undefined;
     events?: Array<Events> | undefined;
     url: string;
     /**
@@ -116,21 +124,12 @@ export namespace Events$ {
 
 /** @internal */
 export namespace LastFailure$ {
-    export const inboundSchema: z.ZodType<LastFailure, z.ZodTypeDef, unknown> = z
-        .object({
-            timestamp: z.number().optional(),
-            error: z.string().optional(),
-            response: z.string().optional(),
-            statusCode: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.timestamp === undefined ? null : { timestamp: v.timestamp }),
-                ...(v.error === undefined ? null : { error: v.error }),
-                ...(v.response === undefined ? null : { response: v.response }),
-                ...(v.statusCode === undefined ? null : { statusCode: v.statusCode }),
-            };
-        });
+    export const inboundSchema: z.ZodType<LastFailure, z.ZodTypeDef, unknown> = z.object({
+        timestamp: z.number().optional(),
+        error: z.string().optional(),
+        response: z.string().optional(),
+        statusCode: z.number().optional(),
+    });
 
     export type Outbound = {
         timestamp?: number | undefined;
@@ -139,92 +138,53 @@ export namespace LastFailure$ {
         statusCode?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, LastFailure> = z
-        .object({
-            timestamp: z.number().optional(),
-            error: z.string().optional(),
-            response: z.string().optional(),
-            statusCode: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.timestamp === undefined ? null : { timestamp: v.timestamp }),
-                ...(v.error === undefined ? null : { error: v.error }),
-                ...(v.response === undefined ? null : { response: v.response }),
-                ...(v.statusCode === undefined ? null : { statusCode: v.statusCode }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, LastFailure> = z.object({
+        timestamp: z.number().optional(),
+        error: z.string().optional(),
+        response: z.string().optional(),
+        statusCode: z.number().optional(),
+    });
 }
 
 /** @internal */
 export namespace Status$ {
-    export const inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
-        .object({
-            lastFailure: z.lazy(() => LastFailure$.inboundSchema).optional(),
-            lastTriggeredAt: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.lastFailure === undefined ? null : { lastFailure: v.lastFailure }),
-                ...(v.lastTriggeredAt === undefined
-                    ? null
-                    : { lastTriggeredAt: v.lastTriggeredAt }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z.object({
+        lastFailure: z.lazy(() => LastFailure$.inboundSchema).optional(),
+        lastTriggeredAt: z.number().optional(),
+    });
 
     export type Outbound = {
         lastFailure?: LastFailure$.Outbound | undefined;
         lastTriggeredAt?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Status> = z
-        .object({
-            lastFailure: z.lazy(() => LastFailure$.outboundSchema).optional(),
-            lastTriggeredAt: z.number().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.lastFailure === undefined ? null : { lastFailure: v.lastFailure }),
-                ...(v.lastTriggeredAt === undefined
-                    ? null
-                    : { lastTriggeredAt: v.lastTriggeredAt }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Status> = z.object({
+        lastFailure: z.lazy(() => LastFailure$.outboundSchema).optional(),
+        lastTriggeredAt: z.number().optional(),
+    });
 }
 
 /** @internal */
 export namespace Webhook$ {
-    export const inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string(),
-            kind: z.string().optional(),
-            userId: z.string().optional(),
-            createdAt: z.number().optional(),
-            events: z.array(Events$.inboundSchema).optional(),
-            url: z.string(),
-            streamId: z.string().optional(),
-            status: z.lazy(() => Status$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                name: v.name,
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.events === undefined ? null : { events: v.events }),
-                url: v.url,
-                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
-                ...(v.status === undefined ? null : { status: v.status }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> = z.object({
+        id: z.string().optional(),
+        name: z.string(),
+        kind: z.string().optional(),
+        userId: z.string().optional(),
+        projectId: z.string().optional(),
+        createdAt: z.number().optional(),
+        events: z.array(Events$.inboundSchema).optional(),
+        url: z.string(),
+        streamId: z.string().optional(),
+        status: z.lazy(() => Status$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         id?: string | undefined;
         name: string;
         kind?: string | undefined;
         userId?: string | undefined;
+        projectId?: string | undefined;
         createdAt?: number | undefined;
         events?: Array<string> | undefined;
         url: string;
@@ -232,76 +192,46 @@ export namespace Webhook$ {
         status?: Status$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Webhook> = z
-        .object({
-            id: z.string().optional(),
-            name: z.string(),
-            kind: z.string().optional(),
-            userId: z.string().optional(),
-            createdAt: z.number().optional(),
-            events: z.array(Events$.outboundSchema).optional(),
-            url: z.string(),
-            streamId: z.string().optional(),
-            status: z.lazy(() => Status$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.id === undefined ? null : { id: v.id }),
-                name: v.name,
-                ...(v.kind === undefined ? null : { kind: v.kind }),
-                ...(v.userId === undefined ? null : { userId: v.userId }),
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.events === undefined ? null : { events: v.events }),
-                url: v.url,
-                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
-                ...(v.status === undefined ? null : { status: v.status }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Webhook> = z.object({
+        id: z.string().optional(),
+        name: z.string(),
+        kind: z.string().optional(),
+        userId: z.string().optional(),
+        projectId: z.string().optional(),
+        createdAt: z.number().optional(),
+        events: z.array(Events$.outboundSchema).optional(),
+        url: z.string(),
+        streamId: z.string().optional(),
+        status: z.lazy(() => Status$.outboundSchema).optional(),
+    });
 }
 
 /** @internal */
 export namespace WebhookInput$ {
-    export const inboundSchema: z.ZodType<WebhookInput, z.ZodTypeDef, unknown> = z
-        .object({
-            name: z.string(),
-            events: z.array(Events$.inboundSchema).optional(),
-            url: z.string(),
-            sharedSecret: z.string().optional(),
-            streamId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.events === undefined ? null : { events: v.events }),
-                url: v.url,
-                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
-                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
-            };
-        });
+    export const inboundSchema: z.ZodType<WebhookInput, z.ZodTypeDef, unknown> = z.object({
+        name: z.string(),
+        projectId: z.string().optional(),
+        events: z.array(Events$.inboundSchema).optional(),
+        url: z.string(),
+        sharedSecret: z.string().optional(),
+        streamId: z.string().optional(),
+    });
 
     export type Outbound = {
         name: string;
+        projectId?: string | undefined;
         events?: Array<string> | undefined;
         url: string;
         sharedSecret?: string | undefined;
         streamId?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookInput> = z
-        .object({
-            name: z.string(),
-            events: z.array(Events$.outboundSchema).optional(),
-            url: z.string(),
-            sharedSecret: z.string().optional(),
-            streamId: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                name: v.name,
-                ...(v.events === undefined ? null : { events: v.events }),
-                url: v.url,
-                ...(v.sharedSecret === undefined ? null : { sharedSecret: v.sharedSecret }),
-                ...(v.streamId === undefined ? null : { streamId: v.streamId }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, WebhookInput> = z.object({
+        name: z.string(),
+        projectId: z.string().optional(),
+        events: z.array(Events$.outboundSchema).optional(),
+        url: z.string(),
+        sharedSecret: z.string().optional(),
+        streamId: z.string().optional(),
+    });
 }

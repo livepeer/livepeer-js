@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$, encodeSimple as encodeSimple$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -188,7 +188,7 @@ export class Asset extends ClientSDK {
             (value$) => components.NewAssetPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/asset/request-upload")();
 
@@ -259,7 +259,7 @@ export class Asset extends ClientSDK {
             (value$) => components.NewAssetFromUrlPayload$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/asset/upload/url")();
 
@@ -332,7 +332,7 @@ export class Asset extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            assetId: enc$.encodeSimple("assetId", payload$.assetId, {
+            assetId: encodeSimple$("assetId", payload$.assetId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -410,10 +410,10 @@ export class Asset extends ClientSDK {
             (value$) => operations.UpdateAssetRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$["asset-patch-payload"], { explode: true });
+        const body$ = encodeJSON$("body", payload$["asset-patch-payload"], { explode: true });
 
         const pathParams$ = {
-            assetId: enc$.encodeSimple("assetId", payload$.assetId, {
+            assetId: encodeSimple$("assetId", payload$.assetId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -491,7 +491,7 @@ export class Asset extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            assetId: enc$.encodeSimple("assetId", payload$.assetId, {
+            assetId: encodeSimple$("assetId", payload$.assetId, {
                 explode: false,
                 charEncoding: "percent",
             }),

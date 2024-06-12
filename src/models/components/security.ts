@@ -10,27 +10,15 @@ export type Security = {
 
 /** @internal */
 export namespace Security$ {
-    export const inboundSchema: z.ZodType<Security, z.ZodTypeDef, unknown> = z
-        .object({
-            apiKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                apiKey: v.apiKey,
-            };
-        });
+    export const inboundSchema: z.ZodType<Security, z.ZodTypeDef, unknown> = z.object({
+        apiKey: z.string(),
+    });
 
     export type Outbound = {
         apiKey: string;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Security> = z
-        .object({
-            apiKey: z.string(),
-        })
-        .transform((v) => {
-            return {
-                apiKey: v.apiKey,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Security> = z.object({
+        apiKey: z.string(),
+    });
 }

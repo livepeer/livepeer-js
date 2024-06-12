@@ -21,19 +21,11 @@ export type RoomUserUpdatePayload = {
 
 /** @internal */
 export namespace RoomUserUpdatePayload$ {
-    export const inboundSchema: z.ZodType<RoomUserUpdatePayload, z.ZodTypeDef, unknown> = z
-        .object({
-            canPublish: z.boolean().default(true),
-            canPublishData: z.boolean().default(true),
-            metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                canPublish: v.canPublish,
-                canPublishData: v.canPublishData,
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
-        });
+    export const inboundSchema: z.ZodType<RoomUserUpdatePayload, z.ZodTypeDef, unknown> = z.object({
+        canPublish: z.boolean().default(true),
+        canPublishData: z.boolean().default(true),
+        metadata: z.string().optional(),
+    });
 
     export type Outbound = {
         canPublish: boolean;
@@ -41,17 +33,10 @@ export namespace RoomUserUpdatePayload$ {
         metadata?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RoomUserUpdatePayload> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, RoomUserUpdatePayload> =
+        z.object({
             canPublish: z.boolean().default(true),
             canPublishData: z.boolean().default(true),
             metadata: z.string().optional(),
-        })
-        .transform((v) => {
-            return {
-                canPublish: v.canPublish,
-                canPublishData: v.canPublishData,
-                ...(v.metadata === undefined ? null : { metadata: v.metadata }),
-            };
         });
 }

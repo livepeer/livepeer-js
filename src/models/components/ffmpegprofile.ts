@@ -51,33 +51,18 @@ export namespace Encoder$ {
 
 /** @internal */
 export namespace FfmpegProfile$ {
-    export const inboundSchema: z.ZodType<FfmpegProfile, z.ZodTypeDef, unknown> = z
-        .object({
-            width: z.number().int(),
-            name: z.string(),
-            height: z.number().int(),
-            bitrate: z.number().int(),
-            fps: z.number().int(),
-            fpsDen: z.number().int().optional(),
-            quality: z.number().int().optional(),
-            gop: z.string().optional(),
-            profile: Profile$.inboundSchema.optional(),
-            encoder: Encoder$.inboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                width: v.width,
-                name: v.name,
-                height: v.height,
-                bitrate: v.bitrate,
-                fps: v.fps,
-                ...(v.fpsDen === undefined ? null : { fpsDen: v.fpsDen }),
-                ...(v.quality === undefined ? null : { quality: v.quality }),
-                ...(v.gop === undefined ? null : { gop: v.gop }),
-                ...(v.profile === undefined ? null : { profile: v.profile }),
-                ...(v.encoder === undefined ? null : { encoder: v.encoder }),
-            };
-        });
+    export const inboundSchema: z.ZodType<FfmpegProfile, z.ZodTypeDef, unknown> = z.object({
+        width: z.number().int(),
+        name: z.string(),
+        height: z.number().int(),
+        bitrate: z.number().int(),
+        fps: z.number().int(),
+        fpsDen: z.number().int().optional(),
+        quality: z.number().int().optional(),
+        gop: z.string().optional(),
+        profile: Profile$.inboundSchema.optional(),
+        encoder: Encoder$.inboundSchema.optional(),
+    });
 
     export type Outbound = {
         width: number;
@@ -92,31 +77,16 @@ export namespace FfmpegProfile$ {
         encoder?: string | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, FfmpegProfile> = z
-        .object({
-            width: z.number().int(),
-            name: z.string(),
-            height: z.number().int(),
-            bitrate: z.number().int(),
-            fps: z.number().int(),
-            fpsDen: z.number().int().optional(),
-            quality: z.number().int().optional(),
-            gop: z.string().optional(),
-            profile: Profile$.outboundSchema.optional(),
-            encoder: Encoder$.outboundSchema.optional(),
-        })
-        .transform((v) => {
-            return {
-                width: v.width,
-                name: v.name,
-                height: v.height,
-                bitrate: v.bitrate,
-                fps: v.fps,
-                ...(v.fpsDen === undefined ? null : { fpsDen: v.fpsDen }),
-                ...(v.quality === undefined ? null : { quality: v.quality }),
-                ...(v.gop === undefined ? null : { gop: v.gop }),
-                ...(v.profile === undefined ? null : { profile: v.profile }),
-                ...(v.encoder === undefined ? null : { encoder: v.encoder }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, FfmpegProfile> = z.object({
+        width: z.number().int(),
+        name: z.string(),
+        height: z.number().int(),
+        bitrate: z.number().int(),
+        fps: z.number().int(),
+        fpsDen: z.number().int().optional(),
+        quality: z.number().int().optional(),
+        gop: z.string().optional(),
+        profile: Profile$.outboundSchema.optional(),
+        encoder: Encoder$.outboundSchema.optional(),
+    });
 }

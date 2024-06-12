@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: b534222e8195f9c182c64e92d4c02912
+  docChecksum: ff2202a25732837028e6242ecc0ab673
   docVersion: 1.0.0
-  speakeasyVersion: 1.299.7
-  generationVersion: 2.338.12
-  releaseVersion: 3.2.8
-  configChecksum: 55085eee99ac73a09b40abe853be6747
+  speakeasyVersion: 1.305.0
+  generationVersion: 2.340.3
+  releaseVersion: 3.2.9
+  configChecksum: b42bd7334f0894380711f64530bb74e9
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.11
+    core: 3.9.13
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -51,6 +51,7 @@ generatedFiles:
   - src/lib/encodings.ts
   - src/lib/http.ts
   - src/lib/is-plain-object.ts
+  - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
   - src/lib/sdks.ts
@@ -131,6 +132,7 @@ generatedFiles:
   - src/models/components/usertags.ts
   - src/models/components/multistream.ts
   - src/models/components/target.ts
+  - src/models/components/recordingspec.ts
   - src/models/components/inputcreatorid.ts
   - src/models/components/pull.ts
   - src/models/components/streampatchpayload.ts
@@ -298,6 +300,7 @@ generatedFiles:
   - docs/models/components/streamismobile.md
   - docs/models/components/streamlocation.md
   - docs/models/components/streampull.md
+  - docs/models/components/streamrecordingspec.md
   - docs/models/components/streammultistream.md
   - docs/models/components/renditions.md
   - docs/models/components/stream.md
@@ -316,6 +319,7 @@ generatedFiles:
   - docs/models/components/multistream.md
   - docs/models/components/targetspec.md
   - docs/models/components/target.md
+  - docs/models/components/recordingspec.md
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md

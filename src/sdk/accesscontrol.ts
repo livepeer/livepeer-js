@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$, encodeSimple as encodeSimple$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -180,7 +180,7 @@ export class AccessControl extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            keyId: enc$.encodeSimple("keyId", payload$.keyId, {
+            keyId: encodeSimple$("keyId", payload$.keyId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -255,7 +255,7 @@ export class AccessControl extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            keyId: enc$.encodeSimple("keyId", payload$.keyId, {
+            keyId: encodeSimple$("keyId", payload$.keyId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -333,10 +333,10 @@ export class AccessControl extends ClientSDK {
             (value$) => operations.UpdateSigningKeyRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.RequestBody, { explode: true });
+        const body$ = encodeJSON$("body", payload$.RequestBody, { explode: true });
 
         const pathParams$ = {
-            keyId: enc$.encodeSimple("keyId", payload$.keyId, {
+            keyId: encodeSimple$("keyId", payload$.keyId, {
                 explode: false,
                 charEncoding: "percent",
             }),

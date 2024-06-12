@@ -26,6 +26,7 @@ export * from "./newstreampayload";
 export * from "./playbackinfo";
 export * from "./playbackpolicy";
 export * from "./pull";
+export * from "./recordingspec";
 export * from "./room";
 export * from "./roomegresspayload";
 export * from "./roomuserpayload";

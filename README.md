@@ -233,6 +233,21 @@ async function run() {
             },
         ],
         record: false,
+        recordingSpec: {
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 489382,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                },
+            ],
+        },
         multistream: {
             targets: [
                 {
@@ -305,6 +320,21 @@ async function run() {
             },
         ],
         record: false,
+        recordingSpec: {
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 489382,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                },
+            ],
+        },
         multistream: {
             targets: [
                 {
@@ -433,6 +463,21 @@ async function run() {
             },
         ],
         record: false,
+        recordingSpec: {
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 489382,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                },
+            ],
+        },
         multistream: {
             targets: [
                 {
@@ -527,6 +572,21 @@ async function run() {
             },
         ],
         record: false,
+        recordingSpec: {
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 489382,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                },
+            ],
+        },
         multistream: {
             targets: [
                 {

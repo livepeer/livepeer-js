@@ -65,36 +65,18 @@ export namespace NftMetadata$ {
 
 /** @internal */
 export namespace Spec$ {
-    export const inboundSchema: z.ZodType<Spec, z.ZodTypeDef, unknown> = z
-        .object({
-            nftMetadataTemplate: NftMetadataTemplate$.inboundSchema.default(
-                NftMetadataTemplate.File
-            ),
-            nftMetadata: z.lazy(() => NftMetadata$.inboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                nftMetadataTemplate: v.nftMetadataTemplate,
-                ...(v.nftMetadata === undefined ? null : { nftMetadata: v.nftMetadata }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Spec, z.ZodTypeDef, unknown> = z.object({
+        nftMetadataTemplate: NftMetadataTemplate$.inboundSchema.default(NftMetadataTemplate.File),
+        nftMetadata: z.lazy(() => NftMetadata$.inboundSchema).optional(),
+    });
 
     export type Outbound = {
         nftMetadataTemplate: string;
         nftMetadata?: NftMetadata$.Outbound | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Spec> = z
-        .object({
-            nftMetadataTemplate: NftMetadataTemplate$.outboundSchema.default(
-                NftMetadataTemplate.File
-            ),
-            nftMetadata: z.lazy(() => NftMetadata$.outboundSchema).optional(),
-        })
-        .transform((v) => {
-            return {
-                nftMetadataTemplate: v.nftMetadataTemplate,
-                ...(v.nftMetadata === undefined ? null : { nftMetadata: v.nftMetadata }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Spec> = z.object({
+        nftMetadataTemplate: NftMetadataTemplate$.outboundSchema.default(NftMetadataTemplate.File),
+        nftMetadata: z.lazy(() => NftMetadata$.outboundSchema).optional(),
+    });
 }

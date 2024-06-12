@@ -22,18 +22,11 @@ export type MultistreamTargetPatchPayload = {
 
 /** @internal */
 export namespace MultistreamTargetPatchPayload$ {
-    export const inboundSchema: z.ZodType<MultistreamTargetPatchPayload, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<MultistreamTargetPatchPayload, z.ZodTypeDef, unknown> =
+        z.object({
             name: z.string().optional(),
             url: z.string(),
             disabled: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-            };
         });
 
     export type Outbound = {
@@ -43,17 +36,9 @@ export namespace MultistreamTargetPatchPayload$ {
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTargetPatchPayload> =
-        z
-            .object({
-                name: z.string().optional(),
-                url: z.string(),
-                disabled: z.boolean().optional(),
-            })
-            .transform((v) => {
-                return {
-                    ...(v.name === undefined ? null : { name: v.name }),
-                    url: v.url,
-                    ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-                };
-            });
+        z.object({
+            name: z.string().optional(),
+            url: z.string(),
+            disabled: z.boolean().optional(),
+        });
 }

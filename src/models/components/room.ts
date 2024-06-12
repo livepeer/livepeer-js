@@ -45,21 +45,12 @@ export type Room = {
 
 /** @internal */
 export namespace Participants$ {
-    export const inboundSchema: z.ZodType<Participants, z.ZodTypeDef, unknown> = z
-        .object({
-            identity: z.string().optional(),
-            name: z.string().optional(),
-            joinedAt: z.number().int().optional(),
-            leftAt: z.number().int().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.identity === undefined ? null : { identity: v.identity }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.joinedAt === undefined ? null : { joinedAt: v.joinedAt }),
-                ...(v.leftAt === undefined ? null : { leftAt: v.leftAt }),
-            };
-        });
+    export const inboundSchema: z.ZodType<Participants, z.ZodTypeDef, unknown> = z.object({
+        identity: z.string().optional(),
+        name: z.string().optional(),
+        joinedAt: z.number().int().optional(),
+        leftAt: z.number().int().optional(),
+    });
 
     export type Outbound = {
         identity?: string | undefined;
@@ -68,42 +59,23 @@ export namespace Participants$ {
         leftAt?: number | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Participants> = z
-        .object({
-            identity: z.string().optional(),
-            name: z.string().optional(),
-            joinedAt: z.number().int().optional(),
-            leftAt: z.number().int().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.identity === undefined ? null : { identity: v.identity }),
-                ...(v.name === undefined ? null : { name: v.name }),
-                ...(v.joinedAt === undefined ? null : { joinedAt: v.joinedAt }),
-                ...(v.leftAt === undefined ? null : { leftAt: v.leftAt }),
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Participants> = z.object({
+        identity: z.string().optional(),
+        name: z.string().optional(),
+        joinedAt: z.number().int().optional(),
+        leftAt: z.number().int().optional(),
+    });
 }
 
 /** @internal */
 export namespace Room$ {
-    export const inboundSchema: z.ZodType<Room, z.ZodTypeDef, unknown> = z
-        .object({
-            id: z.string(),
-            createdAt: z.number().optional(),
-            updatedAt: z.number().optional(),
-            egressId: z.string().optional(),
-            participants: z.record(z.lazy(() => Participants$.inboundSchema)),
-        })
-        .transform((v) => {
-            return {
-                id: v.id,
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.updatedAt === undefined ? null : { updatedAt: v.updatedAt }),
-                ...(v.egressId === undefined ? null : { egressId: v.egressId }),
-                participants: v.participants,
-            };
-        });
+    export const inboundSchema: z.ZodType<Room, z.ZodTypeDef, unknown> = z.object({
+        id: z.string(),
+        createdAt: z.number().optional(),
+        updatedAt: z.number().optional(),
+        egressId: z.string().optional(),
+        participants: z.record(z.lazy(() => Participants$.inboundSchema)),
+    });
 
     export type Outbound = {
         id: string;
@@ -113,21 +85,11 @@ export namespace Room$ {
         participants: { [k: string]: Participants$.Outbound };
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Room> = z
-        .object({
-            id: z.string(),
-            createdAt: z.number().optional(),
-            updatedAt: z.number().optional(),
-            egressId: z.string().optional(),
-            participants: z.record(z.lazy(() => Participants$.outboundSchema)),
-        })
-        .transform((v) => {
-            return {
-                id: v.id,
-                ...(v.createdAt === undefined ? null : { createdAt: v.createdAt }),
-                ...(v.updatedAt === undefined ? null : { updatedAt: v.updatedAt }),
-                ...(v.egressId === undefined ? null : { egressId: v.egressId }),
-                participants: v.participants,
-            };
-        });
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, Room> = z.object({
+        id: z.string(),
+        createdAt: z.number().optional(),
+        updatedAt: z.number().optional(),
+        egressId: z.string().optional(),
+        participants: z.record(z.lazy(() => Participants$.outboundSchema)),
+    });
 }

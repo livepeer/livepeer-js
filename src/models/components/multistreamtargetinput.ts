@@ -22,19 +22,13 @@ export type MultistreamTargetInput = {
 
 /** @internal */
 export namespace MultistreamTargetInput$ {
-    export const inboundSchema: z.ZodType<MultistreamTargetInput, z.ZodTypeDef, unknown> = z
-        .object({
+    export const inboundSchema: z.ZodType<MultistreamTargetInput, z.ZodTypeDef, unknown> = z.object(
+        {
             name: z.string().optional(),
             url: z.string(),
             disabled: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-            };
-        });
+        }
+    );
 
     export type Outbound = {
         name?: string | undefined;
@@ -42,17 +36,10 @@ export namespace MultistreamTargetInput$ {
         disabled?: boolean | undefined;
     };
 
-    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTargetInput> = z
-        .object({
+    export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, MultistreamTargetInput> =
+        z.object({
             name: z.string().optional(),
             url: z.string(),
             disabled: z.boolean().optional(),
-        })
-        .transform((v) => {
-            return {
-                ...(v.name === undefined ? null : { name: v.name }),
-                url: v.url,
-                ...(v.disabled === undefined ? null : { disabled: v.disabled }),
-            };
         });
 }

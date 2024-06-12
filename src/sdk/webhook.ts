@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$, encodeSimple as encodeSimple$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -118,7 +118,7 @@ export class Webhook extends ClientSDK {
             (value$) => components.WebhookInput$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$, { explode: true });
+        const body$ = encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/webhook")();
 
@@ -190,7 +190,7 @@ export class Webhook extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/webhook/{id}")(pathParams$);
 
@@ -265,10 +265,10 @@ export class Webhook extends ClientSDK {
             (value$) => operations.UpdateWebhookRequest$.outboundSchema.parse(value$),
             "Input validation failed"
         );
-        const body$ = enc$.encodeJSON("body", payload$.webhook, { explode: true });
+        const body$ = encodeJSON$("body", payload$.webhook, { explode: true });
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/webhook/{id}")(pathParams$);
 
@@ -340,7 +340,7 @@ export class Webhook extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/webhook/{id}")(pathParams$);
 
@@ -415,7 +415,7 @@ export class Webhook extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
         };
         const path$ = this.templateURLComponent("/webhook/{id}/log")(pathParams$);
 
@@ -492,8 +492,8 @@ export class Webhook extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            logId: enc$.encodeSimple("logId", payload$.logId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            logId: encodeSimple$("logId", payload$.logId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -579,8 +579,8 @@ export class Webhook extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            id: enc$.encodeSimple("id", payload$.id, { explode: false, charEncoding: "percent" }),
-            logId: enc$.encodeSimple("logId", payload$.logId, {
+            id: encodeSimple$("id", payload$.id, { explode: false, charEncoding: "percent" }),
+            logId: encodeSimple$("logId", payload$.logId, {
                 explode: false,
                 charEncoding: "percent",
             }),

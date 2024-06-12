@@ -4,7 +4,10 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import {
+    encodeFormQuery as encodeFormQuery$,
+    encodeSimple as encodeSimple$,
+} from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -62,36 +65,16 @@ export class Metrics extends ClientSDK {
 
         const path$ = this.templateURLComponent("/data/views/query")();
 
-        const query$ = [
-            enc$.encodeForm("assetId", payload$.assetId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("breakdownBy[]", payload$["breakdownBy[]"], {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("creatorId", payload$.creatorId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("from", payload$.from, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("playbackId", payload$.playbackId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("streamId", payload$.streamId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("timeStep", payload$.timeStep, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("to", payload$.to, { explode: true, charEncoding: "percent" }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            assetId: payload$.assetId,
+            streamId: payload$.streamId,
+            creatorId: payload$.creatorId,
+            "breakdownBy[]": payload$["breakdownBy[]"],
+            playbackId: payload$.playbackId,
+            from: payload$.from,
+            to: payload$.to,
+            timeStep: payload$.timeStep,
+        });
 
         let security$;
         if (typeof this.options$.apiKey === "function") {
@@ -165,32 +148,15 @@ export class Metrics extends ClientSDK {
 
         const path$ = this.templateURLComponent("/data/views/query/creator")();
 
-        const query$ = [
-            enc$.encodeForm("assetId", payload$.assetId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("breakdownBy[]", payload$["breakdownBy[]"], {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("creatorId", payload$.creatorId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("from", payload$.from, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("streamId", payload$.streamId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("timeStep", payload$.timeStep, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("to", payload$.to, { explode: true, charEncoding: "percent" }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            streamId: payload$.streamId,
+            creatorId: payload$.creatorId,
+            "breakdownBy[]": payload$["breakdownBy[]"],
+            from: payload$.from,
+            to: payload$.to,
+            timeStep: payload$.timeStep,
+            assetId: payload$.assetId,
+        });
 
         let security$;
         if (typeof this.options$.apiKey === "function") {
@@ -267,7 +233,7 @@ export class Metrics extends ClientSDK {
         const body$ = null;
 
         const pathParams$ = {
-            playbackId: enc$.encodeSimple("playbackId", payload$.playbackId, {
+            playbackId: encodeSimple$("playbackId", payload$.playbackId, {
                 explode: false,
                 charEncoding: "percent",
             }),
@@ -346,24 +312,13 @@ export class Metrics extends ClientSDK {
 
         const path$ = this.templateURLComponent("/data/usage/query")();
 
-        const query$ = [
-            enc$.encodeForm("breakdownBy[]", payload$["breakdownBy[]"], {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("creatorId", payload$.creatorId, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("from", payload$.from, { explode: true, charEncoding: "percent" }),
-            enc$.encodeForm("timeStep", payload$.timeStep, {
-                explode: true,
-                charEncoding: "percent",
-            }),
-            enc$.encodeForm("to", payload$.to, { explode: true, charEncoding: "percent" }),
-        ]
-            .filter(Boolean)
-            .join("&");
+        const query$ = encodeFormQuery$({
+            "breakdownBy[]": payload$["breakdownBy[]"],
+            from: payload$.from,
+            to: payload$.to,
+            timeStep: payload$.timeStep,
+            creatorId: payload$.creatorId,
+        });
 
         let security$;
         if (typeof this.options$.apiKey === "function") {
