@@ -1,9 +1,9 @@
-speakeasyVersion: 1.306.0
+speakeasyVersion: 1.308.1
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:2a80c4a664b0e507dbd7d5e9a7f2f04363f18a225c3b2b6abb73f0e7c18a8041
-        sourceBlobDigest: sha256:89046167d50fdcdcf620d53539a442dfba3d20a788ccf43378cb4abfdd2a05ae
+        sourceRevisionDigest: sha256:40e172ae8b80e514824e08d6d2884e7a9710524e03f3d62dc4e9f220bcdc2252
+        sourceBlobDigest: sha256:01918d33aedd81e4dcd71eb34ae674519049f03446df95542d36fab34e95bcd0
         tags:
             - latest
             - main
@@ -11,8 +11,8 @@ targets:
     livepeer-ts:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:2a80c4a664b0e507dbd7d5e9a7f2f04363f18a225c3b2b6abb73f0e7c18a8041
-        sourceBlobDigest: sha256:89046167d50fdcdcf620d53539a442dfba3d20a788ccf43378cb4abfdd2a05ae
+        sourceRevisionDigest: sha256:40e172ae8b80e514824e08d6d2884e7a9710524e03f3d62dc4e9f220bcdc2252
+        sourceBlobDigest: sha256:01918d33aedd81e4dcd71eb34ae674519049f03446df95542d36fab34e95bcd0
         outLocation: .
 workflow:
     workflowVersion: 1.0.0

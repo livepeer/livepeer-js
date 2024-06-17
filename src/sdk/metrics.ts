@@ -67,13 +67,13 @@ export class Metrics extends ClientSDK {
 
         const query$ = encodeFormQuery$({
             assetId: payload$.assetId,
-            streamId: payload$.streamId,
-            creatorId: payload$.creatorId,
             "breakdownBy[]": payload$["breakdownBy[]"],
-            playbackId: payload$.playbackId,
+            creatorId: payload$.creatorId,
             from: payload$.from,
-            to: payload$.to,
+            playbackId: payload$.playbackId,
+            streamId: payload$.streamId,
             timeStep: payload$.timeStep,
+            to: payload$.to,
         });
 
         let security$;
@@ -149,13 +149,13 @@ export class Metrics extends ClientSDK {
         const path$ = this.templateURLComponent("/data/views/query/creator")();
 
         const query$ = encodeFormQuery$({
-            streamId: payload$.streamId,
-            creatorId: payload$.creatorId,
-            "breakdownBy[]": payload$["breakdownBy[]"],
-            from: payload$.from,
-            to: payload$.to,
-            timeStep: payload$.timeStep,
             assetId: payload$.assetId,
+            "breakdownBy[]": payload$["breakdownBy[]"],
+            creatorId: payload$.creatorId,
+            from: payload$.from,
+            streamId: payload$.streamId,
+            timeStep: payload$.timeStep,
+            to: payload$.to,
         });
 
         let security$;
@@ -314,10 +314,10 @@ export class Metrics extends ClientSDK {
 
         const query$ = encodeFormQuery$({
             "breakdownBy[]": payload$["breakdownBy[]"],
-            from: payload$.from,
-            to: payload$.to,
-            timeStep: payload$.timeStep,
             creatorId: payload$.creatorId,
+            from: payload$.from,
+            timeStep: payload$.timeStep,
+            to: payload$.to,
         });
 
         let security$;
