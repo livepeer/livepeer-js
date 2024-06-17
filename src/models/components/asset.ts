@@ -5,6 +5,7 @@
 import { remap as remap$ } from "../../lib/primitives";
 import { CreatorId, CreatorId$ } from "./creatorid";
 import { EncryptionOutput, EncryptionOutput$ } from "./encryptionoutput";
+import { FfmpegProfile, FfmpegProfile$ } from "./ffmpegprofile";
 import { IpfsFileInfo, IpfsFileInfo$ } from "./ipfsfileinfo";
 import { PlaybackPolicy, PlaybackPolicy$ } from "./playbackpolicy";
 import { StorageStatus, StorageStatus$ } from "./storagestatus";
@@ -305,6 +306,16 @@ export type Asset = {
     playbackPolicy?: PlaybackPolicy | null | undefined;
     source: Two | Asset1 | Asset3;
     creatorId?: CreatorId | undefined;
+    /**
+     * Requested profiles for the asset to be transcoded into. Currently
+     *
+     * @remarks
+     * only supported for livestream recording assets, configured through
+     * the `stream.recordingSpec` field. If this is not present it means
+     * that default profiles were derived from the input metadata.
+     *
+     */
+    profiles?: Array<FfmpegProfile> | undefined;
     storage?: AssetStorage | undefined;
     /**
      * Status of the asset
@@ -691,6 +702,7 @@ export namespace Asset$ {
             z.lazy(() => Asset3$.inboundSchema),
         ]),
         creatorId: CreatorId$.inboundSchema.optional(),
+        profiles: z.array(FfmpegProfile$.inboundSchema).optional(),
         storage: z.lazy(() => AssetStorage$.inboundSchema).optional(),
         status: z.lazy(() => AssetStatus$.inboundSchema).optional(),
         name: z.string(),
@@ -712,6 +724,7 @@ export namespace Asset$ {
         playbackPolicy?: PlaybackPolicy$.Outbound | null | undefined;
         source: Two$.Outbound | Asset1$.Outbound | Asset3$.Outbound;
         creatorId?: CreatorId$.Outbound | undefined;
+        profiles?: Array<FfmpegProfile$.Outbound> | undefined;
         storage?: AssetStorage$.Outbound | undefined;
         status?: AssetStatus$.Outbound | undefined;
         name: string;
@@ -737,6 +750,7 @@ export namespace Asset$ {
             z.lazy(() => Asset3$.outboundSchema),
         ]),
         creatorId: CreatorId$.outboundSchema.optional(),
+        profiles: z.array(FfmpegProfile$.outboundSchema).optional(),
         storage: z.lazy(() => AssetStorage$.outboundSchema).optional(),
         status: z.lazy(() => AssetStatus$.outboundSchema).optional(),
         name: z.string(),
