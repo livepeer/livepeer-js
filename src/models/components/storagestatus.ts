@@ -56,8 +56,8 @@ export type StorageStatus = {
 
 /** @internal */
 export namespace Phase$ {
-    export const inboundSchema = z.nativeEnum(Phase);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof Phase> = z.nativeEnum(Phase);
+    export const outboundSchema: z.ZodNativeEnum<typeof Phase> = inboundSchema;
 }
 
 /** @internal */

@@ -39,8 +39,8 @@ export type PlaybackPolicy = {
 
 /** @internal */
 export namespace Type$ {
-    export const inboundSchema = z.nativeEnum(Type);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(Type);
+    export const outboundSchema: z.ZodNativeEnum<typeof Type> = inboundSchema;
 }
 
 /** @internal */

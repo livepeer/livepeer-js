@@ -1,7 +1,12 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -47,13 +52,13 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },

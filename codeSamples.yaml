@@ -3,56 +3,11 @@ info:
   title: CodeSamples overlay for typescript target
   version: 0.0.0
 actions:
-  - target: $["paths"]["/asset/request-upload"]["post"]
+  - target: $["paths"]["/access-control/signing-key"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: requestUpload
-          source: |-
-            import { Livepeer } from "livepeer";
-            import { TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.asset.create({
-                name: "filename.mp4",
-                staticMp4: true,
-                playbackPolicy: {
-                  type: Type.Webhook,
-                  webhookId: "1bde4o2i6xycudoy",
-                  webhookContext: {
-                    "streamerId": "my-custom-id",
-                  },
-                  refreshInterval: 600,
-                },
-                profiles: [
-                  {
-                    width: 1280,
-                    name: "720p",
-                    bitrate: 3000000,
-                    quality: 23,
-                    fps: 30,
-                    fpsDen: 1,
-                    gop: "2",
-                    profile: TranscodeProfileProfile.H264Baseline,
-                    encoder: TranscodeProfileEncoder.H264,
-                  },
-                ],
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room/{id}/egress"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: startRoomEgress
+          label: getSigningKeys
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -61,609 +16,7 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.room.startEgress("<value>", {
-                streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/data/views/query/total/{playbackId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getPublicViewershipMetrics
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.metrics.getPublicViewership("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/clip"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: createClip
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.createClip({
-                playbackId: "eaw4nk06ts2d0mzb",
-                startTime: 1587667174725,
-                endTime: 1587667174725,
-                name: "My Clip",
-                sessionId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: createRoom
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.room.create();
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: createWebhook
-          source: |-
-            import { Livepeer } from "livepeer";
-            import { Events } from "livepeer/models/components";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.create({
-                name: "test_webhook",
-                projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-                events: [
-                  Events.StreamStarted,
-                  Events.StreamIdle,
-                ],
-                url: "https://my-service.com/webhook",
-                sharedSecret: "my-secret",
-                streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}/clips"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getClips
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.getClips("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook/{id}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteWebhook
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.delete("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/asset"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getAssets
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.asset.getAll();
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room/{id}/egress"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: stopRoomEgress
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.room.stopEgress("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/task/{taskId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getTask
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.task.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getStreams
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.getAll("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/data/views/query"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getViewershipMetrics
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.metrics.getViewership({});
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/task"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getTasks
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.task.getAll();
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook/{id}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getWebhook
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}/multistream/{targetId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: removeMultistreamTarget
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.removeMultistreamTarget("<value>", "<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/multistream/target"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: createMultistreamTarget
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.multistream.create({
-                url: "rtmps://live.my-service.tv/channel/secretKey",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room/{id}/user/{userId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteRoomUser
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.room.deleteUser("<value>", "<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/data/usage/query"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getUsageMetrics
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.metrics.getUsage({});
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}/create-multistream-target"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: addMultistreamTarget
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.addMultistreamTarget("<value>", {
-                profile: "720p0",
-                videoOnly: false,
-                id: "PUSH123",
-                spec: {
-                  name: "My target",
-                  url: "rtmps://live.my-service.tv/channel/secretKey",
-                },
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getWebhooks
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.getAll();
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/asset/{assetId}"]["patch"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: updateAsset
-          source: |-
-            import { Livepeer } from "livepeer";
-            import { Type } from "livepeer/models/components";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.asset.update("<value>", {
-                name: "filename.mp4",
-                playbackPolicy: {
-                  type: Type.Webhook,
-                  webhookId: "1bde4o2i6xycudoy",
-                  webhookContext: {
-                    "streamerId": "my-custom-id",
-                  },
-                  refreshInterval: 600,
-                },
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/multistream/target/{id}"]["patch"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: updateMultistreamTarget
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.multistream.update("<value>", {
-                url: "rtmps://live.my-service.tv/channel/secretKey",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteStream
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.delete("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/session/{id}/clips"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSessionClips
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.session.getClips("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{parentId}/sessions"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getRecordedSessions
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.session.getRecorded("<value>", true);
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room/{id}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getRoom
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.room.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/data/views/query/creator"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getCreatorViewershipMetrics
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.metrics.getCreatorViewership({});
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getStream
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/access-control/signing-key/{keyId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getSigningKey
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.accessControl.get("<value>");
+              const result = await livepeer.accessControl.getAll();
 
               // Handle the result
               console.log(result)
@@ -728,181 +81,6 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/webhook/{id}/log"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getWebhookLogs
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.getLogs("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/asset/{assetId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getAsset
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.asset.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/room/{id}/user"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: createRoomUser
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.room.createUser("<value>", {
-                name: "name",
-                canPublish: true,
-                canPublishData: true,
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/multistream/target/{id}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteMultistreamTarget
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.multistream.delete("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook/{id}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: updateWebhook
-          source: |-
-            import { Livepeer } from "livepeer";
-            import { Events } from "livepeer/models/components";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.update("<value>", {
-                name: "test_webhook",
-                projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-                events: [
-                  Events.StreamStarted,
-                  Events.StreamIdle,
-                ],
-                url: "https://my-service.com/webhook",
-                sharedSecret: "my-secret",
-                streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-              });
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/access-control/signing-key/{keyId}"]["patch"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: updateSigningKey
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.accessControl.update("<value>", {});
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}/start-pull"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: startPullStream
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.startPull("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/webhook/{id}/log/{logId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: getWebhookLog
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.webhook.getLog("<value>", "<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
   - target: $["paths"]["/stream/{id}"]["patch"]
     update:
       x-codeSamples:
@@ -910,7 +88,7 @@ actions:
           label: updateStream
           source: |-
             import { Livepeer } from "livepeer";
-            import { Profile, Type } from "livepeer/models/components";
+            import { Profile, TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
 
             const livepeer = new Livepeer({
               apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -953,6 +131,21 @@ actions:
                     profile: Profile.H264Baseline,
                   },
                 ],
+                recordingSpec: {
+                  profiles: [
+                    {
+                      width: 1280,
+                      name: "720p",
+                      bitrate: 3000000,
+                      quality: 23,
+                      fps: 30,
+                      fpsDen: 1,
+                      gop: "2",
+                      profile: TranscodeProfileProfile.H264Baseline,
+                      encoder: TranscodeProfileEncoder.H264,
+                    },
+                  ],
+                },
               });
 
               // Handle the result
@@ -960,31 +153,42 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/asset/{assetId}"]["delete"]
+  - target: $["paths"]["/webhook/{id}"]["put"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: deleteAsset
+          label: updateWebhook
           source: |-
             import { Livepeer } from "livepeer";
+            import { Events } from "livepeer/models/components";
 
             const livepeer = new Livepeer({
               apiKey: "<YOUR_BEARER_TOKEN_HERE>",
             });
 
             async function run() {
-              const result = await livepeer.asset.delete("<value>");
+              const result = await livepeer.webhook.update("<value>", {
+                name: "test_webhook",
+                projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+                events: [
+                  Events.StreamStarted,
+                  Events.StreamIdle,
+                ],
+                url: "https://my-service.com/webhook",
+                sharedSecret: "my-secret",
+                streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+              });
 
               // Handle the result
               console.log(result)
             }
 
             run();
-  - target: $["paths"]["/room/{id}"]["delete"]
+  - target: $["paths"]["/webhook/{id}/log"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: deleteRoom
+          label: getWebhookLogs
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -993,39 +197,110 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.room.delete("<value>");
+              const result = await livepeer.webhook.getLogs("<value>");
 
               // Handle the result
               console.log(result)
             }
 
             run();
-  - target: $["paths"]["/stream"]["post"]
+  - target: $["paths"]["/room/{id}/user/{userId}"]["delete"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: createStream
+          label: deleteRoomUser
           source: |-
             import { Livepeer } from "livepeer";
-            import { Profile, Type } from "livepeer/models/components";
 
             const livepeer = new Livepeer({
               apiKey: "<YOUR_BEARER_TOKEN_HERE>",
             });
 
             async function run() {
-              const result = await livepeer.stream.create({
-                name: "test_stream",
-                pull: {
-                  source: "https://myservice.com/live/stream.flv",
-                  headers: {
-                    "Authorization": "Bearer 123",
-                  },
-                  location: {
-                    lat: 39.739,
-                    lon: -104.988,
-                  },
-                },
+              const result = await livepeer.room.deleteUser("<value>", "<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/data/views/query/creator"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getCreatorViewershipMetrics
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.metrics.getCreatorViewership({});
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/multistream/target/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.multistream.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/webhook"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWebhooks
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.webhook.getAll();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/asset/request-upload"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: requestUpload
+          source: |-
+            import { Livepeer } from "livepeer";
+            import { TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.asset.create({
+                name: "filename.mp4",
+                staticMp4: true,
                 playbackPolicy: {
                   type: Type.Webhook,
                   webhookId: "1bde4o2i6xycudoy",
@@ -1038,44 +313,15 @@ actions:
                   {
                     width: 1280,
                     name: "720p",
-                    height: 486589,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                   },
                 ],
-                record: false,
-                recordingSpec: {
-                  profiles: [
-                    {
-                      width: 1280,
-                      name: "720p",
-                      height: 489382,
-                      bitrate: 3000000,
-                      fps: 30,
-                      fpsDen: 1,
-                      quality: 23,
-                      gop: "2",
-                      profile: Profile.H264Baseline,
-                    },
-                  ],
-                },
-                multistream: {
-                  targets: [
-                    {
-                      profile: "720p",
-                      videoOnly: false,
-                      id: "PUSH123",
-                      spec: {
-                        name: "My target",
-                        url: "rtmps://live.my-service.tv/channel/secretKey",
-                      },
-                    },
-                  ],
-                },
               });
 
               // Handle the result
@@ -1083,11 +329,11 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/room/{id}/user/{userId}"]["get"]
+  - target: $["paths"]["/access-control/signing-key/{keyId}"]["patch"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getRoomUser
+          label: updateSigningKey
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1096,18 +342,18 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.room.getUser("<value>", "<value>");
+              const result = await livepeer.accessControl.update("<value>", {});
 
               // Handle the result
               console.log(result)
             }
 
             run();
-  - target: $["paths"]["/access-control/signing-key"]["post"]
+  - target: $["paths"]["/stream"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: createSigningKey
+          label: getStreams
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1116,18 +362,18 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.accessControl.create();
+              const result = await livepeer.stream.getAll("<value>");
 
               // Handle the result
               console.log(result)
             }
 
             run();
-  - target: $["paths"]["/session/{id}"]["get"]
+  - target: $["paths"]["/asset"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getSession
+          label: getAssets
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1136,18 +382,18 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.session.get("<value>");
+              const result = await livepeer.asset.getAll();
 
               // Handle the result
               console.log(result)
             }
 
             run();
-  - target: $["paths"]["/access-control/signing-key"]["get"]
+  - target: $["paths"]["/asset/{assetId}"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getSigningKeys
+          label: getAsset
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1156,7 +402,47 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.accessControl.getAll();
+              const result = await livepeer.asset.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/access-control/signing-key/{keyId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSigningKey
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.accessControl.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/multistream/target/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.multistream.delete("<value>");
 
               // Handle the result
               console.log(result)
@@ -1209,11 +495,11 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/multistream/target/{id}"]["get"]
+  - target: $["paths"]["/asset/{assetId}"]["delete"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getMultistreamTarget
+          label: deleteAsset
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1222,7 +508,424 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.multistream.get("<value>");
+              const result = await livepeer.asset.delete("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/task"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getTasks
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.task.getAll();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}/terminate"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: terminateStream
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.terminate("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}/egress"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: startRoomEgress
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.startEgress("<value>", {
+                streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/data/views/query"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getViewershipMetrics
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.metrics.getViewership({});
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/data/views/query/total/{playbackId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPublicViewershipMetrics
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.metrics.getPublicViewership("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/access-control/signing-key/{keyId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteSigningKey
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.accessControl.delete("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getStream
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/multistream/target"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.multistream.create({
+                url: "rtmps://live.my-service.tv/channel/secretKey",
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/webhook/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWebhook
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.webhook.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createRoom
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.create();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/task/{taskId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getTask
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.task.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createStream
+          source: |-
+            import { Livepeer } from "livepeer";
+            import { Profile, TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.create({
+                name: "test_stream",
+                pull: {
+                  source: "https://myservice.com/live/stream.flv",
+                  headers: {
+                    "Authorization": "Bearer 123",
+                  },
+                  location: {
+                    lat: 39.739,
+                    lon: -104.988,
+                  },
+                },
+                playbackPolicy: {
+                  type: Type.Webhook,
+                  webhookId: "1bde4o2i6xycudoy",
+                  webhookContext: {
+                    "streamerId": "my-custom-id",
+                  },
+                  refreshInterval: 600,
+                },
+                profiles: [
+                  {
+                    width: 1280,
+                    name: "720p",
+                    height: 486589,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                  },
+                ],
+                record: false,
+                recordingSpec: {
+                  profiles: [
+                    {
+                      width: 1280,
+                      name: "720p",
+                      bitrate: 3000000,
+                      quality: 23,
+                      fps: 30,
+                      fpsDen: 1,
+                      gop: "2",
+                      profile: TranscodeProfileProfile.H264Baseline,
+                      encoder: TranscodeProfileEncoder.H264,
+                    },
+                  ],
+                },
+                multistream: {
+                  targets: [
+                    {
+                      profile: "720p",
+                      videoOnly: false,
+                      id: "PUSH123",
+                      spec: {
+                        name: "My target",
+                        url: "rtmps://live.my-service.tv/channel/secretKey",
+                      },
+                    },
+                  ],
+                },
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/multistream/target/{id}"]["patch"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: updateMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.multistream.update("<value>", {
+                url: "rtmps://live.my-service.tv/channel/secretKey",
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{parentId}/sessions"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRecordedSessions
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.session.getRecorded("<value>", true);
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/access-control/signing-key"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createSigningKey
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.accessControl.create();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/playback/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getPlaybackInfo
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.playback.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}/create-multistream-target"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: addMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.addMultistreamTarget("<value>", {
+                profile: "720p0",
+                videoOnly: false,
+                id: "PUSH123",
+                spec: {
+                  name: "My target",
+                  url: "rtmps://live.my-service.tv/channel/secretKey",
+                },
+              });
 
               // Handle the result
               console.log(result)
@@ -1252,11 +955,11 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/playback/{id}"]["get"]
+  - target: $["paths"]["/session/{id}"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getPlaybackInfo
+          label: getSession
           source: |-
             import { Livepeer } from "livepeer";
 
@@ -1265,27 +968,7 @@ actions:
             });
 
             async function run() {
-              const result = await livepeer.playback.get("<value>");
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/stream/{id}/terminate"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: terminateStream
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.stream.terminate("<value>");
+              const result = await livepeer.session.get("<value>");
 
               // Handle the result
               console.log(result)
@@ -1312,40 +995,31 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/session"]["get"]
+  - target: $["paths"]["/asset/{assetId}"]["patch"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: getSessions
+          label: updateAsset
           source: |-
             import { Livepeer } from "livepeer";
+            import { Type } from "livepeer/models/components";
 
             const livepeer = new Livepeer({
               apiKey: "<YOUR_BEARER_TOKEN_HERE>",
             });
 
             async function run() {
-              const result = await livepeer.session.getAll();
-
-              // Handle the result
-              console.log(result)
-            }
-
-            run();
-  - target: $["paths"]["/access-control/signing-key/{keyId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: deleteSigningKey
-          source: |-
-            import { Livepeer } from "livepeer";
-
-            const livepeer = new Livepeer({
-              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
-            });
-
-            async function run() {
-              const result = await livepeer.accessControl.delete("<value>");
+              const result = await livepeer.asset.update("<value>", {
+                name: "filename.mp4",
+                playbackPolicy: {
+                  type: Type.Webhook,
+                  webhookId: "1bde4o2i6xycudoy",
+                  webhookContext: {
+                    "streamerId": "my-custom-id",
+                  },
+                  refreshInterval: 600,
+                },
+              });
 
               // Handle the result
               console.log(result)
@@ -1366,6 +1040,347 @@ actions:
 
             async function run() {
               const result = await livepeer.multistream.getAll();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/session/{id}/clips"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSessionClips
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.session.getClips("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/clip"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createClip
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.createClip({
+                playbackId: "eaw4nk06ts2d0mzb",
+                startTime: 1587667174725,
+                endTime: 1587667174725,
+                name: "My Clip",
+                sessionId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/webhook/{id}/log/{logId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getWebhookLog
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.webhook.getLog("<value>", "<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRoom
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.get("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}/user"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createRoomUser
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.createUser("<value>", {
+                name: "name",
+                canPublish: true,
+                canPublishData: true,
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/webhook/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteWebhook
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.webhook.delete("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/data/usage/query"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getUsageMetrics
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.metrics.getUsage({});
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteRoom
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.delete("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}/multistream/{targetId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: removeMultistreamTarget
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.removeMultistreamTarget("<value>", "<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/webhook"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: createWebhook
+          source: |-
+            import { Livepeer } from "livepeer";
+            import { Events } from "livepeer/models/components";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.webhook.create({
+                name: "test_webhook",
+                projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+                events: [
+                  Events.StreamStarted,
+                  Events.StreamIdle,
+                ],
+                url: "https://my-service.com/webhook",
+                sharedSecret: "my-secret",
+                streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+              });
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/session"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getSessions
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.session.getAll();
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}/egress"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: stopRoomEgress
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.stopEgress("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/room/{id}/user/{userId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getRoomUser
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.room.getUser("<value>", "<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}/clips"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: getClips
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.getClips("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}/start-pull"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: startPullStream
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.startPull("<value>");
+
+              // Handle the result
+              console.log(result)
+            }
+
+            run();
+  - target: $["paths"]["/stream/{id}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: deleteStream
+          source: |-
+            import { Livepeer } from "livepeer";
+
+            const livepeer = new Livepeer({
+              apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+            });
+
+            async function run() {
+              const result = await livepeer.stream.delete("<value>");
 
               // Handle the result
               console.log(result)

@@ -39,14 +39,14 @@ export type FfmpegProfile = {
 
 /** @internal */
 export namespace Profile$ {
-    export const inboundSchema = z.nativeEnum(Profile);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof Profile> = z.nativeEnum(Profile);
+    export const outboundSchema: z.ZodNativeEnum<typeof Profile> = inboundSchema;
 }
 
 /** @internal */
 export namespace Encoder$ {
-    export const inboundSchema = z.nativeEnum(Encoder);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof Encoder> = z.nativeEnum(Encoder);
+    export const outboundSchema: z.ZodNativeEnum<typeof Encoder> = inboundSchema;
 }
 
 /** @internal */

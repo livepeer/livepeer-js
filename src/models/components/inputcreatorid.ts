@@ -17,8 +17,9 @@ export type InputCreatorId = InputCreatorId1 | string;
 
 /** @internal */
 export namespace InputCreatorIdType$ {
-    export const inboundSchema = z.nativeEnum(InputCreatorIdType);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof InputCreatorIdType> =
+        z.nativeEnum(InputCreatorIdType);
+    export const outboundSchema: z.ZodNativeEnum<typeof InputCreatorIdType> = inboundSchema;
 }
 
 /** @internal */

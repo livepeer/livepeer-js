@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: 542222dd6207ab2554389496b78b5e76
+  docChecksum: c8b66caae26fdb2e55e4c991f43f3e17
   docVersion: 1.0.0
-  speakeasyVersion: 1.308.1
-  generationVersion: 2.342.6
-  releaseVersion: 3.2.10
-  configChecksum: 0620211bfd78173b4aaf4b47f1d82cb0
+  speakeasyVersion: 1.325.0
+  generationVersion: 2.356.0
+  releaseVersion: 3.3.0
+  configChecksum: 22cdef2a2f8da75762c589c207a7ca75
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
 features:
@@ -14,7 +14,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.5
-    core: 3.9.14
+    core: 3.10.2
     deprecations: 2.81.1
     flattening: 2.81.1
     globalSecurity: 2.82.9
@@ -40,7 +40,7 @@ generatedFiles:
   - src/sdk/transcode.ts
   - src/sdk/playback.ts
   - src/sdk/sdk.ts
-  - .eslintrc.js
+  - .eslintrc.cjs
   - .npmignore
   - RUNTIMES.md
   - jsr.json
@@ -125,6 +125,7 @@ generatedFiles:
   - src/models/errors/error.ts
   - src/models/components/stream.ts
   - src/models/components/targetoutput.ts
+  - src/models/components/transcodeprofile.ts
   - src/models/components/ffmpegprofile.ts
   - src/models/components/playbackpolicy.ts
   - src/models/components/creatorid.ts
@@ -132,10 +133,10 @@ generatedFiles:
   - src/models/components/usertags.ts
   - src/models/components/multistream.ts
   - src/models/components/target.ts
-  - src/models/components/recordingspec.ts
   - src/models/components/inputcreatorid.ts
   - src/models/components/pull.ts
   - src/models/components/streampatchpayload.ts
+  - src/models/components/recordingspec.ts
   - src/models/components/asset.ts
   - src/models/components/storagestatus.ts
   - src/models/components/ipfsfileinfo.ts
@@ -148,7 +149,6 @@ generatedFiles:
   - src/models/components/webhook.ts
   - src/models/components/webhooklog.ts
   - src/models/components/newassetpayload.ts
-  - src/models/components/transcodeprofile.ts
   - src/models/components/spec.ts
   - src/models/components/newassetfromurlpayload.ts
   - src/models/components/encryption.ts
@@ -305,6 +305,9 @@ generatedFiles:
   - docs/models/components/renditions.md
   - docs/models/components/stream.md
   - docs/models/components/targetoutput.md
+  - docs/models/components/transcodeprofileprofile.md
+  - docs/models/components/transcodeprofileencoder.md
+  - docs/models/components/transcodeprofile.md
   - docs/models/components/profile.md
   - docs/models/components/encoder.md
   - docs/models/components/ffmpegprofile.md
@@ -313,13 +316,13 @@ generatedFiles:
   - docs/models/components/creatoridtype.md
   - docs/models/components/creatorid1.md
   - docs/models/components/creatorid.md
+  - docs/models/components/newstreampayloadrecordingspec.md
   - docs/models/components/newstreampayload.md
   - docs/models/components/three.md
   - docs/models/components/usertags.md
   - docs/models/components/multistream.md
   - docs/models/components/targetspec.md
   - docs/models/components/target.md
-  - docs/models/components/recordingspec.md
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md
@@ -328,6 +331,7 @@ generatedFiles:
   - docs/models/components/location.md
   - docs/models/components/pull.md
   - docs/models/components/streampatchpayload.md
+  - docs/models/components/recordingspec.md
   - docs/models/components/assettype.md
   - docs/models/components/assetschemassource3type.md
   - docs/models/components/asset3.md
@@ -372,9 +376,6 @@ generatedFiles:
   - docs/models/components/newassetpayloadstorage.md
   - docs/models/components/newassetpayloadencryption.md
   - docs/models/components/newassetpayload.md
-  - docs/models/components/transcodeprofileprofile.md
-  - docs/models/components/transcodeprofileencoder.md
-  - docs/models/components/transcodeprofile.md
   - docs/models/components/nftmetadatatemplate.md
   - docs/models/components/nftmetadata.md
   - docs/models/components/spec.md

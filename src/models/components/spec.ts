@@ -50,8 +50,9 @@ export type Spec = {
 
 /** @internal */
 export namespace NftMetadataTemplate$ {
-    export const inboundSchema = z.nativeEnum(NftMetadataTemplate);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof NftMetadataTemplate> =
+        z.nativeEnum(NftMetadataTemplate);
+    export const outboundSchema: z.ZodNativeEnum<typeof NftMetadataTemplate> = inboundSchema;
 }
 
 /** @internal */
