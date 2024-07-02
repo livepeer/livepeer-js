@@ -140,7 +140,7 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { Livepeer } from "livepeer";
-import * as errors from "livepeer/models/errors";
+import { SDKValidationError } from "livepeer/models/errors";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -152,7 +152,7 @@ async function run() {
         result = await livepeer.playback.get("<value>");
     } catch (err) {
         switch (true) {
-            case err instanceof errors.SDKValidationError: {
+            case err instanceof SDKValidationError: {
                 // Validation errors can be pretty-printed
                 console.error(err.pretty());
                 // Raw value may also be inspected
@@ -191,7 +191,12 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     serverIdx: 0,
@@ -238,13 +243,13 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -278,7 +283,12 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     serverURL: "https://livepeer.studio/api",
@@ -325,13 +335,13 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -422,7 +432,12 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -468,13 +483,13 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -511,10 +526,25 @@ run();
 npm add https://github.com/livepeer/livepeer-js
 ```
 
+### PNPM
+
+```bash
+pnpm add https://github.com/livepeer/livepeer-js
+```
+
+### Bun
+
+```bash
+bun add https://github.com/livepeer/livepeer-js
+```
+
 ### Yarn
 
 ```bash
-yarn add https://github.com/livepeer/livepeer-js
+yarn add https://github.com/livepeer/livepeer-js zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -531,7 +561,12 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -577,13 +612,13 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },

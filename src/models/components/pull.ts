@@ -72,8 +72,8 @@ export type Pull = {
 
 /** @internal */
 export namespace One$ {
-    export const inboundSchema = z.nativeEnum(One);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof One> = z.nativeEnum(One);
+    export const outboundSchema: z.ZodNativeEnum<typeof One> = inboundSchema;
 }
 
 /** @internal */

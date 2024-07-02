@@ -118,8 +118,8 @@ export type WebhookInput = {
 
 /** @internal */
 export namespace Events$ {
-    export const inboundSchema = z.nativeEnum(Events);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof Events> = z.nativeEnum(Events);
+    export const outboundSchema: z.ZodNativeEnum<typeof Events> = inboundSchema;
 }
 
 /** @internal */

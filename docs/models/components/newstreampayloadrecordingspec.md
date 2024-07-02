@@ -1,4 +1,4 @@
-# RecordingSpec
+# NewStreamPayloadRecordingSpec
 
 
 ## Fields

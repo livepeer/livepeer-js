@@ -42,14 +42,16 @@ export type TranscodeProfile = {
 
 /** @internal */
 export namespace TranscodeProfileProfile$ {
-    export const inboundSchema = z.nativeEnum(TranscodeProfileProfile);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof TranscodeProfileProfile> =
+        z.nativeEnum(TranscodeProfileProfile);
+    export const outboundSchema: z.ZodNativeEnum<typeof TranscodeProfileProfile> = inboundSchema;
 }
 
 /** @internal */
 export namespace TranscodeProfileEncoder$ {
-    export const inboundSchema = z.nativeEnum(TranscodeProfileEncoder);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof TranscodeProfileEncoder> =
+        z.nativeEnum(TranscodeProfileEncoder);
+    export const outboundSchema: z.ZodNativeEnum<typeof TranscodeProfileEncoder> = inboundSchema;
 }
 
 /** @internal */

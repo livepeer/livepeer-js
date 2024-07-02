@@ -20,8 +20,8 @@ export type CreatorId = CreatorId1;
 
 /** @internal */
 export namespace CreatorIdType$ {
-    export const inboundSchema = z.nativeEnum(CreatorIdType);
-    export const outboundSchema = inboundSchema;
+    export const inboundSchema: z.ZodNativeEnum<typeof CreatorIdType> = z.nativeEnum(CreatorIdType);
+    export const outboundSchema: z.ZodNativeEnum<typeof CreatorIdType> = inboundSchema;
 }
 
 /** @internal */
