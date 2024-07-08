@@ -11,5 +11,8 @@ targets:
         target: typescript
         source: livepeer-studio-api
         output: .
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             output: codeSamples.yaml
