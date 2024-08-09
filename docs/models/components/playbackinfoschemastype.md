@@ -10,4 +10,5 @@
 | `Html5VideoH264`                    | html5/video/h264                    |
 | `VideoXFlv`                         | video/x-flv                         |
 | `ImageJpeg`                         | image/jpeg                          |
+| `ImagePng`                          | image/png                           |
 | `TextVtt`                           | text/vtt                            |
