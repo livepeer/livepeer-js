@@ -55,3 +55,13 @@ Based on:
 - Speakeasy CLI 1.308.1 (2.342.6) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [typescript v3.2.10] .
+
+## 2024-08-12 00:20:51
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.361.1 (2.393.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v3.3.0] .
+### Releases
+- [NPM v3.3.0] https://www.npmjs.com/package/livepeer/v/3.3.0 - .

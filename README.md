@@ -140,7 +140,7 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { Livepeer } from "livepeer";
-import * as errors from "livepeer/models/errors";
+import { SDKValidationError } from "livepeer/models/errors";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -152,7 +152,7 @@ async function run() {
         result = await livepeer.playback.get("<value>");
     } catch (err) {
         switch (true) {
-            case err instanceof errors.SDKValidationError: {
+            case err instanceof SDKValidationError: {
                 // Validation errors can be pretty-printed
                 console.error(err.pretty());
                 // Raw value may also be inspected
@@ -191,7 +191,12 @@ You can override the default server globally by passing a server index to the `s
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     serverIdx: 0,
@@ -223,7 +228,7 @@ async function run() {
             {
                 width: 1280,
                 name: "720p",
-                height: 486589,
+                height: 720,
                 bitrate: 3000000,
                 fps: 30,
                 fpsDen: 1,
@@ -238,13 +243,14 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
+                    height: 720,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -278,7 +284,12 @@ The default server can also be overridden globally by passing a URL to the `serv
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     serverURL: "https://livepeer.studio/api",
@@ -310,7 +321,7 @@ async function run() {
             {
                 width: 1280,
                 name: "720p",
-                height: 486589,
+                height: 720,
                 bitrate: 3000000,
                 fps: 30,
                 fpsDen: 1,
@@ -325,13 +336,14 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
+                    height: 720,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -422,7 +434,12 @@ This SDK supports the following security scheme globally:
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -453,7 +470,7 @@ async function run() {
             {
                 width: 1280,
                 name: "720p",
-                height: 486589,
+                height: 720,
                 bitrate: 3000000,
                 fps: 30,
                 fpsDen: 1,
@@ -468,13 +485,14 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
+                    height: 720,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -508,13 +526,28 @@ run();
 ### NPM
 
 ```bash
-npm add https://github.com/livepeer/livepeer-js
+npm add livepeer
+```
+
+### PNPM
+
+```bash
+pnpm add livepeer
+```
+
+### Bun
+
+```bash
+bun add livepeer
 ```
 
 ### Yarn
 
 ```bash
-yarn add https://github.com/livepeer/livepeer-js
+yarn add livepeer zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -531,7 +564,12 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { Livepeer } from "livepeer";
-import { Profile, Type } from "livepeer/models/components";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
 
 const livepeer = new Livepeer({
     apiKey: "<YOUR_BEARER_TOKEN_HERE>",
@@ -562,7 +600,7 @@ async function run() {
             {
                 width: 1280,
                 name: "720p",
-                height: 486589,
+                height: 720,
                 bitrate: 3000000,
                 fps: 30,
                 fpsDen: 1,
@@ -577,13 +615,14 @@ async function run() {
                 {
                     width: 1280,
                     name: "720p",
-                    height: 489382,
+                    height: 720,
                     bitrate: 3000000,
+                    quality: 23,
                     fps: 30,
                     fpsDen: 1,
-                    quality: 23,
                     gop: "2",
-                    profile: Profile.H264Baseline,
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
                 },
             ],
         },
@@ -677,6 +716,7 @@ run();
 
 ### [metrics](docs/sdks/metrics/README.md)
 
+* [getRealtimeViewership](docs/sdks/metrics/README.md#getrealtimeviewership) - Query realtime viewership
 * [getViewership](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
 * [getCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
 * [getPublicViewership](docs/sdks/metrics/README.md#getpublicviewership) - Query public total views metrics
@@ -703,6 +743,227 @@ run();
 
 * [get](docs/sdks/playback/README.md#get) - Retrieve Playback Info
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```typescript
+import { Livepeer } from "livepeer";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
+
+const livepeer = new Livepeer({
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+    const result = await livepeer.stream.create(
+        {
+            name: "test_stream",
+            pull: {
+                source: "https://myservice.com/live/stream.flv",
+                headers: {
+                    Authorization: "Bearer 123",
+                },
+                location: {
+                    lat: 39.739,
+                    lon: -104.988,
+                },
+            },
+            playbackPolicy: {
+                type: Type.Webhook,
+                webhookId: "1bde4o2i6xycudoy",
+                webhookContext: {
+                    streamerId: "my-custom-id",
+                },
+                refreshInterval: 600,
+            },
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 720,
+                    bitrate: 3000000,
+                    fps: 30,
+                    fpsDen: 1,
+                    quality: 23,
+                    gop: "2",
+                    profile: Profile.H264Baseline,
+                },
+            ],
+            record: false,
+            recordingSpec: {
+                profiles: [
+                    {
+                        width: 1280,
+                        name: "720p",
+                        height: 720,
+                        bitrate: 3000000,
+                        quality: 23,
+                        fps: 30,
+                        fpsDen: 1,
+                        gop: "2",
+                        profile: TranscodeProfileProfile.H264Baseline,
+                        encoder: TranscodeProfileEncoder.H264,
+                    },
+                ],
+            },
+            multistream: {
+                targets: [
+                    {
+                        profile: "720p",
+                        videoOnly: false,
+                        id: "PUSH123",
+                        spec: {
+                            name: "My target",
+                            url: "rtmps://live.my-service.tv/channel/secretKey",
+                        },
+                    },
+                ],
+            },
+        },
+        {
+            retries: {
+                strategy: "backoff",
+                backoff: {
+                    initialInterval: 1,
+                    maxInterval: 50,
+                    exponent: 1.1,
+                    maxElapsedTime: 100,
+                },
+                retryConnectionErrors: false,
+            },
+        }
+    );
+
+    // Handle the result
+    console.log(result);
+}
+
+run();
+
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
+```typescript
+import { Livepeer } from "livepeer";
+import {
+    Profile,
+    TranscodeProfileEncoder,
+    TranscodeProfileProfile,
+    Type,
+} from "livepeer/models/components";
+
+const livepeer = new Livepeer({
+    retryConfig: {
+        strategy: "backoff",
+        backoff: {
+            initialInterval: 1,
+            maxInterval: 50,
+            exponent: 1.1,
+            maxElapsedTime: 100,
+        },
+        retryConnectionErrors: false,
+    },
+    apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+    const result = await livepeer.stream.create({
+        name: "test_stream",
+        pull: {
+            source: "https://myservice.com/live/stream.flv",
+            headers: {
+                Authorization: "Bearer 123",
+            },
+            location: {
+                lat: 39.739,
+                lon: -104.988,
+            },
+        },
+        playbackPolicy: {
+            type: Type.Webhook,
+            webhookId: "1bde4o2i6xycudoy",
+            webhookContext: {
+                streamerId: "my-custom-id",
+            },
+            refreshInterval: 600,
+        },
+        profiles: [
+            {
+                width: 1280,
+                name: "720p",
+                height: 720,
+                bitrate: 3000000,
+                fps: 30,
+                fpsDen: 1,
+                quality: 23,
+                gop: "2",
+                profile: Profile.H264Baseline,
+            },
+        ],
+        record: false,
+        recordingSpec: {
+            profiles: [
+                {
+                    width: 1280,
+                    name: "720p",
+                    height: 720,
+                    bitrate: 3000000,
+                    quality: 23,
+                    fps: 30,
+                    fpsDen: 1,
+                    gop: "2",
+                    profile: TranscodeProfileProfile.H264Baseline,
+                    encoder: TranscodeProfileEncoder.H264,
+                },
+            ],
+        },
+        multistream: {
+            targets: [
+                {
+                    profile: "720p",
+                    videoOnly: false,
+                    id: "PUSH123",
+                    spec: {
+                        name: "My target",
+                        url: "rtmps://live.my-service.tv/channel/secretKey",
+                    },
+                },
+            ],
+        },
+    });
+
+    // Handle the result
+    console.log(result);
+}
+
+run();
+
+```
+<!-- End Retries [retries] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+To log HTTP requests and responses, you can pass a logger that matches `console`'s interface as an SDK option.
+
+> [!WARNING]
+> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
+
+```typescript
+import { Livepeer } from "livepeer";
+
+const sdk = new Livepeer({ debugLogger: console });
+```
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

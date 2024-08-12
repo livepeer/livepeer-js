@@ -1,23 +1,26 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: 542222dd6207ab2554389496b78b5e76
+  docChecksum: b5a2c208bc36f884f74846e5b9777fb8
   docVersion: 1.0.0
-  speakeasyVersion: 1.308.1
-  generationVersion: 2.342.6
-  releaseVersion: 3.2.10
-  configChecksum: 0620211bfd78173b4aaf4b47f1d82cb0
+  speakeasyVersion: 1.361.1
+  generationVersion: 2.393.4
+  releaseVersion: 3.3.0
+  configChecksum: c57c819eb337867646803b8f83cc7f64
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
+  published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
-    constsAndDefaults: 0.1.5
-    core: 3.9.14
+    constsAndDefaults: 0.1.7
+    core: 3.13.1
+    defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
+    envVarSecurityUsage: 0.1.1
     flattening: 2.81.1
-    globalSecurity: 2.82.9
+    globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
@@ -25,9 +28,67 @@ features:
     nameOverrides: 2.81.2
     nullables: 0.1.0
     responseFormat: 0.2.3
+    retries: 2.83.0
     sdkHooks: 0.1.0
-    unions: 2.85.5
+    unions: 2.85.7
 generatedFiles:
+  - src/funcs/streamCreate.ts
+  - src/funcs/streamGetAll.ts
+  - src/funcs/streamGet.ts
+  - src/funcs/streamUpdate.ts
+  - src/funcs/streamDelete.ts
+  - src/funcs/streamTerminate.ts
+  - src/funcs/streamStartPull.ts
+  - src/funcs/streamCreateClip.ts
+  - src/funcs/streamGetClips.ts
+  - src/funcs/streamAddMultistreamTarget.ts
+  - src/funcs/streamRemoveMultistreamTarget.ts
+  - src/funcs/multistreamGetAll.ts
+  - src/funcs/multistreamCreate.ts
+  - src/funcs/multistreamGet.ts
+  - src/funcs/multistreamUpdate.ts
+  - src/funcs/multistreamDelete.ts
+  - src/funcs/webhookGetAll.ts
+  - src/funcs/webhookCreate.ts
+  - src/funcs/webhookGet.ts
+  - src/funcs/webhookUpdate.ts
+  - src/funcs/webhookDelete.ts
+  - src/funcs/webhookGetLogs.ts
+  - src/funcs/webhookGetLog.ts
+  - src/funcs/webhookResendLog.ts
+  - src/funcs/assetGetAll.ts
+  - src/funcs/assetCreate.ts
+  - src/funcs/assetCreateViaUrl.ts
+  - src/funcs/assetGet.ts
+  - src/funcs/assetUpdate.ts
+  - src/funcs/assetDelete.ts
+  - src/funcs/sessionGetClips.ts
+  - src/funcs/sessionGetAll.ts
+  - src/funcs/sessionGet.ts
+  - src/funcs/sessionGetRecorded.ts
+  - src/funcs/roomCreate.ts
+  - src/funcs/roomGet.ts
+  - src/funcs/roomDelete.ts
+  - src/funcs/roomStartEgress.ts
+  - src/funcs/roomStopEgress.ts
+  - src/funcs/roomCreateUser.ts
+  - src/funcs/roomGetUser.ts
+  - src/funcs/roomUpdateUser.ts
+  - src/funcs/roomDeleteUser.ts
+  - src/funcs/metricsGetRealtimeViewership.ts
+  - src/funcs/metricsGetViewership.ts
+  - src/funcs/metricsGetCreatorViewership.ts
+  - src/funcs/metricsGetPublicViewership.ts
+  - src/funcs/metricsGetUsage.ts
+  - src/funcs/accessControlCreate.ts
+  - src/funcs/accessControlGetAll.ts
+  - src/funcs/accessControlDelete.ts
+  - src/funcs/accessControlGet.ts
+  - src/funcs/accessControlUpdate.ts
+  - src/funcs/taskGetAll.ts
+  - src/funcs/taskGet.ts
+  - src/funcs/transcodeCreate.ts
+  - src/funcs/playbackGet.ts
   - src/sdk/stream.ts
   - src/sdk/multistream.ts
   - src/sdk/webhook.ts
@@ -40,17 +101,21 @@ generatedFiles:
   - src/sdk/transcode.ts
   - src/sdk/playback.ts
   - src/sdk/sdk.ts
-  - .eslintrc.js
+  - .eslintrc.cjs
   - .npmignore
   - RUNTIMES.md
   - jsr.json
   - package.json
+  - src/core.ts
   - src/index.ts
   - src/lib/base64.ts
   - src/lib/config.ts
+  - src/lib/dlv.ts
   - src/lib/encodings.ts
   - src/lib/http.ts
   - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
   - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts
@@ -58,10 +123,13 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/sdk/index.ts
+  - src/models/errors/httpclienterrors.ts
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/types/blobs.ts
+  - src/types/constdatetime.ts
   - src/types/enums.ts
+  - src/types/fp.ts
   - src/types/index.ts
   - src/types/operations.ts
   - src/types/rfcdate.ts
@@ -109,6 +177,7 @@ generatedFiles:
   - src/models/operations/getroomuser.ts
   - src/models/operations/updateroomuser.ts
   - src/models/operations/deleteroomuser.ts
+  - src/models/operations/getrealtimeviewershipnow.ts
   - src/models/operations/getviewershipmetrics.ts
   - src/models/operations/getcreatorviewershipmetrics.ts
   - src/models/operations/getpublicviewershipmetrics.ts
@@ -125,6 +194,7 @@ generatedFiles:
   - src/models/errors/error.ts
   - src/models/components/stream.ts
   - src/models/components/targetoutput.ts
+  - src/models/components/transcodeprofile.ts
   - src/models/components/ffmpegprofile.ts
   - src/models/components/playbackpolicy.ts
   - src/models/components/creatorid.ts
@@ -132,10 +202,10 @@ generatedFiles:
   - src/models/components/usertags.ts
   - src/models/components/multistream.ts
   - src/models/components/target.ts
-  - src/models/components/recordingspec.ts
   - src/models/components/inputcreatorid.ts
   - src/models/components/pull.ts
   - src/models/components/streampatchpayload.ts
+  - src/models/components/recordingspec.ts
   - src/models/components/asset.ts
   - src/models/components/storagestatus.ts
   - src/models/components/ipfsfileinfo.ts
@@ -148,7 +218,6 @@ generatedFiles:
   - src/models/components/webhook.ts
   - src/models/components/webhooklog.ts
   - src/models/components/newassetpayload.ts
-  - src/models/components/transcodeprofile.ts
   - src/models/components/spec.ts
   - src/models/components/newassetfromurlpayload.ts
   - src/models/components/encryption.ts
@@ -162,6 +231,7 @@ generatedFiles:
   - src/models/components/roomuserpayload.ts
   - src/models/components/getroomuserresponse.ts
   - src/models/components/roomuserupdatepayload.ts
+  - src/models/components/realtimeviewershipmetric.ts
   - src/models/components/viewershipmetric.ts
   - src/models/components/usagemetric.ts
   - src/models/components/signingkey.ts
@@ -259,16 +329,19 @@ generatedFiles:
   - docs/models/operations/updateroomuserresponse.md
   - docs/models/operations/deleteroomuserrequest.md
   - docs/models/operations/deleteroomuserresponse.md
+  - docs/models/operations/breakdownby.md
+  - docs/models/operations/getrealtimeviewershipnowrequest.md
+  - docs/models/operations/getrealtimeviewershipnowresponse.md
   - docs/models/operations/from.md
   - docs/models/operations/to.md
   - docs/models/operations/timestep.md
-  - docs/models/operations/breakdownby.md
+  - docs/models/operations/queryparambreakdownby.md
   - docs/models/operations/getviewershipmetricsrequest.md
   - docs/models/operations/getviewershipmetricsresponse.md
   - docs/models/operations/queryparamfrom.md
   - docs/models/operations/queryparamto.md
   - docs/models/operations/queryparamtimestep.md
-  - docs/models/operations/queryparambreakdownby.md
+  - docs/models/operations/getcreatorviewershipmetricsqueryparambreakdownby.md
   - docs/models/operations/getcreatorviewershipmetricsrequest.md
   - docs/models/operations/getcreatorviewershipmetricsresponse.md
   - docs/models/operations/getpublicviewershipmetricsrequest.md
@@ -305,6 +378,9 @@ generatedFiles:
   - docs/models/components/renditions.md
   - docs/models/components/stream.md
   - docs/models/components/targetoutput.md
+  - docs/models/components/transcodeprofileprofile.md
+  - docs/models/components/transcodeprofileencoder.md
+  - docs/models/components/transcodeprofile.md
   - docs/models/components/profile.md
   - docs/models/components/encoder.md
   - docs/models/components/ffmpegprofile.md
@@ -313,13 +389,13 @@ generatedFiles:
   - docs/models/components/creatoridtype.md
   - docs/models/components/creatorid1.md
   - docs/models/components/creatorid.md
+  - docs/models/components/newstreampayloadrecordingspec.md
   - docs/models/components/newstreampayload.md
   - docs/models/components/three.md
   - docs/models/components/usertags.md
   - docs/models/components/multistream.md
   - docs/models/components/targetspec.md
   - docs/models/components/target.md
-  - docs/models/components/recordingspec.md
   - docs/models/components/inputcreatoridtype.md
   - docs/models/components/inputcreatorid1.md
   - docs/models/components/inputcreatorid.md
@@ -328,6 +404,7 @@ generatedFiles:
   - docs/models/components/location.md
   - docs/models/components/pull.md
   - docs/models/components/streampatchpayload.md
+  - docs/models/components/recordingspec.md
   - docs/models/components/assettype.md
   - docs/models/components/assetschemassource3type.md
   - docs/models/components/asset3.md
@@ -372,9 +449,6 @@ generatedFiles:
   - docs/models/components/newassetpayloadstorage.md
   - docs/models/components/newassetpayloadencryption.md
   - docs/models/components/newassetpayload.md
-  - docs/models/components/transcodeprofileprofile.md
-  - docs/models/components/transcodeprofileencoder.md
-  - docs/models/components/transcodeprofile.md
   - docs/models/components/nftmetadatatemplate.md
   - docs/models/components/nftmetadata.md
   - docs/models/components/spec.md
@@ -394,6 +468,7 @@ generatedFiles:
   - docs/models/components/roomuserpayload.md
   - docs/models/components/getroomuserresponse.md
   - docs/models/components/roomuserupdatepayload.md
+  - docs/models/components/realtimeviewershipmetric.md
   - docs/models/components/viewershipmetric.md
   - docs/models/components/usagemetric.md
   - docs/models/components/signingkey.md
@@ -467,6 +542,7 @@ generatedFiles:
   - docs/models/components/attestation.md
   - docs/models/components/security.md
   - docs/sdks/livepeer/README.md
+  - docs/lib/utils/retryconfig.md
   - docs/sdks/stream/README.md
   - docs/sdks/multistream/README.md
   - docs/sdks/webhook/README.md
@@ -483,3 +559,4 @@ generatedFiles:
   - src/hooks/hooks.ts
   - src/hooks/types.ts
   - src/hooks/index.ts
+  - CONTRIBUTING.md
