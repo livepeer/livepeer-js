@@ -1,9 +1,9 @@
-speakeasyVersion: 1.308.1
+speakeasyVersion: 1.361.1
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:40e172ae8b80e514824e08d6d2884e7a9710524e03f3d62dc4e9f220bcdc2252
-        sourceBlobDigest: sha256:01918d33aedd81e4dcd71eb34ae674519049f03446df95542d36fab34e95bcd0
+        sourceRevisionDigest: sha256:353f7705b22bd4d8752ae70ee51108278e5851840859ea22ff21ebd185167d83
+        sourceBlobDigest: sha256:dc5764ae552f1fa5f17dc9d84c3e49ddb1208e4096f65357ec5aae7657f8afb6
         tags:
             - latest
             - main
@@ -11,8 +11,8 @@ targets:
     livepeer-ts:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:40e172ae8b80e514824e08d6d2884e7a9710524e03f3d62dc4e9f220bcdc2252
-        sourceBlobDigest: sha256:01918d33aedd81e4dcd71eb34ae674519049f03446df95542d36fab34e95bcd0
+        sourceRevisionDigest: sha256:353f7705b22bd4d8752ae70ee51108278e5851840859ea22ff21ebd185167d83
+        sourceBlobDigest: sha256:dc5764ae552f1fa5f17dc9d84c3e49ddb1208e4096f65357ec5aae7657f8afb6
         outLocation: .
 workflow:
     workflowVersion: 1.0.0
@@ -28,5 +28,8 @@ workflow:
             target: typescript
             source: livepeer-studio-api
             output: .
+            publish:
+                npm:
+                    token: $npm_token
             codeSamples:
                 output: codeSamples.yaml

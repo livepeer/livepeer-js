@@ -1,2 +1,23 @@
 # StreamUserTags
 
+
+## Supported Types
+
+### `string`
+
+```typescript
+const value: string = /* values here */
+```
+
+### `number`
+
+```typescript
+const value: number = /* values here */
+```
+
+### `components.Stream3[]`
+
+```typescript
+const value: components.Stream3[] = /* values here */
+```
+

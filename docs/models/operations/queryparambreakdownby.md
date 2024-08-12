@@ -5,6 +5,7 @@
 
 | Name            | Value           |
 | --------------- | --------------- |
+| `PlaybackId`    | playbackId      |
 | `DeviceType`    | deviceType      |
 | `Device`        | device          |
 | `Cpu`           | cpu             |
@@ -15,4 +16,6 @@
 | `Country`       | country         |
 | `Subdivision`   | subdivision     |
 | `Timezone`      | timezone        |
+| `Geohash`       | geohash         |
 | `ViewerId`      | viewerId        |
+| `CreatorId`     | creatorId       |

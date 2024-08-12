@@ -12,4 +12,5 @@ Human Readable Name
 | `WebRTCH264`     | WebRTC (H264)    |
 | `FlvH264`        | FLV (H264)       |
 | `ThumbnailJPEG`  | Thumbnail (JPEG) |
+| `ThumbnailPNG`   | Thumbnail (PNG)  |
 | `Thumbnails`     | Thumbnails       |
