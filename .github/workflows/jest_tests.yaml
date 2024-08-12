@@ -17,12 +17,16 @@ jobs:
         node-version: [18.x]  # You can specify multiple Node.js versions to test against
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+
+    - name: Install Yarn
+      run: corepack enable && corepack prepare yarn@stable --activate
 
     - name: Install dependencies
       run: yarn install
