@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: b5a2c208bc36f884f74846e5b9777fb8
+  docChecksum: 59634240879b8bce1b699c21c7f4f276
   docVersion: 1.0.0
   speakeasyVersion: 1.361.1
   generationVersion: 2.393.4
-  releaseVersion: 3.3.0
-  configChecksum: c57c819eb337867646803b8f83cc7f64
+  releaseVersion: 3.3.1
+  configChecksum: 7ebb1940798499b899babe33ab6f6e13
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
   published: true
