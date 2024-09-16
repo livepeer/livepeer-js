@@ -4,6 +4,7 @@ sources:
     livepeer-studio-api:
         inputs:
             - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/api-schema.yaml
+            - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/ai-api-schema.yaml
         registry:
             location: registry.speakeasyapi.dev/livepeer/livepeer-studio/livepeer-studio-api
 targets:
