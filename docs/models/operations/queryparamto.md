@@ -2,6 +2,13 @@
 
 End timestamp for the query range (exclusive)
 
+## Example Usage
+
+```typescript
+import { QueryParamTo } from "livepeer/models/operations";
+
+let value: QueryParamTo = 528895;
+```
 
 ## Supported Types
 

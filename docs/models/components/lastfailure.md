@@ -2,6 +2,18 @@
 
 failure timestamp and error message with status code
 
+## Example Usage
+
+```typescript
+import { LastFailure } from "livepeer/models/components";
+
+let value: LastFailure = {
+  timestamp: 1587667174725,
+  error: "Error message",
+  response: "Response body",
+  statusCode: 500,
+};
+```
 
 ## Fields
 

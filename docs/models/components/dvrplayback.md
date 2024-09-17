@@ -1,5 +1,17 @@
 # DvrPlayback
 
+## Example Usage
+
+```typescript
+import { DvrPlayback, PlaybackInfoHrn, PlaybackInfoSchemasMetaType } from "livepeer/models/components";
+
+let value: DvrPlayback = {
+  hrn: PlaybackInfoHrn.HlsTs,
+  type: PlaybackInfoSchemasMetaType.Html5ApplicationVndAppleMpegurl,
+  url:
+    "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4",
+};
+```
 
 ## Fields
 

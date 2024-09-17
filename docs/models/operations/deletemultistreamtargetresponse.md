@@ -1,5 +1,12 @@
 # DeleteMultistreamTargetResponse
 
+## Example Usage
+
+```typescript
+import { DeleteMultistreamTargetResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

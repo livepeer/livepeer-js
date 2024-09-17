@@ -5,33 +5,33 @@
 import * as z from "zod";
 
 export type CreateRoomResponse = {
-    /**
-     * The ID of the room
-     */
-    id?: string | undefined;
+  /**
+   * The ID of the room
+   */
+  id?: string | undefined;
 };
 
 /** @internal */
 export const CreateRoomResponse$inboundSchema: z.ZodType<
-    CreateRoomResponse,
-    z.ZodTypeDef,
-    unknown
+  CreateRoomResponse,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-    id: z.string().optional(),
+  id: z.string().optional(),
 });
 
 /** @internal */
 export type CreateRoomResponse$Outbound = {
-    id?: string | undefined;
+  id?: string | undefined;
 };
 
 /** @internal */
 export const CreateRoomResponse$outboundSchema: z.ZodType<
-    CreateRoomResponse$Outbound,
-    z.ZodTypeDef,
-    CreateRoomResponse
+  CreateRoomResponse$Outbound,
+  z.ZodTypeDef,
+  CreateRoomResponse
 > = z.object({
-    id: z.string().optional(),
+  id: z.string().optional(),
 });
 
 /**
@@ -39,10 +39,10 @@ export const CreateRoomResponse$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace CreateRoomResponse$ {
-    /** @deprecated use `CreateRoomResponse$inboundSchema` instead. */
-    export const inboundSchema = CreateRoomResponse$inboundSchema;
-    /** @deprecated use `CreateRoomResponse$outboundSchema` instead. */
-    export const outboundSchema = CreateRoomResponse$outboundSchema;
-    /** @deprecated use `CreateRoomResponse$Outbound` instead. */
-    export type Outbound = CreateRoomResponse$Outbound;
+  /** @deprecated use `CreateRoomResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateRoomResponse$inboundSchema;
+  /** @deprecated use `CreateRoomResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateRoomResponse$outboundSchema;
+  /** @deprecated use `CreateRoomResponse$Outbound` instead. */
+  export type Outbound = CreateRoomResponse$Outbound;
 }

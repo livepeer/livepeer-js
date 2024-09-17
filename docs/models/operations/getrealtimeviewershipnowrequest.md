@@ -1,5 +1,12 @@
 # GetRealtimeViewershipNowRequest
 
+## Example Usage
+
+```typescript
+import { GetRealtimeViewershipNowRequest } from "livepeer/models/operations";
+
+let value: GetRealtimeViewershipNowRequest = {};
+```
 
 ## Fields
 

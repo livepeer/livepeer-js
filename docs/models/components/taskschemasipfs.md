@@ -1,5 +1,14 @@
 # TaskSchemasIpfs
 
+## Example Usage
+
+```typescript
+import { TaskSchemasIpfs } from "livepeer/models/components";
+
+let value: TaskSchemasIpfs = {
+  cid: "Qmabc123xyz341",
+};
+```
 
 ## Fields
 

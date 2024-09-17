@@ -1,5 +1,14 @@
 # AssetIpfs
 
+## Example Usage
+
+```typescript
+import { AssetIpfs } from "livepeer/models/components";
+
+let value: AssetIpfs = {
+  updatedAt: 1587667174725,
+};
+```
 
 ## Fields
 

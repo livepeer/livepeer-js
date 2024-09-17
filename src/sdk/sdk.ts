@@ -5,6 +5,7 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { AccessControl } from "./accesscontrol.js";
 import { Asset } from "./asset.js";
+import { Generate } from "./generate.js";
 import { Metrics } from "./metrics.js";
 import { Multistream } from "./multistream.js";
 import { Playback } from "./playback.js";
@@ -16,58 +17,63 @@ import { Transcode } from "./transcode.js";
 import { Webhook } from "./webhook.js";
 
 export class Livepeer extends ClientSDK {
-    private _stream?: Stream;
-    get stream(): Stream {
-        return (this._stream ??= new Stream(this.options$));
-    }
+  private _stream?: Stream;
+  get stream(): Stream {
+    return (this._stream ??= new Stream(this.options$));
+  }
 
-    private _multistream?: Multistream;
-    get multistream(): Multistream {
-        return (this._multistream ??= new Multistream(this.options$));
-    }
+  private _multistream?: Multistream;
+  get multistream(): Multistream {
+    return (this._multistream ??= new Multistream(this.options$));
+  }
 
-    private _webhook?: Webhook;
-    get webhook(): Webhook {
-        return (this._webhook ??= new Webhook(this.options$));
-    }
+  private _webhook?: Webhook;
+  get webhook(): Webhook {
+    return (this._webhook ??= new Webhook(this.options$));
+  }
 
-    private _asset?: Asset;
-    get asset(): Asset {
-        return (this._asset ??= new Asset(this.options$));
-    }
+  private _asset?: Asset;
+  get asset(): Asset {
+    return (this._asset ??= new Asset(this.options$));
+  }
 
-    private _session?: Session;
-    get session(): Session {
-        return (this._session ??= new Session(this.options$));
-    }
+  private _session?: Session;
+  get session(): Session {
+    return (this._session ??= new Session(this.options$));
+  }
 
-    private _room?: Room;
-    get room(): Room {
-        return (this._room ??= new Room(this.options$));
-    }
+  private _room?: Room;
+  get room(): Room {
+    return (this._room ??= new Room(this.options$));
+  }
 
-    private _metrics?: Metrics;
-    get metrics(): Metrics {
-        return (this._metrics ??= new Metrics(this.options$));
-    }
+  private _metrics?: Metrics;
+  get metrics(): Metrics {
+    return (this._metrics ??= new Metrics(this.options$));
+  }
 
-    private _accessControl?: AccessControl;
-    get accessControl(): AccessControl {
-        return (this._accessControl ??= new AccessControl(this.options$));
-    }
+  private _accessControl?: AccessControl;
+  get accessControl(): AccessControl {
+    return (this._accessControl ??= new AccessControl(this.options$));
+  }
 
-    private _task?: Task;
-    get task(): Task {
-        return (this._task ??= new Task(this.options$));
-    }
+  private _task?: Task;
+  get task(): Task {
+    return (this._task ??= new Task(this.options$));
+  }
 
-    private _transcode?: Transcode;
-    get transcode(): Transcode {
-        return (this._transcode ??= new Transcode(this.options$));
-    }
+  private _transcode?: Transcode;
+  get transcode(): Transcode {
+    return (this._transcode ??= new Transcode(this.options$));
+  }
 
-    private _playback?: Playback;
-    get playback(): Playback {
-        return (this._playback ??= new Playback(this.options$));
-    }
+  private _playback?: Playback;
+  get playback(): Playback {
+    return (this._playback ??= new Playback(this.options$));
+  }
+
+  private _generate?: Generate;
+  get generate(): Generate {
+    return (this._generate ??= new Generate(this.options$));
+  }
 }

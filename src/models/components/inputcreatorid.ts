@@ -5,56 +5,61 @@
 import * as z from "zod";
 
 export enum InputCreatorIdType {
-    Unverified = "unverified",
+  Unverified = "unverified",
 }
 
 export type InputCreatorId1 = {
-    type: InputCreatorIdType;
-    value: string;
+  type: InputCreatorIdType;
+  value: string;
 };
 
 export type InputCreatorId = InputCreatorId1 | string;
 
 /** @internal */
-export const InputCreatorIdType$inboundSchema: z.ZodNativeEnum<typeof InputCreatorIdType> =
-    z.nativeEnum(InputCreatorIdType);
+export const InputCreatorIdType$inboundSchema: z.ZodNativeEnum<
+  typeof InputCreatorIdType
+> = z.nativeEnum(InputCreatorIdType);
 
 /** @internal */
-export const InputCreatorIdType$outboundSchema: z.ZodNativeEnum<typeof InputCreatorIdType> =
-    InputCreatorIdType$inboundSchema;
+export const InputCreatorIdType$outboundSchema: z.ZodNativeEnum<
+  typeof InputCreatorIdType
+> = InputCreatorIdType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace InputCreatorIdType$ {
-    /** @deprecated use `InputCreatorIdType$inboundSchema` instead. */
-    export const inboundSchema = InputCreatorIdType$inboundSchema;
-    /** @deprecated use `InputCreatorIdType$outboundSchema` instead. */
-    export const outboundSchema = InputCreatorIdType$outboundSchema;
+  /** @deprecated use `InputCreatorIdType$inboundSchema` instead. */
+  export const inboundSchema = InputCreatorIdType$inboundSchema;
+  /** @deprecated use `InputCreatorIdType$outboundSchema` instead. */
+  export const outboundSchema = InputCreatorIdType$outboundSchema;
 }
 
 /** @internal */
-export const InputCreatorId1$inboundSchema: z.ZodType<InputCreatorId1, z.ZodTypeDef, unknown> =
-    z.object({
-        type: InputCreatorIdType$inboundSchema,
-        value: z.string(),
-    });
+export const InputCreatorId1$inboundSchema: z.ZodType<
+  InputCreatorId1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: InputCreatorIdType$inboundSchema,
+  value: z.string(),
+});
 
 /** @internal */
 export type InputCreatorId1$Outbound = {
-    type: string;
-    value: string;
+  type: string;
+  value: string;
 };
 
 /** @internal */
 export const InputCreatorId1$outboundSchema: z.ZodType<
-    InputCreatorId1$Outbound,
-    z.ZodTypeDef,
-    InputCreatorId1
+  InputCreatorId1$Outbound,
+  z.ZodTypeDef,
+  InputCreatorId1
 > = z.object({
-    type: InputCreatorIdType$outboundSchema,
-    value: z.string(),
+  type: InputCreatorIdType$outboundSchema,
+  value: z.string(),
 });
 
 /**
@@ -62,26 +67,29 @@ export const InputCreatorId1$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace InputCreatorId1$ {
-    /** @deprecated use `InputCreatorId1$inboundSchema` instead. */
-    export const inboundSchema = InputCreatorId1$inboundSchema;
-    /** @deprecated use `InputCreatorId1$outboundSchema` instead. */
-    export const outboundSchema = InputCreatorId1$outboundSchema;
-    /** @deprecated use `InputCreatorId1$Outbound` instead. */
-    export type Outbound = InputCreatorId1$Outbound;
+  /** @deprecated use `InputCreatorId1$inboundSchema` instead. */
+  export const inboundSchema = InputCreatorId1$inboundSchema;
+  /** @deprecated use `InputCreatorId1$outboundSchema` instead. */
+  export const outboundSchema = InputCreatorId1$outboundSchema;
+  /** @deprecated use `InputCreatorId1$Outbound` instead. */
+  export type Outbound = InputCreatorId1$Outbound;
 }
 
 /** @internal */
-export const InputCreatorId$inboundSchema: z.ZodType<InputCreatorId, z.ZodTypeDef, unknown> =
-    z.union([z.lazy(() => InputCreatorId1$inboundSchema), z.string()]);
+export const InputCreatorId$inboundSchema: z.ZodType<
+  InputCreatorId,
+  z.ZodTypeDef,
+  unknown
+> = z.union([z.lazy(() => InputCreatorId1$inboundSchema), z.string()]);
 
 /** @internal */
 export type InputCreatorId$Outbound = InputCreatorId1$Outbound | string;
 
 /** @internal */
 export const InputCreatorId$outboundSchema: z.ZodType<
-    InputCreatorId$Outbound,
-    z.ZodTypeDef,
-    InputCreatorId
+  InputCreatorId$Outbound,
+  z.ZodTypeDef,
+  InputCreatorId
 > = z.union([z.lazy(() => InputCreatorId1$outboundSchema), z.string()]);
 
 /**
@@ -89,10 +97,10 @@ export const InputCreatorId$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace InputCreatorId$ {
-    /** @deprecated use `InputCreatorId$inboundSchema` instead. */
-    export const inboundSchema = InputCreatorId$inboundSchema;
-    /** @deprecated use `InputCreatorId$outboundSchema` instead. */
-    export const outboundSchema = InputCreatorId$outboundSchema;
-    /** @deprecated use `InputCreatorId$Outbound` instead. */
-    export type Outbound = InputCreatorId$Outbound;
+  /** @deprecated use `InputCreatorId$inboundSchema` instead. */
+  export const inboundSchema = InputCreatorId$inboundSchema;
+  /** @deprecated use `InputCreatorId$outboundSchema` instead. */
+  export const outboundSchema = InputCreatorId$outboundSchema;
+  /** @deprecated use `InputCreatorId$Outbound` instead. */
+  export type Outbound = InputCreatorId$Outbound;
 }

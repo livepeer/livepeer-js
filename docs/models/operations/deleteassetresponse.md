@@ -1,5 +1,12 @@
 # DeleteAssetResponse
 
+## Example Usage
+
+```typescript
+import { DeleteAssetResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

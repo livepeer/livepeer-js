@@ -1,0 +1,16 @@
+# BodyGenAudioToText
+
+## Example Usage
+
+```typescript
+import { BodyGenAudioToText } from "livepeer/models/components";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                                                                                | Type                                                                                                                                                                                 | Required                                                                                                                                                                             | Description                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `audio`                                                                                                                                                                              | [File](https://developer.mozilla.org/en-US/docs/Web/API/File) \| [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) \| [components.Audio](../../models/components/audio.md) | :heavy_check_mark:                                                                                                                                                                   | Uploaded audio file to be transcribed.                                                                                                                                               |
+| `modelId`                                                                                                                                                                            | *string*                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                   | Hugging Face model ID used for transcription.                                                                                                                                        |

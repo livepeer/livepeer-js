@@ -2,6 +2,23 @@
 
 Output formats
 
+## Example Usage
+
+```typescript
+import { Outputs } from "livepeer/models/components";
+
+let value: Outputs = {
+  hls: {
+    path: "/samplevideo/hls",
+  },
+  mp4: {
+    path: "/samplevideo/mp4",
+  },
+  fmp4: {
+    path: "/samplevideo/fmp4",
+  },
+};
+```
 
 ## Fields
 

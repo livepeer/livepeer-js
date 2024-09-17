@@ -3,6 +3,16 @@
 Approximate location of the pull source. The location is used to
 determine the closest Livepeer region to pull the stream from.
 
+## Example Usage
+
+```typescript
+import { Location } from "livepeer/models/components";
+
+let value: Location = {
+  lat: 39.739,
+  lon: -104.988,
+};
+```
 
 ## Fields
 

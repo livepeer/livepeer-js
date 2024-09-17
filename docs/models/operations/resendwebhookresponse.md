@@ -1,5 +1,12 @@
 # ResendWebhookResponse
 
+## Example Usage
+
+```typescript
+import { ResendWebhookResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

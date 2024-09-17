@@ -1,5 +1,14 @@
 # Task
 
+## Example Usage
+
+```typescript
+import { Task } from "livepeer/models/operations";
+
+let value: Task = {
+  id: "34d7618e-fd42-4798-acf5-19504616a11e",
+};
+```
 
 ## Fields
 

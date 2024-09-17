@@ -1,5 +1,14 @@
 # StartPullStreamRequest
 
+## Example Usage
+
+```typescript
+import { StartPullStreamRequest } from "livepeer/models/operations";
+
+let value: StartPullStreamRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

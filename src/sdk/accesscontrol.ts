@@ -12,50 +12,75 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class AccessControl extends ClientSDK {
-    /**
-     * Create a signing key
-     *
-     * @remarks
-     * The publicKey is a representation of the public key, encoded as base 64 and is passed as a string, and  the privateKey is displayed only on creation. This is the only moment where the client can save the private key, otherwise it will be lost. Remember to decode your string when signing JWTs.
-     * Up to 10 signing keys can be generated, after that you must delete at least one signing key to create a new one.
-     *
-     */
-    async create(options?: RequestOptions): Promise<operations.CreateSigningKeyResponse> {
-        return unwrapAsync(accessControlCreate(this, options));
-    }
+  /**
+   * Create a signing key
+   *
+   * @remarks
+   * The publicKey is a representation of the public key, encoded as base 64 and is passed as a string, and  the privateKey is displayed only on creation. This is the only moment where the client can save the private key, otherwise it will be lost. Remember to decode your string when signing JWTs.
+   * Up to 10 signing keys can be generated, after that you must delete at least one signing key to create a new one.
+   */
+  async create(
+    options?: RequestOptions,
+  ): Promise<operations.CreateSigningKeyResponse> {
+    return unwrapAsync(accessControlCreate(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieves signing keys
-     */
-    async getAll(options?: RequestOptions): Promise<operations.GetSigningKeysResponse> {
-        return unwrapAsync(accessControlGetAll(this, options));
-    }
+  /**
+   * Retrieves signing keys
+   */
+  async getAll(
+    options?: RequestOptions,
+  ): Promise<operations.GetSigningKeysResponse> {
+    return unwrapAsync(accessControlGetAll(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Delete Signing Key
-     */
-    async delete(
-        keyId: string,
-        options?: RequestOptions
-    ): Promise<operations.DeleteSigningKeyResponse> {
-        return unwrapAsync(accessControlDelete(this, keyId, options));
-    }
+  /**
+   * Delete Signing Key
+   */
+  async delete(
+    keyId: string,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteSigningKeyResponse> {
+    return unwrapAsync(accessControlDelete(
+      this,
+      keyId,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieves a signing key
-     */
-    async get(keyId: string, options?: RequestOptions): Promise<operations.GetSigningKeyResponse> {
-        return unwrapAsync(accessControlGet(this, keyId, options));
-    }
+  /**
+   * Retrieves a signing key
+   */
+  async get(
+    keyId: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetSigningKeyResponse> {
+    return unwrapAsync(accessControlGet(
+      this,
+      keyId,
+      options,
+    ));
+  }
 
-    /**
-     * Update a signing key
-     */
-    async update(
-        keyId: string,
-        requestBody: operations.UpdateSigningKeyRequestBody,
-        options?: RequestOptions
-    ): Promise<operations.UpdateSigningKeyResponse> {
-        return unwrapAsync(accessControlUpdate(this, keyId, requestBody, options));
-    }
+  /**
+   * Update a signing key
+   */
+  async update(
+    keyId: string,
+    requestBody: operations.UpdateSigningKeyRequestBody,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateSigningKeyResponse> {
+    return unwrapAsync(accessControlUpdate(
+      this,
+      keyId,
+      requestBody,
+      options,
+    ));
+  }
 }

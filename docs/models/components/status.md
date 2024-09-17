@@ -2,6 +2,21 @@
 
 status of webhook
 
+## Example Usage
+
+```typescript
+import { Status } from "livepeer/models/components";
+
+let value: Status = {
+  lastFailure: {
+    timestamp: 1587667174725,
+    error: "Error message",
+    response: "Response body",
+    statusCode: 500,
+  },
+  lastTriggeredAt: 1587667174725,
+};
+```
 
 ## Fields
 

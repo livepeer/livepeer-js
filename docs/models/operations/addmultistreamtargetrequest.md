@@ -1,5 +1,23 @@
 # AddMultistreamTargetRequest
 
+## Example Usage
+
+```typescript
+import { AddMultistreamTargetRequest } from "livepeer/models/operations";
+
+let value: AddMultistreamTargetRequest = {
+  id: "<id>",
+  targetAddPayload: {
+    profile: "720p0",
+    videoOnly: false,
+    id: "PUSH123",
+    spec: {
+      name: "My target",
+      url: "rtmps://live.my-service.tv/channel/secretKey",
+    },
+  },
+};
+```
 
 ## Fields
 

@@ -1,5 +1,23 @@
 # Clip
 
+## Example Usage
+
+```typescript
+import { CatalystPipelineStrategy, Clip } from "livepeer/models/components";
+
+let value: Clip = {
+  url:
+    "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4",
+  clipStrategy: {
+    startTime: 1587667174725,
+    endTime: 1587667174725,
+    playbackId: "eaw4nk06ts2d0mzb",
+  },
+  catalystPipelineStrategy: CatalystPipelineStrategy.CatalystFfmpeg,
+  sessionId: "d32ae9e6-c459-4931-9898-e86e2f5e7e16",
+  inputId: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+};
+```
 
 ## Fields
 

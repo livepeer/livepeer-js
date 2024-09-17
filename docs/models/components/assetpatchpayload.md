@@ -1,5 +1,22 @@
 # AssetPatchPayload
 
+## Example Usage
+
+```typescript
+import { AssetPatchPayload, Type } from "livepeer/models/components";
+
+let value: AssetPatchPayload = {
+  name: "filename.mp4",
+  playbackPolicy: {
+    type: Type.Webhook,
+    webhookId: "1bde4o2i6xycudoy",
+    webhookContext: {
+      "streamerId": "my-custom-id",
+    },
+    refreshInterval: 600,
+  },
+};
+```
 
 ## Fields
 

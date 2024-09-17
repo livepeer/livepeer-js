@@ -1,5 +1,12 @@
 # GetUsageMetricsResponse
 
+## Example Usage
+
+```typescript
+import { GetUsageMetricsResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

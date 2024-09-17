@@ -1,5 +1,18 @@
 # ClipPayload
 
+## Example Usage
+
+```typescript
+import { ClipPayload } from "livepeer/models/components";
+
+let value: ClipPayload = {
+  playbackId: "eaw4nk06ts2d0mzb",
+  startTime: 1587667174725,
+  endTime: 1587667174725,
+  name: "My Clip",
+  sessionId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+};
+```
 
 ## Fields
 

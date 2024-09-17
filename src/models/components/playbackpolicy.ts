@@ -5,85 +5,90 @@
 import * as z from "zod";
 
 export enum Type {
-    Public = "public",
-    Jwt = "jwt",
-    Webhook = "webhook",
+  Public = "public",
+  Jwt = "jwt",
+  Webhook = "webhook",
 }
 
 /**
  * Whether the playback policy for an asset or stream is public or signed
  */
 export type PlaybackPolicy = {
-    type: Type;
-    /**
-     * ID of the webhook to use for playback policy
-     */
-    webhookId?: string | undefined;
-    /**
-     * User-defined webhook context
-     */
-    webhookContext?: { [k: string]: any } | undefined;
-    /**
-     * Interval (in seconds) at which the playback policy should be
-     *
-     * @remarks
-     * refreshed (default 600 seconds)
-     *
-     */
-    refreshInterval?: number | undefined;
-    /**
-     * List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
-     */
-    allowedOrigins?: Array<string> | undefined;
+  type: Type;
+  /**
+   * ID of the webhook to use for playback policy
+   */
+  webhookId?: string | undefined;
+  /**
+   * User-defined webhook context
+   */
+  webhookContext?: { [k: string]: any } | undefined;
+  /**
+   * Interval (in seconds) at which the playback policy should be
+   *
+   * @remarks
+   * refreshed (default 600 seconds)
+   */
+  refreshInterval?: number | undefined;
+  /**
+   * List of allowed origins for CORS playback (<scheme>://<hostname>:<port>, <scheme>://<hostname>)
+   */
+  allowedOrigins?: Array<string> | undefined;
 };
 
 /** @internal */
-export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(Type);
+export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
+  Type,
+);
 
 /** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> = Type$inboundSchema;
+export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
+  Type$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Type$ {
-    /** @deprecated use `Type$inboundSchema` instead. */
-    export const inboundSchema = Type$inboundSchema;
-    /** @deprecated use `Type$outboundSchema` instead. */
-    export const outboundSchema = Type$outboundSchema;
+  /** @deprecated use `Type$inboundSchema` instead. */
+  export const inboundSchema = Type$inboundSchema;
+  /** @deprecated use `Type$outboundSchema` instead. */
+  export const outboundSchema = Type$outboundSchema;
 }
 
 /** @internal */
-export const PlaybackPolicy$inboundSchema: z.ZodType<PlaybackPolicy, z.ZodTypeDef, unknown> =
-    z.object({
-        type: Type$inboundSchema,
-        webhookId: z.string().optional(),
-        webhookContext: z.record(z.any()).optional(),
-        refreshInterval: z.number().optional(),
-        allowedOrigins: z.array(z.string()).optional(),
-    });
+export const PlaybackPolicy$inboundSchema: z.ZodType<
+  PlaybackPolicy,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: Type$inboundSchema,
+  webhookId: z.string().optional(),
+  webhookContext: z.record(z.any()).optional(),
+  refreshInterval: z.number().optional(),
+  allowedOrigins: z.array(z.string()).optional(),
+});
 
 /** @internal */
 export type PlaybackPolicy$Outbound = {
-    type: string;
-    webhookId?: string | undefined;
-    webhookContext?: { [k: string]: any } | undefined;
-    refreshInterval?: number | undefined;
-    allowedOrigins?: Array<string> | undefined;
+  type: string;
+  webhookId?: string | undefined;
+  webhookContext?: { [k: string]: any } | undefined;
+  refreshInterval?: number | undefined;
+  allowedOrigins?: Array<string> | undefined;
 };
 
 /** @internal */
 export const PlaybackPolicy$outboundSchema: z.ZodType<
-    PlaybackPolicy$Outbound,
-    z.ZodTypeDef,
-    PlaybackPolicy
+  PlaybackPolicy$Outbound,
+  z.ZodTypeDef,
+  PlaybackPolicy
 > = z.object({
-    type: Type$outboundSchema,
-    webhookId: z.string().optional(),
-    webhookContext: z.record(z.any()).optional(),
-    refreshInterval: z.number().optional(),
-    allowedOrigins: z.array(z.string()).optional(),
+  type: Type$outboundSchema,
+  webhookId: z.string().optional(),
+  webhookContext: z.record(z.any()).optional(),
+  refreshInterval: z.number().optional(),
+  allowedOrigins: z.array(z.string()).optional(),
 });
 
 /**
@@ -91,10 +96,10 @@ export const PlaybackPolicy$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace PlaybackPolicy$ {
-    /** @deprecated use `PlaybackPolicy$inboundSchema` instead. */
-    export const inboundSchema = PlaybackPolicy$inboundSchema;
-    /** @deprecated use `PlaybackPolicy$outboundSchema` instead. */
-    export const outboundSchema = PlaybackPolicy$outboundSchema;
-    /** @deprecated use `PlaybackPolicy$Outbound` instead. */
-    export type Outbound = PlaybackPolicy$Outbound;
+  /** @deprecated use `PlaybackPolicy$inboundSchema` instead. */
+  export const inboundSchema = PlaybackPolicy$inboundSchema;
+  /** @deprecated use `PlaybackPolicy$outboundSchema` instead. */
+  export const outboundSchema = PlaybackPolicy$outboundSchema;
+  /** @deprecated use `PlaybackPolicy$Outbound` instead. */
+  export type Outbound = PlaybackPolicy$Outbound;
 }

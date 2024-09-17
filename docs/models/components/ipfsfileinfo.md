@@ -1,5 +1,14 @@
 # IpfsFileInfo
 
+## Example Usage
+
+```typescript
+import { IpfsFileInfo } from "livepeer/models/components";
+
+let value: IpfsFileInfo = {
+  cid: "<value>",
+};
+```
 
 ## Fields
 

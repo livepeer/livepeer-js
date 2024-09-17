@@ -1,5 +1,16 @@
 # TargetOutput
 
+## Example Usage
+
+```typescript
+import { TargetOutput } from "livepeer/models/components";
+
+let value: TargetOutput = {
+  profile: "720p0",
+  videoOnly: false,
+  id: "PUSH123",
+};
+```
 
 ## Fields
 

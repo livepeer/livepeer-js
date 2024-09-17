@@ -8,10 +8,17 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Playback extends ClientSDK {
-    /**
-     * Retrieve Playback Info
-     */
-    async get(id: string, options?: RequestOptions): Promise<operations.GetPlaybackInfoResponse> {
-        return unwrapAsync(playbackGet(this, id, options));
-    }
+  /**
+   * Retrieve Playback Info
+   */
+  async get(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetPlaybackInfoResponse> {
+    return unwrapAsync(playbackGet(
+      this,
+      id,
+      options,
+    ));
+  }
 }

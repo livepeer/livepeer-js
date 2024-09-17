@@ -10,72 +10,68 @@ import * as z from "zod";
  * @remarks
  * create the target resource to be used by the created
  * stream.
- *
  */
 export type TargetAddPayloadSpec = {
-    name?: string | undefined;
-    /**
-     * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-     */
-    url: string;
+  name?: string | undefined;
+  /**
+   * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
+   */
+  url: string;
 };
 
 export type TargetAddPayload = {
-    /**
-     * Name of transcoding profile that should be sent. Use
-     *
-     * @remarks
-     * "source" for pushing source stream data
-     *
-     */
-    profile: string;
-    /**
-     * If true, the stream audio will be muted and only silent
-     *
-     * @remarks
-     * video will be pushed to the target.
-     *
-     */
-    videoOnly?: boolean | undefined;
-    /**
-     * ID of multistream target object where to push this stream
-     */
-    id?: string | undefined;
-    /**
-     * Inline multistream target object. Will automatically
-     *
-     * @remarks
-     * create the target resource to be used by the created
-     * stream.
-     *
-     */
-    spec?: TargetAddPayloadSpec | undefined;
+  /**
+   * Name of transcoding profile that should be sent. Use
+   *
+   * @remarks
+   * "source" for pushing source stream data
+   */
+  profile: string;
+  /**
+   * If true, the stream audio will be muted and only silent
+   *
+   * @remarks
+   * video will be pushed to the target.
+   */
+  videoOnly?: boolean | undefined;
+  /**
+   * ID of multistream target object where to push this stream
+   */
+  id?: string | undefined;
+  /**
+   * Inline multistream target object. Will automatically
+   *
+   * @remarks
+   * create the target resource to be used by the created
+   * stream.
+   */
+  spec?: TargetAddPayloadSpec | undefined;
 };
 
 /** @internal */
 export const TargetAddPayloadSpec$inboundSchema: z.ZodType<
-    TargetAddPayloadSpec,
-    z.ZodTypeDef,
-    unknown
+  TargetAddPayloadSpec,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
+  name: z.string().optional(),
+  url: z.string(),
 });
 
 /** @internal */
 export type TargetAddPayloadSpec$Outbound = {
-    name?: string | undefined;
-    url: string;
+  name?: string | undefined;
+  url: string;
 };
 
 /** @internal */
 export const TargetAddPayloadSpec$outboundSchema: z.ZodType<
-    TargetAddPayloadSpec$Outbound,
-    z.ZodTypeDef,
-    TargetAddPayloadSpec
+  TargetAddPayloadSpec$Outbound,
+  z.ZodTypeDef,
+  TargetAddPayloadSpec
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
+  name: z.string().optional(),
+  url: z.string(),
 });
 
 /**
@@ -83,41 +79,44 @@ export const TargetAddPayloadSpec$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace TargetAddPayloadSpec$ {
-    /** @deprecated use `TargetAddPayloadSpec$inboundSchema` instead. */
-    export const inboundSchema = TargetAddPayloadSpec$inboundSchema;
-    /** @deprecated use `TargetAddPayloadSpec$outboundSchema` instead. */
-    export const outboundSchema = TargetAddPayloadSpec$outboundSchema;
-    /** @deprecated use `TargetAddPayloadSpec$Outbound` instead. */
-    export type Outbound = TargetAddPayloadSpec$Outbound;
+  /** @deprecated use `TargetAddPayloadSpec$inboundSchema` instead. */
+  export const inboundSchema = TargetAddPayloadSpec$inboundSchema;
+  /** @deprecated use `TargetAddPayloadSpec$outboundSchema` instead. */
+  export const outboundSchema = TargetAddPayloadSpec$outboundSchema;
+  /** @deprecated use `TargetAddPayloadSpec$Outbound` instead. */
+  export type Outbound = TargetAddPayloadSpec$Outbound;
 }
 
 /** @internal */
-export const TargetAddPayload$inboundSchema: z.ZodType<TargetAddPayload, z.ZodTypeDef, unknown> =
-    z.object({
-        profile: z.string(),
-        videoOnly: z.boolean().default(false),
-        id: z.string().optional(),
-        spec: z.lazy(() => TargetAddPayloadSpec$inboundSchema).optional(),
-    });
+export const TargetAddPayload$inboundSchema: z.ZodType<
+  TargetAddPayload,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profile: z.string(),
+  videoOnly: z.boolean().default(false),
+  id: z.string().optional(),
+  spec: z.lazy(() => TargetAddPayloadSpec$inboundSchema).optional(),
+});
 
 /** @internal */
 export type TargetAddPayload$Outbound = {
-    profile: string;
-    videoOnly: boolean;
-    id?: string | undefined;
-    spec?: TargetAddPayloadSpec$Outbound | undefined;
+  profile: string;
+  videoOnly: boolean;
+  id?: string | undefined;
+  spec?: TargetAddPayloadSpec$Outbound | undefined;
 };
 
 /** @internal */
 export const TargetAddPayload$outboundSchema: z.ZodType<
-    TargetAddPayload$Outbound,
-    z.ZodTypeDef,
-    TargetAddPayload
+  TargetAddPayload$Outbound,
+  z.ZodTypeDef,
+  TargetAddPayload
 > = z.object({
-    profile: z.string(),
-    videoOnly: z.boolean().default(false),
-    id: z.string().optional(),
-    spec: z.lazy(() => TargetAddPayloadSpec$outboundSchema).optional(),
+  profile: z.string(),
+  videoOnly: z.boolean().default(false),
+  id: z.string().optional(),
+  spec: z.lazy(() => TargetAddPayloadSpec$outboundSchema).optional(),
 });
 
 /**
@@ -125,10 +124,10 @@ export const TargetAddPayload$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace TargetAddPayload$ {
-    /** @deprecated use `TargetAddPayload$inboundSchema` instead. */
-    export const inboundSchema = TargetAddPayload$inboundSchema;
-    /** @deprecated use `TargetAddPayload$outboundSchema` instead. */
-    export const outboundSchema = TargetAddPayload$outboundSchema;
-    /** @deprecated use `TargetAddPayload$Outbound` instead. */
-    export type Outbound = TargetAddPayload$Outbound;
+  /** @deprecated use `TargetAddPayload$inboundSchema` instead. */
+  export const inboundSchema = TargetAddPayload$inboundSchema;
+  /** @deprecated use `TargetAddPayload$outboundSchema` instead. */
+  export const outboundSchema = TargetAddPayload$outboundSchema;
+  /** @deprecated use `TargetAddPayload$Outbound` instead. */
+  export type Outbound = TargetAddPayload$Outbound;
 }

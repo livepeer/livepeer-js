@@ -2,6 +2,15 @@
 
 MP4 output format
 
+## Example Usage
+
+```typescript
+import { Mp4 } from "livepeer/models/components";
+
+let value: Mp4 = {
+  path: "/samplevideo/mp4",
+};
+```
 
 ## Fields
 

@@ -1,5 +1,19 @@
 # UpdateRoomUserRequest
 
+## Example Usage
+
+```typescript
+import { UpdateRoomUserRequest } from "livepeer/models/operations";
+
+let value: UpdateRoomUserRequest = {
+  id: "<id>",
+  userId: "<value>",
+  roomUserUpdatePayload: {
+    canPublish: true,
+    canPublishData: true,
+  },
+};
+```
 
 ## Fields
 

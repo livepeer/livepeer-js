@@ -1,5 +1,12 @@
 # Storage
 
+## Example Usage
+
+```typescript
+import { Storage } from "livepeer/models/components";
+
+let value: Storage = {};
+```
 
 ## Fields
 

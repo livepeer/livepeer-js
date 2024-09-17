@@ -5,91 +5,95 @@
 import * as z from "zod";
 
 export type Request = {
-    /**
-     * URL used for the request
-     */
-    url?: string | undefined;
-    /**
-     * HTTP request method
-     */
-    method?: string | undefined;
-    /**
-     * HTTP request headers
-     */
-    headers?: { [k: string]: string } | undefined;
-    /**
-     * request body
-     */
-    body?: string | undefined;
+  /**
+   * URL used for the request
+   */
+  url?: string | undefined;
+  /**
+   * HTTP request method
+   */
+  method?: string | undefined;
+  /**
+   * HTTP request headers
+   */
+  headers?: { [k: string]: string } | undefined;
+  /**
+   * request body
+   */
+  body?: string | undefined;
 };
 
 export type Response = {
-    /**
-     * response body
-     */
-    body?: string | undefined;
-    /**
-     * HTTP status code
-     */
-    status?: number | undefined;
-    /**
-     * response status text
-     */
-    statusText?: string | undefined;
+  /**
+   * response body
+   */
+  body?: string | undefined;
+  /**
+   * HTTP status code
+   */
+  status?: number | undefined;
+  /**
+   * response status text
+   */
+  statusText?: string | undefined;
 };
 
 export type WebhookLog = {
-    id: string;
-    /**
-     * ID of the webhook this request was made for
-     */
-    webhookId: string;
-    /**
-     * The event type that triggered the webhook request
-     */
-    event?: string | undefined;
-    /**
-     * Timestamp (in milliseconds) at which webhook request object was
-     *
-     * @remarks
-     * created
-     *
-     */
-    createdAt?: number | undefined;
-    /**
-     * The time taken (in seconds) to make the webhook request
-     */
-    duration?: number | undefined;
-    /**
-     * Whether the webhook request was successful
-     */
-    success?: boolean | undefined;
-    request?: Request | undefined;
-    response?: Response | undefined;
+  id: string;
+  /**
+   * ID of the webhook this request was made for
+   */
+  webhookId: string;
+  /**
+   * The event type that triggered the webhook request
+   */
+  event?: string | undefined;
+  /**
+   * Timestamp (in milliseconds) at which webhook request object was
+   *
+   * @remarks
+   * created
+   */
+  createdAt?: number | undefined;
+  /**
+   * The time taken (in seconds) to make the webhook request
+   */
+  duration?: number | undefined;
+  /**
+   * Whether the webhook request was successful
+   */
+  success?: boolean | undefined;
+  request?: Request | undefined;
+  response?: Response | undefined;
 };
 
 /** @internal */
-export const Request$inboundSchema: z.ZodType<Request, z.ZodTypeDef, unknown> = z.object({
+export const Request$inboundSchema: z.ZodType<Request, z.ZodTypeDef, unknown> =
+  z.object({
     url: z.string().optional(),
     method: z.string().optional(),
     headers: z.record(z.string()).optional(),
     body: z.string().optional(),
-});
+  });
 
 /** @internal */
 export type Request$Outbound = {
-    url?: string | undefined;
-    method?: string | undefined;
-    headers?: { [k: string]: string } | undefined;
-    body?: string | undefined;
+  url?: string | undefined;
+  method?: string | undefined;
+  headers?: { [k: string]: string } | undefined;
+  body?: string | undefined;
 };
 
 /** @internal */
-export const Request$outboundSchema: z.ZodType<Request$Outbound, z.ZodTypeDef, Request> = z.object({
-    url: z.string().optional(),
-    method: z.string().optional(),
-    headers: z.record(z.string()).optional(),
-    body: z.string().optional(),
+export const Request$outboundSchema: z.ZodType<
+  Request$Outbound,
+  z.ZodTypeDef,
+  Request
+> = z.object({
+  url: z.string().optional(),
+  method: z.string().optional(),
+  headers: z.record(z.string()).optional(),
+  body: z.string().optional(),
 });
 
 /**
@@ -97,95 +101,109 @@ export const Request$outboundSchema: z.ZodType<Request$Outbound, z.ZodTypeDef, R
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Request$ {
-    /** @deprecated use `Request$inboundSchema` instead. */
-    export const inboundSchema = Request$inboundSchema;
-    /** @deprecated use `Request$outboundSchema` instead. */
-    export const outboundSchema = Request$outboundSchema;
-    /** @deprecated use `Request$Outbound` instead. */
-    export type Outbound = Request$Outbound;
+  /** @deprecated use `Request$inboundSchema` instead. */
+  export const inboundSchema = Request$inboundSchema;
+  /** @deprecated use `Request$outboundSchema` instead. */
+  export const outboundSchema = Request$outboundSchema;
+  /** @deprecated use `Request$Outbound` instead. */
+  export type Outbound = Request$Outbound;
 }
 
 /** @internal */
-export const Response$inboundSchema: z.ZodType<Response, z.ZodTypeDef, unknown> = z.object({
-    body: z.string().optional(),
-    status: z.number().optional(),
-    statusText: z.string().optional(),
+export const Response$inboundSchema: z.ZodType<
+  Response,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  body: z.string().optional(),
+  status: z.number().optional(),
+  statusText: z.string().optional(),
 });
 
 /** @internal */
 export type Response$Outbound = {
-    body?: string | undefined;
-    status?: number | undefined;
-    statusText?: string | undefined;
+  body?: string | undefined;
+  status?: number | undefined;
+  statusText?: string | undefined;
 };
 
 /** @internal */
-export const Response$outboundSchema: z.ZodType<Response$Outbound, z.ZodTypeDef, Response> =
-    z.object({
-        body: z.string().optional(),
-        status: z.number().optional(),
-        statusText: z.string().optional(),
-    });
+export const Response$outboundSchema: z.ZodType<
+  Response$Outbound,
+  z.ZodTypeDef,
+  Response
+> = z.object({
+  body: z.string().optional(),
+  status: z.number().optional(),
+  statusText: z.string().optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Response$ {
-    /** @deprecated use `Response$inboundSchema` instead. */
-    export const inboundSchema = Response$inboundSchema;
-    /** @deprecated use `Response$outboundSchema` instead. */
-    export const outboundSchema = Response$outboundSchema;
-    /** @deprecated use `Response$Outbound` instead. */
-    export type Outbound = Response$Outbound;
+  /** @deprecated use `Response$inboundSchema` instead. */
+  export const inboundSchema = Response$inboundSchema;
+  /** @deprecated use `Response$outboundSchema` instead. */
+  export const outboundSchema = Response$outboundSchema;
+  /** @deprecated use `Response$Outbound` instead. */
+  export type Outbound = Response$Outbound;
 }
 
 /** @internal */
-export const WebhookLog$inboundSchema: z.ZodType<WebhookLog, z.ZodTypeDef, unknown> = z.object({
-    id: z.string(),
-    webhookId: z.string(),
-    event: z.string().optional(),
-    createdAt: z.number().optional(),
-    duration: z.number().optional(),
-    success: z.boolean().optional(),
-    request: z.lazy(() => Request$inboundSchema).optional(),
-    response: z.lazy(() => Response$inboundSchema).optional(),
+export const WebhookLog$inboundSchema: z.ZodType<
+  WebhookLog,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  webhookId: z.string(),
+  event: z.string().optional(),
+  createdAt: z.number().optional(),
+  duration: z.number().optional(),
+  success: z.boolean().optional(),
+  request: z.lazy(() => Request$inboundSchema).optional(),
+  response: z.lazy(() => Response$inboundSchema).optional(),
 });
 
 /** @internal */
 export type WebhookLog$Outbound = {
-    id: string;
-    webhookId: string;
-    event?: string | undefined;
-    createdAt?: number | undefined;
-    duration?: number | undefined;
-    success?: boolean | undefined;
-    request?: Request$Outbound | undefined;
-    response?: Response$Outbound | undefined;
+  id: string;
+  webhookId: string;
+  event?: string | undefined;
+  createdAt?: number | undefined;
+  duration?: number | undefined;
+  success?: boolean | undefined;
+  request?: Request$Outbound | undefined;
+  response?: Response$Outbound | undefined;
 };
 
 /** @internal */
-export const WebhookLog$outboundSchema: z.ZodType<WebhookLog$Outbound, z.ZodTypeDef, WebhookLog> =
-    z.object({
-        id: z.string(),
-        webhookId: z.string(),
-        event: z.string().optional(),
-        createdAt: z.number().optional(),
-        duration: z.number().optional(),
-        success: z.boolean().optional(),
-        request: z.lazy(() => Request$outboundSchema).optional(),
-        response: z.lazy(() => Response$outboundSchema).optional(),
-    });
+export const WebhookLog$outboundSchema: z.ZodType<
+  WebhookLog$Outbound,
+  z.ZodTypeDef,
+  WebhookLog
+> = z.object({
+  id: z.string(),
+  webhookId: z.string(),
+  event: z.string().optional(),
+  createdAt: z.number().optional(),
+  duration: z.number().optional(),
+  success: z.boolean().optional(),
+  request: z.lazy(() => Request$outboundSchema).optional(),
+  response: z.lazy(() => Response$outboundSchema).optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace WebhookLog$ {
-    /** @deprecated use `WebhookLog$inboundSchema` instead. */
-    export const inboundSchema = WebhookLog$inboundSchema;
-    /** @deprecated use `WebhookLog$outboundSchema` instead. */
-    export const outboundSchema = WebhookLog$outboundSchema;
-    /** @deprecated use `WebhookLog$Outbound` instead. */
-    export type Outbound = WebhookLog$Outbound;
+  /** @deprecated use `WebhookLog$inboundSchema` instead. */
+  export const inboundSchema = WebhookLog$inboundSchema;
+  /** @deprecated use `WebhookLog$outboundSchema` instead. */
+  export const outboundSchema = WebhookLog$outboundSchema;
+  /** @deprecated use `WebhookLog$Outbound` instead. */
+  export type Outbound = WebhookLog$Outbound;
 }

@@ -1,5 +1,12 @@
 # UpdateWebhookResponse
 
+## Example Usage
+
+```typescript
+import { UpdateWebhookResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

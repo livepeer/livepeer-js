@@ -1,5 +1,19 @@
 # Room
 
+## Example Usage
+
+```typescript
+import { Room } from "livepeer/models/components";
+
+let value: Room = {
+  id: "d32ae9e6-c459-4931-9898-e86e2f5e7e16",
+  createdAt: 1587667174725,
+  updatedAt: 1587667174725,
+  participants: {
+    "key": {},
+  },
+};
+```
 
 ## Fields
 

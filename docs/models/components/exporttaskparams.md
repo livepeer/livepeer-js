@@ -2,6 +2,19 @@
 
 Parameters for the export task
 
+## Example Usage
+
+```typescript
+import { ExportTaskParams } from "livepeer/models/components";
+
+let value: ExportTaskParams = {
+  ipfs: {
+    pinata: {
+      apiKey: "1234567890",
+    },
+  },
+};
+```
 
 ## Supported Types
 

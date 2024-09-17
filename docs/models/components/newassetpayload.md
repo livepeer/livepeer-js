@@ -1,5 +1,37 @@
 # NewAssetPayload
 
+## Example Usage
+
+```typescript
+import { NewAssetPayload, TranscodeProfileEncoder, TranscodeProfileProfile, Type } from "livepeer/models/components";
+
+let value: NewAssetPayload = {
+  name: "filename.mp4",
+  staticMp4: true,
+  playbackPolicy: {
+    type: Type.Webhook,
+    webhookId: "1bde4o2i6xycudoy",
+    webhookContext: {
+      "streamerId": "my-custom-id",
+    },
+    refreshInterval: 600,
+  },
+  profiles: [
+    {
+      width: 1280,
+      name: "720p",
+      height: 720,
+      bitrate: 3000000,
+      quality: 23,
+      fps: 30,
+      fpsDen: 1,
+      gop: "2",
+      profile: TranscodeProfileProfile.H264Baseline,
+      encoder: TranscodeProfileEncoder.H264,
+    },
+  ],
+};
+```
 
 ## Fields
 

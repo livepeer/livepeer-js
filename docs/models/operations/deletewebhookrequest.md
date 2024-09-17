@@ -1,5 +1,14 @@
 # DeleteWebhookRequest
 
+## Example Usage
+
+```typescript
+import { DeleteWebhookRequest } from "livepeer/models/operations";
+
+let value: DeleteWebhookRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

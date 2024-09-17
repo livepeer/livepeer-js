@@ -17,126 +17,172 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Room extends ClientSDK {
-    /**
-     * Create a room
-     *
-     * @remarks
-     * Create a multiparticipant livestreaming room.
-     *
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async create(options?: RequestOptions): Promise<operations.CreateRoomResponse> {
-        return unwrapAsync(roomCreate(this, options));
-    }
+  /**
+   * Create a room
+   *
+   * @remarks
+   * Create a multiparticipant livestreaming room.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async create(
+    options?: RequestOptions,
+  ): Promise<operations.CreateRoomResponse> {
+    return unwrapAsync(roomCreate(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve a room
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async get(id: string, options?: RequestOptions): Promise<operations.GetRoomResponse> {
-        return unwrapAsync(roomGet(this, id, options));
-    }
+  /**
+   * Retrieve a room
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async get(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetRoomResponse> {
+    return unwrapAsync(roomGet(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Delete a room
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async delete(id: string, options?: RequestOptions): Promise<operations.DeleteRoomResponse> {
-        return unwrapAsync(roomDelete(this, id, options));
-    }
+  /**
+   * Delete a room
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async delete(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteRoomResponse> {
+    return unwrapAsync(roomDelete(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Start room RTMP egress
-     *
-     * @remarks
-     * Create a livestream for your room.
-     * This allows you to leverage livestreaming features like recording and HLS output.
-     *
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async startEgress(
-        id: string,
-        roomEgressPayload: components.RoomEgressPayload,
-        options?: RequestOptions
-    ): Promise<operations.StartRoomEgressResponse> {
-        return unwrapAsync(roomStartEgress(this, id, roomEgressPayload, options));
-    }
+  /**
+   * Start room RTMP egress
+   *
+   * @remarks
+   * Create a livestream for your room.
+   * This allows you to leverage livestreaming features like recording and HLS output.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async startEgress(
+    id: string,
+    roomEgressPayload: components.RoomEgressPayload,
+    options?: RequestOptions,
+  ): Promise<operations.StartRoomEgressResponse> {
+    return unwrapAsync(roomStartEgress(
+      this,
+      id,
+      roomEgressPayload,
+      options,
+    ));
+  }
 
-    /**
-     * Stop room RTMP egress
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async stopEgress(
-        id: string,
-        options?: RequestOptions
-    ): Promise<operations.StopRoomEgressResponse> {
-        return unwrapAsync(roomStopEgress(this, id, options));
-    }
+  /**
+   * Stop room RTMP egress
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async stopEgress(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.StopRoomEgressResponse> {
+    return unwrapAsync(roomStopEgress(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Create a room user
-     *
-     * @remarks
-     * Call this endpoint to add a user to a room, specifying a display name at a minimum.
-     * The response will contain a joining URL for Livepeer's default meeting app.
-     * Alternatively the joining token can be used with a custom app.
-     *
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async createUser(
-        id: string,
-        roomUserPayload: components.RoomUserPayload,
-        options?: RequestOptions
-    ): Promise<operations.CreateRoomUserResponse> {
-        return unwrapAsync(roomCreateUser(this, id, roomUserPayload, options));
-    }
+  /**
+   * Create a room user
+   *
+   * @remarks
+   * Call this endpoint to add a user to a room, specifying a display name at a minimum.
+   * The response will contain a joining URL for Livepeer's default meeting app.
+   * Alternatively the joining token can be used with a custom app.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async createUser(
+    id: string,
+    roomUserPayload: components.RoomUserPayload,
+    options?: RequestOptions,
+  ): Promise<operations.CreateRoomUserResponse> {
+    return unwrapAsync(roomCreateUser(
+      this,
+      id,
+      roomUserPayload,
+      options,
+    ));
+  }
 
-    /**
-     * Get user details
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async getUser(
-        id: string,
-        userId: string,
-        options?: RequestOptions
-    ): Promise<operations.GetRoomUserResponse> {
-        return unwrapAsync(roomGetUser(this, id, userId, options));
-    }
+  /**
+   * Get user details
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async getUser(
+    id: string,
+    userId: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetRoomUserResponse> {
+    return unwrapAsync(roomGetUser(
+      this,
+      id,
+      userId,
+      options,
+    ));
+  }
 
-    /**
-     * Update a room user
-     *
-     * @remarks
-     * Update properties for a user.
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async updateUser(
-        id: string,
-        userId: string,
-        roomUserUpdatePayload: components.RoomUserUpdatePayload,
-        options?: RequestOptions
-    ): Promise<operations.UpdateRoomUserResponse> {
-        return unwrapAsync(roomUpdateUser(this, id, userId, roomUserUpdatePayload, options));
-    }
+  /**
+   * Update a room user
+   *
+   * @remarks
+   * Update properties for a user.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async updateUser(
+    id: string,
+    userId: string,
+    roomUserUpdatePayload: components.RoomUserUpdatePayload,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateRoomUserResponse> {
+    return unwrapAsync(roomUpdateUser(
+      this,
+      id,
+      userId,
+      roomUserUpdatePayload,
+      options,
+    ));
+  }
 
-    /**
-     * Remove a user from the room
-     *
-     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    async deleteUser(
-        id: string,
-        userId: string,
-        options?: RequestOptions
-    ): Promise<operations.DeleteRoomUserResponse> {
-        return unwrapAsync(roomDeleteUser(this, id, userId, options));
-    }
+  /**
+   * Remove a user from the room
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  async deleteUser(
+    id: string,
+    userId: string,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteRoomUserResponse> {
+    return unwrapAsync(roomDeleteUser(
+      this,
+      id,
+      userId,
+      options,
+    ));
+  }
 }

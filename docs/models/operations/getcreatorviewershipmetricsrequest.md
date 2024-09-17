@@ -1,5 +1,12 @@
 # GetCreatorViewershipMetricsRequest
 
+## Example Usage
+
+```typescript
+import { GetCreatorViewershipMetricsRequest } from "livepeer/models/operations";
+
+let value: GetCreatorViewershipMetricsRequest = {};
+```
 
 ## Fields
 

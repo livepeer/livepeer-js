@@ -2,6 +2,15 @@
 
 HLS output format
 
+## Example Usage
+
+```typescript
+import { TaskHls } from "livepeer/models/components";
+
+let value: TaskHls = {
+  path: "/samplevideo/hls",
+};
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # Live
 
+## Example Usage
+
+```typescript
+import { Live } from "livepeer/models/components";
+
+let value: Live = Live.Zero;
+```
 
 ## Values
 

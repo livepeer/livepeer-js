@@ -1,5 +1,15 @@
 # Asset1
 
+## Example Usage
+
+```typescript
+import { Asset1, AssetSchemasType } from "livepeer/models/components";
+
+let value: Asset1 = {
+  type: AssetSchemasType.Url,
+  url: "http://miserly-usage.net",
+};
+```
 
 ## Fields
 

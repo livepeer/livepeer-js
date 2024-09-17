@@ -1,5 +1,20 @@
 # SigningKey
 
+## Example Usage
+
+```typescript
+import { SigningKey } from "livepeer/models/components";
+
+let value: SigningKey = {
+  id: "78df0075-b5f3-4683-a618-1086faca35dc",
+  name: "key1",
+  createdAt: 1587667174725,
+  lastSeen: 1587667174725,
+  publicKey: "<value>",
+  disabled: false,
+  projectId: "aac12556-4d65-4d34-9fb",
+};
+```
 
 ## Fields
 

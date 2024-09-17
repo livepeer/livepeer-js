@@ -5,48 +5,47 @@
 import * as z from "zod";
 
 export type MultistreamTargetPatchPayload = {
-    name?: string | undefined;
-    /**
-     * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-     */
-    url: string;
-    /**
-     * If true then this multistream target will not be used for pushing
-     *
-     * @remarks
-     * even if it is configured in a stream object.
-     *
-     */
-    disabled?: boolean | undefined;
+  name?: string | undefined;
+  /**
+   * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
+   */
+  url: string;
+  /**
+   * If true then this multistream target will not be used for pushing
+   *
+   * @remarks
+   * even if it is configured in a stream object.
+   */
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
 export const MultistreamTargetPatchPayload$inboundSchema: z.ZodType<
-    MultistreamTargetPatchPayload,
-    z.ZodTypeDef,
-    unknown
+  MultistreamTargetPatchPayload,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
-    disabled: z.boolean().optional(),
+  name: z.string().optional(),
+  url: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 /** @internal */
 export type MultistreamTargetPatchPayload$Outbound = {
-    name?: string | undefined;
-    url: string;
-    disabled?: boolean | undefined;
+  name?: string | undefined;
+  url: string;
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
 export const MultistreamTargetPatchPayload$outboundSchema: z.ZodType<
-    MultistreamTargetPatchPayload$Outbound,
-    z.ZodTypeDef,
-    MultistreamTargetPatchPayload
+  MultistreamTargetPatchPayload$Outbound,
+  z.ZodTypeDef,
+  MultistreamTargetPatchPayload
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
-    disabled: z.boolean().optional(),
+  name: z.string().optional(),
+  url: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 /**
@@ -54,10 +53,10 @@ export const MultistreamTargetPatchPayload$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace MultistreamTargetPatchPayload$ {
-    /** @deprecated use `MultistreamTargetPatchPayload$inboundSchema` instead. */
-    export const inboundSchema = MultistreamTargetPatchPayload$inboundSchema;
-    /** @deprecated use `MultistreamTargetPatchPayload$outboundSchema` instead. */
-    export const outboundSchema = MultistreamTargetPatchPayload$outboundSchema;
-    /** @deprecated use `MultistreamTargetPatchPayload$Outbound` instead. */
-    export type Outbound = MultistreamTargetPatchPayload$Outbound;
+  /** @deprecated use `MultistreamTargetPatchPayload$inboundSchema` instead. */
+  export const inboundSchema = MultistreamTargetPatchPayload$inboundSchema;
+  /** @deprecated use `MultistreamTargetPatchPayload$outboundSchema` instead. */
+  export const outboundSchema = MultistreamTargetPatchPayload$outboundSchema;
+  /** @deprecated use `MultistreamTargetPatchPayload$Outbound` instead. */
+  export type Outbound = MultistreamTargetPatchPayload$Outbound;
 }

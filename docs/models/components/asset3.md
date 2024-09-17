@@ -1,5 +1,14 @@
 # Asset3
 
+## Example Usage
+
+```typescript
+import { Asset3, AssetSchemasSource3Type } from "livepeer/models/components";
+
+let value: Asset3 = {
+  type: AssetSchemasSource3Type.Clip,
+};
+```
 
 ## Fields
 

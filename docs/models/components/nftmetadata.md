@@ -5,6 +5,13 @@ IPFS. Will be deep merged with the default metadata
 exported.
 
 
+## Example Usage
+
+```typescript
+import { NftMetadata } from "livepeer/models/components";
+
+let value: NftMetadata = {};
+```
 
 ## Fields
 

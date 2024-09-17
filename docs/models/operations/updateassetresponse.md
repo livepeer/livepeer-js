@@ -1,5 +1,12 @@
 # UpdateAssetResponse
 
+## Example Usage
+
+```typescript
+import { UpdateAssetResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

@@ -7,17 +7,20 @@ import * as z from "zod";
 export type EncryptionOutput = {};
 
 /** @internal */
-export const EncryptionOutput$inboundSchema: z.ZodType<EncryptionOutput, z.ZodTypeDef, unknown> =
-    z.object({});
+export const EncryptionOutput$inboundSchema: z.ZodType<
+  EncryptionOutput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
 
 /** @internal */
 export type EncryptionOutput$Outbound = {};
 
 /** @internal */
 export const EncryptionOutput$outboundSchema: z.ZodType<
-    EncryptionOutput$Outbound,
-    z.ZodTypeDef,
-    EncryptionOutput
+  EncryptionOutput$Outbound,
+  z.ZodTypeDef,
+  EncryptionOutput
 > = z.object({});
 
 /**
@@ -25,10 +28,10 @@ export const EncryptionOutput$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace EncryptionOutput$ {
-    /** @deprecated use `EncryptionOutput$inboundSchema` instead. */
-    export const inboundSchema = EncryptionOutput$inboundSchema;
-    /** @deprecated use `EncryptionOutput$outboundSchema` instead. */
-    export const outboundSchema = EncryptionOutput$outboundSchema;
-    /** @deprecated use `EncryptionOutput$Outbound` instead. */
-    export type Outbound = EncryptionOutput$Outbound;
+  /** @deprecated use `EncryptionOutput$inboundSchema` instead. */
+  export const inboundSchema = EncryptionOutput$inboundSchema;
+  /** @deprecated use `EncryptionOutput$outboundSchema` instead. */
+  export const outboundSchema = EncryptionOutput$outboundSchema;
+  /** @deprecated use `EncryptionOutput$Outbound` instead. */
+  export type Outbound = EncryptionOutput$Outbound;
 }

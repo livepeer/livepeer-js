@@ -1,5 +1,14 @@
 # GetSessionClipsRequest
 
+## Example Usage
+
+```typescript
+import { GetSessionClipsRequest } from "livepeer/models/operations";
+
+let value: GetSessionClipsRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

@@ -2,6 +2,15 @@
 
 FMP4 output format
 
+## Example Usage
+
+```typescript
+import { Fmp4 } from "livepeer/models/components";
+
+let value: Fmp4 = {
+  path: "/samplevideo/fmp4",
+};
+```
 
 ## Fields
 

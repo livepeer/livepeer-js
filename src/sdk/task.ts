@@ -9,17 +9,29 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Task extends ClientSDK {
-    /**
-     * Retrieve Tasks
-     */
-    async getAll(options?: RequestOptions): Promise<operations.GetTasksResponse> {
-        return unwrapAsync(taskGetAll(this, options));
-    }
+  /**
+   * Retrieve Tasks
+   */
+  async getAll(
+    options?: RequestOptions,
+  ): Promise<operations.GetTasksResponse> {
+    return unwrapAsync(taskGetAll(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve a Task
-     */
-    async get(taskId: string, options?: RequestOptions): Promise<operations.GetTaskResponse> {
-        return unwrapAsync(taskGet(this, taskId, options));
-    }
+  /**
+   * Retrieve a Task
+   */
+  async get(
+    taskId: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetTaskResponse> {
+    return unwrapAsync(taskGet(
+      this,
+      taskId,
+      options,
+    ));
+  }
 }

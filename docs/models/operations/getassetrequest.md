@@ -1,5 +1,14 @@
 # GetAssetRequest
 
+## Example Usage
+
+```typescript
+import { GetAssetRequest } from "livepeer/models/operations";
+
+let value: GetAssetRequest = {
+  assetId: "<value>",
+};
+```
 
 ## Fields
 
