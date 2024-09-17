@@ -1,5 +1,13 @@
 # GetCreatorViewershipMetricsQueryParamBreakdownBy
 
+## Example Usage
+
+```typescript
+import { GetCreatorViewershipMetricsQueryParamBreakdownBy } from "livepeer/models/operations";
+
+let value: GetCreatorViewershipMetricsQueryParamBreakdownBy =
+  GetCreatorViewershipMetricsQueryParamBreakdownBy.Continent;
+```
 
 ## Values
 

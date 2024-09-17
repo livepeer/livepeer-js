@@ -2,6 +2,13 @@
 
 Phase of the task
 
+## Example Usage
+
+```typescript
+import { TaskPhase } from "livepeer/models/components";
+
+let value: TaskPhase = TaskPhase.Pending;
+```
 
 ## Values
 

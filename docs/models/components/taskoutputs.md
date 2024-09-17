@@ -2,6 +2,20 @@
 
 Output formats
 
+## Example Usage
+
+```typescript
+import { TaskOutputs } from "livepeer/models/components";
+
+let value: TaskOutputs = {
+  hls: {
+    path: "/samplevideo/hls",
+  },
+  mp4: {
+    path: "/samplevideo/mp4",
+  },
+};
+```
 
 ## Fields
 

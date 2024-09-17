@@ -1,5 +1,12 @@
 # Participants
 
+## Example Usage
+
+```typescript
+import { Participants } from "livepeer/models/components";
+
+let value: Participants = {};
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # BreakdownBy
 
+## Example Usage
+
+```typescript
+import { BreakdownBy } from "livepeer/models/operations";
+
+let value: BreakdownBy = BreakdownBy.Device;
+```
 
 ## Values
 

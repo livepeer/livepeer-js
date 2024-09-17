@@ -1,5 +1,12 @@
 # Profile
 
+## Example Usage
+
+```typescript
+import { Profile } from "livepeer/models/components";
+
+let value: Profile = Profile.H264Baseline;
+```
 
 ## Values
 

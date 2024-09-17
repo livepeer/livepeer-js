@@ -8,88 +8,94 @@ import * as z from "zod";
  * Phase of the asset storage
  */
 export enum Phase {
-    Waiting = "waiting",
-    Processing = "processing",
-    Ready = "ready",
-    Failed = "failed",
-    Reverted = "reverted",
+  Waiting = "waiting",
+  Processing = "processing",
+  Ready = "ready",
+  Failed = "failed",
+  Reverted = "reverted",
 }
 
 export type Tasks = {
-    /**
-     * ID of any currently running task that is exporting this
-     *
-     * @remarks
-     * asset to IPFS.
-     *
-     */
-    pending?: string | undefined;
-    /**
-     * ID of the last task to run successfully, that created
-     *
-     * @remarks
-     * the currently saved data.
-     *
-     */
-    last?: string | undefined;
-    /**
-     * ID of the last task to fail execution.
-     */
-    failed?: string | undefined;
+  /**
+   * ID of any currently running task that is exporting this
+   *
+   * @remarks
+   * asset to IPFS.
+   */
+  pending?: string | undefined;
+  /**
+   * ID of the last task to run successfully, that created
+   *
+   * @remarks
+   * the currently saved data.
+   */
+  last?: string | undefined;
+  /**
+   * ID of the last task to fail execution.
+   */
+  failed?: string | undefined;
 };
 
 export type StorageStatus = {
-    /**
-     * Phase of the asset storage
-     */
-    phase: Phase;
-    /**
-     * Current progress of the task updating the storage.
-     */
-    progress?: number | undefined;
-    /**
-     * Error message if the last storage changed failed.
-     */
-    errorMessage?: string | undefined;
-    tasks: Tasks;
+  /**
+   * Phase of the asset storage
+   */
+  phase: Phase;
+  /**
+   * Current progress of the task updating the storage.
+   */
+  progress?: number | undefined;
+  /**
+   * Error message if the last storage changed failed.
+   */
+  errorMessage?: string | undefined;
+  tasks: Tasks;
 };
 
 /** @internal */
-export const Phase$inboundSchema: z.ZodNativeEnum<typeof Phase> = z.nativeEnum(Phase);
+export const Phase$inboundSchema: z.ZodNativeEnum<typeof Phase> = z.nativeEnum(
+  Phase,
+);
 
 /** @internal */
-export const Phase$outboundSchema: z.ZodNativeEnum<typeof Phase> = Phase$inboundSchema;
+export const Phase$outboundSchema: z.ZodNativeEnum<typeof Phase> =
+  Phase$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Phase$ {
-    /** @deprecated use `Phase$inboundSchema` instead. */
-    export const inboundSchema = Phase$inboundSchema;
-    /** @deprecated use `Phase$outboundSchema` instead. */
-    export const outboundSchema = Phase$outboundSchema;
+  /** @deprecated use `Phase$inboundSchema` instead. */
+  export const inboundSchema = Phase$inboundSchema;
+  /** @deprecated use `Phase$outboundSchema` instead. */
+  export const outboundSchema = Phase$outboundSchema;
 }
 
 /** @internal */
-export const Tasks$inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z.object({
+export const Tasks$inboundSchema: z.ZodType<Tasks, z.ZodTypeDef, unknown> = z
+  .object({
     pending: z.string().optional(),
     last: z.string().optional(),
     failed: z.string().optional(),
-});
+  });
 
 /** @internal */
 export type Tasks$Outbound = {
-    pending?: string | undefined;
-    last?: string | undefined;
-    failed?: string | undefined;
+  pending?: string | undefined;
+  last?: string | undefined;
+  failed?: string | undefined;
 };
 
 /** @internal */
-export const Tasks$outboundSchema: z.ZodType<Tasks$Outbound, z.ZodTypeDef, Tasks> = z.object({
-    pending: z.string().optional(),
-    last: z.string().optional(),
-    failed: z.string().optional(),
+export const Tasks$outboundSchema: z.ZodType<
+  Tasks$Outbound,
+  z.ZodTypeDef,
+  Tasks
+> = z.object({
+  pending: z.string().optional(),
+  last: z.string().optional(),
+  failed: z.string().optional(),
 });
 
 /**
@@ -97,41 +103,44 @@ export const Tasks$outboundSchema: z.ZodType<Tasks$Outbound, z.ZodTypeDef, Tasks
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Tasks$ {
-    /** @deprecated use `Tasks$inboundSchema` instead. */
-    export const inboundSchema = Tasks$inboundSchema;
-    /** @deprecated use `Tasks$outboundSchema` instead. */
-    export const outboundSchema = Tasks$outboundSchema;
-    /** @deprecated use `Tasks$Outbound` instead. */
-    export type Outbound = Tasks$Outbound;
+  /** @deprecated use `Tasks$inboundSchema` instead. */
+  export const inboundSchema = Tasks$inboundSchema;
+  /** @deprecated use `Tasks$outboundSchema` instead. */
+  export const outboundSchema = Tasks$outboundSchema;
+  /** @deprecated use `Tasks$Outbound` instead. */
+  export type Outbound = Tasks$Outbound;
 }
 
 /** @internal */
-export const StorageStatus$inboundSchema: z.ZodType<StorageStatus, z.ZodTypeDef, unknown> =
-    z.object({
-        phase: Phase$inboundSchema,
-        progress: z.number().optional(),
-        errorMessage: z.string().optional(),
-        tasks: z.lazy(() => Tasks$inboundSchema),
-    });
+export const StorageStatus$inboundSchema: z.ZodType<
+  StorageStatus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  phase: Phase$inboundSchema,
+  progress: z.number().optional(),
+  errorMessage: z.string().optional(),
+  tasks: z.lazy(() => Tasks$inboundSchema),
+});
 
 /** @internal */
 export type StorageStatus$Outbound = {
-    phase: string;
-    progress?: number | undefined;
-    errorMessage?: string | undefined;
-    tasks: Tasks$Outbound;
+  phase: string;
+  progress?: number | undefined;
+  errorMessage?: string | undefined;
+  tasks: Tasks$Outbound;
 };
 
 /** @internal */
 export const StorageStatus$outboundSchema: z.ZodType<
-    StorageStatus$Outbound,
-    z.ZodTypeDef,
-    StorageStatus
+  StorageStatus$Outbound,
+  z.ZodTypeDef,
+  StorageStatus
 > = z.object({
-    phase: Phase$outboundSchema,
-    progress: z.number().optional(),
-    errorMessage: z.string().optional(),
-    tasks: z.lazy(() => Tasks$outboundSchema),
+  phase: Phase$outboundSchema,
+  progress: z.number().optional(),
+  errorMessage: z.string().optional(),
+  tasks: z.lazy(() => Tasks$outboundSchema),
 });
 
 /**
@@ -139,10 +148,10 @@ export const StorageStatus$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace StorageStatus$ {
-    /** @deprecated use `StorageStatus$inboundSchema` instead. */
-    export const inboundSchema = StorageStatus$inboundSchema;
-    /** @deprecated use `StorageStatus$outboundSchema` instead. */
-    export const outboundSchema = StorageStatus$outboundSchema;
-    /** @deprecated use `StorageStatus$Outbound` instead. */
-    export type Outbound = StorageStatus$Outbound;
+  /** @deprecated use `StorageStatus$inboundSchema` instead. */
+  export const inboundSchema = StorageStatus$inboundSchema;
+  /** @deprecated use `StorageStatus$outboundSchema` instead. */
+  export const outboundSchema = StorageStatus$outboundSchema;
+  /** @deprecated use `StorageStatus$Outbound` instead. */
+  export type Outbound = StorageStatus$Outbound;
 }

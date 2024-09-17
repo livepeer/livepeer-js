@@ -1,5 +1,12 @@
 # GetClipsResponse
 
+## Example Usage
+
+```typescript
+import { GetClipsResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

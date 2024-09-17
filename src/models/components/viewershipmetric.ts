@@ -9,193 +9,192 @@ import * as z from "zod";
  *
  * @remarks
  * 1 of playbackId and dStorageUrl will be present, depending on the query.
- *
  */
 export type ViewershipMetric = {
-    /**
-     * The playback ID associated with the metric.
-     */
-    playbackId?: string | undefined;
-    /**
-     * The ID of the creator associated with the metric.
-     */
-    creatorId?: string | undefined;
-    /**
-     * The ID of the viewer associated with the metric.
-     */
-    viewerId?: string | undefined;
-    /**
-     * The URL of the distributed storage used for the asset
-     */
-    dStorageUrl?: string | undefined;
-    /**
-     * Timestamp (in milliseconds) when the metric was recorded. If the
-     *
-     * @remarks
-     * query contains a time step, this timestamp will point to the
-     * beginning of the time step period.
-     *
-     */
-    timestamp?: number | undefined;
-    /**
-     * The device used by the viewer.
-     */
-    device?: string | undefined;
-    /**
-     * The type of the device used by the viewer.
-     */
-    deviceType?: string | undefined;
-    /**
-     * The CPU used by the viewer's device.
-     */
-    cpu?: string | undefined;
-    /**
-     * The operating system used by the viewer.
-     */
-    os?: string | undefined;
-    /**
-     * The browser used by the viewer.
-     */
-    browser?: string | undefined;
-    /**
-     * The browser engine used by the viewer's browser.
-     */
-    browserEngine?: string | undefined;
-    /**
-     * The continent where the viewer is located.
-     */
-    continent?: string | undefined;
-    /**
-     * The country where the viewer is located.
-     */
-    country?: string | undefined;
-    /**
-     * The subdivision (e.g., state or province) where the viewer is
-     *
-     * @remarks
-     * located.
-     *
-     */
-    subdivision?: string | undefined;
-    /**
-     * The timezone where the viewer is located.
-     */
-    timezone?: string | undefined;
-    /**
-     * Geographic encoding of the viewers location. Accurate to 3 digits.
-     */
-    geohash?: string | undefined;
-    /**
-     * The number of views for the stream/asset.
-     */
-    viewCount: number;
-    /**
-     * The total playtime in minutes for the stream/asset.
-     */
-    playtimeMins: number;
-    /**
-     * The time-to-first-frame (TTFF) in milliseconds.
-     */
-    ttffMs?: number | undefined;
-    /**
-     * The rebuffering ratio for the asset.
-     */
-    rebufferRatio?: number | undefined;
-    /**
-     * The error rate for the stream/asset.
-     */
-    errorRate?: number | undefined;
-    /**
-     * The percentage of sessions that existed before the asset started
-     *
-     * @remarks
-     * playing.
-     *
-     */
-    exitsBeforeStart?: number | undefined;
+  /**
+   * The playback ID associated with the metric.
+   */
+  playbackId?: string | undefined;
+  /**
+   * The ID of the creator associated with the metric.
+   */
+  creatorId?: string | undefined;
+  /**
+   * The ID of the viewer associated with the metric.
+   */
+  viewerId?: string | undefined;
+  /**
+   * The URL of the distributed storage used for the asset
+   */
+  dStorageUrl?: string | undefined;
+  /**
+   * Timestamp (in milliseconds) when the metric was recorded. If the
+   *
+   * @remarks
+   * query contains a time step, this timestamp will point to the
+   * beginning of the time step period.
+   */
+  timestamp?: number | undefined;
+  /**
+   * The device used by the viewer.
+   */
+  device?: string | undefined;
+  /**
+   * The type of the device used by the viewer.
+   */
+  deviceType?: string | undefined;
+  /**
+   * The CPU used by the viewer's device.
+   */
+  cpu?: string | undefined;
+  /**
+   * The operating system used by the viewer.
+   */
+  os?: string | undefined;
+  /**
+   * The browser used by the viewer.
+   */
+  browser?: string | undefined;
+  /**
+   * The browser engine used by the viewer's browser.
+   */
+  browserEngine?: string | undefined;
+  /**
+   * The continent where the viewer is located.
+   */
+  continent?: string | undefined;
+  /**
+   * The country where the viewer is located.
+   */
+  country?: string | undefined;
+  /**
+   * The subdivision (e.g., state or province) where the viewer is
+   *
+   * @remarks
+   * located.
+   */
+  subdivision?: string | undefined;
+  /**
+   * The timezone where the viewer is located.
+   */
+  timezone?: string | undefined;
+  /**
+   * Geographic encoding of the viewers location. Accurate to 3 digits.
+   */
+  geohash?: string | undefined;
+  /**
+   * The number of views for the stream/asset.
+   */
+  viewCount: number;
+  /**
+   * The total playtime in minutes for the stream/asset.
+   */
+  playtimeMins: number;
+  /**
+   * The time-to-first-frame (TTFF) in milliseconds.
+   */
+  ttffMs?: number | undefined;
+  /**
+   * The rebuffering ratio for the asset.
+   */
+  rebufferRatio?: number | undefined;
+  /**
+   * The error rate for the stream/asset.
+   */
+  errorRate?: number | undefined;
+  /**
+   * The percentage of sessions that existed before the asset started
+   *
+   * @remarks
+   * playing.
+   */
+  exitsBeforeStart?: number | undefined;
 };
 
 /** @internal */
-export const ViewershipMetric$inboundSchema: z.ZodType<ViewershipMetric, z.ZodTypeDef, unknown> =
-    z.object({
-        playbackId: z.string().optional(),
-        creatorId: z.string().optional(),
-        viewerId: z.string().optional(),
-        dStorageUrl: z.string().optional(),
-        timestamp: z.number().optional(),
-        device: z.string().optional(),
-        deviceType: z.string().optional(),
-        cpu: z.string().optional(),
-        os: z.string().optional(),
-        browser: z.string().optional(),
-        browserEngine: z.string().optional(),
-        continent: z.string().optional(),
-        country: z.string().optional(),
-        subdivision: z.string().optional(),
-        timezone: z.string().optional(),
-        geohash: z.string().optional(),
-        viewCount: z.number().int(),
-        playtimeMins: z.number(),
-        ttffMs: z.number().optional(),
-        rebufferRatio: z.number().optional(),
-        errorRate: z.number().optional(),
-        exitsBeforeStart: z.number().optional(),
-    });
+export const ViewershipMetric$inboundSchema: z.ZodType<
+  ViewershipMetric,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  playbackId: z.string().optional(),
+  creatorId: z.string().optional(),
+  viewerId: z.string().optional(),
+  dStorageUrl: z.string().optional(),
+  timestamp: z.number().optional(),
+  device: z.string().optional(),
+  deviceType: z.string().optional(),
+  cpu: z.string().optional(),
+  os: z.string().optional(),
+  browser: z.string().optional(),
+  browserEngine: z.string().optional(),
+  continent: z.string().optional(),
+  country: z.string().optional(),
+  subdivision: z.string().optional(),
+  timezone: z.string().optional(),
+  geohash: z.string().optional(),
+  viewCount: z.number().int(),
+  playtimeMins: z.number(),
+  ttffMs: z.number().optional(),
+  rebufferRatio: z.number().optional(),
+  errorRate: z.number().optional(),
+  exitsBeforeStart: z.number().optional(),
+});
 
 /** @internal */
 export type ViewershipMetric$Outbound = {
-    playbackId?: string | undefined;
-    creatorId?: string | undefined;
-    viewerId?: string | undefined;
-    dStorageUrl?: string | undefined;
-    timestamp?: number | undefined;
-    device?: string | undefined;
-    deviceType?: string | undefined;
-    cpu?: string | undefined;
-    os?: string | undefined;
-    browser?: string | undefined;
-    browserEngine?: string | undefined;
-    continent?: string | undefined;
-    country?: string | undefined;
-    subdivision?: string | undefined;
-    timezone?: string | undefined;
-    geohash?: string | undefined;
-    viewCount: number;
-    playtimeMins: number;
-    ttffMs?: number | undefined;
-    rebufferRatio?: number | undefined;
-    errorRate?: number | undefined;
-    exitsBeforeStart?: number | undefined;
+  playbackId?: string | undefined;
+  creatorId?: string | undefined;
+  viewerId?: string | undefined;
+  dStorageUrl?: string | undefined;
+  timestamp?: number | undefined;
+  device?: string | undefined;
+  deviceType?: string | undefined;
+  cpu?: string | undefined;
+  os?: string | undefined;
+  browser?: string | undefined;
+  browserEngine?: string | undefined;
+  continent?: string | undefined;
+  country?: string | undefined;
+  subdivision?: string | undefined;
+  timezone?: string | undefined;
+  geohash?: string | undefined;
+  viewCount: number;
+  playtimeMins: number;
+  ttffMs?: number | undefined;
+  rebufferRatio?: number | undefined;
+  errorRate?: number | undefined;
+  exitsBeforeStart?: number | undefined;
 };
 
 /** @internal */
 export const ViewershipMetric$outboundSchema: z.ZodType<
-    ViewershipMetric$Outbound,
-    z.ZodTypeDef,
-    ViewershipMetric
+  ViewershipMetric$Outbound,
+  z.ZodTypeDef,
+  ViewershipMetric
 > = z.object({
-    playbackId: z.string().optional(),
-    creatorId: z.string().optional(),
-    viewerId: z.string().optional(),
-    dStorageUrl: z.string().optional(),
-    timestamp: z.number().optional(),
-    device: z.string().optional(),
-    deviceType: z.string().optional(),
-    cpu: z.string().optional(),
-    os: z.string().optional(),
-    browser: z.string().optional(),
-    browserEngine: z.string().optional(),
-    continent: z.string().optional(),
-    country: z.string().optional(),
-    subdivision: z.string().optional(),
-    timezone: z.string().optional(),
-    geohash: z.string().optional(),
-    viewCount: z.number().int(),
-    playtimeMins: z.number(),
-    ttffMs: z.number().optional(),
-    rebufferRatio: z.number().optional(),
-    errorRate: z.number().optional(),
-    exitsBeforeStart: z.number().optional(),
+  playbackId: z.string().optional(),
+  creatorId: z.string().optional(),
+  viewerId: z.string().optional(),
+  dStorageUrl: z.string().optional(),
+  timestamp: z.number().optional(),
+  device: z.string().optional(),
+  deviceType: z.string().optional(),
+  cpu: z.string().optional(),
+  os: z.string().optional(),
+  browser: z.string().optional(),
+  browserEngine: z.string().optional(),
+  continent: z.string().optional(),
+  country: z.string().optional(),
+  subdivision: z.string().optional(),
+  timezone: z.string().optional(),
+  geohash: z.string().optional(),
+  viewCount: z.number().int(),
+  playtimeMins: z.number(),
+  ttffMs: z.number().optional(),
+  rebufferRatio: z.number().optional(),
+  errorRate: z.number().optional(),
+  exitsBeforeStart: z.number().optional(),
 });
 
 /**
@@ -203,10 +202,10 @@ export const ViewershipMetric$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace ViewershipMetric$ {
-    /** @deprecated use `ViewershipMetric$inboundSchema` instead. */
-    export const inboundSchema = ViewershipMetric$inboundSchema;
-    /** @deprecated use `ViewershipMetric$outboundSchema` instead. */
-    export const outboundSchema = ViewershipMetric$outboundSchema;
-    /** @deprecated use `ViewershipMetric$Outbound` instead. */
-    export type Outbound = ViewershipMetric$Outbound;
+  /** @deprecated use `ViewershipMetric$inboundSchema` instead. */
+  export const inboundSchema = ViewershipMetric$inboundSchema;
+  /** @deprecated use `ViewershipMetric$outboundSchema` instead. */
+  export const outboundSchema = ViewershipMetric$outboundSchema;
+  /** @deprecated use `ViewershipMetric$Outbound` instead. */
+  export type Outbound = ViewershipMetric$Outbound;
 }

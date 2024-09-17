@@ -2,6 +2,13 @@
 
 Indicates whether the stream will be pulled from a mobile source.
 
+## Example Usage
+
+```typescript
+import { StreamIsMobile } from "livepeer/models/components";
+
+let value: StreamIsMobile = false;
+```
 
 ## Supported Types
 

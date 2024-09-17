@@ -1,5 +1,13 @@
 # PlaybackInfoSchemasMetaType
 
+## Example Usage
+
+```typescript
+import { PlaybackInfoSchemasMetaType } from "livepeer/models/components";
+
+let value: PlaybackInfoSchemasMetaType =
+  PlaybackInfoSchemasMetaType.Html5ApplicationVndAppleMpegurl;
+```
 
 ## Values
 

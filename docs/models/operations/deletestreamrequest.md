@@ -1,5 +1,14 @@
 # DeleteStreamRequest
 
+## Example Usage
+
+```typescript
+import { DeleteStreamRequest } from "livepeer/models/operations";
+
+let value: DeleteStreamRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

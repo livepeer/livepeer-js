@@ -1,5 +1,15 @@
 # ResendWebhookRequest
 
+## Example Usage
+
+```typescript
+import { ResendWebhookRequest } from "livepeer/models/operations";
+
+let value: ResendWebhookRequest = {
+  id: "<id>",
+  logId: "<value>",
+};
+```
 
 ## Fields
 

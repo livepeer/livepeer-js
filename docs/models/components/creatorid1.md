@@ -1,5 +1,15 @@
 # CreatorId1
 
+## Example Usage
+
+```typescript
+import { CreatorId1, CreatorIdType } from "livepeer/models/components";
+
+let value: CreatorId1 = {
+  type: CreatorIdType.Unverified,
+  value: "user123",
+};
+```
 
 ## Fields
 

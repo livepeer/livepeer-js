@@ -4,6 +4,36 @@ An individual metric about viewership of a stream/asset. Necessarily, at least
 1 of playbackId and dStorageUrl will be present, depending on the query.
 
 
+## Example Usage
+
+```typescript
+import { ViewershipMetric } from "livepeer/models/components";
+
+let value: ViewershipMetric = {
+  playbackId: "1bde4o2i6xycudoy",
+  creatorId: "john@doe.com",
+  viewerId: "1bde4o2i6xycudoy",
+  dStorageUrl: "ipfs://QmZ4",
+  timestamp: 1587667174725,
+  device: "iPhone",
+  deviceType: "mobile",
+  cpu: "ARM",
+  os: "iOS",
+  browser: "Safari",
+  browserEngine: "WebKit",
+  continent: "North America",
+  country: "United States",
+  subdivision: "California",
+  timezone: "America/Los_Angeles",
+  geohash: "123",
+  viewCount: 100,
+  playtimeMins: 10,
+  ttffMs: 100,
+  rebufferRatio: 0.1,
+  errorRate: 0.1,
+  exitsBeforeStart: 0.5,
+};
+```
 
 ## Fields
 

@@ -1,5 +1,14 @@
 # Security
 
+## Example Usage
+
+```typescript
+import { Security } from "livepeer/models/components";
+
+let value: Security = {
+  apiKey: "<value>",
+};
+```
 
 ## Fields
 

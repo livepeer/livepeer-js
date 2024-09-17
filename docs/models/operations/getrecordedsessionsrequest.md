@@ -1,5 +1,15 @@
 # GetRecordedSessionsRequest
 
+## Example Usage
+
+```typescript
+import { GetRecordedSessionsRequest } from "livepeer/models/operations";
+
+let value: GetRecordedSessionsRequest = {
+  parentId: "<value>",
+  record: true,
+};
+```
 
 ## Fields
 

@@ -2,6 +2,16 @@
 
 Status of the asset
 
+## Example Usage
+
+```typescript
+import { AssetPhase, AssetStatus } from "livepeer/models/components";
+
+let value: AssetStatus = {
+  phase: AssetPhase.Ready,
+  updatedAt: 1587667174725,
+};
+```
 
 ## Fields
 

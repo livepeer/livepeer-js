@@ -1,5 +1,14 @@
 # GetStreamRequest
 
+## Example Usage
+
+```typescript
+import { GetStreamRequest } from "livepeer/models/operations";
+
+let value: GetStreamRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

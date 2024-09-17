@@ -1,5 +1,12 @@
 # GetMultistreamTargetsResponse
 
+## Example Usage
+
+```typescript
+import { GetMultistreamTargetsResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # Events
 
+## Example Usage
+
+```typescript
+import { Events } from "livepeer/models/components";
+
+let value: Events = Events.AssetCreated;
+```
 
 ## Values
 

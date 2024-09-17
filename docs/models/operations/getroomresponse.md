@@ -1,5 +1,12 @@
 # GetRoomResponse
 
+## Example Usage
+
+```typescript
+import { GetRoomResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

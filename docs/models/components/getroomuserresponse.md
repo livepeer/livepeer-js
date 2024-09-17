@@ -1,5 +1,17 @@
 # GetRoomUserResponse
 
+## Example Usage
+
+```typescript
+import { GetRoomUserResponse } from "livepeer/models/components";
+
+let value: GetRoomUserResponse = {
+  id: "d32ae9e6-c459-4931-9898-e86e2f5e7e16",
+  joinedAt: 1687517025261,
+  name: "name",
+  isPublisher: true,
+};
+```
 
 ## Fields
 

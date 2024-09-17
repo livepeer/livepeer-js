@@ -2,6 +2,19 @@
 
 Status of the task
 
+## Example Usage
+
+```typescript
+import { TaskPhase, TaskStatus } from "livepeer/models/components";
+
+let value: TaskStatus = {
+  phase: TaskPhase.Pending,
+  updatedAt: 1587667174725,
+  progress: 0.5,
+  errorMessage: "Failed to upload file",
+  retries: 3,
+};
+```
 
 ## Fields
 

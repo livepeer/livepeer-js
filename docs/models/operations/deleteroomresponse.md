@@ -1,5 +1,12 @@
 # DeleteRoomResponse
 
+## Example Usage
+
+```typescript
+import { DeleteRoomResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

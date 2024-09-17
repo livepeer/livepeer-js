@@ -1,5 +1,15 @@
 # Source
 
+## Example Usage
+
+```typescript
+import { AssetSchemasSourceType, Source } from "livepeer/models/components";
+
+let value: Source = {
+  type: AssetSchemasSourceType.Recording,
+  sessionId: "<value>",
+};
+```
 
 ## Supported Types
 

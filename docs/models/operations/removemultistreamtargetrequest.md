@@ -1,5 +1,15 @@
 # RemoveMultistreamTargetRequest
 
+## Example Usage
+
+```typescript
+import { RemoveMultistreamTargetRequest } from "livepeer/models/operations";
+
+let value: RemoveMultistreamTargetRequest = {
+  id: "<id>",
+  targetId: "<value>",
+};
+```
 
 ## Fields
 

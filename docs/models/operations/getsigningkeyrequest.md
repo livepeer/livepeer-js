@@ -1,5 +1,14 @@
 # GetSigningKeyRequest
 
+## Example Usage
+
+```typescript
+import { GetSigningKeyRequest } from "livepeer/models/operations";
+
+let value: GetSigningKeyRequest = {
+  keyId: "<value>",
+};
+```
 
 ## Fields
 

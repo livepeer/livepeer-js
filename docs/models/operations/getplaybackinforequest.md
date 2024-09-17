@@ -1,5 +1,14 @@
 # GetPlaybackInfoRequest
 
+## Example Usage
+
+```typescript
+import { GetPlaybackInfoRequest } from "livepeer/models/operations";
+
+let value: GetPlaybackInfoRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

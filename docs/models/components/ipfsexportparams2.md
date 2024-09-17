@@ -1,5 +1,14 @@
 # IpfsExportParams2
 
+## Example Usage
+
+```typescript
+import { IpfsExportParams2 } from "livepeer/models/components";
+
+let value: IpfsExportParams2 = {
+  apiKey: "1234567890",
+};
+```
 
 ## Fields
 

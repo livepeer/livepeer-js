@@ -1,5 +1,12 @@
 # TranscodeVideoResponse
 
+## Example Usage
+
+```typescript
+import { TranscodeVideoResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

@@ -5,51 +5,53 @@
 import * as z from "zod";
 
 export type TargetOutput = {
-    /**
-     * Name of transcoding profile that should be sent. Use
-     *
-     * @remarks
-     * "source" for pushing source stream data
-     *
-     */
-    profile: string;
-    /**
-     * If true, the stream audio will be muted and only silent
-     *
-     * @remarks
-     * video will be pushed to the target.
-     *
-     */
-    videoOnly?: boolean | undefined;
-    /**
-     * ID of multistream target object where to push this stream
-     */
-    id?: string | undefined;
+  /**
+   * Name of transcoding profile that should be sent. Use
+   *
+   * @remarks
+   * "source" for pushing source stream data
+   */
+  profile: string;
+  /**
+   * If true, the stream audio will be muted and only silent
+   *
+   * @remarks
+   * video will be pushed to the target.
+   */
+  videoOnly?: boolean | undefined;
+  /**
+   * ID of multistream target object where to push this stream
+   */
+  id?: string | undefined;
 };
 
 /** @internal */
-export const TargetOutput$inboundSchema: z.ZodType<TargetOutput, z.ZodTypeDef, unknown> = z.object({
-    profile: z.string(),
-    videoOnly: z.boolean().default(false),
-    id: z.string().optional(),
+export const TargetOutput$inboundSchema: z.ZodType<
+  TargetOutput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  profile: z.string(),
+  videoOnly: z.boolean().default(false),
+  id: z.string().optional(),
 });
 
 /** @internal */
 export type TargetOutput$Outbound = {
-    profile: string;
-    videoOnly: boolean;
-    id?: string | undefined;
+  profile: string;
+  videoOnly: boolean;
+  id?: string | undefined;
 };
 
 /** @internal */
 export const TargetOutput$outboundSchema: z.ZodType<
-    TargetOutput$Outbound,
-    z.ZodTypeDef,
-    TargetOutput
+  TargetOutput$Outbound,
+  z.ZodTypeDef,
+  TargetOutput
 > = z.object({
-    profile: z.string(),
-    videoOnly: z.boolean().default(false),
-    id: z.string().optional(),
+  profile: z.string(),
+  videoOnly: z.boolean().default(false),
+  id: z.string().optional(),
 });
 
 /**
@@ -57,10 +59,10 @@ export const TargetOutput$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace TargetOutput$ {
-    /** @deprecated use `TargetOutput$inboundSchema` instead. */
-    export const inboundSchema = TargetOutput$inboundSchema;
-    /** @deprecated use `TargetOutput$outboundSchema` instead. */
-    export const outboundSchema = TargetOutput$outboundSchema;
-    /** @deprecated use `TargetOutput$Outbound` instead. */
-    export type Outbound = TargetOutput$Outbound;
+  /** @deprecated use `TargetOutput$inboundSchema` instead. */
+  export const inboundSchema = TargetOutput$inboundSchema;
+  /** @deprecated use `TargetOutput$outboundSchema` instead. */
+  export const outboundSchema = TargetOutput$outboundSchema;
+  /** @deprecated use `TargetOutput$Outbound` instead. */
+  export type Outbound = TargetOutput$Outbound;
 }

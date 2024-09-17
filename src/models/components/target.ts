@@ -10,102 +10,110 @@ import * as z from "zod";
  * @remarks
  * create the target resource to be used by the created
  * stream.
- *
  */
 export type TargetSpec = {
-    name?: string | undefined;
-    /**
-     * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-     */
-    url: string;
+  name?: string | undefined;
+  /**
+   * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
+   */
+  url: string;
 };
 
 export type Target = {
-    /**
-     * Name of transcoding profile that should be sent. Use
-     *
-     * @remarks
-     * "source" for pushing source stream data
-     *
-     */
-    profile: string;
-    /**
-     * If true, the stream audio will be muted and only silent
-     *
-     * @remarks
-     * video will be pushed to the target.
-     *
-     */
-    videoOnly?: boolean | undefined;
-    /**
-     * ID of multistream target object where to push this stream
-     */
-    id?: string | undefined;
-    /**
-     * Inline multistream target object. Will automatically
-     *
-     * @remarks
-     * create the target resource to be used by the created
-     * stream.
-     *
-     */
-    spec?: TargetSpec | undefined;
+  /**
+   * Name of transcoding profile that should be sent. Use
+   *
+   * @remarks
+   * "source" for pushing source stream data
+   */
+  profile: string;
+  /**
+   * If true, the stream audio will be muted and only silent
+   *
+   * @remarks
+   * video will be pushed to the target.
+   */
+  videoOnly?: boolean | undefined;
+  /**
+   * ID of multistream target object where to push this stream
+   */
+  id?: string | undefined;
+  /**
+   * Inline multistream target object. Will automatically
+   *
+   * @remarks
+   * create the target resource to be used by the created
+   * stream.
+   */
+  spec?: TargetSpec | undefined;
 };
 
 /** @internal */
-export const TargetSpec$inboundSchema: z.ZodType<TargetSpec, z.ZodTypeDef, unknown> = z.object({
-    name: z.string().optional(),
-    url: z.string(),
+export const TargetSpec$inboundSchema: z.ZodType<
+  TargetSpec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  url: z.string(),
 });
 
 /** @internal */
 export type TargetSpec$Outbound = {
-    name?: string | undefined;
-    url: string;
+  name?: string | undefined;
+  url: string;
 };
 
 /** @internal */
-export const TargetSpec$outboundSchema: z.ZodType<TargetSpec$Outbound, z.ZodTypeDef, TargetSpec> =
-    z.object({
-        name: z.string().optional(),
-        url: z.string(),
-    });
+export const TargetSpec$outboundSchema: z.ZodType<
+  TargetSpec$Outbound,
+  z.ZodTypeDef,
+  TargetSpec
+> = z.object({
+  name: z.string().optional(),
+  url: z.string(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace TargetSpec$ {
-    /** @deprecated use `TargetSpec$inboundSchema` instead. */
-    export const inboundSchema = TargetSpec$inboundSchema;
-    /** @deprecated use `TargetSpec$outboundSchema` instead. */
-    export const outboundSchema = TargetSpec$outboundSchema;
-    /** @deprecated use `TargetSpec$Outbound` instead. */
-    export type Outbound = TargetSpec$Outbound;
+  /** @deprecated use `TargetSpec$inboundSchema` instead. */
+  export const inboundSchema = TargetSpec$inboundSchema;
+  /** @deprecated use `TargetSpec$outboundSchema` instead. */
+  export const outboundSchema = TargetSpec$outboundSchema;
+  /** @deprecated use `TargetSpec$Outbound` instead. */
+  export type Outbound = TargetSpec$Outbound;
 }
 
 /** @internal */
-export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z.object({
+export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
+  .object({
     profile: z.string(),
     videoOnly: z.boolean().default(false),
     id: z.string().optional(),
     spec: z.lazy(() => TargetSpec$inboundSchema).optional(),
-});
+  });
 
 /** @internal */
 export type Target$Outbound = {
-    profile: string;
-    videoOnly: boolean;
-    id?: string | undefined;
-    spec?: TargetSpec$Outbound | undefined;
+  profile: string;
+  videoOnly: boolean;
+  id?: string | undefined;
+  spec?: TargetSpec$Outbound | undefined;
 };
 
 /** @internal */
-export const Target$outboundSchema: z.ZodType<Target$Outbound, z.ZodTypeDef, Target> = z.object({
-    profile: z.string(),
-    videoOnly: z.boolean().default(false),
-    id: z.string().optional(),
-    spec: z.lazy(() => TargetSpec$outboundSchema).optional(),
+export const Target$outboundSchema: z.ZodType<
+  Target$Outbound,
+  z.ZodTypeDef,
+  Target
+> = z.object({
+  profile: z.string(),
+  videoOnly: z.boolean().default(false),
+  id: z.string().optional(),
+  spec: z.lazy(() => TargetSpec$outboundSchema).optional(),
 });
 
 /**
@@ -113,10 +121,10 @@ export const Target$outboundSchema: z.ZodType<Target$Outbound, z.ZodTypeDef, Tar
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Target$ {
-    /** @deprecated use `Target$inboundSchema` instead. */
-    export const inboundSchema = Target$inboundSchema;
-    /** @deprecated use `Target$outboundSchema` instead. */
-    export const outboundSchema = Target$outboundSchema;
-    /** @deprecated use `Target$Outbound` instead. */
-    export type Outbound = Target$Outbound;
+  /** @deprecated use `Target$inboundSchema` instead. */
+  export const inboundSchema = Target$inboundSchema;
+  /** @deprecated use `Target$outboundSchema` instead. */
+  export const outboundSchema = Target$outboundSchema;
+  /** @deprecated use `Target$Outbound` instead. */
+  export type Outbound = Target$Outbound;
 }

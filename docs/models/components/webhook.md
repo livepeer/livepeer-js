@@ -1,5 +1,32 @@
 # Webhook
 
+## Example Usage
+
+```typescript
+import { Events, Webhook } from "livepeer/models/components";
+
+let value: Webhook = {
+  id: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  name: "test_webhook",
+  projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+  createdAt: 1587667174725,
+  events: [
+    Events.StreamStarted,
+    Events.StreamIdle,
+  ],
+  url: "https://my-service.com/webhook",
+  streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  status: {
+    lastFailure: {
+      timestamp: 1587667174725,
+      error: "Error message",
+      response: "Response body",
+      statusCode: 500,
+    },
+    lastTriggeredAt: 1587667174725,
+  },
+};
+```
 
 ## Fields
 

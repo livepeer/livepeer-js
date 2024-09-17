@@ -1,5 +1,15 @@
 # RoomUserUpdatePayload
 
+## Example Usage
+
+```typescript
+import { RoomUserUpdatePayload } from "livepeer/models/components";
+
+let value: RoomUserUpdatePayload = {
+  canPublish: true,
+  canPublishData: true,
+};
+```
 
 ## Fields
 

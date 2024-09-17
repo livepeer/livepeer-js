@@ -2,6 +2,20 @@
 
 Whether the playback policy for an asset or stream is public or signed
 
+## Example Usage
+
+```typescript
+import { PlaybackPolicy, Type } from "livepeer/models/components";
+
+let value: PlaybackPolicy = {
+  type: Type.Webhook,
+  webhookId: "1bde4o2i6xycudoy",
+  webhookContext: {
+    "streamerId": "my-custom-id",
+  },
+  refreshInterval: 600,
+};
+```
 
 ## Fields
 

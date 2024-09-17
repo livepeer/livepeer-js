@@ -2,6 +2,17 @@
 
 Strategy to use for clipping the asset. If not specified, the default strategy that Catalyst is configured for will be used. This field only available for admin users, and is only used for E2E testing.
 
+## Example Usage
+
+```typescript
+import { ClipStrategy } from "livepeer/models/components";
+
+let value: ClipStrategy = {
+  startTime: 1587667174725,
+  endTime: 1587667174725,
+  playbackId: "eaw4nk06ts2d0mzb",
+};
+```
 
 ## Fields
 

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: 59634240879b8bce1b699c21c7f4f276
+  docChecksum: a4f46cb330dd59f1f60caa6eaccdbd3b
   docVersion: 1.0.0
-  speakeasyVersion: 1.361.1
-  generationVersion: 2.393.4
-  releaseVersion: 3.3.1
-  configChecksum: 7ebb1940798499b899babe33ab6f6e13
+  speakeasyVersion: 1.399.0
+  generationVersion: 2.415.8
+  releaseVersion: 3.4.0
+  configChecksum: 90506ba54a805c16b64b380d8478e30e
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
   published: true
@@ -14,11 +14,13 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
-    constsAndDefaults: 0.1.7
-    core: 3.13.1
+    constsAndDefaults: 0.1.11
+    core: 3.17.3
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
+    enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.1
+    errorUnions: 0.1.1
     flattening: 2.81.1
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
@@ -31,87 +33,450 @@ features:
     retries: 2.83.0
     sdkHooks: 0.1.0
     unions: 2.85.7
+    uploadStreams: 0.1.0
 generatedFiles:
-  - src/funcs/streamCreate.ts
-  - src/funcs/streamGetAll.ts
-  - src/funcs/streamGet.ts
-  - src/funcs/streamUpdate.ts
-  - src/funcs/streamDelete.ts
-  - src/funcs/streamTerminate.ts
-  - src/funcs/streamStartPull.ts
-  - src/funcs/streamCreateClip.ts
-  - src/funcs/streamGetClips.ts
-  - src/funcs/streamAddMultistreamTarget.ts
-  - src/funcs/streamRemoveMultistreamTarget.ts
-  - src/funcs/multistreamGetAll.ts
-  - src/funcs/multistreamCreate.ts
-  - src/funcs/multistreamGet.ts
-  - src/funcs/multistreamUpdate.ts
-  - src/funcs/multistreamDelete.ts
-  - src/funcs/webhookGetAll.ts
-  - src/funcs/webhookCreate.ts
-  - src/funcs/webhookGet.ts
-  - src/funcs/webhookUpdate.ts
-  - src/funcs/webhookDelete.ts
-  - src/funcs/webhookGetLogs.ts
-  - src/funcs/webhookGetLog.ts
-  - src/funcs/webhookResendLog.ts
-  - src/funcs/assetGetAll.ts
-  - src/funcs/assetCreate.ts
-  - src/funcs/assetCreateViaUrl.ts
-  - src/funcs/assetGet.ts
-  - src/funcs/assetUpdate.ts
-  - src/funcs/assetDelete.ts
-  - src/funcs/sessionGetClips.ts
-  - src/funcs/sessionGetAll.ts
-  - src/funcs/sessionGet.ts
-  - src/funcs/sessionGetRecorded.ts
-  - src/funcs/roomCreate.ts
-  - src/funcs/roomGet.ts
-  - src/funcs/roomDelete.ts
-  - src/funcs/roomStartEgress.ts
-  - src/funcs/roomStopEgress.ts
-  - src/funcs/roomCreateUser.ts
-  - src/funcs/roomGetUser.ts
-  - src/funcs/roomUpdateUser.ts
-  - src/funcs/roomDeleteUser.ts
-  - src/funcs/metricsGetRealtimeViewership.ts
-  - src/funcs/metricsGetViewership.ts
-  - src/funcs/metricsGetCreatorViewership.ts
-  - src/funcs/metricsGetPublicViewership.ts
-  - src/funcs/metricsGetUsage.ts
-  - src/funcs/accessControlCreate.ts
-  - src/funcs/accessControlGetAll.ts
-  - src/funcs/accessControlDelete.ts
-  - src/funcs/accessControlGet.ts
-  - src/funcs/accessControlUpdate.ts
-  - src/funcs/taskGetAll.ts
-  - src/funcs/taskGet.ts
-  - src/funcs/transcodeCreate.ts
-  - src/funcs/playbackGet.ts
-  - src/sdk/stream.ts
-  - src/sdk/multistream.ts
-  - src/sdk/webhook.ts
-  - src/sdk/asset.ts
-  - src/sdk/session.ts
-  - src/sdk/room.ts
-  - src/sdk/metrics.ts
-  - src/sdk/accesscontrol.ts
-  - src/sdk/task.ts
-  - src/sdk/transcode.ts
-  - src/sdk/playback.ts
-  - src/sdk/sdk.ts
   - .eslintrc.cjs
+  - .gitattributes
   - .npmignore
+  - CONTRIBUTING.md
+  - FUNCTIONS.md
   - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/components/apierror.md
+  - docs/models/components/asset.md
+  - docs/models/components/asset1.md
+  - docs/models/components/asset3.md
+  - docs/models/components/assetipfs.md
+  - docs/models/components/assetnftmetadata.md
+  - docs/models/components/assetnftmetadatatemplate.md
+  - docs/models/components/assetpatchpayload.md
+  - docs/models/components/assetphase.md
+  - docs/models/components/assetschemassource3type.md
+  - docs/models/components/assetschemassourcetype.md
+  - docs/models/components/assetschemastype.md
+  - docs/models/components/assetschemasvideospectype.md
+  - docs/models/components/assetspec.md
+  - docs/models/components/assetstatus.md
+  - docs/models/components/assetstorage.md
+  - docs/models/components/assettype.md
+  - docs/models/components/attestation.md
+  - docs/models/components/attestationipfs.md
+  - docs/models/components/attestations.md
+  - docs/models/components/attestationstorage.md
+  - docs/models/components/audio.md
+  - docs/models/components/bodygenaudiototext.md
+  - docs/models/components/bodygenimagetoimage.md
+  - docs/models/components/bodygenimagetovideo.md
+  - docs/models/components/bodygenimagetovideoimage.md
+  - docs/models/components/bodygensegmentanything2.md
+  - docs/models/components/bodygensegmentanything2image.md
+  - docs/models/components/bodygenupscale.md
+  - docs/models/components/bodygenupscaleimage.md
+  - docs/models/components/catalystpipelinestrategy.md
+  - docs/models/components/chunk.md
+  - docs/models/components/clip.md
+  - docs/models/components/clippayload.md
+  - docs/models/components/clipstrategy.md
+  - docs/models/components/content.md
+  - docs/models/components/createroomresponse.md
+  - docs/models/components/creatorid.md
+  - docs/models/components/creatorid1.md
+  - docs/models/components/creatoridtype.md
+  - docs/models/components/credentials.md
+  - docs/models/components/custom.md
+  - docs/models/components/domain.md
+  - docs/models/components/dvrplayback.md
+  - docs/models/components/encoder.md
+  - docs/models/components/encryptionoutput.md
+  - docs/models/components/events.md
+  - docs/models/components/export.md
+  - docs/models/components/exportdata.md
+  - docs/models/components/exporttaskparams.md
+  - docs/models/components/exporttaskparams1.md
+  - docs/models/components/exporttaskparams2.md
+  - docs/models/components/ffmpegprofile.md
+  - docs/models/components/fmp4.md
+  - docs/models/components/getroomuserresponse.md
+  - docs/models/components/hash.md
+  - docs/models/components/hls.md
+  - docs/models/components/hrn.md
+  - docs/models/components/image.md
+  - docs/models/components/imageresponse.md
+  - docs/models/components/input.md
+  - docs/models/components/inputcreatorid.md
+  - docs/models/components/inputcreatorid1.md
+  - docs/models/components/inputcreatoridtype.md
+  - docs/models/components/ipfs.md
+  - docs/models/components/ipfsexportparams.md
+  - docs/models/components/ipfsexportparams1.md
+  - docs/models/components/ipfsexportparams2.md
+  - docs/models/components/ipfsfileinfo.md
+  - docs/models/components/ismobile.md
+  - docs/models/components/lastfailure.md
+  - docs/models/components/live.md
+  - docs/models/components/loc.md
+  - docs/models/components/location.md
+  - docs/models/components/masksresponse.md
+  - docs/models/components/media.md
+  - docs/models/components/message.md
+  - docs/models/components/meta.md
+  - docs/models/components/mp4.md
+  - docs/models/components/multistream.md
+  - docs/models/components/multistreamtarget.md
+  - docs/models/components/multistreamtargetpatchpayload.md
+  - docs/models/components/name.md
+  - docs/models/components/newassetfromurlpayload.md
+  - docs/models/components/newassetpayload.md
+  - docs/models/components/newassetpayload1.md
+  - docs/models/components/newassetpayloadencryption.md
+  - docs/models/components/newassetpayloadipfs.md
+  - docs/models/components/newassetpayloadstorage.md
+  - docs/models/components/newstreampayload.md
+  - docs/models/components/newstreampayloadrecordingspec.md
+  - docs/models/components/nftmetadata.md
+  - docs/models/components/nftmetadatatemplate.md
+  - docs/models/components/one.md
+  - docs/models/components/output.md
+  - docs/models/components/outputs.md
+  - docs/models/components/params.md
+  - docs/models/components/participants.md
+  - docs/models/components/phase.md
+  - docs/models/components/pinata.md
+  - docs/models/components/playbackinfo.md
+  - docs/models/components/playbackinfohrn.md
+  - docs/models/components/playbackinfoschemasmetatype.md
+  - docs/models/components/playbackinfoschemastype.md
+  - docs/models/components/playbackinfosource.md
+  - docs/models/components/playbackinfotype.md
+  - docs/models/components/playbackpolicy.md
+  - docs/models/components/primarytype.md
+  - docs/models/components/profile.md
+  - docs/models/components/pull.md
+  - docs/models/components/realtimeviewershipmetric.md
+  - docs/models/components/recordingspec.md
+  - docs/models/components/recordingstatus.md
+  - docs/models/components/renditions.md
+  - docs/models/components/request.md
+  - docs/models/components/response.md
+  - docs/models/components/room.md
+  - docs/models/components/roomegresspayload.md
+  - docs/models/components/roomuserpayload.md
+  - docs/models/components/roomuserresponse.md
+  - docs/models/components/roomuserupdatepayload.md
+  - docs/models/components/security.md
+  - docs/models/components/session.md
+  - docs/models/components/signaturetype.md
+  - docs/models/components/signingkey.md
+  - docs/models/components/source.md
+  - docs/models/components/spec.md
+  - docs/models/components/status.md
+  - docs/models/components/storage.md
+  - docs/models/components/storage1.md
+  - docs/models/components/storagestatus.md
+  - docs/models/components/stream.md
+  - docs/models/components/stream1.md
+  - docs/models/components/stream3.md
+  - docs/models/components/streamismobile.md
+  - docs/models/components/streamlocation.md
+  - docs/models/components/streammultistream.md
+  - docs/models/components/streampatchpayload.md
+  - docs/models/components/streampull.md
+  - docs/models/components/streamrecordingspec.md
+  - docs/models/components/streamusertags.md
+  - docs/models/components/targetaddpayload.md
+  - docs/models/components/targetaddpayloadspec.md
+  - docs/models/components/targetoutput.md
+  - docs/models/components/targetspec.md
+  - docs/models/components/task.md
+  - docs/models/components/taskexportdata.md
+  - docs/models/components/taskhls.md
+  - docs/models/components/taskinput.md
+  - docs/models/components/taskipfs.md
+  - docs/models/components/taskmp4.md
+  - docs/models/components/taskoutputs.md
+  - docs/models/components/taskphase.md
+  - docs/models/components/tasks.md
+  - docs/models/components/taskschemasipfs.md
+  - docs/models/components/taskstatus.md
+  - docs/models/components/taskstorage.md
+  - docs/models/components/tasktype.md
+  - docs/models/components/taskupload.md
+  - docs/models/components/textresponse.md
+  - docs/models/components/texttoimageparams.md
+  - docs/models/components/three.md
+  - docs/models/components/tracks.md
+  - docs/models/components/transcodefile.md
+  - docs/models/components/transcodepayload.md
+  - docs/models/components/transcodepayload1.md
+  - docs/models/components/transcodepayload2.md
+  - docs/models/components/transcodepayloadcredentials.md
+  - docs/models/components/transcodepayloadschemas1.md
+  - docs/models/components/transcodepayloadschemas2.md
+  - docs/models/components/transcodepayloadschemascredentials.md
+  - docs/models/components/transcodepayloadschemasstoragetype.md
+  - docs/models/components/transcodepayloadschemastype.md
+  - docs/models/components/transcodepayloadstorage.md
+  - docs/models/components/transcodepayloadtype.md
+  - docs/models/components/transcodeprofile.md
+  - docs/models/components/transcodeprofileencoder.md
+  - docs/models/components/transcodeprofileprofile.md
+  - docs/models/components/two.md
+  - docs/models/components/type.md
+  - docs/models/components/upload.md
+  - docs/models/components/usagemetric.md
+  - docs/models/components/usertags.md
+  - docs/models/components/validationerror.md
+  - docs/models/components/version.md
+  - docs/models/components/videoresponse.md
+  - docs/models/components/videospec.md
+  - docs/models/components/viewershipmetric.md
+  - docs/models/components/webhook.md
+  - docs/models/components/webhooklog.md
+  - docs/models/errors/errort.md
+  - docs/models/errors/genaudiototextgenerateresponse422responsebody.md
+  - docs/models/errors/genaudiototextgenerateresponse500responsebody.md
+  - docs/models/errors/genaudiototextgenerateresponsebody.md
+  - docs/models/errors/genaudiototextgenerateresponseresponsebody.md
+  - docs/models/errors/genaudiototextresponsebody.md
+  - docs/models/errors/genimagetoimagegenerateresponse500responsebody.md
+  - docs/models/errors/genimagetoimagegenerateresponsebody.md
+  - docs/models/errors/genimagetoimagegenerateresponseresponsebody.md
+  - docs/models/errors/genimagetoimageresponsebody.md
+  - docs/models/errors/genimagetovideogenerateresponse500responsebody.md
+  - docs/models/errors/genimagetovideogenerateresponsebody.md
+  - docs/models/errors/genimagetovideogenerateresponseresponsebody.md
+  - docs/models/errors/genimagetovideoresponsebody.md
+  - docs/models/errors/gensegmentanything2generateresponse500responsebody.md
+  - docs/models/errors/gensegmentanything2generateresponsebody.md
+  - docs/models/errors/gensegmentanything2generateresponseresponsebody.md
+  - docs/models/errors/gensegmentanything2responsebody.md
+  - docs/models/errors/gentexttoimagegenerateresponse500responsebody.md
+  - docs/models/errors/gentexttoimagegenerateresponsebody.md
+  - docs/models/errors/gentexttoimagegenerateresponseresponsebody.md
+  - docs/models/errors/gentexttoimageresponsebody.md
+  - docs/models/errors/genupscalegenerateresponse500responsebody.md
+  - docs/models/errors/genupscalegenerateresponsebody.md
+  - docs/models/errors/genupscalegenerateresponseresponsebody.md
+  - docs/models/errors/genupscaleresponsebody.md
+  - docs/models/errors/httperror.md
+  - docs/models/errors/httpvalidationerror.md
+  - docs/models/errors/studioapierror.md
+  - docs/models/operations/addmultistreamtargetrequest.md
+  - docs/models/operations/addmultistreamtargetresponse.md
+  - docs/models/operations/breakdownby.md
+  - docs/models/operations/createclipdata.md
+  - docs/models/operations/createclipresponse.md
+  - docs/models/operations/createcliptask.md
+  - docs/models/operations/createmultistreamtargetresponse.md
+  - docs/models/operations/createroomresponse.md
+  - docs/models/operations/createroomuserrequest.md
+  - docs/models/operations/createroomuserresponse.md
+  - docs/models/operations/createsigningkeyresponse.md
+  - docs/models/operations/createstreamresponse.md
+  - docs/models/operations/createwebhookresponse.md
+  - docs/models/operations/deleteassetrequest.md
+  - docs/models/operations/deleteassetresponse.md
+  - docs/models/operations/deletemultistreamtargetrequest.md
+  - docs/models/operations/deletemultistreamtargetresponse.md
+  - docs/models/operations/deleteroomrequest.md
+  - docs/models/operations/deleteroomresponse.md
+  - docs/models/operations/deleteroomuserrequest.md
+  - docs/models/operations/deleteroomuserresponse.md
+  - docs/models/operations/deletesigningkeyrequest.md
+  - docs/models/operations/deletesigningkeyresponse.md
+  - docs/models/operations/deletestreamrequest.md
+  - docs/models/operations/deletestreamresponse.md
+  - docs/models/operations/deletewebhookrequest.md
+  - docs/models/operations/deletewebhookresponse.md
+  - docs/models/operations/from.md
+  - docs/models/operations/genaudiototextresponse.md
+  - docs/models/operations/genimagetoimageresponse.md
+  - docs/models/operations/genimagetovideoresponse.md
+  - docs/models/operations/gensegmentanything2response.md
+  - docs/models/operations/gentexttoimageresponse.md
+  - docs/models/operations/genupscaleresponse.md
+  - docs/models/operations/getassetrequest.md
+  - docs/models/operations/getassetresponse.md
+  - docs/models/operations/getassetsresponse.md
+  - docs/models/operations/getclipsrequest.md
+  - docs/models/operations/getclipsresponse.md
+  - docs/models/operations/getcreatorviewershipmetricsqueryparambreakdownby.md
+  - docs/models/operations/getcreatorviewershipmetricsrequest.md
+  - docs/models/operations/getcreatorviewershipmetricsresponse.md
+  - docs/models/operations/getmultistreamtargetrequest.md
+  - docs/models/operations/getmultistreamtargetresponse.md
+  - docs/models/operations/getmultistreamtargetsresponse.md
+  - docs/models/operations/getplaybackinforequest.md
+  - docs/models/operations/getplaybackinforesponse.md
+  - docs/models/operations/getpublicviewershipmetricsdata.md
+  - docs/models/operations/getpublicviewershipmetricsrequest.md
+  - docs/models/operations/getpublicviewershipmetricsresponse.md
+  - docs/models/operations/getrealtimeviewershipnowrequest.md
+  - docs/models/operations/getrealtimeviewershipnowresponse.md
+  - docs/models/operations/getrecordedsessionsrequest.md
+  - docs/models/operations/getrecordedsessionsresponse.md
+  - docs/models/operations/getroomrequest.md
+  - docs/models/operations/getroomresponse.md
+  - docs/models/operations/getroomuserrequest.md
+  - docs/models/operations/getroomuserresponse.md
+  - docs/models/operations/getsessionclipsrequest.md
+  - docs/models/operations/getsessionclipsresponse.md
+  - docs/models/operations/getsessionrequest.md
+  - docs/models/operations/getsessionresponse.md
+  - docs/models/operations/getsessionsresponse.md
+  - docs/models/operations/getsigningkeyrequest.md
+  - docs/models/operations/getsigningkeyresponse.md
+  - docs/models/operations/getsigningkeysresponse.md
+  - docs/models/operations/getstreamrequest.md
+  - docs/models/operations/getstreamresponse.md
+  - docs/models/operations/getstreamsrequest.md
+  - docs/models/operations/getstreamsresponse.md
+  - docs/models/operations/gettaskrequest.md
+  - docs/models/operations/gettaskresponse.md
+  - docs/models/operations/gettasksresponse.md
+  - docs/models/operations/getusagemetricsqueryparambreakdownby.md
+  - docs/models/operations/getusagemetricsqueryparamtimestep.md
+  - docs/models/operations/getusagemetricsrequest.md
+  - docs/models/operations/getusagemetricsresponse.md
+  - docs/models/operations/getviewershipmetricsrequest.md
+  - docs/models/operations/getviewershipmetricsresponse.md
+  - docs/models/operations/getwebhooklogrequest.md
+  - docs/models/operations/getwebhooklogresponse.md
+  - docs/models/operations/getwebhooklogsrequest.md
+  - docs/models/operations/getwebhooklogsresponse.md
+  - docs/models/operations/getwebhookrequest.md
+  - docs/models/operations/getwebhookresponse.md
+  - docs/models/operations/getwebhooksresponse.md
+  - docs/models/operations/queryparambreakdownby.md
+  - docs/models/operations/queryparamfrom.md
+  - docs/models/operations/queryparamtimestep.md
+  - docs/models/operations/queryparamto.md
+  - docs/models/operations/recordt.md
+  - docs/models/operations/removemultistreamtargetrequest.md
+  - docs/models/operations/removemultistreamtargetresponse.md
+  - docs/models/operations/requestuploaddata.md
+  - docs/models/operations/requestuploadresponse.md
+  - docs/models/operations/resendwebhookrequest.md
+  - docs/models/operations/resendwebhookresponse.md
+  - docs/models/operations/startpullstreamrequest.md
+  - docs/models/operations/startpullstreamresponse.md
+  - docs/models/operations/startroomegressrequest.md
+  - docs/models/operations/startroomegressresponse.md
+  - docs/models/operations/stoproomegressrequest.md
+  - docs/models/operations/stoproomegressresponse.md
+  - docs/models/operations/task.md
+  - docs/models/operations/terminatestreamrequest.md
+  - docs/models/operations/terminatestreamresponse.md
+  - docs/models/operations/timestep.md
+  - docs/models/operations/to.md
+  - docs/models/operations/transcodevideoresponse.md
+  - docs/models/operations/updateassetrequest.md
+  - docs/models/operations/updateassetresponse.md
+  - docs/models/operations/updatemultistreamtargetrequest.md
+  - docs/models/operations/updatemultistreamtargetresponse.md
+  - docs/models/operations/updateroomuserrequest.md
+  - docs/models/operations/updateroomuserresponse.md
+  - docs/models/operations/updatesigningkeyrequest.md
+  - docs/models/operations/updatesigningkeyrequestbody.md
+  - docs/models/operations/updatesigningkeyresponse.md
+  - docs/models/operations/updatestreamrequest.md
+  - docs/models/operations/updatestreamresponse.md
+  - docs/models/operations/updatewebhookrequest.md
+  - docs/models/operations/updatewebhookresponse.md
+  - docs/models/operations/uploadassetassettask.md
+  - docs/models/operations/uploadassetdata.md
+  - docs/models/operations/uploadassetdataoutput.md
+  - docs/models/operations/uploadassetresponse.md
+  - docs/models/operations/uploadassettask.md
+  - docs/sdks/accesscontrol/README.md
+  - docs/sdks/asset/README.md
+  - docs/sdks/generate/README.md
+  - docs/sdks/livepeer/README.md
+  - docs/sdks/metrics/README.md
+  - docs/sdks/multistream/README.md
+  - docs/sdks/playback/README.md
+  - docs/sdks/room/README.md
+  - docs/sdks/session/README.md
+  - docs/sdks/stream/README.md
+  - docs/sdks/task/README.md
+  - docs/sdks/transcode/README.md
+  - docs/sdks/webhook/README.md
   - jsr.json
   - package.json
   - src/core.ts
+  - src/funcs/accessControlCreate.ts
+  - src/funcs/accessControlDelete.ts
+  - src/funcs/accessControlGet.ts
+  - src/funcs/accessControlGetAll.ts
+  - src/funcs/accessControlUpdate.ts
+  - src/funcs/assetCreate.ts
+  - src/funcs/assetCreateViaUrl.ts
+  - src/funcs/assetDelete.ts
+  - src/funcs/assetGet.ts
+  - src/funcs/assetGetAll.ts
+  - src/funcs/assetUpdate.ts
+  - src/funcs/generateAudioToText.ts
+  - src/funcs/generateImageToImage.ts
+  - src/funcs/generateImageToVideo.ts
+  - src/funcs/generateSegmentAnything2.ts
+  - src/funcs/generateTextToImage.ts
+  - src/funcs/generateUpscale.ts
+  - src/funcs/metricsGetCreatorViewership.ts
+  - src/funcs/metricsGetPublicViewership.ts
+  - src/funcs/metricsGetRealtimeViewership.ts
+  - src/funcs/metricsGetUsage.ts
+  - src/funcs/metricsGetViewership.ts
+  - src/funcs/multistreamCreate.ts
+  - src/funcs/multistreamDelete.ts
+  - src/funcs/multistreamGet.ts
+  - src/funcs/multistreamGetAll.ts
+  - src/funcs/multistreamUpdate.ts
+  - src/funcs/playbackGet.ts
+  - src/funcs/roomCreate.ts
+  - src/funcs/roomCreateUser.ts
+  - src/funcs/roomDelete.ts
+  - src/funcs/roomDeleteUser.ts
+  - src/funcs/roomGet.ts
+  - src/funcs/roomGetUser.ts
+  - src/funcs/roomStartEgress.ts
+  - src/funcs/roomStopEgress.ts
+  - src/funcs/roomUpdateUser.ts
+  - src/funcs/sessionGet.ts
+  - src/funcs/sessionGetAll.ts
+  - src/funcs/sessionGetClips.ts
+  - src/funcs/sessionGetRecorded.ts
+  - src/funcs/streamAddMultistreamTarget.ts
+  - src/funcs/streamCreate.ts
+  - src/funcs/streamCreateClip.ts
+  - src/funcs/streamDelete.ts
+  - src/funcs/streamGet.ts
+  - src/funcs/streamGetAll.ts
+  - src/funcs/streamGetClips.ts
+  - src/funcs/streamRemoveMultistreamTarget.ts
+  - src/funcs/streamStartPull.ts
+  - src/funcs/streamTerminate.ts
+  - src/funcs/streamUpdate.ts
+  - src/funcs/taskGet.ts
+  - src/funcs/taskGetAll.ts
+  - src/funcs/transcodeCreate.ts
+  - src/funcs/webhookCreate.ts
+  - src/funcs/webhookDelete.ts
+  - src/funcs/webhookGet.ts
+  - src/funcs/webhookGetAll.ts
+  - src/funcs/webhookGetLog.ts
+  - src/funcs/webhookGetLogs.ts
+  - src/funcs/webhookResendLog.ts
+  - src/funcs/webhookUpdate.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
   - src/index.ts
   - src/lib/base64.ts
   - src/lib/config.ts
   - src/lib/dlv.ts
   - src/lib/encodings.ts
+  - src/lib/files.ts
   - src/lib/http.ts
   - src/lib/is-plain-object.ts
   - src/lib/logger.ts
@@ -122,10 +487,163 @@ generatedFiles:
   - src/lib/sdks.ts
   - src/lib/security.ts
   - src/lib/url.ts
-  - src/sdk/index.ts
+  - src/models/components/apierror.ts
+  - src/models/components/asset.ts
+  - src/models/components/assetpatchpayload.ts
+  - src/models/components/attestation.ts
+  - src/models/components/bodygenaudiototext.ts
+  - src/models/components/bodygenimagetoimage.ts
+  - src/models/components/bodygenimagetovideo.ts
+  - src/models/components/bodygensegmentanything2.ts
+  - src/models/components/bodygenupscale.ts
+  - src/models/components/chunk.ts
+  - src/models/components/clippayload.ts
+  - src/models/components/createroomresponse.ts
+  - src/models/components/creatorid.ts
+  - src/models/components/encryption.ts
+  - src/models/components/encryptionoutput.ts
+  - src/models/components/exporttaskparams.ts
+  - src/models/components/ffmpegprofile.ts
+  - src/models/components/getroomuserresponse.ts
+  - src/models/components/imageresponse.ts
+  - src/models/components/index.ts
+  - src/models/components/inputcreatorid.ts
+  - src/models/components/ipfsexportparams.ts
+  - src/models/components/ipfsfileinfo.ts
+  - src/models/components/masksresponse.ts
+  - src/models/components/media.ts
+  - src/models/components/multistream.ts
+  - src/models/components/multistreamtarget.ts
+  - src/models/components/multistreamtargetinput.ts
+  - src/models/components/multistreamtargetpatchpayload.ts
+  - src/models/components/newassetfromurlpayload.ts
+  - src/models/components/newassetpayload.ts
+  - src/models/components/newstreampayload.ts
+  - src/models/components/playbackinfo.ts
+  - src/models/components/playbackpolicy.ts
+  - src/models/components/pull.ts
+  - src/models/components/realtimeviewershipmetric.ts
+  - src/models/components/recordingspec.ts
+  - src/models/components/room.ts
+  - src/models/components/roomegresspayload.ts
+  - src/models/components/roomuserpayload.ts
+  - src/models/components/roomuserresponse.ts
+  - src/models/components/roomuserupdatepayload.ts
+  - src/models/components/security.ts
+  - src/models/components/session.ts
+  - src/models/components/signingkey.ts
+  - src/models/components/spec.ts
+  - src/models/components/storage.ts
+  - src/models/components/storagestatus.ts
+  - src/models/components/stream.ts
+  - src/models/components/streampatchpayload.ts
+  - src/models/components/target.ts
+  - src/models/components/targetaddpayload.ts
+  - src/models/components/targetoutput.ts
+  - src/models/components/task.ts
+  - src/models/components/textresponse.ts
+  - src/models/components/texttoimageparams.ts
+  - src/models/components/transcodepayload.ts
+  - src/models/components/transcodeprofile.ts
+  - src/models/components/usagemetric.ts
+  - src/models/components/usertags.ts
+  - src/models/components/validationerror.ts
+  - src/models/components/videoresponse.ts
+  - src/models/components/viewershipmetric.ts
+  - src/models/components/webhook.ts
+  - src/models/components/webhooklog.ts
+  - src/models/errors/error.ts
+  - src/models/errors/genaudiototext.ts
+  - src/models/errors/genimagetoimage.ts
+  - src/models/errors/genimagetovideo.ts
+  - src/models/errors/gensegmentanything2.ts
+  - src/models/errors/gentexttoimage.ts
+  - src/models/errors/genupscale.ts
   - src/models/errors/httpclienterrors.ts
+  - src/models/errors/httperror.ts
+  - src/models/errors/httpvalidationerror.ts
+  - src/models/errors/index.ts
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
+  - src/models/errors/studioapierror.ts
+  - src/models/operations/addmultistreamtarget.ts
+  - src/models/operations/createclip.ts
+  - src/models/operations/createmultistreamtarget.ts
+  - src/models/operations/createroom.ts
+  - src/models/operations/createroomuser.ts
+  - src/models/operations/createsigningkey.ts
+  - src/models/operations/createstream.ts
+  - src/models/operations/createwebhook.ts
+  - src/models/operations/deleteasset.ts
+  - src/models/operations/deletemultistreamtarget.ts
+  - src/models/operations/deleteroom.ts
+  - src/models/operations/deleteroomuser.ts
+  - src/models/operations/deletesigningkey.ts
+  - src/models/operations/deletestream.ts
+  - src/models/operations/deletewebhook.ts
+  - src/models/operations/genaudiototext.ts
+  - src/models/operations/genimagetoimage.ts
+  - src/models/operations/genimagetovideo.ts
+  - src/models/operations/gensegmentanything2.ts
+  - src/models/operations/gentexttoimage.ts
+  - src/models/operations/genupscale.ts
+  - src/models/operations/getasset.ts
+  - src/models/operations/getassets.ts
+  - src/models/operations/getclips.ts
+  - src/models/operations/getcreatorviewershipmetrics.ts
+  - src/models/operations/getmultistreamtarget.ts
+  - src/models/operations/getmultistreamtargets.ts
+  - src/models/operations/getplaybackinfo.ts
+  - src/models/operations/getpublicviewershipmetrics.ts
+  - src/models/operations/getrealtimeviewershipnow.ts
+  - src/models/operations/getrecordedsessions.ts
+  - src/models/operations/getroom.ts
+  - src/models/operations/getroomuser.ts
+  - src/models/operations/getsession.ts
+  - src/models/operations/getsessionclips.ts
+  - src/models/operations/getsessions.ts
+  - src/models/operations/getsigningkey.ts
+  - src/models/operations/getsigningkeys.ts
+  - src/models/operations/getstream.ts
+  - src/models/operations/getstreams.ts
+  - src/models/operations/gettask.ts
+  - src/models/operations/gettasks.ts
+  - src/models/operations/getusagemetrics.ts
+  - src/models/operations/getviewershipmetrics.ts
+  - src/models/operations/getwebhook.ts
+  - src/models/operations/getwebhooklog.ts
+  - src/models/operations/getwebhooklogs.ts
+  - src/models/operations/getwebhooks.ts
+  - src/models/operations/index.ts
+  - src/models/operations/removemultistreamtarget.ts
+  - src/models/operations/requestupload.ts
+  - src/models/operations/resendwebhook.ts
+  - src/models/operations/startpullstream.ts
+  - src/models/operations/startroomegress.ts
+  - src/models/operations/stoproomegress.ts
+  - src/models/operations/terminatestream.ts
+  - src/models/operations/transcodevideo.ts
+  - src/models/operations/updateasset.ts
+  - src/models/operations/updatemultistreamtarget.ts
+  - src/models/operations/updateroomuser.ts
+  - src/models/operations/updatesigningkey.ts
+  - src/models/operations/updatestream.ts
+  - src/models/operations/updatewebhook.ts
+  - src/models/operations/uploadasset.ts
+  - src/sdk/accesscontrol.ts
+  - src/sdk/asset.ts
+  - src/sdk/generate.ts
+  - src/sdk/index.ts
+  - src/sdk/metrics.ts
+  - src/sdk/multistream.ts
+  - src/sdk/playback.ts
+  - src/sdk/room.ts
+  - src/sdk/sdk.ts
+  - src/sdk/session.ts
+  - src/sdk/stream.ts
+  - src/sdk/task.ts
+  - src/sdk/transcode.ts
+  - src/sdk/webhook.ts
   - src/types/blobs.ts
   - src/types/constdatetime.ts
   - src/types/enums.ts
@@ -133,430 +651,609 @@ generatedFiles:
   - src/types/index.ts
   - src/types/operations.ts
   - src/types/rfcdate.ts
+  - src/types/streams.ts
   - tsconfig.json
-  - src/models/operations/createstream.ts
-  - src/models/operations/getstreams.ts
-  - src/models/operations/getstream.ts
-  - src/models/operations/updatestream.ts
-  - src/models/operations/deletestream.ts
-  - src/models/operations/terminatestream.ts
-  - src/models/operations/startpullstream.ts
-  - src/models/operations/createclip.ts
-  - src/models/operations/getclips.ts
-  - src/models/operations/addmultistreamtarget.ts
-  - src/models/operations/removemultistreamtarget.ts
-  - src/models/operations/getmultistreamtargets.ts
-  - src/models/operations/createmultistreamtarget.ts
-  - src/models/operations/getmultistreamtarget.ts
-  - src/models/operations/updatemultistreamtarget.ts
-  - src/models/operations/deletemultistreamtarget.ts
-  - src/models/operations/getwebhooks.ts
-  - src/models/operations/createwebhook.ts
-  - src/models/operations/getwebhook.ts
-  - src/models/operations/updatewebhook.ts
-  - src/models/operations/deletewebhook.ts
-  - src/models/operations/getwebhooklogs.ts
-  - src/models/operations/getwebhooklog.ts
-  - src/models/operations/resendwebhook.ts
-  - src/models/operations/getassets.ts
-  - src/models/operations/requestupload.ts
-  - src/models/operations/uploadasset.ts
-  - src/models/operations/getasset.ts
-  - src/models/operations/updateasset.ts
-  - src/models/operations/deleteasset.ts
-  - src/models/operations/getsessionclips.ts
-  - src/models/operations/getsessions.ts
-  - src/models/operations/getsession.ts
-  - src/models/operations/getrecordedsessions.ts
-  - src/models/operations/createroom.ts
-  - src/models/operations/getroom.ts
-  - src/models/operations/deleteroom.ts
-  - src/models/operations/startroomegress.ts
-  - src/models/operations/stoproomegress.ts
-  - src/models/operations/createroomuser.ts
-  - src/models/operations/getroomuser.ts
-  - src/models/operations/updateroomuser.ts
-  - src/models/operations/deleteroomuser.ts
-  - src/models/operations/getrealtimeviewershipnow.ts
-  - src/models/operations/getviewershipmetrics.ts
-  - src/models/operations/getcreatorviewershipmetrics.ts
-  - src/models/operations/getpublicviewershipmetrics.ts
-  - src/models/operations/getusagemetrics.ts
-  - src/models/operations/createsigningkey.ts
-  - src/models/operations/getsigningkeys.ts
-  - src/models/operations/deletesigningkey.ts
-  - src/models/operations/getsigningkey.ts
-  - src/models/operations/updatesigningkey.ts
-  - src/models/operations/gettasks.ts
-  - src/models/operations/gettask.ts
-  - src/models/operations/transcodevideo.ts
-  - src/models/operations/getplaybackinfo.ts
-  - src/models/errors/error.ts
-  - src/models/components/stream.ts
-  - src/models/components/targetoutput.ts
-  - src/models/components/transcodeprofile.ts
-  - src/models/components/ffmpegprofile.ts
-  - src/models/components/playbackpolicy.ts
-  - src/models/components/creatorid.ts
-  - src/models/components/newstreampayload.ts
-  - src/models/components/usertags.ts
-  - src/models/components/multistream.ts
-  - src/models/components/target.ts
-  - src/models/components/inputcreatorid.ts
-  - src/models/components/pull.ts
-  - src/models/components/streampatchpayload.ts
-  - src/models/components/recordingspec.ts
-  - src/models/components/asset.ts
-  - src/models/components/storagestatus.ts
-  - src/models/components/ipfsfileinfo.ts
-  - src/models/components/encryptionoutput.ts
-  - src/models/components/clippayload.ts
-  - src/models/components/targetaddpayload.ts
-  - src/models/components/multistreamtarget.ts
-  - src/models/components/multistreamtargetinput.ts
-  - src/models/components/multistreamtargetpatchpayload.ts
-  - src/models/components/webhook.ts
-  - src/models/components/webhooklog.ts
-  - src/models/components/newassetpayload.ts
-  - src/models/components/spec.ts
-  - src/models/components/newassetfromurlpayload.ts
-  - src/models/components/encryption.ts
-  - src/models/components/storage.ts
-  - src/models/components/assetpatchpayload.ts
-  - src/models/components/session.ts
-  - src/models/components/createroomresponse.ts
-  - src/models/components/room.ts
-  - src/models/components/roomegresspayload.ts
-  - src/models/components/roomuserresponse.ts
-  - src/models/components/roomuserpayload.ts
-  - src/models/components/getroomuserresponse.ts
-  - src/models/components/roomuserupdatepayload.ts
-  - src/models/components/realtimeviewershipmetric.ts
-  - src/models/components/viewershipmetric.ts
-  - src/models/components/usagemetric.ts
-  - src/models/components/signingkey.ts
-  - src/models/components/task.ts
-  - src/models/components/ipfsexportparams.ts
-  - src/models/components/exporttaskparams.ts
-  - src/models/components/transcodepayload.ts
-  - src/models/components/playbackinfo.ts
-  - src/models/components/attestation.ts
-  - src/models/components/security.ts
-  - src/models/errors/index.ts
-  - src/models/operations/index.ts
-  - src/models/components/index.ts
-  - docs/models/operations/createstreamresponse.md
-  - docs/models/operations/getstreamsrequest.md
-  - docs/models/operations/getstreamsresponse.md
-  - docs/models/operations/getstreamrequest.md
-  - docs/models/operations/getstreamresponse.md
-  - docs/models/operations/updatestreamrequest.md
-  - docs/models/operations/updatestreamresponse.md
-  - docs/models/operations/deletestreamrequest.md
-  - docs/models/operations/deletestreamresponse.md
-  - docs/models/operations/terminatestreamrequest.md
-  - docs/models/operations/terminatestreamresponse.md
-  - docs/models/operations/startpullstreamrequest.md
-  - docs/models/operations/startpullstreamresponse.md
-  - docs/models/operations/createcliptask.md
-  - docs/models/operations/createclipdata.md
-  - docs/models/operations/createclipresponse.md
-  - docs/models/operations/getclipsrequest.md
-  - docs/models/operations/getclipsresponse.md
-  - docs/models/operations/addmultistreamtargetrequest.md
-  - docs/models/operations/addmultistreamtargetresponse.md
-  - docs/models/operations/removemultistreamtargetrequest.md
-  - docs/models/operations/removemultistreamtargetresponse.md
-  - docs/models/operations/getmultistreamtargetsresponse.md
-  - docs/models/operations/createmultistreamtargetresponse.md
-  - docs/models/operations/getmultistreamtargetrequest.md
-  - docs/models/operations/getmultistreamtargetresponse.md
-  - docs/models/operations/updatemultistreamtargetrequest.md
-  - docs/models/operations/updatemultistreamtargetresponse.md
-  - docs/models/operations/deletemultistreamtargetrequest.md
-  - docs/models/operations/deletemultistreamtargetresponse.md
-  - docs/models/operations/getwebhooksresponse.md
-  - docs/models/operations/createwebhookresponse.md
-  - docs/models/operations/getwebhookrequest.md
-  - docs/models/operations/getwebhookresponse.md
-  - docs/models/operations/updatewebhookrequest.md
-  - docs/models/operations/updatewebhookresponse.md
-  - docs/models/operations/deletewebhookrequest.md
-  - docs/models/operations/deletewebhookresponse.md
-  - docs/models/operations/getwebhooklogsrequest.md
-  - docs/models/operations/getwebhooklogsresponse.md
-  - docs/models/operations/getwebhooklogrequest.md
-  - docs/models/operations/getwebhooklogresponse.md
-  - docs/models/operations/resendwebhookrequest.md
-  - docs/models/operations/resendwebhookresponse.md
-  - docs/models/operations/getassetsresponse.md
-  - docs/models/operations/task.md
-  - docs/models/operations/requestuploaddata.md
-  - docs/models/operations/requestuploadresponse.md
-  - docs/models/operations/uploadassetassettask.md
-  - docs/models/operations/uploadassetdataoutput.md
-  - docs/models/operations/uploadassettask.md
-  - docs/models/operations/uploadassetdata.md
-  - docs/models/operations/uploadassetresponse.md
-  - docs/models/operations/getassetrequest.md
-  - docs/models/operations/getassetresponse.md
-  - docs/models/operations/updateassetrequest.md
-  - docs/models/operations/updateassetresponse.md
-  - docs/models/operations/deleteassetrequest.md
-  - docs/models/operations/deleteassetresponse.md
-  - docs/models/operations/getsessionclipsrequest.md
-  - docs/models/operations/getsessionclipsresponse.md
-  - docs/models/operations/getsessionsresponse.md
-  - docs/models/operations/getsessionrequest.md
-  - docs/models/operations/getsessionresponse.md
-  - docs/models/operations/recordt.md
-  - docs/models/operations/getrecordedsessionsrequest.md
-  - docs/models/operations/getrecordedsessionsresponse.md
-  - docs/models/operations/createroomresponse.md
-  - docs/models/operations/getroomrequest.md
-  - docs/models/operations/getroomresponse.md
-  - docs/models/operations/deleteroomrequest.md
-  - docs/models/operations/deleteroomresponse.md
-  - docs/models/operations/startroomegressrequest.md
-  - docs/models/operations/startroomegressresponse.md
-  - docs/models/operations/stoproomegressrequest.md
-  - docs/models/operations/stoproomegressresponse.md
-  - docs/models/operations/createroomuserrequest.md
-  - docs/models/operations/createroomuserresponse.md
-  - docs/models/operations/getroomuserrequest.md
-  - docs/models/operations/getroomuserresponse.md
-  - docs/models/operations/updateroomuserrequest.md
-  - docs/models/operations/updateroomuserresponse.md
-  - docs/models/operations/deleteroomuserrequest.md
-  - docs/models/operations/deleteroomuserresponse.md
-  - docs/models/operations/breakdownby.md
-  - docs/models/operations/getrealtimeviewershipnowrequest.md
-  - docs/models/operations/getrealtimeviewershipnowresponse.md
-  - docs/models/operations/from.md
-  - docs/models/operations/to.md
-  - docs/models/operations/timestep.md
-  - docs/models/operations/queryparambreakdownby.md
-  - docs/models/operations/getviewershipmetricsrequest.md
-  - docs/models/operations/getviewershipmetricsresponse.md
-  - docs/models/operations/queryparamfrom.md
-  - docs/models/operations/queryparamto.md
-  - docs/models/operations/queryparamtimestep.md
-  - docs/models/operations/getcreatorviewershipmetricsqueryparambreakdownby.md
-  - docs/models/operations/getcreatorviewershipmetricsrequest.md
-  - docs/models/operations/getcreatorviewershipmetricsresponse.md
-  - docs/models/operations/getpublicviewershipmetricsrequest.md
-  - docs/models/operations/getpublicviewershipmetricsdata.md
-  - docs/models/operations/getpublicviewershipmetricsresponse.md
-  - docs/models/operations/getusagemetricsqueryparamtimestep.md
-  - docs/models/operations/getusagemetricsqueryparambreakdownby.md
-  - docs/models/operations/getusagemetricsrequest.md
-  - docs/models/operations/getusagemetricsresponse.md
-  - docs/models/operations/createsigningkeyresponse.md
-  - docs/models/operations/getsigningkeysresponse.md
-  - docs/models/operations/deletesigningkeyrequest.md
-  - docs/models/operations/deletesigningkeyresponse.md
-  - docs/models/operations/getsigningkeyrequest.md
-  - docs/models/operations/getsigningkeyresponse.md
-  - docs/models/operations/updatesigningkeyrequestbody.md
-  - docs/models/operations/updatesigningkeyrequest.md
-  - docs/models/operations/updatesigningkeyresponse.md
-  - docs/models/operations/gettasksresponse.md
-  - docs/models/operations/gettaskrequest.md
-  - docs/models/operations/gettaskresponse.md
-  - docs/models/operations/transcodevideoresponse.md
-  - docs/models/operations/getplaybackinforequest.md
-  - docs/models/operations/getplaybackinforesponse.md
-  - docs/models/errors/errort.md
-  - docs/models/components/stream3.md
-  - docs/models/components/streamusertags.md
-  - docs/models/components/stream1.md
-  - docs/models/components/streamismobile.md
-  - docs/models/components/streamlocation.md
-  - docs/models/components/streampull.md
-  - docs/models/components/streamrecordingspec.md
-  - docs/models/components/streammultistream.md
-  - docs/models/components/renditions.md
-  - docs/models/components/stream.md
-  - docs/models/components/targetoutput.md
-  - docs/models/components/transcodeprofileprofile.md
-  - docs/models/components/transcodeprofileencoder.md
-  - docs/models/components/transcodeprofile.md
-  - docs/models/components/profile.md
-  - docs/models/components/encoder.md
-  - docs/models/components/ffmpegprofile.md
-  - docs/models/components/type.md
-  - docs/models/components/playbackpolicy.md
-  - docs/models/components/creatoridtype.md
-  - docs/models/components/creatorid1.md
-  - docs/models/components/creatorid.md
-  - docs/models/components/newstreampayloadrecordingspec.md
-  - docs/models/components/newstreampayload.md
-  - docs/models/components/three.md
-  - docs/models/components/usertags.md
-  - docs/models/components/multistream.md
-  - docs/models/components/targetspec.md
-  - docs/models/components/target.md
-  - docs/models/components/inputcreatoridtype.md
-  - docs/models/components/inputcreatorid1.md
-  - docs/models/components/inputcreatorid.md
-  - docs/models/components/one.md
-  - docs/models/components/ismobile.md
-  - docs/models/components/location.md
-  - docs/models/components/pull.md
-  - docs/models/components/streampatchpayload.md
-  - docs/models/components/recordingspec.md
-  - docs/models/components/assettype.md
-  - docs/models/components/assetschemassource3type.md
-  - docs/models/components/asset3.md
-  - docs/models/components/assetschemassourcetype.md
-  - docs/models/components/two.md
-  - docs/models/components/assetschemastype.md
-  - docs/models/components/asset1.md
-  - docs/models/components/source.md
-  - docs/models/components/assetnftmetadatatemplate.md
-  - docs/models/components/assetnftmetadata.md
-  - docs/models/components/assetspec.md
-  - docs/models/components/assetipfs.md
-  - docs/models/components/assetstorage.md
-  - docs/models/components/assetphase.md
-  - docs/models/components/assetstatus.md
-  - docs/models/components/hash.md
-  - docs/models/components/assetschemasvideospectype.md
-  - docs/models/components/tracks.md
-  - docs/models/components/videospec.md
-  - docs/models/components/asset.md
-  - docs/models/components/phase.md
-  - docs/models/components/tasks.md
-  - docs/models/components/storagestatus.md
-  - docs/models/components/ipfsfileinfo.md
-  - docs/models/components/encryptionoutput.md
-  - docs/models/components/clippayload.md
-  - docs/models/components/targetaddpayloadspec.md
-  - docs/models/components/targetaddpayload.md
-  - docs/models/components/multistreamtarget.md
-  - docs/models/components/multistreamtargetinput.md
-  - docs/models/components/multistreamtargetpatchpayload.md
-  - docs/models/components/events.md
-  - docs/models/components/lastfailure.md
-  - docs/models/components/status.md
-  - docs/models/components/webhook.md
-  - docs/models/components/webhookinput.md
-  - docs/models/components/request.md
-  - docs/models/components/response.md
-  - docs/models/components/webhooklog.md
-  - docs/models/components/newassetpayload1.md
-  - docs/models/components/newassetpayloadipfs.md
-  - docs/models/components/newassetpayloadstorage.md
-  - docs/models/components/newassetpayloadencryption.md
-  - docs/models/components/newassetpayload.md
-  - docs/models/components/nftmetadatatemplate.md
-  - docs/models/components/nftmetadata.md
-  - docs/models/components/spec.md
-  - docs/models/components/newassetfromurlpayload.md
-  - docs/models/components/encryption.md
-  - docs/models/components/storage1.md
-  - docs/models/components/ipfs.md
-  - docs/models/components/storage.md
-  - docs/models/components/assetpatchpayload.md
-  - docs/models/components/recordingstatus.md
-  - docs/models/components/session.md
-  - docs/models/components/createroomresponse.md
-  - docs/models/components/participants.md
-  - docs/models/components/room.md
-  - docs/models/components/roomegresspayload.md
-  - docs/models/components/roomuserresponse.md
-  - docs/models/components/roomuserpayload.md
-  - docs/models/components/getroomuserresponse.md
-  - docs/models/components/roomuserupdatepayload.md
-  - docs/models/components/realtimeviewershipmetric.md
-  - docs/models/components/viewershipmetric.md
-  - docs/models/components/usagemetric.md
-  - docs/models/components/signingkey.md
-  - docs/models/components/tasktype.md
-  - docs/models/components/upload.md
-  - docs/models/components/content.md
-  - docs/models/components/taskexportdata.md
-  - docs/models/components/taskinput.md
-  - docs/models/components/taskstorage.md
-  - docs/models/components/taskhls.md
-  - docs/models/components/taskmp4.md
-  - docs/models/components/taskoutputs.md
-  - docs/models/components/transcodefile.md
-  - docs/models/components/clipstrategy.md
-  - docs/models/components/catalystpipelinestrategy.md
-  - docs/models/components/clip.md
-  - docs/models/components/params.md
-  - docs/models/components/taskphase.md
-  - docs/models/components/taskstatus.md
-  - docs/models/components/taskupload.md
-  - docs/models/components/taskipfs.md
-  - docs/models/components/export.md
-  - docs/models/components/taskschemasipfs.md
-  - docs/models/components/exportdata.md
-  - docs/models/components/output.md
-  - docs/models/components/task.md
-  - docs/models/components/ipfsexportparams2.md
-  - docs/models/components/ipfsexportparams1.md
-  - docs/models/components/pinata.md
-  - docs/models/components/ipfsexportparams.md
-  - docs/models/components/exporttaskparams2.md
-  - docs/models/components/custom.md
-  - docs/models/components/exporttaskparams1.md
-  - docs/models/components/exporttaskparams.md
-  - docs/models/components/transcodepayloadtype.md
-  - docs/models/components/credentials.md
-  - docs/models/components/transcodepayload2.md
-  - docs/models/components/transcodepayload1.md
-  - docs/models/components/input.md
-  - docs/models/components/transcodepayloadschemasstoragetype.md
-  - docs/models/components/transcodepayloadschemascredentials.md
-  - docs/models/components/transcodepayloadschemas2.md
-  - docs/models/components/transcodepayloadschemastype.md
-  - docs/models/components/transcodepayloadcredentials.md
-  - docs/models/components/transcodepayloadschemas1.md
-  - docs/models/components/transcodepayloadstorage.md
-  - docs/models/components/hls.md
-  - docs/models/components/mp4.md
-  - docs/models/components/fmp4.md
-  - docs/models/components/outputs.md
-  - docs/models/components/transcodepayload.md
-  - docs/models/components/playbackinfotype.md
-  - docs/models/components/live.md
-  - docs/models/components/hrn.md
-  - docs/models/components/playbackinfoschemastype.md
-  - docs/models/components/playbackinfosource.md
-  - docs/models/components/playbackinfohrn.md
-  - docs/models/components/playbackinfoschemasmetatype.md
-  - docs/models/components/dvrplayback.md
-  - docs/models/components/meta.md
-  - docs/models/components/playbackinfo.md
-  - docs/models/components/primarytype.md
-  - docs/models/components/name.md
-  - docs/models/components/version.md
-  - docs/models/components/domain.md
-  - docs/models/components/attestations.md
-  - docs/models/components/message.md
-  - docs/models/components/signaturetype.md
-  - docs/models/components/attestationipfs.md
-  - docs/models/components/attestationstorage.md
-  - docs/models/components/attestation.md
-  - docs/models/components/security.md
-  - docs/sdks/livepeer/README.md
-  - docs/lib/utils/retryconfig.md
-  - docs/sdks/stream/README.md
-  - docs/sdks/multistream/README.md
-  - docs/sdks/webhook/README.md
-  - docs/sdks/asset/README.md
-  - docs/sdks/session/README.md
-  - docs/sdks/room/README.md
-  - docs/sdks/metrics/README.md
-  - docs/sdks/accesscontrol/README.md
-  - docs/sdks/task/README.md
-  - docs/sdks/transcode/README.md
-  - docs/sdks/playback/README.md
-  - USAGE.md
-  - .gitattributes
-  - src/hooks/hooks.ts
-  - src/hooks/types.ts
-  - src/hooks/index.ts
-  - CONTRIBUTING.md
+examples:
+  createStream:
+    speakeasy-default-create-stream:
+      requestBody:
+        application/json: {"name": "test_stream", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}}
+      responses:
+        "201":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getStreams:
+    speakeasy-default-get-streams:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getStream:
+    speakeasy-default-get-stream:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateStream:
+    speakeasy-default-update-stream:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"record": false, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "recordingSpec": {"profiles": []}}
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteStream:
+    speakeasy-default-delete-stream:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  terminateStream:
+    speakeasy-default-terminate-stream:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  startPullStream:
+    speakeasy-default-start-pull-stream:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createClip:
+    speakeasy-default-create-clip:
+      requestBody:
+        application/json: {"playbackId": "eaw4nk06ts2d0mzb", "startTime": 1587667174725, "endTime": 1587667174725, "name": "My Clip", "sessionId": "de7818e7-610a-4057-8f6f-b785dc1e6f88"}
+      responses:
+        "200":
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getClips:
+    speakeasy-default-get-clips:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  addMultistreamTarget:
+    speakeasy-default-add-multistream-target:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"profile": "720p0", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  removeMultistreamTarget:
+    speakeasy-default-remove-multistream-target:
+      parameters:
+        path:
+          id: "<id>"
+          targetId: "<value>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getMultistreamTargets:
+    speakeasy-default-get-multistream-targets:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createMultistreamTarget:
+    speakeasy-default-create-multistream-target:
+      requestBody:
+        application/json: {"url": "rtmps://live.my-service.tv/channel/secretKey"}
+      responses:
+        "201":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "createdAt": 1587667174725}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getMultistreamTarget:
+    speakeasy-default-get-multistream-target:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "createdAt": 1587667174725}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateMultistreamTarget:
+    speakeasy-default-update-multistream-target:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"url": "rtmps://live.my-service.tv/channel/secretKey"}
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteMultistreamTarget:
+    speakeasy-default-delete-multistream-target:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getWebhooks:
+    speakeasy-default-get-webhooks:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createWebhook:
+    speakeasy-default-create-webhook:
+      requestBody:
+        application/json: {"name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "sharedSecret": "my-secret", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88"}
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "status": {"lastFailure": {"timestamp": 1587667174725, "error": "Error message", "response": "Response body", "statusCode": 500}, "lastTriggeredAt": 1587667174725}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getWebhook:
+    speakeasy-default-get-webhook:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "status": {"lastFailure": {"timestamp": 1587667174725, "error": "Error message", "response": "Response body", "statusCode": 500}, "lastTriggeredAt": 1587667174725}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateWebhook:
+    speakeasy-default-update-webhook:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "sharedSecret": "my-secret", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88"}
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "status": {"lastFailure": {"timestamp": 1587667174725, "error": "Error message", "response": "Response body", "statusCode": 500}, "lastTriggeredAt": 1587667174725}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteWebhook:
+    speakeasy-default-delete-webhook:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_webhook", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "events": ["stream.started", "stream.idle"], "url": "https://my-service.com/webhook", "streamId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "status": {"lastFailure": {"timestamp": 1587667174725, "error": "Error message", "response": "Response body", "statusCode": 500}, "lastTriggeredAt": 1587667174725}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getWebhookLogs:
+    speakeasy-default-get-webhook-logs:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getWebhookLog:
+    speakeasy-default-get-webhook-log:
+      parameters:
+        path:
+          id: "<id>"
+          logId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "webhookId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "event": "stream.started", "createdAt": 1587667174725, "duration": 0.5, "success": true, "request": {"url": "https://my-service.com/webhook", "method": "POST", "headers": {"User-Agent": "livepeer.studio"}, "body": "{\"event\": \"stream.started\"}"}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  resendWebhook:
+    speakeasy-default-resend-webhook:
+      parameters:
+        path:
+          id: "<id>"
+          logId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "webhookId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "event": "stream.started", "createdAt": 1587667174725, "duration": 0.5, "success": true, "request": {"url": "https://my-service.com/webhook", "method": "POST", "headers": {"User-Agent": "livepeer.studio"}, "body": "{\"event\": \"stream.started\"}"}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getAssets:
+    speakeasy-default-get-assets:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  requestUpload:
+    speakeasy-default-request-upload:
+      requestBody:
+        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": []}
+      responses:
+        "200":
+          application/json: {"url": "https://origin.livepeer.com/api/asset/upload/direct?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "tusEndpoint": "https://origin.livepeer.com/api/asset/upload/tus?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  uploadAsset:
+    speakeasy-default-upload-asset:
+      requestBody:
+        application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "url": "https://s3.amazonaws.com/my-bucket/path/filename.mp4", "profiles": []}
+      responses:
+        "200":
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+        "201":
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://dutiful-colorlessness.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "uploading", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getAsset:
+    speakeasy-default-get-asset:
+      parameters:
+        path:
+          assetId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateAsset:
+    speakeasy-default-update-asset:
+      parameters:
+        path:
+          assetId: "<value>"
+      requestBody:
+        application/json: {"name": "filename.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}}
+      responses:
+        "200":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteAsset:
+    speakeasy-default-delete-asset:
+      parameters:
+        path:
+          assetId: "<value>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getSessionClips:
+    speakeasy-default-get-session-clips:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getSessions:
+    speakeasy-default-get-sessions:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getSession:
+    speakeasy-default-get-session:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_session", "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "playbackId": "eaw4nk06ts2d0mzb", "profiles": [], "recordingSpec": {"profiles": []}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getRecordedSessions:
+    speakeasy-default-get-recorded-sessions:
+      parameters:
+        path:
+          parentId: "<value>"
+        query:
+          record: true
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createRoom:
+    speakeasy-default-create-room:
+      responses:
+        "200":
+          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16"}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getRoom:
+    speakeasy-default-get-room:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "createdAt": 1587667174725, "updatedAt": 1587667174725}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteRoom:
+    speakeasy-default-delete-room:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  startRoomEgress:
+    speakeasy-default-start-room-egress:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"streamId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9"}
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  stopRoomEgress:
+    speakeasy-default-stop-room-egress:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createRoomUser:
+    speakeasy-default-create-room-user:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"name": "name", "canPublish": true, "canPublishData": true}
+      responses:
+        "201":
+          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "joinUrl": "https://meet.livepeer.chat", "token": "token"}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getRoomUser:
+    speakeasy-default-get-room-user:
+      parameters:
+        path:
+          id: "<id>"
+          userId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "joinedAt": 1687517025261, "name": "name", "isPublisher": true}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateRoomUser:
+    speakeasy-default-update-room-user:
+      parameters:
+        path:
+          id: "<id>"
+          userId: "<value>"
+      requestBody:
+        application/json: {"canPublish": true, "canPublishData": true}
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteRoomUser:
+    speakeasy-default-delete-room-user:
+      parameters:
+        path:
+          id: "<id>"
+          userId: "<value>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getRealtimeViewershipNow:
+    speakeasy-default-get-realtime-viewership-now:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getViewershipMetrics:
+    speakeasy-default-get-viewership-metrics:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getCreatorViewershipMetrics:
+    speakeasy-default-get-creator-viewership-metrics:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getPublicViewershipMetrics:
+    speakeasy-default-get-public-viewership-metrics:
+      parameters:
+        path:
+          playbackId: "<value>"
+      responses:
+        "200":
+          application/json: {"playbackId": "1bde4o2i6xycudoy", "dStorageUrl": "ipfs://QmZ4", "viewCount": 100, "playtimeMins": 10}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getUsageMetrics:
+    speakeasy-default-get-usage-metrics:
+      responses:
+        "200":
+          application/json: {"UserID": "1bde4o2i6xycudoy", "CreatorID": "john@doe.com", "DeliveryUsageMins": 100, "TotalUsageMins": 100, "StorageUsageMins": 100}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  createSigningKey:
+    speakeasy-default-create-signing-key:
+      responses:
+        "200":
+          application/json: {"id": "78df0075-b5f3-4683-a618-1086faca35dc", "name": "key1", "createdAt": 1587667174725, "lastSeen": 1587667174725, "publicKey": "<value>", "disabled": false, "projectId": "aac12556-4d65-4d34-9fb"}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getSigningKeys:
+    speakeasy-default-get-signing-keys:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  deleteSigningKey:
+    speakeasy-default-delete-signing-key:
+      parameters:
+        path:
+          keyId: "<value>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getSigningKey:
+    speakeasy-default-get-signing-key:
+      parameters:
+        path:
+          keyId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "78df0075-b5f3-4683-a618-1086faca35dc", "name": "key1", "createdAt": 1587667174725, "lastSeen": 1587667174725, "publicKey": "<value>", "disabled": false, "projectId": "aac12556-4d65-4d34-9fb"}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  updateSigningKey:
+    speakeasy-default-update-signing-key:
+      parameters:
+        path:
+          keyId: "<value>"
+      responses:
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getTasks:
+    speakeasy-default-get-tasks:
+      responses:
+        "200":
+          application/json: []
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getTask:
+    speakeasy-default-get-task:
+      parameters:
+        path:
+          taskId: "<value>"
+      responses:
+        "200":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {}}, "exportData": {"ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "clip"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>", "key1": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+  transcodeVideo:
+    speakeasy-default-transcode-video:
+      requestBody:
+        application/json: {"input": {"url": "https://s3.amazonaws.com/bucket/file.mp4"}, "storage": {"type": "s3", "endpoint": "https://gateway.storjshare.io", "bucket": "outputbucket", "credentials": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}, "fmp4": {"path": "/samplevideo/fmp4"}}, "profiles": []}
+      responses:
+        "200":
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"ipfs": {}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://speedy-basil.org"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  getPlaybackInfo:
+    speakeasy-default-get-playback-info:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"type": "vod", "meta": {"live": 0, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": [], "dvrPlayback": [], "attestation": {"id": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "primaryType": "VideoAttestation", "domain": {"name": "Verifiable Video", "version": "1"}, "message": {"video": "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0", "attestations": [], "signer": "1311768467294899700", "timestamp": 1587667174725}, "signature": "1311768467294899700", "createdAt": 1587667174725, "signatureType": "eip712", "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}}}}
+        "404":
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+        default:
+          application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
+  genTextToImage:
+    speakeasy-default-gen-text-to-image:
+      requestBody:
+        application/json: {"prompt": "<value>"}
+      responses:
+        "200":
+          application/json: {"images": []}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401": {}
+        "422": {}
+        "500": {}
+        default: {}
+  genImageToImage:
+    speakeasy-default-gen-image-to-image:
+      requestBody:
+        multipart/form-data: {"prompt": "<value>", "image": {}}
+      responses:
+        "200":
+          application/json: {"images": []}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401":
+          application/json: {"detail": {"msg": "<value>"}}
+        "422": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default: {}
+  genImageToVideo:
+    speakeasy-default-gen-image-to-video:
+      requestBody:
+        multipart/form-data: {"image": {}}
+      responses:
+        "200":
+          application/json: {"images": []}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401":
+          application/json: {"detail": {"msg": "<value>"}}
+        "422": {}
+        "500": {}
+        default: {}
+  genUpscale:
+    speakeasy-default-gen-upscale:
+      requestBody:
+        multipart/form-data: {"prompt": "<value>", "image": {}}
+      responses:
+        "200":
+          application/json: {"images": []}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401": {}
+        "422": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default: {}
+  genAudioToText:
+    speakeasy-default-gen-audio-to-text:
+      requestBody:
+        multipart/form-data: {"audio": {}}
+      responses:
+        "200":
+          application/json: {"text": "<value>", "chunks": []}
+        "400": {}
+        "401":
+          application/json: {"detail": {"msg": "<value>"}}
+        "413": {}
+        "422": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default: {}
+  genSegmentAnything2:
+    speakeasy-default-gen-segment-anything2:
+      requestBody:
+        multipart/form-data: {"image": {}}
+      responses:
+        "200":
+          application/json: {"masks": "<value>", "scores": "<value>", "logits": "<value>"}
+        "400": {}
+        "401":
+          application/json: {"detail": {"msg": "<value>"}}
+        "422": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default: {}

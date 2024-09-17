@@ -2,6 +2,44 @@
 
 Parameters for the transcode-file task
 
+## Example Usage
+
+```typescript
+import { TranscodeFile, TranscodeProfileEncoder, TranscodeProfileProfile } from "livepeer/models/components";
+
+let value: TranscodeFile = {
+  input: {
+    url: "https://cdn.livepeer.com/ABC123/filename.mp4",
+  },
+  storage: {
+    url: "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket",
+  },
+  outputs: {
+    hls: {
+      path: "/samplevideo/hls",
+    },
+    mp4: {
+      path: "/samplevideo/mp4",
+    },
+  },
+  profiles: [
+    {
+      width: 1280,
+      name: "720p",
+      height: 720,
+      bitrate: 3000000,
+      quality: 23,
+      fps: 30,
+      fpsDen: 1,
+      gop: "2",
+      profile: TranscodeProfileProfile.H264Baseline,
+      encoder: TranscodeProfileEncoder.H264,
+    },
+  ],
+  targetSegmentSizeSecs: 10,
+  c2pa: false,
+};
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # SignatureType
 
+## Example Usage
+
+```typescript
+import { SignatureType } from "livepeer/models/components";
+
+let value: SignatureType = SignatureType.Eip712;
+```
 
 ## Values
 

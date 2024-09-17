@@ -146,18 +146,81 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.transcode.create({
-  input:     {
-        url: "https://s3.amazonaws.com/bucket/file.mp4",
+    input: {
+      url: "https://s3.amazonaws.com/bucket/file.mp4",
+    },
+    storage: {
+      type: TranscodePayloadSchemasType.S3,
+      endpoint: "https://gateway.storjshare.io",
+      bucket: "outputbucket",
+      credentials: {
+        accessKeyId: "AKIAIOSFODNN7EXAMPLE",
+        secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
       },
-  storage:     {
-        type: TranscodePayloadSchemasType.S3,
-        endpoint: "https://gateway.storjshare.io",
-        bucket: "outputbucket",
-        credentials: {
-          accessKeyId: "AKIAIOSFODNN7EXAMPLE",
-          secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
-        },
+    },
+    outputs: {
+      hls: {
+        path: "/samplevideo/hls",
       },
+      mp4: {
+        path: "/samplevideo/mp4",
+      },
+      fmp4: {
+        path: "/samplevideo/fmp4",
+      },
+    },
+    profiles: [
+      {
+        width: 1280,
+        name: "720p",
+        height: 720,
+        bitrate: 3000000,
+        quality: 23,
+        fps: 30,
+        fpsDen: 1,
+        gop: "2",
+        profile: TranscodeProfileProfile.H264Baseline,
+        encoder: TranscodeProfileEncoder.H264,
+      },
+    ],
+  });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { transcodeCreate } from "livepeer/funcs/transcodeCreate.js";
+import { TranscodePayloadSchemasType, TranscodeProfileEncoder, TranscodeProfileProfile } from "livepeer/models/components";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await transcodeCreate(livepeer, {
+    input: {
+      url: "https://s3.amazonaws.com/bucket/file.mp4",
+    },
+    storage: {
+      type: TranscodePayloadSchemasType.S3,
+      endpoint: "https://gateway.storjshare.io",
+      bucket: "outputbucket",
+      credentials: {
+        accessKeyId: "AKIAIOSFODNN7EXAMPLE",
+        secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      },
+    },
     outputs: {
       hls: {
         path: "/samplevideo/hls",
@@ -185,6 +248,12 @@ async function run() {
     ],
   });
 
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
   // Handle the result
   console.log(result)
 }
@@ -201,10 +270,10 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.TranscodeVideoResponse](../../models/operations/transcodevideoresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

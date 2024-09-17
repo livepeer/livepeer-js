@@ -1,5 +1,12 @@
 # TerminateStreamResponse
 
+## Example Usage
+
+```typescript
+import { TerminateStreamResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

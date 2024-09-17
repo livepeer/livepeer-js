@@ -1,5 +1,19 @@
 # Request
 
+## Example Usage
+
+```typescript
+import { Request } from "livepeer/models/components";
+
+let value: Request = {
+  url: "https://my-service.com/webhook",
+  method: "POST",
+  headers: {
+    "User-Agent": "livepeer.studio",
+  },
+  body: "{\"event\": \"stream.started\"}",
+};
+```
 
 ## Fields
 

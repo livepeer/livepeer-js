@@ -1,5 +1,12 @@
 # GetSessionsResponse
 
+## Example Usage
+
+```typescript
+import { GetSessionsResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

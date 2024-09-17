@@ -2,6 +2,13 @@
 
 Type of the task
 
+## Example Usage
+
+```typescript
+import { TaskType } from "livepeer/models/components";
+
+let value: TaskType = TaskType.Upload;
+```
 
 ## Values
 

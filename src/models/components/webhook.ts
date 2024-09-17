@@ -5,160 +5,165 @@
 import * as z from "zod";
 
 export enum Events {
-    StreamStarted = "stream.started",
-    StreamDetection = "stream.detection",
-    StreamIdle = "stream.idle",
-    RecordingReady = "recording.ready",
-    RecordingStarted = "recording.started",
-    RecordingWaiting = "recording.waiting",
-    MultistreamConnected = "multistream.connected",
-    MultistreamError = "multistream.error",
-    MultistreamDisconnected = "multistream.disconnected",
-    PlaybackUserNew = "playback.user.new",
-    PlaybackAccessControl = "playback.accessControl",
-    AssetCreated = "asset.created",
-    AssetUpdated = "asset.updated",
-    AssetFailed = "asset.failed",
-    AssetReady = "asset.ready",
-    AssetDeleted = "asset.deleted",
-    TaskSpawned = "task.spawned",
-    TaskUpdated = "task.updated",
-    TaskCompleted = "task.completed",
-    TaskFailed = "task.failed",
+  StreamStarted = "stream.started",
+  StreamDetection = "stream.detection",
+  StreamIdle = "stream.idle",
+  RecordingReady = "recording.ready",
+  RecordingStarted = "recording.started",
+  RecordingWaiting = "recording.waiting",
+  MultistreamConnected = "multistream.connected",
+  MultistreamError = "multistream.error",
+  MultistreamDisconnected = "multistream.disconnected",
+  PlaybackUserNew = "playback.user.new",
+  PlaybackAccessControl = "playback.accessControl",
+  AssetCreated = "asset.created",
+  AssetUpdated = "asset.updated",
+  AssetFailed = "asset.failed",
+  AssetReady = "asset.ready",
+  AssetDeleted = "asset.deleted",
+  TaskSpawned = "task.spawned",
+  TaskUpdated = "task.updated",
+  TaskCompleted = "task.completed",
+  TaskFailed = "task.failed",
 }
 
 /**
  * failure timestamp and error message with status code
  */
 export type LastFailure = {
-    /**
-     * Timestamp (in milliseconds) at which the webhook last failed
-     */
-    timestamp?: number | undefined;
-    /**
-     * Webhook failure error message
-     */
-    error?: string | undefined;
-    /**
-     * Webhook failure response
-     */
-    response?: string | undefined;
-    /**
-     * Webhook failure status code
-     */
-    statusCode?: number | undefined;
+  /**
+   * Timestamp (in milliseconds) at which the webhook last failed
+   */
+  timestamp?: number | undefined;
+  /**
+   * Webhook failure error message
+   */
+  error?: string | undefined;
+  /**
+   * Webhook failure response
+   */
+  response?: string | undefined;
+  /**
+   * Webhook failure status code
+   */
+  statusCode?: number | undefined;
 };
 
 /**
  * status of webhook
  */
 export type Status = {
-    /**
-     * failure timestamp and error message with status code
-     */
-    lastFailure?: LastFailure | undefined;
-    /**
-     * Timestamp (in milliseconds) at which the webhook last was
-     *
-     * @remarks
-     * triggered
-     *
-     */
-    lastTriggeredAt?: number | undefined;
+  /**
+   * failure timestamp and error message with status code
+   */
+  lastFailure?: LastFailure | undefined;
+  /**
+   * Timestamp (in milliseconds) at which the webhook last was
+   *
+   * @remarks
+   * triggered
+   */
+  lastTriggeredAt?: number | undefined;
 };
 
 export type Webhook = {
-    id?: string | undefined;
-    name: string;
-    /**
-     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    kind?: string | undefined;
-    /**
-     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    userId?: string | undefined;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
-    /**
-     * Timestamp (in milliseconds) at which stream object was created
-     */
-    createdAt?: number | undefined;
-    events?: Array<Events> | undefined;
-    url: string;
-    /**
-     * streamId of the stream on which the webhook is applied
-     */
-    streamId?: string | undefined;
-    /**
-     * status of webhook
-     */
-    status?: Status | undefined;
+  id?: string | undefined;
+  name: string;
+  /**
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  kind?: string | undefined;
+  /**
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  userId?: string | undefined;
+  /**
+   * The ID of the project
+   */
+  projectId?: string | undefined;
+  /**
+   * Timestamp (in milliseconds) at which stream object was created
+   */
+  createdAt?: number | undefined;
+  events?: Array<Events> | undefined;
+  url: string;
+  /**
+   * streamId of the stream on which the webhook is applied
+   */
+  streamId?: string | undefined;
+  /**
+   * status of webhook
+   */
+  status?: Status | undefined;
 };
 
 export type WebhookInput = {
-    name: string;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
-    events?: Array<Events> | undefined;
-    url: string;
-    /**
-     * shared secret used to sign the webhook payload
-     */
-    sharedSecret?: string | undefined;
-    /**
-     * streamId of the stream on which the webhook is applied
-     */
-    streamId?: string | undefined;
+  name: string;
+  /**
+   * The ID of the project
+   */
+  projectId?: string | undefined;
+  events?: Array<Events> | undefined;
+  url: string;
+  /**
+   * shared secret used to sign the webhook payload
+   */
+  sharedSecret?: string | undefined;
+  /**
+   * streamId of the stream on which the webhook is applied
+   */
+  streamId?: string | undefined;
 };
 
 /** @internal */
-export const Events$inboundSchema: z.ZodNativeEnum<typeof Events> = z.nativeEnum(Events);
+export const Events$inboundSchema: z.ZodNativeEnum<typeof Events> = z
+  .nativeEnum(Events);
 
 /** @internal */
-export const Events$outboundSchema: z.ZodNativeEnum<typeof Events> = Events$inboundSchema;
+export const Events$outboundSchema: z.ZodNativeEnum<typeof Events> =
+  Events$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Events$ {
-    /** @deprecated use `Events$inboundSchema` instead. */
-    export const inboundSchema = Events$inboundSchema;
-    /** @deprecated use `Events$outboundSchema` instead. */
-    export const outboundSchema = Events$outboundSchema;
+  /** @deprecated use `Events$inboundSchema` instead. */
+  export const inboundSchema = Events$inboundSchema;
+  /** @deprecated use `Events$outboundSchema` instead. */
+  export const outboundSchema = Events$outboundSchema;
 }
 
 /** @internal */
-export const LastFailure$inboundSchema: z.ZodType<LastFailure, z.ZodTypeDef, unknown> = z.object({
-    timestamp: z.number().optional(),
-    error: z.string().optional(),
-    response: z.string().optional(),
-    statusCode: z.number().optional(),
+export const LastFailure$inboundSchema: z.ZodType<
+  LastFailure,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  timestamp: z.number().optional(),
+  error: z.string().optional(),
+  response: z.string().optional(),
+  statusCode: z.number().optional(),
 });
 
 /** @internal */
 export type LastFailure$Outbound = {
-    timestamp?: number | undefined;
-    error?: string | undefined;
-    response?: string | undefined;
-    statusCode?: number | undefined;
+  timestamp?: number | undefined;
+  error?: string | undefined;
+  response?: string | undefined;
+  statusCode?: number | undefined;
 };
 
 /** @internal */
 export const LastFailure$outboundSchema: z.ZodType<
-    LastFailure$Outbound,
-    z.ZodTypeDef,
-    LastFailure
+  LastFailure$Outbound,
+  z.ZodTypeDef,
+  LastFailure
 > = z.object({
-    timestamp: z.number().optional(),
-    error: z.string().optional(),
-    response: z.string().optional(),
-    statusCode: z.number().optional(),
+  timestamp: z.number().optional(),
+  error: z.string().optional(),
+  response: z.string().optional(),
+  statusCode: z.number().optional(),
 });
 
 /**
@@ -166,30 +171,35 @@ export const LastFailure$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace LastFailure$ {
-    /** @deprecated use `LastFailure$inboundSchema` instead. */
-    export const inboundSchema = LastFailure$inboundSchema;
-    /** @deprecated use `LastFailure$outboundSchema` instead. */
-    export const outboundSchema = LastFailure$outboundSchema;
-    /** @deprecated use `LastFailure$Outbound` instead. */
-    export type Outbound = LastFailure$Outbound;
+  /** @deprecated use `LastFailure$inboundSchema` instead. */
+  export const inboundSchema = LastFailure$inboundSchema;
+  /** @deprecated use `LastFailure$outboundSchema` instead. */
+  export const outboundSchema = LastFailure$outboundSchema;
+  /** @deprecated use `LastFailure$Outbound` instead. */
+  export type Outbound = LastFailure$Outbound;
 }
 
 /** @internal */
-export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z.object({
+export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
+  .object({
     lastFailure: z.lazy(() => LastFailure$inboundSchema).optional(),
     lastTriggeredAt: z.number().optional(),
-});
+  });
 
 /** @internal */
 export type Status$Outbound = {
-    lastFailure?: LastFailure$Outbound | undefined;
-    lastTriggeredAt?: number | undefined;
+  lastFailure?: LastFailure$Outbound | undefined;
+  lastTriggeredAt?: number | undefined;
 };
 
 /** @internal */
-export const Status$outboundSchema: z.ZodType<Status$Outbound, z.ZodTypeDef, Status> = z.object({
-    lastFailure: z.lazy(() => LastFailure$outboundSchema).optional(),
-    lastTriggeredAt: z.number().optional(),
+export const Status$outboundSchema: z.ZodType<
+  Status$Outbound,
+  z.ZodTypeDef,
+  Status
+> = z.object({
+  lastFailure: z.lazy(() => LastFailure$outboundSchema).optional(),
+  lastTriggeredAt: z.number().optional(),
 });
 
 /**
@@ -197,16 +207,17 @@ export const Status$outboundSchema: z.ZodType<Status$Outbound, z.ZodTypeDef, Sta
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Status$ {
-    /** @deprecated use `Status$inboundSchema` instead. */
-    export const inboundSchema = Status$inboundSchema;
-    /** @deprecated use `Status$outboundSchema` instead. */
-    export const outboundSchema = Status$outboundSchema;
-    /** @deprecated use `Status$Outbound` instead. */
-    export type Outbound = Status$Outbound;
+  /** @deprecated use `Status$inboundSchema` instead. */
+  export const inboundSchema = Status$inboundSchema;
+  /** @deprecated use `Status$outboundSchema` instead. */
+  export const outboundSchema = Status$outboundSchema;
+  /** @deprecated use `Status$Outbound` instead. */
+  export type Outbound = Status$Outbound;
 }
 
 /** @internal */
-export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> = z.object({
+export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> =
+  z.object({
     id: z.string().optional(),
     name: z.string(),
     kind: z.string().optional(),
@@ -217,34 +228,38 @@ export const Webhook$inboundSchema: z.ZodType<Webhook, z.ZodTypeDef, unknown> = 
     url: z.string(),
     streamId: z.string().optional(),
     status: z.lazy(() => Status$inboundSchema).optional(),
-});
+  });
 
 /** @internal */
 export type Webhook$Outbound = {
-    id?: string | undefined;
-    name: string;
-    kind?: string | undefined;
-    userId?: string | undefined;
-    projectId?: string | undefined;
-    createdAt?: number | undefined;
-    events?: Array<string> | undefined;
-    url: string;
-    streamId?: string | undefined;
-    status?: Status$Outbound | undefined;
+  id?: string | undefined;
+  name: string;
+  kind?: string | undefined;
+  userId?: string | undefined;
+  projectId?: string | undefined;
+  createdAt?: number | undefined;
+  events?: Array<string> | undefined;
+  url: string;
+  streamId?: string | undefined;
+  status?: Status$Outbound | undefined;
 };
 
 /** @internal */
-export const Webhook$outboundSchema: z.ZodType<Webhook$Outbound, z.ZodTypeDef, Webhook> = z.object({
-    id: z.string().optional(),
-    name: z.string(),
-    kind: z.string().optional(),
-    userId: z.string().optional(),
-    projectId: z.string().optional(),
-    createdAt: z.number().optional(),
-    events: z.array(Events$outboundSchema).optional(),
-    url: z.string(),
-    streamId: z.string().optional(),
-    status: z.lazy(() => Status$outboundSchema).optional(),
+export const Webhook$outboundSchema: z.ZodType<
+  Webhook$Outbound,
+  z.ZodTypeDef,
+  Webhook
+> = z.object({
+  id: z.string().optional(),
+  name: z.string(),
+  kind: z.string().optional(),
+  userId: z.string().optional(),
+  projectId: z.string().optional(),
+  createdAt: z.number().optional(),
+  events: z.array(Events$outboundSchema).optional(),
+  url: z.string(),
+  streamId: z.string().optional(),
+  status: z.lazy(() => Status$outboundSchema).optional(),
 });
 
 /**
@@ -252,46 +267,50 @@ export const Webhook$outboundSchema: z.ZodType<Webhook$Outbound, z.ZodTypeDef, W
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Webhook$ {
-    /** @deprecated use `Webhook$inboundSchema` instead. */
-    export const inboundSchema = Webhook$inboundSchema;
-    /** @deprecated use `Webhook$outboundSchema` instead. */
-    export const outboundSchema = Webhook$outboundSchema;
-    /** @deprecated use `Webhook$Outbound` instead. */
-    export type Outbound = Webhook$Outbound;
+  /** @deprecated use `Webhook$inboundSchema` instead. */
+  export const inboundSchema = Webhook$inboundSchema;
+  /** @deprecated use `Webhook$outboundSchema` instead. */
+  export const outboundSchema = Webhook$outboundSchema;
+  /** @deprecated use `Webhook$Outbound` instead. */
+  export type Outbound = Webhook$Outbound;
 }
 
 /** @internal */
-export const WebhookInput$inboundSchema: z.ZodType<WebhookInput, z.ZodTypeDef, unknown> = z.object({
-    name: z.string(),
-    projectId: z.string().optional(),
-    events: z.array(Events$inboundSchema).optional(),
-    url: z.string(),
-    sharedSecret: z.string().optional(),
-    streamId: z.string().optional(),
+export const WebhookInput$inboundSchema: z.ZodType<
+  WebhookInput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  projectId: z.string().optional(),
+  events: z.array(Events$inboundSchema).optional(),
+  url: z.string(),
+  sharedSecret: z.string().optional(),
+  streamId: z.string().optional(),
 });
 
 /** @internal */
 export type WebhookInput$Outbound = {
-    name: string;
-    projectId?: string | undefined;
-    events?: Array<string> | undefined;
-    url: string;
-    sharedSecret?: string | undefined;
-    streamId?: string | undefined;
+  name: string;
+  projectId?: string | undefined;
+  events?: Array<string> | undefined;
+  url: string;
+  sharedSecret?: string | undefined;
+  streamId?: string | undefined;
 };
 
 /** @internal */
 export const WebhookInput$outboundSchema: z.ZodType<
-    WebhookInput$Outbound,
-    z.ZodTypeDef,
-    WebhookInput
+  WebhookInput$Outbound,
+  z.ZodTypeDef,
+  WebhookInput
 > = z.object({
-    name: z.string(),
-    projectId: z.string().optional(),
-    events: z.array(Events$outboundSchema).optional(),
-    url: z.string(),
-    sharedSecret: z.string().optional(),
-    streamId: z.string().optional(),
+  name: z.string(),
+  projectId: z.string().optional(),
+  events: z.array(Events$outboundSchema).optional(),
+  url: z.string(),
+  sharedSecret: z.string().optional(),
+  streamId: z.string().optional(),
 });
 
 /**
@@ -299,10 +318,10 @@ export const WebhookInput$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace WebhookInput$ {
-    /** @deprecated use `WebhookInput$inboundSchema` instead. */
-    export const inboundSchema = WebhookInput$inboundSchema;
-    /** @deprecated use `WebhookInput$outboundSchema` instead. */
-    export const outboundSchema = WebhookInput$outboundSchema;
-    /** @deprecated use `WebhookInput$Outbound` instead. */
-    export type Outbound = WebhookInput$Outbound;
+  /** @deprecated use `WebhookInput$inboundSchema` instead. */
+  export const inboundSchema = WebhookInput$inboundSchema;
+  /** @deprecated use `WebhookInput$outboundSchema` instead. */
+  export const outboundSchema = WebhookInput$outboundSchema;
+  /** @deprecated use `WebhookInput$Outbound` instead. */
+  export type Outbound = WebhookInput$Outbound;
 }

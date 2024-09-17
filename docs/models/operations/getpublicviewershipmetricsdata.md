@@ -4,6 +4,18 @@ A simplified metric object about aggregate viewership of an
 asset. Either playbackId or dStorageUrl will be set.
 
 
+## Example Usage
+
+```typescript
+import { GetPublicViewershipMetricsData } from "livepeer/models/operations";
+
+let value: GetPublicViewershipMetricsData = {
+  playbackId: "1bde4o2i6xycudoy",
+  dStorageUrl: "ipfs://QmZ4",
+  viewCount: 100,
+  playtimeMins: 10,
+};
+```
 
 ## Fields
 

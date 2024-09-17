@@ -1,5 +1,14 @@
 # DeleteSigningKeyRequest
 
+## Example Usage
+
+```typescript
+import { DeleteSigningKeyRequest } from "livepeer/models/operations";
+
+let value: DeleteSigningKeyRequest = {
+  keyId: "<value>",
+};
+```
 
 ## Fields
 

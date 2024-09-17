@@ -4,6 +4,22 @@ Configuration for a stream that should be actively pulled from an
 external source, rather than pushed to Livepeer. If specified, the
 stream will not have a streamKey.
 
+## Example Usage
+
+```typescript
+import { StreamPull } from "livepeer/models/components";
+
+let value: StreamPull = {
+  source: "https://myservice.com/live/stream.flv",
+  headers: {
+    "Authorization": "Bearer 123",
+  },
+  location: {
+    lat: 39.739,
+    lon: -104.988,
+  },
+};
+```
 
 ## Fields
 

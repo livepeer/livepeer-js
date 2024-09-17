@@ -1,9 +1,9 @@
-speakeasyVersion: 1.361.1
+speakeasyVersion: 1.399.0
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:df045b530898c3d37fdccef933fdd51e542fac3212b140a2c1d1156aa7505136
-        sourceBlobDigest: sha256:4ecb94fc7baced1d251f061894ebe0b12b9688473ceec039afea6b81edd61dc5
+        sourceRevisionDigest: sha256:91b774b75a510e880c3b32b7c79aebe9e26f41740a89d09aa21eb8f7577951bf
+        sourceBlobDigest: sha256:aa27f19cd706fdbc92320eea5ca4d28aefd20557554f78a6fa0393320d8ee1d6
         tags:
             - latest
             - main
@@ -11,9 +11,8 @@ targets:
     livepeer-ts:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:df045b530898c3d37fdccef933fdd51e542fac3212b140a2c1d1156aa7505136
-        sourceBlobDigest: sha256:4ecb94fc7baced1d251f061894ebe0b12b9688473ceec039afea6b81edd61dc5
-        outLocation: .
+        sourceRevisionDigest: sha256:91b774b75a510e880c3b32b7c79aebe9e26f41740a89d09aa21eb8f7577951bf
+        sourceBlobDigest: sha256:aa27f19cd706fdbc92320eea5ca4d28aefd20557554f78a6fa0393320d8ee1d6
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -21,6 +20,7 @@ workflow:
         livepeer-studio-api:
             inputs:
                 - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/api-schema.yaml
+                - location: https://raw.githubusercontent.com/livepeer/studio/master/packages/api/src/schema/ai-api-schema.yaml
             registry:
                 location: registry.speakeasyapi.dev/livepeer/livepeer-studio/livepeer-studio-api
     targets:

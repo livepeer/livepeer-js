@@ -1,5 +1,21 @@
 # StorageStatus
 
+## Example Usage
+
+```typescript
+import { Phase, StorageStatus } from "livepeer/models/components";
+
+let value: StorageStatus = {
+  phase: Phase.Ready,
+  progress: 0.5,
+  errorMessage: "Failed to update storage",
+  tasks: {
+    pending: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+    last: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+    failed: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+  },
+};
+```
 
 ## Fields
 

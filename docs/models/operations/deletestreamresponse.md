@@ -1,5 +1,12 @@
 # DeleteStreamResponse
 
+## Example Usage
+
+```typescript
+import { DeleteStreamResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

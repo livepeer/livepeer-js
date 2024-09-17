@@ -1,5 +1,14 @@
 # StreamUserTags
 
+## Example Usage
+
+```typescript
+import { StreamUserTags } from "livepeer/models/components";
+
+let value: StreamUserTags = [
+  9786.19,
+];
+```
 
 ## Supported Types
 

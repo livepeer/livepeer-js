@@ -1,5 +1,15 @@
 # MultistreamTarget
 
+## Example Usage
+
+```typescript
+import { MultistreamTarget } from "livepeer/models/components";
+
+let value: MultistreamTarget = {
+  id: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+  createdAt: 1587667174725,
+};
+```
 
 ## Fields
 

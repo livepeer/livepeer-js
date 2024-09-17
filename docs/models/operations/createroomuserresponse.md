@@ -1,5 +1,12 @@
 # CreateRoomUserResponse
 
+## Example Usage
+
+```typescript
+import { CreateRoomUserResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # GetStreamResponse
 
+## Example Usage
+
+```typescript
+import { GetStreamResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

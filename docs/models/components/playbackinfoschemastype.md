@@ -1,5 +1,12 @@
 # PlaybackInfoSchemasType
 
+## Example Usage
+
+```typescript
+import { PlaybackInfoSchemasType } from "livepeer/models/components";
+
+let value: PlaybackInfoSchemasType = PlaybackInfoSchemasType.Html5VideoMp4;
+```
 
 ## Values
 

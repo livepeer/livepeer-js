@@ -5,80 +5,87 @@
 import * as z from "zod";
 
 export type SigningKey = {
-    id?: string | undefined;
-    /**
-     * Name of the signing key
-     */
-    name?: string | undefined;
-    /**
-     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    userId?: string | undefined;
-    /**
-     * Timestamp (in milliseconds) at which the signing-key was created
-     */
-    createdAt?: number | undefined;
-    /**
-     * Timestamp (in milliseconds) at which the signing-key was last used
-     */
-    lastSeen?: number | undefined;
-    publicKey: string;
-    /**
-     * Disable the signing key to allow rotation safely
-     */
-    disabled?: boolean | undefined;
-    /**
-     * The ID of the project
-     */
-    projectId?: string | undefined;
+  id?: string | undefined;
+  /**
+   * Name of the signing key
+   */
+  name?: string | undefined;
+  /**
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  userId?: string | undefined;
+  /**
+   * Timestamp (in milliseconds) at which the signing-key was created
+   */
+  createdAt?: number | undefined;
+  /**
+   * Timestamp (in milliseconds) at which the signing-key was last used
+   */
+  lastSeen?: number | undefined;
+  publicKey: string;
+  /**
+   * Disable the signing key to allow rotation safely
+   */
+  disabled?: boolean | undefined;
+  /**
+   * The ID of the project
+   */
+  projectId?: string | undefined;
 };
 
 /** @internal */
-export const SigningKey$inboundSchema: z.ZodType<SigningKey, z.ZodTypeDef, unknown> = z.object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    userId: z.string().optional(),
-    createdAt: z.number().optional(),
-    lastSeen: z.number().optional(),
-    publicKey: z.string(),
-    disabled: z.boolean().optional(),
-    projectId: z.string().optional(),
+export const SigningKey$inboundSchema: z.ZodType<
+  SigningKey,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  userId: z.string().optional(),
+  createdAt: z.number().optional(),
+  lastSeen: z.number().optional(),
+  publicKey: z.string(),
+  disabled: z.boolean().optional(),
+  projectId: z.string().optional(),
 });
 
 /** @internal */
 export type SigningKey$Outbound = {
-    id?: string | undefined;
-    name?: string | undefined;
-    userId?: string | undefined;
-    createdAt?: number | undefined;
-    lastSeen?: number | undefined;
-    publicKey: string;
-    disabled?: boolean | undefined;
-    projectId?: string | undefined;
+  id?: string | undefined;
+  name?: string | undefined;
+  userId?: string | undefined;
+  createdAt?: number | undefined;
+  lastSeen?: number | undefined;
+  publicKey: string;
+  disabled?: boolean | undefined;
+  projectId?: string | undefined;
 };
 
 /** @internal */
-export const SigningKey$outboundSchema: z.ZodType<SigningKey$Outbound, z.ZodTypeDef, SigningKey> =
-    z.object({
-        id: z.string().optional(),
-        name: z.string().optional(),
-        userId: z.string().optional(),
-        createdAt: z.number().optional(),
-        lastSeen: z.number().optional(),
-        publicKey: z.string(),
-        disabled: z.boolean().optional(),
-        projectId: z.string().optional(),
-    });
+export const SigningKey$outboundSchema: z.ZodType<
+  SigningKey$Outbound,
+  z.ZodTypeDef,
+  SigningKey
+> = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  userId: z.string().optional(),
+  createdAt: z.number().optional(),
+  lastSeen: z.number().optional(),
+  publicKey: z.string(),
+  disabled: z.boolean().optional(),
+  projectId: z.string().optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace SigningKey$ {
-    /** @deprecated use `SigningKey$inboundSchema` instead. */
-    export const inboundSchema = SigningKey$inboundSchema;
-    /** @deprecated use `SigningKey$outboundSchema` instead. */
-    export const outboundSchema = SigningKey$outboundSchema;
-    /** @deprecated use `SigningKey$Outbound` instead. */
-    export type Outbound = SigningKey$Outbound;
+  /** @deprecated use `SigningKey$inboundSchema` instead. */
+  export const inboundSchema = SigningKey$inboundSchema;
+  /** @deprecated use `SigningKey$outboundSchema` instead. */
+  export const outboundSchema = SigningKey$outboundSchema;
+  /** @deprecated use `SigningKey$Outbound` instead. */
+  export type Outbound = SigningKey$Outbound;
 }
