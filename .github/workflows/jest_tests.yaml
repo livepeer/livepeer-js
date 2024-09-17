@@ -24,17 +24,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install Yarn
-      run: corepack enable && corepack prepare yarn@stable --activate
-
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
 
     - name: Build the project
-      run: yarn run build
+      run: npm run build
 
     - name: Run tests
-      run: yarn run test
+      run: npm test
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v3
