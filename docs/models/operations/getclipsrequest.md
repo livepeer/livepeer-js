@@ -1,5 +1,14 @@
 # GetClipsRequest
 
+## Example Usage
+
+```typescript
+import { GetClipsRequest } from "livepeer/models/operations";
+
+let value: GetClipsRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

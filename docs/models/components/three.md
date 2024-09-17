@@ -1,5 +1,12 @@
 # Three
 
+## Example Usage
+
+```typescript
+import { Three } from "livepeer/models/components";
+
+let value: Three = "<value>";
+```
 
 ## Supported Types
 

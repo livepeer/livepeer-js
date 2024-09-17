@@ -1,5 +1,14 @@
 # GetWebhookLogsRequest
 
+## Example Usage
+
+```typescript
+import { GetWebhookLogsRequest } from "livepeer/models/operations";
+
+let value: GetWebhookLogsRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

@@ -3,6 +3,19 @@
 An individual metric about usage of a user.
 
 
+## Example Usage
+
+```typescript
+import { UsageMetric } from "livepeer/models/components";
+
+let value: UsageMetric = {
+  userID: "1bde4o2i6xycudoy",
+  creatorID: "john@doe.com",
+  deliveryUsageMins: 100,
+  totalUsageMins: 100,
+  storageUsageMins: 100,
+};
+```
 
 ## Fields
 

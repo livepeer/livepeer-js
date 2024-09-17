@@ -1,5 +1,14 @@
 # GetPublicViewershipMetricsRequest
 
+## Example Usage
+
+```typescript
+import { GetPublicViewershipMetricsRequest } from "livepeer/models/operations";
+
+let value: GetPublicViewershipMetricsRequest = {
+  playbackId: "<value>",
+};
+```
 
 ## Fields
 

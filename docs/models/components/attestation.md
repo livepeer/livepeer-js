@@ -1,5 +1,48 @@
 # Attestation
 
+## Example Usage
+
+```typescript
+import { Attestation, Name, Phase, PrimaryType, SignatureType, Version } from "livepeer/models/components";
+
+let value: Attestation = {
+  id: "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0",
+  primaryType: PrimaryType.VideoAttestation,
+  domain: {
+    name: Name.VerifiableVideo,
+    version: Version.One,
+  },
+  message: {
+    video: "5b9e63bb-6fd0-4bea-aff2-cc5d4eb9cad0",
+    attestations: [
+      {
+        role: "creator",
+        address: "1311768467294899700",
+      },
+    ],
+    signer: "1311768467294899700",
+    timestamp: 1587667174725,
+  },
+  signature: "1311768467294899700",
+  createdAt: 1587667174725,
+  signatureType: SignatureType.Eip712,
+  storage: {
+    ipfs: {
+      updatedAt: 1587667174725,
+    },
+    status: {
+      phase: Phase.Ready,
+      progress: 0.5,
+      errorMessage: "Failed to update storage",
+      tasks: {
+        pending: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+        last: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+        failed: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+      },
+    },
+  },
+};
+```
 
 ## Fields
 

@@ -1,5 +1,17 @@
 # UpdateMultistreamTargetRequest
 
+## Example Usage
+
+```typescript
+import { UpdateMultistreamTargetRequest } from "livepeer/models/operations";
+
+let value: UpdateMultistreamTargetRequest = {
+  id: "<id>",
+  multistreamTargetPatchPayload: {
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  },
+};
+```
 
 ## Fields
 

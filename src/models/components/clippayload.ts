@@ -5,57 +5,61 @@
 import * as z from "zod";
 
 export type ClipPayload = {
-    /**
-     * The playback ID of the stream or stream recording to clip. Asset playback IDs are not supported yet.
-     */
-    playbackId: string;
-    /**
-     * The start timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
-     */
-    startTime: number;
-    /**
-     * The end timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
-     */
-    endTime?: number | undefined;
-    /**
-     * The optional friendly name of the clip to create.
-     */
-    name?: string | undefined;
-    /**
-     * The optional session ID of the stream to clip. This can be used to clip _recordings_ - if it is not specified, it will clip the ongoing livestream.
-     */
-    sessionId?: string | undefined;
+  /**
+   * The playback ID of the stream or stream recording to clip. Asset playback IDs are not supported yet.
+   */
+  playbackId: string;
+  /**
+   * The start timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
+   */
+  startTime: number;
+  /**
+   * The end timestamp of the clip in Unix milliseconds. _See the ClipTrigger in the UI Kit for an example of how this is calculated (for HLS, it uses `Program Date-Time` tags, and for WebRTC, it uses the latency from server to client at stream startup)._
+   */
+  endTime?: number | undefined;
+  /**
+   * The optional friendly name of the clip to create.
+   */
+  name?: string | undefined;
+  /**
+   * The optional session ID of the stream to clip. This can be used to clip _recordings_ - if it is not specified, it will clip the ongoing livestream.
+   */
+  sessionId?: string | undefined;
 };
 
 /** @internal */
-export const ClipPayload$inboundSchema: z.ZodType<ClipPayload, z.ZodTypeDef, unknown> = z.object({
-    playbackId: z.string(),
-    startTime: z.number(),
-    endTime: z.number().optional(),
-    name: z.string().optional(),
-    sessionId: z.string().optional(),
+export const ClipPayload$inboundSchema: z.ZodType<
+  ClipPayload,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  playbackId: z.string(),
+  startTime: z.number(),
+  endTime: z.number().optional(),
+  name: z.string().optional(),
+  sessionId: z.string().optional(),
 });
 
 /** @internal */
 export type ClipPayload$Outbound = {
-    playbackId: string;
-    startTime: number;
-    endTime?: number | undefined;
-    name?: string | undefined;
-    sessionId?: string | undefined;
+  playbackId: string;
+  startTime: number;
+  endTime?: number | undefined;
+  name?: string | undefined;
+  sessionId?: string | undefined;
 };
 
 /** @internal */
 export const ClipPayload$outboundSchema: z.ZodType<
-    ClipPayload$Outbound,
-    z.ZodTypeDef,
-    ClipPayload
+  ClipPayload$Outbound,
+  z.ZodTypeDef,
+  ClipPayload
 > = z.object({
-    playbackId: z.string(),
-    startTime: z.number(),
-    endTime: z.number().optional(),
-    name: z.string().optional(),
-    sessionId: z.string().optional(),
+  playbackId: z.string(),
+  startTime: z.number(),
+  endTime: z.number().optional(),
+  name: z.string().optional(),
+  sessionId: z.string().optional(),
 });
 
 /**
@@ -63,10 +67,10 @@ export const ClipPayload$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace ClipPayload$ {
-    /** @deprecated use `ClipPayload$inboundSchema` instead. */
-    export const inboundSchema = ClipPayload$inboundSchema;
-    /** @deprecated use `ClipPayload$outboundSchema` instead. */
-    export const outboundSchema = ClipPayload$outboundSchema;
-    /** @deprecated use `ClipPayload$Outbound` instead. */
-    export type Outbound = ClipPayload$Outbound;
+  /** @deprecated use `ClipPayload$inboundSchema` instead. */
+  export const inboundSchema = ClipPayload$inboundSchema;
+  /** @deprecated use `ClipPayload$outboundSchema` instead. */
+  export const outboundSchema = ClipPayload$outboundSchema;
+  /** @deprecated use `ClipPayload$Outbound` instead. */
+  export type Outbound = ClipPayload$Outbound;
 }

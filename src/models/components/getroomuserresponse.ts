@@ -5,61 +5,61 @@
 import * as z from "zod";
 
 export type GetRoomUserResponse = {
-    /**
-     * The ID of the user
-     */
-    id?: string | undefined;
-    /**
-     * Timestamp (in milliseconds) at which the user joined
-     */
-    joinedAt?: number | undefined;
-    /**
-     * The display name of the user
-     */
-    name?: string | undefined;
-    /**
-     * Whether a user is allowed to publish audio/video tracks
-     */
-    isPublisher?: boolean | undefined;
-    /**
-     * User defined payload to store for the participant
-     */
-    metadata?: string | undefined;
+  /**
+   * The ID of the user
+   */
+  id?: string | undefined;
+  /**
+   * Timestamp (in milliseconds) at which the user joined
+   */
+  joinedAt?: number | undefined;
+  /**
+   * The display name of the user
+   */
+  name?: string | undefined;
+  /**
+   * Whether a user is allowed to publish audio/video tracks
+   */
+  isPublisher?: boolean | undefined;
+  /**
+   * User defined payload to store for the participant
+   */
+  metadata?: string | undefined;
 };
 
 /** @internal */
 export const GetRoomUserResponse$inboundSchema: z.ZodType<
-    GetRoomUserResponse,
-    z.ZodTypeDef,
-    unknown
+  GetRoomUserResponse,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-    id: z.string().optional(),
-    joinedAt: z.number().int().optional(),
-    name: z.string().optional(),
-    isPublisher: z.boolean().default(true),
-    metadata: z.string().optional(),
+  id: z.string().optional(),
+  joinedAt: z.number().int().optional(),
+  name: z.string().optional(),
+  isPublisher: z.boolean().default(true),
+  metadata: z.string().optional(),
 });
 
 /** @internal */
 export type GetRoomUserResponse$Outbound = {
-    id?: string | undefined;
-    joinedAt?: number | undefined;
-    name?: string | undefined;
-    isPublisher: boolean;
-    metadata?: string | undefined;
+  id?: string | undefined;
+  joinedAt?: number | undefined;
+  name?: string | undefined;
+  isPublisher: boolean;
+  metadata?: string | undefined;
 };
 
 /** @internal */
 export const GetRoomUserResponse$outboundSchema: z.ZodType<
-    GetRoomUserResponse$Outbound,
-    z.ZodTypeDef,
-    GetRoomUserResponse
+  GetRoomUserResponse$Outbound,
+  z.ZodTypeDef,
+  GetRoomUserResponse
 > = z.object({
-    id: z.string().optional(),
-    joinedAt: z.number().int().optional(),
-    name: z.string().optional(),
-    isPublisher: z.boolean().default(true),
-    metadata: z.string().optional(),
+  id: z.string().optional(),
+  joinedAt: z.number().int().optional(),
+  name: z.string().optional(),
+  isPublisher: z.boolean().default(true),
+  metadata: z.string().optional(),
 });
 
 /**
@@ -67,10 +67,10 @@ export const GetRoomUserResponse$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace GetRoomUserResponse$ {
-    /** @deprecated use `GetRoomUserResponse$inboundSchema` instead. */
-    export const inboundSchema = GetRoomUserResponse$inboundSchema;
-    /** @deprecated use `GetRoomUserResponse$outboundSchema` instead. */
-    export const outboundSchema = GetRoomUserResponse$outboundSchema;
-    /** @deprecated use `GetRoomUserResponse$Outbound` instead. */
-    export type Outbound = GetRoomUserResponse$Outbound;
+  /** @deprecated use `GetRoomUserResponse$inboundSchema` instead. */
+  export const inboundSchema = GetRoomUserResponse$inboundSchema;
+  /** @deprecated use `GetRoomUserResponse$outboundSchema` instead. */
+  export const outboundSchema = GetRoomUserResponse$outboundSchema;
+  /** @deprecated use `GetRoomUserResponse$Outbound` instead. */
+  export type Outbound = GetRoomUserResponse$Outbound;
 }

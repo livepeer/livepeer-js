@@ -2,6 +2,16 @@
 
 Video Metadata EIP-712 domain
 
+## Example Usage
+
+```typescript
+import { Domain, Name, Version } from "livepeer/models/components";
+
+let value: Domain = {
+  name: Name.VerifiableVideo,
+  version: Version.One,
+};
+```
 
 ## Fields
 

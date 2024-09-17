@@ -1,5 +1,20 @@
 # StreamMultistream
 
+## Example Usage
+
+```typescript
+import { StreamMultistream } from "livepeer/models/components";
+
+let value: StreamMultistream = {
+  targets: [
+    {
+      profile: "720p",
+      videoOnly: false,
+      id: "PUSH123",
+    },
+  ],
+};
+```
 
 ## Fields
 

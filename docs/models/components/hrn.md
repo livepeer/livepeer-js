@@ -2,6 +2,13 @@
 
 Human Readable Name
 
+## Example Usage
+
+```typescript
+import { Hrn } from "livepeer/models/components";
+
+let value: Hrn = Hrn.Mp4;
+```
 
 ## Values
 

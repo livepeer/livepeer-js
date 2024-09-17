@@ -1,5 +1,15 @@
 # Attestations
 
+## Example Usage
+
+```typescript
+import { Attestations } from "livepeer/models/components";
+
+let value: Attestations = {
+  role: "creator",
+  address: "1311768467294899700",
+};
+```
 
 ## Fields
 

@@ -5,44 +5,47 @@
 import * as z from "zod";
 
 export type RoomUserResponse = {
-    /**
-     * The ID of the user
-     */
-    id?: string | undefined;
-    /**
-     * Joining URL - use this for Livepeer's default meeting app (see the multiparticipant streaming guide for more info).
-     */
-    joinUrl?: string | undefined;
-    /**
-     * Joining JWT - this can be used if you have a custom meeting app (see the multiparticipant streaming guide for more info).
-     */
-    token?: string | undefined;
+  /**
+   * The ID of the user
+   */
+  id?: string | undefined;
+  /**
+   * Joining URL - use this for Livepeer's default meeting app (see the multiparticipant streaming guide for more info).
+   */
+  joinUrl?: string | undefined;
+  /**
+   * Joining JWT - this can be used if you have a custom meeting app (see the multiparticipant streaming guide for more info).
+   */
+  token?: string | undefined;
 };
 
 /** @internal */
-export const RoomUserResponse$inboundSchema: z.ZodType<RoomUserResponse, z.ZodTypeDef, unknown> =
-    z.object({
-        id: z.string().optional(),
-        joinUrl: z.string().optional(),
-        token: z.string().optional(),
-    });
+export const RoomUserResponse$inboundSchema: z.ZodType<
+  RoomUserResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  joinUrl: z.string().optional(),
+  token: z.string().optional(),
+});
 
 /** @internal */
 export type RoomUserResponse$Outbound = {
-    id?: string | undefined;
-    joinUrl?: string | undefined;
-    token?: string | undefined;
+  id?: string | undefined;
+  joinUrl?: string | undefined;
+  token?: string | undefined;
 };
 
 /** @internal */
 export const RoomUserResponse$outboundSchema: z.ZodType<
-    RoomUserResponse$Outbound,
-    z.ZodTypeDef,
-    RoomUserResponse
+  RoomUserResponse$Outbound,
+  z.ZodTypeDef,
+  RoomUserResponse
 > = z.object({
-    id: z.string().optional(),
-    joinUrl: z.string().optional(),
-    token: z.string().optional(),
+  id: z.string().optional(),
+  joinUrl: z.string().optional(),
+  token: z.string().optional(),
 });
 
 /**
@@ -50,10 +53,10 @@ export const RoomUserResponse$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace RoomUserResponse$ {
-    /** @deprecated use `RoomUserResponse$inboundSchema` instead. */
-    export const inboundSchema = RoomUserResponse$inboundSchema;
-    /** @deprecated use `RoomUserResponse$outboundSchema` instead. */
-    export const outboundSchema = RoomUserResponse$outboundSchema;
-    /** @deprecated use `RoomUserResponse$Outbound` instead. */
-    export type Outbound = RoomUserResponse$Outbound;
+  /** @deprecated use `RoomUserResponse$inboundSchema` instead. */
+  export const inboundSchema = RoomUserResponse$inboundSchema;
+  /** @deprecated use `RoomUserResponse$outboundSchema` instead. */
+  export const outboundSchema = RoomUserResponse$outboundSchema;
+  /** @deprecated use `RoomUserResponse$Outbound` instead. */
+  export type Outbound = RoomUserResponse$Outbound;
 }

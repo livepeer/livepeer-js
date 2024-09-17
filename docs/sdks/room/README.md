@@ -35,6 +35,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.create();
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomCreate } from "livepeer/funcs/roomCreate.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomCreate(livepeer);
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -51,15 +81,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.CreateRoomResponse](../../models/operations/createroomresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~get~~
 
@@ -77,7 +108,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.get("<value>");
+  const result = await livepeer.room.get("<id>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomGet } from "livepeer/funcs/roomGet.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomGet(livepeer, "<id>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -95,15 +156,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetRoomResponse](../../models/operations/getroomresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~delete~~
 
@@ -121,7 +183,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.delete("<value>");
+  const result = await livepeer.room.delete("<id>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomDelete } from "livepeer/funcs/roomDelete.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomDelete(livepeer, "<id>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -139,15 +231,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.DeleteRoomResponse](../../models/operations/deleteroomresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~startEgress~~
 
@@ -167,9 +260,41 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.startEgress("<value>", {
+  const result = await livepeer.room.startEgress("<id>", {
     streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
   });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomStartEgress } from "livepeer/funcs/roomStartEgress.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomStartEgress(livepeer, "<id>", {
+    streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -188,15 +313,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.StartRoomEgressResponse](../../models/operations/startroomegressresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~stopEgress~~
 
@@ -214,7 +340,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.stopEgress("<value>");
+  const result = await livepeer.room.stopEgress("<id>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomStopEgress } from "livepeer/funcs/roomStopEgress.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomStopEgress(livepeer, "<id>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -232,15 +388,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.StopRoomEgressResponse](../../models/operations/stoproomegressresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~createUser~~
 
@@ -261,11 +418,45 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.createUser("<value>", {
+  const result = await livepeer.room.createUser("<id>", {
     name: "name",
     canPublish: true,
     canPublishData: true,
   });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomCreateUser } from "livepeer/funcs/roomCreateUser.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomCreateUser(livepeer, "<id>", {
+    name: "name",
+    canPublish: true,
+    canPublishData: true,
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -284,15 +475,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.CreateRoomUserResponse](../../models/operations/createroomuserresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~getUser~~
 
@@ -310,7 +502,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.getUser("<value>", "<value>");
+  const result = await livepeer.room.getUser("<id>", "<value>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomGetUser } from "livepeer/funcs/roomGetUser.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomGetUser(livepeer, "<id>", "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -329,15 +551,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetRoomUserResponse](../../models/operations/getroomuserresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~updateUser~~
 
@@ -355,10 +578,43 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.updateUser("<value>", "<value>", {
+  const result = await livepeer.room.updateUser("<id>", "<value>", {
     canPublish: true,
     canPublishData: true,
   });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomUpdateUser } from "livepeer/funcs/roomUpdateUser.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomUpdateUser(livepeer, "<id>", "<value>", {
+    canPublish: true,
+    canPublishData: true,
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -378,15 +634,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.UpdateRoomUserResponse](../../models/operations/updateroomuserresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## ~~deleteUser~~
 
@@ -404,7 +661,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.deleteUser("<value>", "<value>");
+  const result = await livepeer.room.deleteUser("<id>", "<value>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { roomDeleteUser } from "livepeer/funcs/roomDeleteUser.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await roomDeleteUser(livepeer, "<id>", "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -423,10 +710,10 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.DeleteRoomUserResponse](../../models/operations/deleteroomuserresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

@@ -1,5 +1,100 @@
 # Stream
 
+## Example Usage
+
+```typescript
+import {
+  CreatorIdType,
+  Profile,
+  Stream,
+  TranscodeProfileEncoder,
+  TranscodeProfileProfile,
+  Type,
+} from "livepeer/models/components";
+
+let value: Stream = {
+  id: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  name: "test_stream",
+  creatorId: {
+    type: CreatorIdType.Unverified,
+    value: "user123",
+  },
+  lastSeen: 1587667174725,
+  sourceSegments: 1,
+  transcodedSegments: 2,
+  sourceSegmentsDuration: 1,
+  transcodedSegmentsDuration: 2,
+  sourceBytes: 1,
+  transcodedBytes: 2,
+  ingestRate: 1,
+  outgoingRate: 2,
+  isActive: true,
+  createdByTokenName: "abc-123-xyz-456",
+  createdAt: 1587667174725,
+  parentId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  streamKey: "hgebdhhigq",
+  pull: {
+    source: "https://myservice.com/live/stream.flv",
+    headers: {
+      "Authorization": "Bearer 123",
+    },
+    location: {
+      lat: 39.739,
+      lon: -104.988,
+    },
+  },
+  playbackId: "eaw4nk06ts2d0mzb",
+  playbackPolicy: {
+    type: Type.Webhook,
+    webhookId: "1bde4o2i6xycudoy",
+    webhookContext: {
+      "streamerId": "my-custom-id",
+    },
+    refreshInterval: 600,
+  },
+  profiles: [
+    {
+      width: 1280,
+      name: "720p",
+      height: 720,
+      bitrate: 3000000,
+      fps: 30,
+      fpsDen: 1,
+      quality: 23,
+      gop: "2",
+      profile: Profile.H264Baseline,
+    },
+  ],
+  projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
+  record: false,
+  recordingSpec: {
+    profiles: [
+      {
+        width: 1280,
+        name: "720p",
+        height: 720,
+        bitrate: 3000000,
+        quality: 23,
+        fps: 30,
+        fpsDen: 1,
+        gop: "2",
+        profile: TranscodeProfileProfile.H264Baseline,
+        encoder: TranscodeProfileEncoder.H264,
+      },
+    ],
+  },
+  multistream: {
+    targets: [
+      {
+        profile: "720p",
+        videoOnly: false,
+        id: "PUSH123",
+      },
+    ],
+  },
+  lastTerminatedAt: 1713281212993,
+};
+```
 
 ## Fields
 

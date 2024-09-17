@@ -4,6 +4,13 @@ Flag indicating if the response should only include recorded
 sessions
 
 
+## Example Usage
+
+```typescript
+import { RecordT } from "livepeer/models/operations";
+
+let value: RecordT = true;
+```
 
 ## Supported Types
 

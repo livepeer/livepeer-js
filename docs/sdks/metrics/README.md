@@ -29,6 +29,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.metrics.getRealtimeViewership();
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { metricsGetRealtimeViewership } from "livepeer/funcs/metricsGetRealtimeViewership.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await metricsGetRealtimeViewership(livepeer);
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -48,15 +78,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetRealtimeViewershipNowResponse](../../models/operations/getrealtimeviewershipnowresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## getViewership
 
@@ -74,6 +105,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.metrics.getViewership({});
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { metricsGetViewership } from "livepeer/funcs/metricsGetViewership.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await metricsGetViewership(livepeer, {});
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -91,15 +152,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetViewershipMetricsResponse](../../models/operations/getviewershipmetricsresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## getCreatorViewership
 
@@ -117,6 +179,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.metrics.getCreatorViewership({});
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { metricsGetCreatorViewership } from "livepeer/funcs/metricsGetCreatorViewership.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await metricsGetCreatorViewership(livepeer, {});
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -134,15 +226,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetCreatorViewershipMetricsResponse](../../models/operations/getcreatorviewershipmetricsresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## getPublicViewership
 
@@ -162,6 +255,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.metrics.getPublicViewership("<value>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { metricsGetPublicViewership } from "livepeer/funcs/metricsGetPublicViewership.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await metricsGetPublicViewership(livepeer, "<value>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -179,15 +302,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetPublicViewershipMetricsResponse](../../models/operations/getpublicviewershipmetricsresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## getUsage
 
@@ -204,6 +328,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.metrics.getUsage({});
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { metricsGetUsage } from "livepeer/funcs/metricsGetUsage.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await metricsGetUsage(livepeer, {});
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -221,10 +375,10 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetUsageMetricsResponse](../../models/operations/getusagemetricsresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

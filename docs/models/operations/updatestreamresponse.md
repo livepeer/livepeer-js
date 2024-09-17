@@ -1,5 +1,12 @@
 # UpdateStreamResponse
 
+## Example Usage
+
+```typescript
+import { UpdateStreamResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

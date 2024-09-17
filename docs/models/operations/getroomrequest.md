@@ -1,5 +1,14 @@
 # GetRoomRequest
 
+## Example Usage
+
+```typescript
+import { GetRoomRequest } from "livepeer/models/operations";
+
+let value: GetRoomRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

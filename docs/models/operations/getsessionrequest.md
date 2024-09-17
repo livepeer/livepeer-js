@@ -1,5 +1,14 @@
 # GetSessionRequest
 
+## Example Usage
+
+```typescript
+import { GetSessionRequest } from "livepeer/models/operations";
+
+let value: GetSessionRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

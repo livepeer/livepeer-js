@@ -1,5 +1,12 @@
 # AssetSpec
 
+## Example Usage
+
+```typescript
+import { AssetSpec } from "livepeer/models/components";
+
+let value: AssetSpec = {};
+```
 
 ## Fields
 

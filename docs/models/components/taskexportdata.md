@@ -2,6 +2,20 @@
 
 Parameters for the export-data task
 
+## Example Usage
+
+```typescript
+import { TaskExportData } from "livepeer/models/components";
+
+let value: TaskExportData = {
+  content: {},
+  ipfs: {
+    pinata: {},
+  },
+  type: "text/plain",
+  id: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+};
+```
 
 ## Fields
 

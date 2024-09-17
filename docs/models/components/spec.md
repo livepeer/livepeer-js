@@ -1,5 +1,12 @@
 # Spec
 
+## Example Usage
+
+```typescript
+import { Spec } from "livepeer/models/components";
+
+let value: Spec = {};
+```
 
 ## Fields
 

@@ -1,5 +1,12 @@
 # TranscodeProfileProfile
 
+## Example Usage
+
+```typescript
+import { TranscodeProfileProfile } from "livepeer/models/components";
+
+let value: TranscodeProfileProfile = TranscodeProfileProfile.H264Baseline;
+```
 
 ## Values
 

@@ -1,5 +1,12 @@
 # StartPullStreamResponse
 
+## Example Usage
+
+```typescript
+import { StartPullStreamResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

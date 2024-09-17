@@ -5,37 +5,44 @@
 import * as z from "zod";
 
 export type Encryption = {
-    /**
-     * Encryption key used to encrypt the asset. Only writable in the upload asset endpoints and cannot be retrieved back.
-     */
-    encryptedKey: string;
+  /**
+   * Encryption key used to encrypt the asset. Only writable in the upload asset endpoints and cannot be retrieved back.
+   */
+  encryptedKey: string;
 };
 
 /** @internal */
-export const Encryption$inboundSchema: z.ZodType<Encryption, z.ZodTypeDef, unknown> = z.object({
-    encryptedKey: z.string(),
+export const Encryption$inboundSchema: z.ZodType<
+  Encryption,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  encryptedKey: z.string(),
 });
 
 /** @internal */
 export type Encryption$Outbound = {
-    encryptedKey: string;
+  encryptedKey: string;
 };
 
 /** @internal */
-export const Encryption$outboundSchema: z.ZodType<Encryption$Outbound, z.ZodTypeDef, Encryption> =
-    z.object({
-        encryptedKey: z.string(),
-    });
+export const Encryption$outboundSchema: z.ZodType<
+  Encryption$Outbound,
+  z.ZodTypeDef,
+  Encryption
+> = z.object({
+  encryptedKey: z.string(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Encryption$ {
-    /** @deprecated use `Encryption$inboundSchema` instead. */
-    export const inboundSchema = Encryption$inboundSchema;
-    /** @deprecated use `Encryption$outboundSchema` instead. */
-    export const outboundSchema = Encryption$outboundSchema;
-    /** @deprecated use `Encryption$Outbound` instead. */
-    export type Outbound = Encryption$Outbound;
+  /** @deprecated use `Encryption$inboundSchema` instead. */
+  export const inboundSchema = Encryption$inboundSchema;
+  /** @deprecated use `Encryption$outboundSchema` instead. */
+  export const outboundSchema = Encryption$outboundSchema;
+  /** @deprecated use `Encryption$Outbound` instead. */
+  export type Outbound = Encryption$Outbound;
 }

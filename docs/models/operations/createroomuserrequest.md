@@ -1,5 +1,19 @@
 # CreateRoomUserRequest
 
+## Example Usage
+
+```typescript
+import { CreateRoomUserRequest } from "livepeer/models/operations";
+
+let value: CreateRoomUserRequest = {
+  id: "<id>",
+  roomUserPayload: {
+    name: "name",
+    canPublish: true,
+    canPublishData: true,
+  },
+};
+```
 
 ## Fields
 

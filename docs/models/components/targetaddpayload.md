@@ -1,5 +1,20 @@
 # TargetAddPayload
 
+## Example Usage
+
+```typescript
+import { TargetAddPayload } from "livepeer/models/components";
+
+let value: TargetAddPayload = {
+  profile: "720p0",
+  videoOnly: false,
+  id: "PUSH123",
+  spec: {
+    name: "My target",
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  },
+};
+```
 
 ## Fields
 

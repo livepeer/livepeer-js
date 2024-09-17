@@ -2,6 +2,13 @@
 
 Phase of the asset
 
+## Example Usage
+
+```typescript
+import { AssetPhase } from "livepeer/models/components";
+
+let value: AssetPhase = AssetPhase.Processing;
+```
 
 ## Values
 

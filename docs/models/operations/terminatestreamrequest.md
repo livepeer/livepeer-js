@@ -1,5 +1,14 @@
 # TerminateStreamRequest
 
+## Example Usage
+
+```typescript
+import { TerminateStreamRequest } from "livepeer/models/operations";
+
+let value: TerminateStreamRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

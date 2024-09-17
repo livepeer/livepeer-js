@@ -16,87 +16,127 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Webhook extends ClientSDK {
-    /**
-     * Retrieve a Webhook
-     */
-    async getAll(options?: RequestOptions): Promise<operations.GetWebhooksResponse> {
-        return unwrapAsync(webhookGetAll(this, options));
-    }
+  /**
+   * Retrieve a Webhook
+   */
+  async getAll(
+    options?: RequestOptions,
+  ): Promise<operations.GetWebhooksResponse> {
+    return unwrapAsync(webhookGetAll(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Create a webhook
-     *
-     * @remarks
-     * To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
-     *
-     */
-    async create(
-        request: components.WebhookInput,
-        options?: RequestOptions
-    ): Promise<operations.CreateWebhookResponse> {
-        return unwrapAsync(webhookCreate(this, request, options));
-    }
+  /**
+   * Create a webhook
+   *
+   * @remarks
+   * To create a new webhook, you need to make an API call with the events you want to listen for and the URL that will be called when those events occur.
+   */
+  async create(
+    request: components.WebhookInput,
+    options?: RequestOptions,
+  ): Promise<operations.CreateWebhookResponse> {
+    return unwrapAsync(webhookCreate(
+      this,
+      request,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve a webhook
-     */
-    async get(id: string, options?: RequestOptions): Promise<operations.GetWebhookResponse> {
-        return unwrapAsync(webhookGet(this, id, options));
-    }
+  /**
+   * Retrieve a webhook
+   */
+  async get(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetWebhookResponse> {
+    return unwrapAsync(webhookGet(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Update a webhook
-     */
-    async update(
-        id: string,
-        webhook: components.WebhookInput,
-        options?: RequestOptions
-    ): Promise<operations.UpdateWebhookResponse> {
-        return unwrapAsync(webhookUpdate(this, id, webhook, options));
-    }
+  /**
+   * Update a webhook
+   */
+  async update(
+    id: string,
+    webhook: components.WebhookInput,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateWebhookResponse> {
+    return unwrapAsync(webhookUpdate(
+      this,
+      id,
+      webhook,
+      options,
+    ));
+  }
 
-    /**
-     * Delete a webhook
-     */
-    async delete(id: string, options?: RequestOptions): Promise<operations.DeleteWebhookResponse> {
-        return unwrapAsync(webhookDelete(this, id, options));
-    }
+  /**
+   * Delete a webhook
+   */
+  async delete(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteWebhookResponse> {
+    return unwrapAsync(webhookDelete(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve webhook logs
-     */
-    async getLogs(
-        id: string,
-        options?: RequestOptions
-    ): Promise<operations.GetWebhookLogsResponse> {
-        return unwrapAsync(webhookGetLogs(this, id, options));
-    }
+  /**
+   * Retrieve webhook logs
+   */
+  async getLogs(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetWebhookLogsResponse> {
+    return unwrapAsync(webhookGetLogs(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve a webhook log
-     */
-    async getLog(
-        id: string,
-        logId: string,
-        options?: RequestOptions
-    ): Promise<operations.GetWebhookLogResponse> {
-        return unwrapAsync(webhookGetLog(this, id, logId, options));
-    }
+  /**
+   * Retrieve a webhook log
+   */
+  async getLog(
+    id: string,
+    logId: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetWebhookLogResponse> {
+    return unwrapAsync(webhookGetLog(
+      this,
+      id,
+      logId,
+      options,
+    ));
+  }
 
-    /**
-     * Resend a webhook
-     *
-     * @remarks
-     * Use this API to resend the same webhook request. This is useful when
-     * developing and debugging, allowing you to easily repeat the same webhook
-     * to check or fix the behaviour in your handler.
-     *
-     */
-    async resendLog(
-        id: string,
-        logId: string,
-        options?: RequestOptions
-    ): Promise<operations.ResendWebhookResponse> {
-        return unwrapAsync(webhookResendLog(this, id, logId, options));
-    }
+  /**
+   * Resend a webhook
+   *
+   * @remarks
+   * Use this API to resend the same webhook request. This is useful when
+   * developing and debugging, allowing you to easily repeat the same webhook
+   * to check or fix the behaviour in your handler.
+   */
+  async resendLog(
+    id: string,
+    logId: string,
+    options?: RequestOptions,
+  ): Promise<operations.ResendWebhookResponse> {
+    return unwrapAsync(webhookResendLog(
+      this,
+      id,
+      logId,
+      options,
+    ));
+  }
 }

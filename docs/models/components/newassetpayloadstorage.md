@@ -1,5 +1,12 @@
 # NewAssetPayloadStorage
 
+## Example Usage
+
+```typescript
+import { NewAssetPayloadStorage } from "livepeer/models/components";
+
+let value: NewAssetPayloadStorage = {};
+```
 
 ## Fields
 

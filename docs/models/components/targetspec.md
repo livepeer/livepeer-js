@@ -5,6 +5,16 @@ create the target resource to be used by the created
 stream.
 
 
+## Example Usage
+
+```typescript
+import { TargetSpec } from "livepeer/models/components";
+
+let value: TargetSpec = {
+  name: "My target",
+  url: "rtmps://live.my-service.tv/channel/secretKey",
+};
+```
 
 ## Fields
 

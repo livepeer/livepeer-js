@@ -1,5 +1,14 @@
 # IpfsExportParams
 
+## Example Usage
+
+```typescript
+import { IpfsExportParams } from "livepeer/models/components";
+
+let value: IpfsExportParams = {
+  pinata: {},
+};
+```
 
 ## Fields
 

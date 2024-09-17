@@ -3,6 +3,20 @@
 An individual metric about realtime viewership of a stream/asset.
 
 
+## Example Usage
+
+```typescript
+import { RealtimeViewershipMetric } from "livepeer/models/components";
+
+let value: RealtimeViewershipMetric = {
+  playbackId: "1bde4o2i6xycudoy",
+  device: "iPhone",
+  browser: "Safari",
+  country: "United States",
+  viewCount: 100,
+  errorRate: 0.1,
+};
+```
 
 ## Fields
 

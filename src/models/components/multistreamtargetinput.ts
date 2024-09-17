@@ -5,48 +5,47 @@
 import * as z from "zod";
 
 export type MultistreamTargetInput = {
-    name?: string | undefined;
-    /**
-     * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
-     */
-    url: string;
-    /**
-     * If true then this multistream target will not be used for pushing
-     *
-     * @remarks
-     * even if it is configured in a stream object.
-     *
-     */
-    disabled?: boolean | undefined;
+  name?: string | undefined;
+  /**
+   * Livepeer-compatible multistream target URL (RTMP(S) or SRT)
+   */
+  url: string;
+  /**
+   * If true then this multistream target will not be used for pushing
+   *
+   * @remarks
+   * even if it is configured in a stream object.
+   */
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
 export const MultistreamTargetInput$inboundSchema: z.ZodType<
-    MultistreamTargetInput,
-    z.ZodTypeDef,
-    unknown
+  MultistreamTargetInput,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
-    disabled: z.boolean().optional(),
+  name: z.string().optional(),
+  url: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 /** @internal */
 export type MultistreamTargetInput$Outbound = {
-    name?: string | undefined;
-    url: string;
-    disabled?: boolean | undefined;
+  name?: string | undefined;
+  url: string;
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
 export const MultistreamTargetInput$outboundSchema: z.ZodType<
-    MultistreamTargetInput$Outbound,
-    z.ZodTypeDef,
-    MultistreamTargetInput
+  MultistreamTargetInput$Outbound,
+  z.ZodTypeDef,
+  MultistreamTargetInput
 > = z.object({
-    name: z.string().optional(),
-    url: z.string(),
-    disabled: z.boolean().optional(),
+  name: z.string().optional(),
+  url: z.string(),
+  disabled: z.boolean().optional(),
 });
 
 /**
@@ -54,10 +53,10 @@ export const MultistreamTargetInput$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace MultistreamTargetInput$ {
-    /** @deprecated use `MultistreamTargetInput$inboundSchema` instead. */
-    export const inboundSchema = MultistreamTargetInput$inboundSchema;
-    /** @deprecated use `MultistreamTargetInput$outboundSchema` instead. */
-    export const outboundSchema = MultistreamTargetInput$outboundSchema;
-    /** @deprecated use `MultistreamTargetInput$Outbound` instead. */
-    export type Outbound = MultistreamTargetInput$Outbound;
+  /** @deprecated use `MultistreamTargetInput$inboundSchema` instead. */
+  export const inboundSchema = MultistreamTargetInput$inboundSchema;
+  /** @deprecated use `MultistreamTargetInput$outboundSchema` instead. */
+  export const outboundSchema = MultistreamTargetInput$outboundSchema;
+  /** @deprecated use `MultistreamTargetInput$Outbound` instead. */
+  export type Outbound = MultistreamTargetInput$Outbound;
 }

@@ -1,5 +1,12 @@
 # InputCreatorId
 
+## Example Usage
+
+```typescript
+import { InputCreatorId } from "livepeer/models/components";
+
+let value: InputCreatorId = "<value>";
+```
 
 ## Supported Types
 

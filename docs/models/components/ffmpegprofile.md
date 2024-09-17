@@ -2,6 +2,23 @@
 
 Transcode profile
 
+## Example Usage
+
+```typescript
+import { FfmpegProfile, Profile } from "livepeer/models/components";
+
+let value: FfmpegProfile = {
+  width: 1280,
+  name: "720p",
+  height: 720,
+  bitrate: 3000000,
+  fps: 30,
+  fpsDen: 1,
+  quality: 23,
+  gop: "2",
+  profile: Profile.H264Baseline,
+};
+```
 
 ## Fields
 

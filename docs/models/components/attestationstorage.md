@@ -1,5 +1,26 @@
 # AttestationStorage
 
+## Example Usage
+
+```typescript
+import { AttestationStorage, Phase } from "livepeer/models/components";
+
+let value: AttestationStorage = {
+  ipfs: {
+    updatedAt: 1587667174725,
+  },
+  status: {
+    phase: Phase.Ready,
+    progress: 0.5,
+    errorMessage: "Failed to update storage",
+    tasks: {
+      pending: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+      last: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+      failed: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+    },
+  },
+};
+```
 
 ## Fields
 

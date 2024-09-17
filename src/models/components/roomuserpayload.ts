@@ -5,51 +5,54 @@
 import * as z from "zod";
 
 export type RoomUserPayload = {
-    /**
-     * Display name
-     */
-    name: string;
-    /**
-     * Whether a user is allowed to publish audio/video tracks
-     */
-    canPublish?: boolean | undefined;
-    /**
-     * Whether a user is allowed to publish data messages to the room
-     */
-    canPublishData?: boolean | undefined;
-    /**
-     * User defined payload to store for the participant
-     */
-    metadata?: string | undefined;
+  /**
+   * Display name
+   */
+  name: string;
+  /**
+   * Whether a user is allowed to publish audio/video tracks
+   */
+  canPublish?: boolean | undefined;
+  /**
+   * Whether a user is allowed to publish data messages to the room
+   */
+  canPublishData?: boolean | undefined;
+  /**
+   * User defined payload to store for the participant
+   */
+  metadata?: string | undefined;
 };
 
 /** @internal */
-export const RoomUserPayload$inboundSchema: z.ZodType<RoomUserPayload, z.ZodTypeDef, unknown> =
-    z.object({
-        name: z.string(),
-        canPublish: z.boolean().optional(),
-        canPublishData: z.boolean().optional(),
-        metadata: z.string().optional(),
-    });
+export const RoomUserPayload$inboundSchema: z.ZodType<
+  RoomUserPayload,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  canPublish: z.boolean().optional(),
+  canPublishData: z.boolean().optional(),
+  metadata: z.string().optional(),
+});
 
 /** @internal */
 export type RoomUserPayload$Outbound = {
-    name: string;
-    canPublish?: boolean | undefined;
-    canPublishData?: boolean | undefined;
-    metadata?: string | undefined;
+  name: string;
+  canPublish?: boolean | undefined;
+  canPublishData?: boolean | undefined;
+  metadata?: string | undefined;
 };
 
 /** @internal */
 export const RoomUserPayload$outboundSchema: z.ZodType<
-    RoomUserPayload$Outbound,
-    z.ZodTypeDef,
-    RoomUserPayload
+  RoomUserPayload$Outbound,
+  z.ZodTypeDef,
+  RoomUserPayload
 > = z.object({
-    name: z.string(),
-    canPublish: z.boolean().optional(),
-    canPublishData: z.boolean().optional(),
-    metadata: z.string().optional(),
+  name: z.string(),
+  canPublish: z.boolean().optional(),
+  canPublishData: z.boolean().optional(),
+  metadata: z.string().optional(),
 });
 
 /**
@@ -57,10 +60,10 @@ export const RoomUserPayload$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace RoomUserPayload$ {
-    /** @deprecated use `RoomUserPayload$inboundSchema` instead. */
-    export const inboundSchema = RoomUserPayload$inboundSchema;
-    /** @deprecated use `RoomUserPayload$outboundSchema` instead. */
-    export const outboundSchema = RoomUserPayload$outboundSchema;
-    /** @deprecated use `RoomUserPayload$Outbound` instead. */
-    export type Outbound = RoomUserPayload$Outbound;
+  /** @deprecated use `RoomUserPayload$inboundSchema` instead. */
+  export const inboundSchema = RoomUserPayload$inboundSchema;
+  /** @deprecated use `RoomUserPayload$outboundSchema` instead. */
+  export const outboundSchema = RoomUserPayload$outboundSchema;
+  /** @deprecated use `RoomUserPayload$Outbound` instead. */
+  export type Outbound = RoomUserPayload$Outbound;
 }

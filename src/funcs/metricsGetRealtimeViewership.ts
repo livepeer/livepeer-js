@@ -10,11 +10,11 @@ import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
 import {
-    ConnectionError,
-    InvalidRequestError,
-    RequestAbortedError,
-    RequestTimeoutError,
-    UnexpectedClientError,
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
@@ -26,119 +26,121 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Requires a private (non-CORS) API key to be used.
- *
  */
 export async function metricsGetRealtimeViewership(
-    client$: LivepeerCore,
-    playbackId?: string | undefined,
-    creatorId?: string | undefined,
-    breakdownBy?: Array<operations.BreakdownBy> | undefined,
-    options?: RequestOptions
+  client$: LivepeerCore,
+  playbackId?: string | undefined,
+  creatorId?: string | undefined,
+  breakdownBy?: Array<operations.BreakdownBy> | undefined,
+  options?: RequestOptions,
 ): Promise<
-    Result<
-        operations.GetRealtimeViewershipNowResponse,
-        | SDKError
-        | SDKValidationError
-        | UnexpectedClientError
-        | InvalidRequestError
-        | RequestAbortedError
-        | RequestTimeoutError
-        | ConnectionError
-    >
+  Result<
+    operations.GetRealtimeViewershipNowResponse,
+    | SDKError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >
 > {
-    const input$: operations.GetRealtimeViewershipNowRequest = {
-        playbackId: playbackId,
-        creatorId: creatorId,
-        breakdownBy: breakdownBy,
-    };
+  const input$: operations.GetRealtimeViewershipNowRequest = {
+    playbackId: playbackId,
+    creatorId: creatorId,
+    breakdownBy: breakdownBy,
+  };
 
-    const parsed$ = schemas$.safeParse(
-        input$,
-        (value$) => operations.GetRealtimeViewershipNowRequest$outboundSchema.parse(value$),
-        "Input validation failed"
-    );
-    if (!parsed$.ok) {
-        return parsed$;
-    }
-    const payload$ = parsed$.value;
-    const body$ = null;
+  const parsed$ = schemas$.safeParse(
+    input$,
+    (value$) =>
+      operations.GetRealtimeViewershipNowRequest$outboundSchema.parse(value$),
+    "Input validation failed",
+  );
+  if (!parsed$.ok) {
+    return parsed$;
+  }
+  const payload$ = parsed$.value;
+  const body$ = null;
 
-    const path$ = pathToFunc("/data/views/now")();
+  const path$ = pathToFunc("/data/views/now")();
 
-    const query$ = encodeFormQuery$({
-        "breakdownBy[]": payload$["breakdownBy[]"],
-        creatorId: payload$.creatorId,
-        playbackId: payload$.playbackId,
-    });
+  const query$ = encodeFormQuery$({
+    "breakdownBy[]": payload$["breakdownBy[]"],
+    "creatorId": payload$.creatorId,
+    "playbackId": payload$.playbackId,
+  });
 
-    const headers$ = new Headers({
-        Accept: "application/json",
-    });
+  const headers$ = new Headers({
+    Accept: "application/json",
+  });
 
-    const apiKey$ = await extractSecurity(client$.options$.apiKey);
-    const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
-    const context = {
-        operationID: "getRealtimeViewershipNow",
-        oAuth2Scopes: [],
-        securitySource: client$.options$.apiKey,
-    };
-    const securitySettings$ = resolveGlobalSecurity(security$);
+  const apiKey$ = await extractSecurity(client$.options$.apiKey);
+  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const context = {
+    operationID: "getRealtimeViewershipNow",
+    oAuth2Scopes: [],
+    securitySource: client$.options$.apiKey,
+  };
+  const securitySettings$ = resolveGlobalSecurity(security$);
 
-    const requestRes = client$.createRequest$(
-        context,
-        {
-            security: securitySettings$,
-            method: "GET",
-            path: path$,
-            headers: headers$,
-            query: query$,
-            body: body$,
-            timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
-        },
-        options
-    );
-    if (!requestRes.ok) {
-        return requestRes;
-    }
-    const request$ = requestRes.value;
+  const requestRes = client$.createRequest$(context, {
+    security: securitySettings$,
+    method: "GET",
+    path: path$,
+    headers: headers$,
+    query: query$,
+    body: body$,
+    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+  }, options);
+  if (!requestRes.ok) {
+    return requestRes;
+  }
+  const request$ = requestRes.value;
 
-    const doResult = await client$.do$(request$, {
-        context,
-        errorCodes: ["4XX", "5XX"],
-        retryConfig: options?.retries || client$.options$.retryConfig,
-        retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
-    });
-    if (!doResult.ok) {
-        return doResult;
-    }
-    const response = doResult.value;
+  const doResult = await client$.do$(request$, {
+    context,
+    errorCodes: ["4XX", "5XX"],
+    retryConfig: options?.retries
+      || client$.options$.retryConfig,
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+  });
+  if (!doResult.ok) {
+    return doResult;
+  }
+  const response = doResult.value;
 
-    const responseFields$ = {
-        ContentType: response.headers.get("content-type") ?? "application/octet-stream",
-        StatusCode: response.status,
-        RawResponse: response,
-        Headers: {},
-    };
+  const responseFields$ = {
+    ContentType: response.headers.get("content-type")
+      ?? "application/octet-stream",
+    StatusCode: response.status,
+    RawResponse: response,
+    Headers: {},
+  };
 
-    const [result$] = await m$.match<
-        operations.GetRealtimeViewershipNowResponse,
-        | SDKError
-        | SDKValidationError
-        | UnexpectedClientError
-        | InvalidRequestError
-        | RequestAbortedError
-        | RequestTimeoutError
-        | ConnectionError
-    >(
-        m$.json(200, operations.GetRealtimeViewershipNowResponse$inboundSchema, { key: "data" }),
-        m$.fail(["4XX", "5XX"]),
-        m$.json("default", operations.GetRealtimeViewershipNowResponse$inboundSchema, {
-            key: "error",
-        })
-    )(response, { extraFields: responseFields$ });
-    if (!result$.ok) {
-        return result$;
-    }
-
+  const [result$] = await m$.match<
+    operations.GetRealtimeViewershipNowResponse,
+    | SDKError
+    | SDKValidationError
+    | UnexpectedClientError
+    | InvalidRequestError
+    | RequestAbortedError
+    | RequestTimeoutError
+    | ConnectionError
+  >(
+    m$.json(200, operations.GetRealtimeViewershipNowResponse$inboundSchema, {
+      key: "data",
+    }),
+    m$.fail(["4XX", "5XX"]),
+    m$.json(
+      "default",
+      operations.GetRealtimeViewershipNowResponse$inboundSchema,
+      { key: "error" },
+    ),
+  )(response, { extraFields: responseFields$ });
+  if (!result$.ok) {
     return result$;
+  }
+
+  return result$;
 }

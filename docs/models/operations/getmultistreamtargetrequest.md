@@ -1,5 +1,14 @@
 # GetMultistreamTargetRequest
 
+## Example Usage
+
+```typescript
+import { GetMultistreamTargetRequest } from "livepeer/models/operations";
+
+let value: GetMultistreamTargetRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

@@ -1,5 +1,14 @@
 # GetWebhookRequest
 
+## Example Usage
+
+```typescript
+import { GetWebhookRequest } from "livepeer/models/operations";
+
+let value: GetWebhookRequest = {
+  id: "<id>",
+};
+```
 
 ## Fields
 

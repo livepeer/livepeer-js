@@ -2,6 +2,15 @@
 
 URL input video
 
+## Example Usage
+
+```typescript
+import { TranscodePayload1 } from "livepeer/models/components";
+
+let value: TranscodePayload1 = {
+  url: "https://s3.amazonaws.com/bucket/file.mp4",
+};
+```
 
 ## Fields
 

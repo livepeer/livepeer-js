@@ -5,91 +5,105 @@
 import * as z from "zod";
 
 export enum CreatorIdType {
-    Unverified = "unverified",
+  Unverified = "unverified",
 }
 
 export type CreatorId1 = {
-    type: CreatorIdType;
-    /**
-     * Developer-managed ID of the user who created the resource.
-     */
-    value: string;
+  type: CreatorIdType;
+  /**
+   * Developer-managed ID of the user who created the resource.
+   */
+  value: string;
 };
 
 export type CreatorId = CreatorId1;
 
 /** @internal */
-export const CreatorIdType$inboundSchema: z.ZodNativeEnum<typeof CreatorIdType> =
-    z.nativeEnum(CreatorIdType);
+export const CreatorIdType$inboundSchema: z.ZodNativeEnum<
+  typeof CreatorIdType
+> = z.nativeEnum(CreatorIdType);
 
 /** @internal */
-export const CreatorIdType$outboundSchema: z.ZodNativeEnum<typeof CreatorIdType> =
-    CreatorIdType$inboundSchema;
+export const CreatorIdType$outboundSchema: z.ZodNativeEnum<
+  typeof CreatorIdType
+> = CreatorIdType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace CreatorIdType$ {
-    /** @deprecated use `CreatorIdType$inboundSchema` instead. */
-    export const inboundSchema = CreatorIdType$inboundSchema;
-    /** @deprecated use `CreatorIdType$outboundSchema` instead. */
-    export const outboundSchema = CreatorIdType$outboundSchema;
+  /** @deprecated use `CreatorIdType$inboundSchema` instead. */
+  export const inboundSchema = CreatorIdType$inboundSchema;
+  /** @deprecated use `CreatorIdType$outboundSchema` instead. */
+  export const outboundSchema = CreatorIdType$outboundSchema;
 }
 
 /** @internal */
-export const CreatorId1$inboundSchema: z.ZodType<CreatorId1, z.ZodTypeDef, unknown> = z.object({
-    type: CreatorIdType$inboundSchema,
-    value: z.string(),
+export const CreatorId1$inboundSchema: z.ZodType<
+  CreatorId1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CreatorIdType$inboundSchema,
+  value: z.string(),
 });
 
 /** @internal */
 export type CreatorId1$Outbound = {
-    type: string;
-    value: string;
+  type: string;
+  value: string;
 };
 
 /** @internal */
-export const CreatorId1$outboundSchema: z.ZodType<CreatorId1$Outbound, z.ZodTypeDef, CreatorId1> =
-    z.object({
-        type: CreatorIdType$outboundSchema,
-        value: z.string(),
-    });
+export const CreatorId1$outboundSchema: z.ZodType<
+  CreatorId1$Outbound,
+  z.ZodTypeDef,
+  CreatorId1
+> = z.object({
+  type: CreatorIdType$outboundSchema,
+  value: z.string(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace CreatorId1$ {
-    /** @deprecated use `CreatorId1$inboundSchema` instead. */
-    export const inboundSchema = CreatorId1$inboundSchema;
-    /** @deprecated use `CreatorId1$outboundSchema` instead. */
-    export const outboundSchema = CreatorId1$outboundSchema;
-    /** @deprecated use `CreatorId1$Outbound` instead. */
-    export type Outbound = CreatorId1$Outbound;
+  /** @deprecated use `CreatorId1$inboundSchema` instead. */
+  export const inboundSchema = CreatorId1$inboundSchema;
+  /** @deprecated use `CreatorId1$outboundSchema` instead. */
+  export const outboundSchema = CreatorId1$outboundSchema;
+  /** @deprecated use `CreatorId1$Outbound` instead. */
+  export type Outbound = CreatorId1$Outbound;
 }
 
 /** @internal */
-export const CreatorId$inboundSchema: z.ZodType<CreatorId, z.ZodTypeDef, unknown> = z.lazy(
-    () => CreatorId1$inboundSchema
-);
+export const CreatorId$inboundSchema: z.ZodType<
+  CreatorId,
+  z.ZodTypeDef,
+  unknown
+> = z.lazy(() => CreatorId1$inboundSchema);
 
 /** @internal */
 export type CreatorId$Outbound = CreatorId1$Outbound;
 
 /** @internal */
-export const CreatorId$outboundSchema: z.ZodType<CreatorId$Outbound, z.ZodTypeDef, CreatorId> =
-    z.lazy(() => CreatorId1$outboundSchema);
+export const CreatorId$outboundSchema: z.ZodType<
+  CreatorId$Outbound,
+  z.ZodTypeDef,
+  CreatorId
+> = z.lazy(() => CreatorId1$outboundSchema);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace CreatorId$ {
-    /** @deprecated use `CreatorId$inboundSchema` instead. */
-    export const inboundSchema = CreatorId$inboundSchema;
-    /** @deprecated use `CreatorId$outboundSchema` instead. */
-    export const outboundSchema = CreatorId$outboundSchema;
-    /** @deprecated use `CreatorId$Outbound` instead. */
-    export type Outbound = CreatorId$Outbound;
+  /** @deprecated use `CreatorId$inboundSchema` instead. */
+  export const inboundSchema = CreatorId$inboundSchema;
+  /** @deprecated use `CreatorId$outboundSchema` instead. */
+  export const outboundSchema = CreatorId$outboundSchema;
+  /** @deprecated use `CreatorId$Outbound` instead. */
+  export type Outbound = CreatorId$Outbound;
 }

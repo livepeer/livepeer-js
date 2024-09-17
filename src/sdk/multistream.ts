@@ -13,56 +13,77 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Multistream extends ClientSDK {
-    /**
-     * Retrieve Multistream Targets
-     */
-    async getAll(options?: RequestOptions): Promise<operations.GetMultistreamTargetsResponse> {
-        return unwrapAsync(multistreamGetAll(this, options));
-    }
+  /**
+   * Retrieve Multistream Targets
+   */
+  async getAll(
+    options?: RequestOptions,
+  ): Promise<operations.GetMultistreamTargetsResponse> {
+    return unwrapAsync(multistreamGetAll(
+      this,
+      options,
+    ));
+  }
 
-    /**
-     * Create a multistream target
-     */
-    async create(
-        request: components.MultistreamTargetInput,
-        options?: RequestOptions
-    ): Promise<operations.CreateMultistreamTargetResponse> {
-        return unwrapAsync(multistreamCreate(this, request, options));
-    }
+  /**
+   * Create a multistream target
+   */
+  async create(
+    request: components.MultistreamTargetInput,
+    options?: RequestOptions,
+  ): Promise<operations.CreateMultistreamTargetResponse> {
+    return unwrapAsync(multistreamCreate(
+      this,
+      request,
+      options,
+    ));
+  }
 
-    /**
-     * Retrieve a multistream target
-     */
-    async get(
-        id: string,
-        options?: RequestOptions
-    ): Promise<operations.GetMultistreamTargetResponse> {
-        return unwrapAsync(multistreamGet(this, id, options));
-    }
+  /**
+   * Retrieve a multistream target
+   */
+  async get(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.GetMultistreamTargetResponse> {
+    return unwrapAsync(multistreamGet(
+      this,
+      id,
+      options,
+    ));
+  }
 
-    /**
-     * Update Multistream Target
-     */
-    async update(
-        id: string,
-        multistreamTargetPatchPayload: components.MultistreamTargetPatchPayload,
-        options?: RequestOptions
-    ): Promise<operations.UpdateMultistreamTargetResponse> {
-        return unwrapAsync(multistreamUpdate(this, id, multistreamTargetPatchPayload, options));
-    }
+  /**
+   * Update Multistream Target
+   */
+  async update(
+    id: string,
+    multistreamTargetPatchPayload: components.MultistreamTargetPatchPayload,
+    options?: RequestOptions,
+  ): Promise<operations.UpdateMultistreamTargetResponse> {
+    return unwrapAsync(multistreamUpdate(
+      this,
+      id,
+      multistreamTargetPatchPayload,
+      options,
+    ));
+  }
 
-    /**
-     * Delete a multistream target
-     *
-     * @remarks
-     * Make sure to remove any references to the target on existing
-     * streams before actually deleting it from the API.
-     *
-     */
-    async delete(
-        id: string,
-        options?: RequestOptions
-    ): Promise<operations.DeleteMultistreamTargetResponse> {
-        return unwrapAsync(multistreamDelete(this, id, options));
-    }
+  /**
+   * Delete a multistream target
+   *
+   * @remarks
+   * Make sure to remove any references to the target on existing
+   * streams before actually deleting it from the API.
+   */
+  async delete(
+    id: string,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteMultistreamTargetResponse> {
+    return unwrapAsync(multistreamDelete(
+      this,
+      id,
+      options,
+    ));
+  }
 }

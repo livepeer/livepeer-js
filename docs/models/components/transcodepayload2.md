@@ -2,6 +2,22 @@
 
 S3-like storage input video
 
+## Example Usage
+
+```typescript
+import { TranscodePayload2, TranscodePayloadType } from "livepeer/models/components";
+
+let value: TranscodePayload2 = {
+  type: TranscodePayloadType.S3,
+  endpoint: "https://gateway.storjshare.io",
+  bucket: "inputbucket",
+  path: "/path/file.mp4",
+  credentials: {
+    accessKeyId: "AKIAIOSFODNN7EXAMPLE",
+    secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+  },
+};
+```
 
 ## Fields
 

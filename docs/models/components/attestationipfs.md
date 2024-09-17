@@ -1,5 +1,14 @@
 # AttestationIpfs
 
+## Example Usage
+
+```typescript
+import { AttestationIpfs } from "livepeer/models/components";
+
+let value: AttestationIpfs = {
+  updatedAt: 1587667174725,
+};
+```
 
 ## Fields
 

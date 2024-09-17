@@ -28,6 +28,36 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.multistream.getAll();
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { multistreamGetAll } from "livepeer/funcs/multistreamGetAll.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await multistreamGetAll(livepeer);
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -44,15 +74,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetMultistreamTargetsResponse](../../models/operations/getmultistreamtargetsresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## create
 
@@ -71,6 +102,38 @@ async function run() {
   const result = await livepeer.multistream.create({
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { multistreamCreate } from "livepeer/funcs/multistreamCreate.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await multistreamCreate(livepeer, {
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -88,15 +151,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.CreateMultistreamTargetResponse](../../models/operations/createmultistreamtargetresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## get
 
@@ -112,7 +176,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.multistream.get("<value>");
+  const result = await livepeer.multistream.get("<id>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { multistreamGet } from "livepeer/funcs/multistreamGet.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await multistreamGet(livepeer, "<id>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -130,15 +224,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.GetMultistreamTargetResponse](../../models/operations/getmultistreamtargetresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## update
 
@@ -154,9 +249,41 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.multistream.update("<value>", {
+  const result = await livepeer.multistream.update("<id>", {
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { multistreamUpdate } from "livepeer/funcs/multistreamUpdate.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await multistreamUpdate(livepeer, "<id>", {
+    url: "rtmps://live.my-service.tv/channel/secretKey",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -175,15 +302,16 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.UpdateMultistreamTargetResponse](../../models/operations/updatemultistreamtargetresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4xx-5xx         | */*             |
+
 
 ## delete
 
@@ -201,7 +329,37 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.multistream.delete("<value>");
+  const result = await livepeer.multistream.delete("<id>");
+  
+  // Handle the result
+  console.log(result)
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { LivepeerCore } from "livepeer/core.js";
+import { multistreamDelete } from "livepeer/funcs/multistreamDelete.js";
+
+// Use `LivepeerCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const livepeer = new LivepeerCore({
+  apiKey: "<YOUR_BEARER_TOKEN_HERE>",
+});
+
+async function run() {
+  const res = await multistreamDelete(livepeer, "<id>");
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
 
   // Handle the result
   console.log(result)
@@ -219,10 +377,10 @@ run();
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
-
 ### Response
 
 **Promise\<[operations.DeleteMultistreamTargetResponse](../../models/operations/deletemultistreamtargetresponse.md)\>**
+
 ### Errors
 
 | Error Object    | Status Code     | Content Type    |

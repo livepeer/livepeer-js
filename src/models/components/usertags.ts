@@ -9,56 +9,66 @@ export type Three = string | number;
 export type UserTags = string | number | Array<string | number>;
 
 /** @internal */
-export const Three$inboundSchema: z.ZodType<Three, z.ZodTypeDef, unknown> = z.union([
-    z.string(),
-    z.number(),
-]);
+export const Three$inboundSchema: z.ZodType<Three, z.ZodTypeDef, unknown> = z
+  .union([z.string(), z.number()]);
 
 /** @internal */
 export type Three$Outbound = string | number;
 
 /** @internal */
-export const Three$outboundSchema: z.ZodType<Three$Outbound, z.ZodTypeDef, Three> = z.union([
-    z.string(),
-    z.number(),
-]);
+export const Three$outboundSchema: z.ZodType<
+  Three$Outbound,
+  z.ZodTypeDef,
+  Three
+> = z.union([z.string(), z.number()]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Three$ {
-    /** @deprecated use `Three$inboundSchema` instead. */
-    export const inboundSchema = Three$inboundSchema;
-    /** @deprecated use `Three$outboundSchema` instead. */
-    export const outboundSchema = Three$outboundSchema;
-    /** @deprecated use `Three$Outbound` instead. */
-    export type Outbound = Three$Outbound;
+  /** @deprecated use `Three$inboundSchema` instead. */
+  export const inboundSchema = Three$inboundSchema;
+  /** @deprecated use `Three$outboundSchema` instead. */
+  export const outboundSchema = Three$outboundSchema;
+  /** @deprecated use `Three$Outbound` instead. */
+  export type Outbound = Three$Outbound;
 }
 
 /** @internal */
-export const UserTags$inboundSchema: z.ZodType<UserTags, z.ZodTypeDef, unknown> = z.union([
-    z.string(),
-    z.number(),
-    z.array(z.union([z.string(), z.number()])),
+export const UserTags$inboundSchema: z.ZodType<
+  UserTags,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.string(),
+  z.number(),
+  z.array(z.union([z.string(), z.number()])),
 ]);
 
 /** @internal */
 export type UserTags$Outbound = string | number | Array<string | number>;
 
 /** @internal */
-export const UserTags$outboundSchema: z.ZodType<UserTags$Outbound, z.ZodTypeDef, UserTags> =
-    z.union([z.string(), z.number(), z.array(z.union([z.string(), z.number()]))]);
+export const UserTags$outboundSchema: z.ZodType<
+  UserTags$Outbound,
+  z.ZodTypeDef,
+  UserTags
+> = z.union([
+  z.string(),
+  z.number(),
+  z.array(z.union([z.string(), z.number()])),
+]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace UserTags$ {
-    /** @deprecated use `UserTags$inboundSchema` instead. */
-    export const inboundSchema = UserTags$inboundSchema;
-    /** @deprecated use `UserTags$outboundSchema` instead. */
-    export const outboundSchema = UserTags$outboundSchema;
-    /** @deprecated use `UserTags$Outbound` instead. */
-    export type Outbound = UserTags$Outbound;
+  /** @deprecated use `UserTags$inboundSchema` instead. */
+  export const inboundSchema = UserTags$inboundSchema;
+  /** @deprecated use `UserTags$outboundSchema` instead. */
+  export const outboundSchema = UserTags$outboundSchema;
+  /** @deprecated use `UserTags$Outbound` instead. */
+  export type Outbound = UserTags$Outbound;
 }

@@ -1,5 +1,12 @@
 # GetUsageMetricsRequest
 
+## Example Usage
+
+```typescript
+import { GetUsageMetricsRequest } from "livepeer/models/operations";
+
+let value: GetUsageMetricsRequest = {};
+```
 
 ## Fields
 

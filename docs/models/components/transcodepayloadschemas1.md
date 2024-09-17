@@ -2,6 +2,21 @@
 
 Storage for the output files
 
+## Example Usage
+
+```typescript
+import { TranscodePayloadSchemas1, TranscodePayloadSchemasType } from "livepeer/models/components";
+
+let value: TranscodePayloadSchemas1 = {
+  type: TranscodePayloadSchemasType.S3,
+  endpoint: "https://gateway.storjshare.io",
+  bucket: "outputbucket",
+  credentials: {
+    accessKeyId: "AKIAIOSFODNN7EXAMPLE",
+    secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+  },
+};
+```
 
 ## Fields
 

@@ -8,9 +8,9 @@ import * as z from "zod";
  * 0: not mobile, 1: mobile screen share, 2: mobile camera.
  */
 export enum One {
-    Zero = 0,
-    One = 1,
-    Two = 2,
+  Zero = 0,
+  One = 1,
+  Two = 2,
 }
 
 /**
@@ -25,20 +25,20 @@ export type IsMobile = One | boolean;
  * determine the closest Livepeer region to pull the stream from.
  */
 export type Location = {
-    /**
-     * Latitude of the pull source in degrees. North is positive,
-     *
-     * @remarks
-     * south is negative.
-     */
-    lat: number;
-    /**
-     * Longitude of the pull source in degrees. East is positive,
-     *
-     * @remarks
-     * west is negative.
-     */
-    lon: number;
+  /**
+   * Latitude of the pull source in degrees. North is positive,
+   *
+   * @remarks
+   * south is negative.
+   */
+  lat: number;
+  /**
+   * Longitude of the pull source in degrees. East is positive,
+   *
+   * @remarks
+   * west is negative.
+   */
+  lon: number;
 };
 
 /**
@@ -49,135 +49,149 @@ export type Location = {
  * stream will not have a streamKey.
  */
 export type Pull = {
-    /**
-     * URL from which to pull from.
-     */
-    source: string;
-    /**
-     * Headers to be sent with the request to the pull source.
-     */
-    headers?: { [k: string]: string } | undefined;
-    /**
-     * Indicates whether the stream will be pulled from a mobile source.
-     */
-    isMobile?: One | boolean | undefined;
-    /**
-     * Approximate location of the pull source. The location is used to
-     *
-     * @remarks
-     * determine the closest Livepeer region to pull the stream from.
-     */
-    location?: Location | undefined;
+  /**
+   * URL from which to pull from.
+   */
+  source: string;
+  /**
+   * Headers to be sent with the request to the pull source.
+   */
+  headers?: { [k: string]: string } | undefined;
+  /**
+   * Indicates whether the stream will be pulled from a mobile source.
+   */
+  isMobile?: One | boolean | undefined;
+  /**
+   * Approximate location of the pull source. The location is used to
+   *
+   * @remarks
+   * determine the closest Livepeer region to pull the stream from.
+   */
+  location?: Location | undefined;
 };
 
 /** @internal */
 export const One$inboundSchema: z.ZodNativeEnum<typeof One> = z.nativeEnum(One);
 
 /** @internal */
-export const One$outboundSchema: z.ZodNativeEnum<typeof One> = One$inboundSchema;
+export const One$outboundSchema: z.ZodNativeEnum<typeof One> =
+  One$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace One$ {
-    /** @deprecated use `One$inboundSchema` instead. */
-    export const inboundSchema = One$inboundSchema;
-    /** @deprecated use `One$outboundSchema` instead. */
-    export const outboundSchema = One$outboundSchema;
+  /** @deprecated use `One$inboundSchema` instead. */
+  export const inboundSchema = One$inboundSchema;
+  /** @deprecated use `One$outboundSchema` instead. */
+  export const outboundSchema = One$outboundSchema;
 }
 
 /** @internal */
-export const IsMobile$inboundSchema: z.ZodType<IsMobile, z.ZodTypeDef, unknown> = z.union([
-    One$inboundSchema,
-    z.boolean(),
-]);
+export const IsMobile$inboundSchema: z.ZodType<
+  IsMobile,
+  z.ZodTypeDef,
+  unknown
+> = z.union([One$inboundSchema, z.boolean()]);
 
 /** @internal */
 export type IsMobile$Outbound = number | boolean;
 
 /** @internal */
-export const IsMobile$outboundSchema: z.ZodType<IsMobile$Outbound, z.ZodTypeDef, IsMobile> =
-    z.union([One$outboundSchema, z.boolean()]);
+export const IsMobile$outboundSchema: z.ZodType<
+  IsMobile$Outbound,
+  z.ZodTypeDef,
+  IsMobile
+> = z.union([One$outboundSchema, z.boolean()]);
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace IsMobile$ {
-    /** @deprecated use `IsMobile$inboundSchema` instead. */
-    export const inboundSchema = IsMobile$inboundSchema;
-    /** @deprecated use `IsMobile$outboundSchema` instead. */
-    export const outboundSchema = IsMobile$outboundSchema;
-    /** @deprecated use `IsMobile$Outbound` instead. */
-    export type Outbound = IsMobile$Outbound;
+  /** @deprecated use `IsMobile$inboundSchema` instead. */
+  export const inboundSchema = IsMobile$inboundSchema;
+  /** @deprecated use `IsMobile$outboundSchema` instead. */
+  export const outboundSchema = IsMobile$outboundSchema;
+  /** @deprecated use `IsMobile$Outbound` instead. */
+  export type Outbound = IsMobile$Outbound;
 }
 
 /** @internal */
-export const Location$inboundSchema: z.ZodType<Location, z.ZodTypeDef, unknown> = z.object({
-    lat: z.number(),
-    lon: z.number(),
+export const Location$inboundSchema: z.ZodType<
+  Location,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  lat: z.number(),
+  lon: z.number(),
 });
 
 /** @internal */
 export type Location$Outbound = {
-    lat: number;
-    lon: number;
+  lat: number;
+  lon: number;
 };
 
 /** @internal */
-export const Location$outboundSchema: z.ZodType<Location$Outbound, z.ZodTypeDef, Location> =
-    z.object({
-        lat: z.number(),
-        lon: z.number(),
-    });
+export const Location$outboundSchema: z.ZodType<
+  Location$Outbound,
+  z.ZodTypeDef,
+  Location
+> = z.object({
+  lat: z.number(),
+  lon: z.number(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Location$ {
-    /** @deprecated use `Location$inboundSchema` instead. */
-    export const inboundSchema = Location$inboundSchema;
-    /** @deprecated use `Location$outboundSchema` instead. */
-    export const outboundSchema = Location$outboundSchema;
-    /** @deprecated use `Location$Outbound` instead. */
-    export type Outbound = Location$Outbound;
+  /** @deprecated use `Location$inboundSchema` instead. */
+  export const inboundSchema = Location$inboundSchema;
+  /** @deprecated use `Location$outboundSchema` instead. */
+  export const outboundSchema = Location$outboundSchema;
+  /** @deprecated use `Location$Outbound` instead. */
+  export type Outbound = Location$Outbound;
 }
 
 /** @internal */
-export const Pull$inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z.object({
+export const Pull$inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z
+  .object({
     source: z.string(),
     headers: z.record(z.string()).optional(),
     isMobile: z.union([One$inboundSchema, z.boolean()]).optional(),
     location: z.lazy(() => Location$inboundSchema).optional(),
-});
+  });
 
 /** @internal */
 export type Pull$Outbound = {
-    source: string;
-    headers?: { [k: string]: string } | undefined;
-    isMobile?: number | boolean | undefined;
-    location?: Location$Outbound | undefined;
+  source: string;
+  headers?: { [k: string]: string } | undefined;
+  isMobile?: number | boolean | undefined;
+  location?: Location$Outbound | undefined;
 };
 
 /** @internal */
-export const Pull$outboundSchema: z.ZodType<Pull$Outbound, z.ZodTypeDef, Pull> = z.object({
+export const Pull$outboundSchema: z.ZodType<Pull$Outbound, z.ZodTypeDef, Pull> =
+  z.object({
     source: z.string(),
     headers: z.record(z.string()).optional(),
     isMobile: z.union([One$outboundSchema, z.boolean()]).optional(),
     location: z.lazy(() => Location$outboundSchema).optional(),
-});
+  });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace Pull$ {
-    /** @deprecated use `Pull$inboundSchema` instead. */
-    export const inboundSchema = Pull$inboundSchema;
-    /** @deprecated use `Pull$outboundSchema` instead. */
-    export const outboundSchema = Pull$outboundSchema;
-    /** @deprecated use `Pull$Outbound` instead. */
-    export type Outbound = Pull$Outbound;
+  /** @deprecated use `Pull$inboundSchema` instead. */
+  export const inboundSchema = Pull$inboundSchema;
+  /** @deprecated use `Pull$outboundSchema` instead. */
+  export const outboundSchema = Pull$outboundSchema;
+  /** @deprecated use `Pull$Outbound` instead. */
+  export type Outbound = Pull$Outbound;
 }

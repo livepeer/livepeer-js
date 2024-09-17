@@ -1,5 +1,14 @@
 # GetTaskRequest
 
+## Example Usage
+
+```typescript
+import { GetTaskRequest } from "livepeer/models/operations";
+
+let value: GetTaskRequest = {
+  taskId: "<value>",
+};
+```
 
 ## Fields
 

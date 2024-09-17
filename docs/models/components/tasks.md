@@ -1,5 +1,16 @@
 # Tasks
 
+## Example Usage
+
+```typescript
+import { Tasks } from "livepeer/models/components";
+
+let value: Tasks = {
+  pending: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+  last: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+  failed: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
+};
+```
 
 ## Fields
 

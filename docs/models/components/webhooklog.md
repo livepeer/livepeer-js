@@ -1,5 +1,27 @@
 # WebhookLog
 
+## Example Usage
+
+```typescript
+import { WebhookLog } from "livepeer/models/components";
+
+let value: WebhookLog = {
+  id: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  webhookId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
+  event: "stream.started",
+  createdAt: 1587667174725,
+  duration: 0.5,
+  success: true,
+  request: {
+    url: "https://my-service.com/webhook",
+    method: "POST",
+    headers: {
+      "User-Agent": "livepeer.studio",
+    },
+    body: "{\"event\": \"stream.started\"}",
+  },
+};
+```
 
 ## Fields
 

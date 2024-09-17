@@ -1,5 +1,15 @@
 # UpdateSigningKeyRequest
 
+## Example Usage
+
+```typescript
+import { UpdateSigningKeyRequest } from "livepeer/models/operations";
+
+let value: UpdateSigningKeyRequest = {
+  keyId: "<value>",
+  requestBody: {},
+};
+```
 
 ## Fields
 

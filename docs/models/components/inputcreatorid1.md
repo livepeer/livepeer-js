@@ -1,5 +1,15 @@
 # InputCreatorId1
 
+## Example Usage
+
+```typescript
+import { InputCreatorId1, InputCreatorIdType } from "livepeer/models/components";
+
+let value: InputCreatorId1 = {
+  type: InputCreatorIdType.Unverified,
+  value: "<value>",
+};
+```
 
 ## Fields
 

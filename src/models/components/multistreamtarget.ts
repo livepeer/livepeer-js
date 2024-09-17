@@ -5,60 +5,61 @@
 import * as z from "zod";
 
 export type MultistreamTarget = {
-    id?: string | undefined;
-    name?: string | undefined;
-    /**
-     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-     */
-    userId?: string | undefined;
-    /**
-     * If true then this multistream target will not be used for pushing
-     *
-     * @remarks
-     * even if it is configured in a stream object.
-     *
-     */
-    disabled?: boolean | undefined;
-    /**
-     * Timestamp (in milliseconds) at which multistream target object was
-     *
-     * @remarks
-     * created
-     *
-     */
-    createdAt?: number | undefined;
+  id?: string | undefined;
+  name?: string | undefined;
+  /**
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
+  userId?: string | undefined;
+  /**
+   * If true then this multistream target will not be used for pushing
+   *
+   * @remarks
+   * even if it is configured in a stream object.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Timestamp (in milliseconds) at which multistream target object was
+   *
+   * @remarks
+   * created
+   */
+  createdAt?: number | undefined;
 };
 
 /** @internal */
-export const MultistreamTarget$inboundSchema: z.ZodType<MultistreamTarget, z.ZodTypeDef, unknown> =
-    z.object({
-        id: z.string().optional(),
-        name: z.string().optional(),
-        userId: z.string().optional(),
-        disabled: z.boolean().optional(),
-        createdAt: z.number().optional(),
-    });
+export const MultistreamTarget$inboundSchema: z.ZodType<
+  MultistreamTarget,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  userId: z.string().optional(),
+  disabled: z.boolean().optional(),
+  createdAt: z.number().optional(),
+});
 
 /** @internal */
 export type MultistreamTarget$Outbound = {
-    id?: string | undefined;
-    name?: string | undefined;
-    userId?: string | undefined;
-    disabled?: boolean | undefined;
-    createdAt?: number | undefined;
+  id?: string | undefined;
+  name?: string | undefined;
+  userId?: string | undefined;
+  disabled?: boolean | undefined;
+  createdAt?: number | undefined;
 };
 
 /** @internal */
 export const MultistreamTarget$outboundSchema: z.ZodType<
-    MultistreamTarget$Outbound,
-    z.ZodTypeDef,
-    MultistreamTarget
+  MultistreamTarget$Outbound,
+  z.ZodTypeDef,
+  MultistreamTarget
 > = z.object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    userId: z.string().optional(),
-    disabled: z.boolean().optional(),
-    createdAt: z.number().optional(),
+  id: z.string().optional(),
+  name: z.string().optional(),
+  userId: z.string().optional(),
+  disabled: z.boolean().optional(),
+  createdAt: z.number().optional(),
 });
 
 /**
@@ -66,10 +67,10 @@ export const MultistreamTarget$outboundSchema: z.ZodType<
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
 export namespace MultistreamTarget$ {
-    /** @deprecated use `MultistreamTarget$inboundSchema` instead. */
-    export const inboundSchema = MultistreamTarget$inboundSchema;
-    /** @deprecated use `MultistreamTarget$outboundSchema` instead. */
-    export const outboundSchema = MultistreamTarget$outboundSchema;
-    /** @deprecated use `MultistreamTarget$Outbound` instead. */
-    export type Outbound = MultistreamTarget$Outbound;
+  /** @deprecated use `MultistreamTarget$inboundSchema` instead. */
+  export const inboundSchema = MultistreamTarget$inboundSchema;
+  /** @deprecated use `MultistreamTarget$outboundSchema` instead. */
+  export const outboundSchema = MultistreamTarget$outboundSchema;
+  /** @deprecated use `MultistreamTarget$Outbound` instead. */
+  export type Outbound = MultistreamTarget$Outbound;
 }

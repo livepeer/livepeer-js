@@ -1,5 +1,21 @@
 # PlaybackInfoSource
 
+## Example Usage
+
+```typescript
+import { Hrn, PlaybackInfoSchemasType, PlaybackInfoSource } from "livepeer/models/components";
+
+let value: PlaybackInfoSource = {
+  hrn: Hrn.Mp4,
+  type: PlaybackInfoSchemasType.Html5VideoMp4,
+  url:
+    "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4",
+  size: 494778,
+  width: 204,
+  height: 360,
+  bitrate: 449890,
+};
+```
 
 ## Fields
 

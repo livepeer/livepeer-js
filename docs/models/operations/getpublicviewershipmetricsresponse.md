@@ -1,5 +1,12 @@
 # GetPublicViewershipMetricsResponse
 
+## Example Usage
+
+```typescript
+import { GetPublicViewershipMetricsResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

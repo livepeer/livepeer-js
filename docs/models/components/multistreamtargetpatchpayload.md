@@ -1,5 +1,14 @@
 # MultistreamTargetPatchPayload
 
+## Example Usage
+
+```typescript
+import { MultistreamTargetPatchPayload } from "livepeer/models/components";
+
+let value: MultistreamTargetPatchPayload = {
+  url: "rtmps://live.my-service.tv/channel/secretKey",
+};
+```
 
 ## Fields
 

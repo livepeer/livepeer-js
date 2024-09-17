@@ -1,5 +1,12 @@
 # Response
 
+## Example Usage
+
+```typescript
+import { Response } from "livepeer/models/components";
+
+let value: Response = {};
+```
 
 ## Fields
 

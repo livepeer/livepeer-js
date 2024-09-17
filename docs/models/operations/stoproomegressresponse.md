@@ -1,5 +1,12 @@
 # StopRoomEgressResponse
 
+## Example Usage
+
+```typescript
+import { StopRoomEgressResponse } from "livepeer/models/operations";
+
+// No examples available for this model
+```
 
 ## Fields
 

@@ -1,5 +1,14 @@
 # NewAssetPayloadEncryption
 
+## Example Usage
+
+```typescript
+import { NewAssetPayloadEncryption } from "livepeer/models/components";
+
+let value: NewAssetPayloadEncryption = {
+  encryptedKey: "<value>",
+};
+```
 
 ## Fields
 
