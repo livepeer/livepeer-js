@@ -3,7 +3,7 @@
  */
 
 import { LivepeerCore } from "../core.js";
-import { readableStreamToArrayBuffer } from "../lib/files.js";
+import { encodeBodyForm as encodeBodyForm$ } from "../lib/encodings.js";
 import * as m$ from "../lib/matchers.js";
 import * as schemas$ from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
@@ -21,27 +21,25 @@ import * as errors from "../models/errors/index.js";
 import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
-import { isReadableStream } from "../types/streams.js";
 
 /**
- * Image To Video
+ * LLM
  *
  * @remarks
- * Generate a video from a provided image.
+ * Generate text using a language model.
  */
-export async function generateImageToVideo(
+export async function generateLlm(
   client$: LivepeerCore,
-  request: components.BodyGenImageToVideo,
+  request: components.BodyGenLLM,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.GenImageToVideoResponse,
-    | errors.GenImageToVideoResponseBody
-    | errors.GenImageToVideoGenerateResponseBody
-    | errors.GenImageToVideoGenerateResponseResponseBody
-    | errors.GenImageToVideoGenerateResponse500ResponseBody
+    operations.GenLLMResponse,
+    | errors.GenLLMResponseBody
+    | errors.GenLLMGenerateResponseBody
+    | errors.GenLLMGenerateResponseResponseBody
+    | errors.GenLLMGenerateResponse500ResponseBody
     | SDKError
     | SDKValidationError
     | UnexpectedClientError
@@ -55,66 +53,29 @@ export async function generateImageToVideo(
 
   const parsed$ = schemas$.safeParse(
     input$,
-    (value$) => components.BodyGenImageToVideo$outboundSchema.parse(value$),
+    (value$) => components.BodyGenLLM$outboundSchema.parse(value$),
     "Input validation failed",
   );
   if (!parsed$.ok) {
     return parsed$;
   }
   const payload$ = parsed$.value;
-  const body$ = new FormData();
 
-  if (isBlobLike(payload$.image)) {
-    body$.append("image", payload$.image);
-  } else if (isReadableStream(payload$.image.content)) {
-    const buffer = await readableStreamToArrayBuffer(payload$.image.content);
-    const blob = new Blob([buffer], { type: "application/octet-stream" });
-    body$.append("image", blob);
-  } else {
-    body$.append(
-      "image",
-      new Blob([payload$.image.content], { type: "application/octet-stream" }),
-      payload$.image.fileName,
-    );
-  }
-  if (payload$.fps !== undefined) {
-    body$.append("fps", String(payload$.fps));
-  }
-  if (payload$.height !== undefined) {
-    body$.append("height", String(payload$.height));
-  }
-  if (payload$.model_id !== undefined) {
-    body$.append("model_id", payload$.model_id);
-  }
-  if (payload$.motion_bucket_id !== undefined) {
-    body$.append("motion_bucket_id", String(payload$.motion_bucket_id));
-  }
-  if (payload$.noise_aug_strength !== undefined) {
-    body$.append("noise_aug_strength", String(payload$.noise_aug_strength));
-  }
-  if (payload$.num_inference_steps !== undefined) {
-    body$.append("num_inference_steps", String(payload$.num_inference_steps));
-  }
-  if (payload$.safety_check !== undefined) {
-    body$.append("safety_check", String(payload$.safety_check));
-  }
-  if (payload$.seed !== undefined) {
-    body$.append("seed", String(payload$.seed));
-  }
-  if (payload$.width !== undefined) {
-    body$.append("width", String(payload$.width));
-  }
+  const body$ = Object.entries(payload$ || {}).map(([k, v]) => {
+    return encodeBodyForm$(k, v, { charEncoding: "percent" });
+  }).join("&");
 
-  const path$ = pathToFunc("/api/generate/image-to-video")();
+  const path$ = pathToFunc("/api/generate/llm")();
 
   const headers$ = new Headers({
+    "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
   });
 
   const apiKey$ = await extractSecurity(client$.options$.apiKey);
   const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
   const context = {
-    operationID: "genImageToVideo",
+    operationID: "genLLM",
     oAuth2Scopes: [],
     securitySource: client$.options$.apiKey,
   };
@@ -154,11 +115,11 @@ export async function generateImageToVideo(
   };
 
   const [result$] = await m$.match<
-    operations.GenImageToVideoResponse,
-    | errors.GenImageToVideoResponseBody
-    | errors.GenImageToVideoGenerateResponseBody
-    | errors.GenImageToVideoGenerateResponseResponseBody
-    | errors.GenImageToVideoGenerateResponse500ResponseBody
+    operations.GenLLMResponse,
+    | errors.GenLLMResponseBody
+    | errors.GenLLMGenerateResponseBody
+    | errors.GenLLMGenerateResponseResponseBody
+    | errors.GenLLMGenerateResponse500ResponseBody
     | SDKError
     | SDKValidationError
     | UnexpectedClientError
@@ -167,21 +128,15 @@ export async function generateImageToVideo(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.GenImageToVideoResponse$inboundSchema, {
-      key: "VideoResponse",
+    m$.json(200, operations.GenLLMResponse$inboundSchema, {
+      key: "LLMResponse",
     }),
-    m$.jsonErr(400, errors.GenImageToVideoResponseBody$inboundSchema),
-    m$.jsonErr(401, errors.GenImageToVideoGenerateResponseBody$inboundSchema),
-    m$.jsonErr(
-      422,
-      errors.GenImageToVideoGenerateResponseResponseBody$inboundSchema,
-    ),
-    m$.jsonErr(
-      500,
-      errors.GenImageToVideoGenerateResponse500ResponseBody$inboundSchema,
-    ),
+    m$.jsonErr(400, errors.GenLLMResponseBody$inboundSchema),
+    m$.jsonErr(401, errors.GenLLMGenerateResponseBody$inboundSchema),
+    m$.jsonErr(422, errors.GenLLMGenerateResponseResponseBody$inboundSchema),
+    m$.jsonErr(500, errors.GenLLMGenerateResponse500ResponseBody$inboundSchema),
     m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.GenImageToVideoResponse$inboundSchema, {
+    m$.json("default", operations.GenLLMResponse$inboundSchema, {
       key: "studio-api-error",
     }),
   )(response, { extraFields: responseFields$ });

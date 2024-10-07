@@ -105,6 +105,7 @@ run();
 * [upscale](docs/sdks/generate/README.md#upscale) - Upscale
 * [audioToText](docs/sdks/generate/README.md#audiototext) - Audio To Text
 * [segmentAnything2](docs/sdks/generate/README.md#segmentanything2) - Segment Anything 2
+* [llm](docs/sdks/generate/README.md#llm) - LLM
 
 
 ### [metrics](docs/sdks/metrics/README.md)
@@ -367,7 +368,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -417,6 +418,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [generateAudioToText](docs/sdks/generate/README.md#audiototext)
 - [generateImageToImage](docs/sdks/generate/README.md#imagetoimage)
 - [generateImageToVideo](docs/sdks/generate/README.md#imagetovideo)
+- [generateLlm](docs/sdks/generate/README.md#llm)
 - [generateSegmentAnything2](docs/sdks/generate/README.md#segmentanything2)
 - [generateTextToImage](docs/sdks/generate/README.md#texttoimage)
 - [generateUpscale](docs/sdks/generate/README.md#upscale)
@@ -581,7 +583,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -690,7 +692,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {

@@ -62,7 +62,7 @@ export async function generateTextToImage(
   const payload$ = parsed$.value;
   const body$ = encodeJSON$("body", payload$, { explode: true });
 
-  const path$ = pathToFunc("/api/beta/generate/text-to-image")();
+  const path$ = pathToFunc("/api/generate/text-to-image")();
 
   const headers$ = new Headers({
     "Content-Type": "application/json",

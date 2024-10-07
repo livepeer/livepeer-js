@@ -32,6 +32,10 @@ export type HTTPValidationErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse5?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse6?: Response | undefined;
 };
 
 export class HTTPValidationError extends Error {
@@ -60,6 +64,10 @@ export class HTTPValidationError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse5?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse6?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: HTTPValidationErrorData;
@@ -78,6 +86,7 @@ export class HTTPValidationError extends Error {
     if (err.rawResponse3 != null) this.rawResponse3 = err.rawResponse3;
     if (err.rawResponse4 != null) this.rawResponse4 = err.rawResponse4;
     if (err.rawResponse5 != null) this.rawResponse5 = err.rawResponse5;
+    if (err.rawResponse6 != null) this.rawResponse6 = err.rawResponse6;
 
     this.name = "HTTPValidationError";
   }
@@ -96,6 +105,7 @@ export const HTTPValidationError$inboundSchema: z.ZodType<
   RawResponse3: z.instanceof(Response).optional(),
   RawResponse4: z.instanceof(Response).optional(),
   RawResponse5: z.instanceof(Response).optional(),
+  RawResponse6: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
@@ -105,6 +115,7 @@ export const HTTPValidationError$inboundSchema: z.ZodType<
       "RawResponse3": "rawResponse3",
       "RawResponse4": "rawResponse4",
       "RawResponse5": "rawResponse5",
+      "RawResponse6": "rawResponse6",
     });
 
     return new HTTPValidationError(remapped);
@@ -119,6 +130,7 @@ export type HTTPValidationError$Outbound = {
   RawResponse3?: never | undefined;
   RawResponse4?: never | undefined;
   RawResponse5?: never | undefined;
+  RawResponse6?: never | undefined;
 };
 
 /** @internal */
@@ -149,6 +161,9 @@ export const HTTPValidationError$outboundSchema: z.ZodType<
       rawResponse5: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
+      rawResponse6: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         rawResponse: "RawResponse",
@@ -157,6 +172,7 @@ export const HTTPValidationError$outboundSchema: z.ZodType<
         rawResponse3: "RawResponse3",
         rawResponse4: "RawResponse4",
         rawResponse5: "RawResponse5",
+        rawResponse6: "RawResponse6",
       });
     }),
   );

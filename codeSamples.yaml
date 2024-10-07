@@ -33,37 +33,43 @@ actions:
         - lang: typescript
           label: updateSigningKey
           source: "import { Livepeer } from \"livepeer\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.accessControl.update(\"<value>\", {});\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/audio-to-text"]["post"]
+  - target: $["paths"]["/api/generate/audio-to-text"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
           label: genAudioToText
           source: "import { Livepeer } from \"livepeer\";\nimport { openAsBlob } from \"node:fs\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.audioToText({\n    audio: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/image-to-image"]["post"]
+  - target: $["paths"]["/api/generate/image-to-image"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
           label: genImageToImage
           source: "import { Livepeer } from \"livepeer\";\nimport { openAsBlob } from \"node:fs\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.imageToImage({\n    prompt: \"<value>\",\n    image: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/image-to-video"]["post"]
+  - target: $["paths"]["/api/generate/image-to-video"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
           label: genImageToVideo
           source: "import { Livepeer } from \"livepeer\";\nimport { openAsBlob } from \"node:fs\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.imageToVideo({\n    image: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/segment-anything-2"]["post"]
+  - target: $["paths"]["/api/generate/llm"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: genLLM
+          source: "import { Livepeer } from \"livepeer\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.llm({\n    prompt: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
+  - target: $["paths"]["/api/generate/segment-anything-2"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
           label: genSegmentAnything2
           source: "import { Livepeer } from \"livepeer\";\nimport { openAsBlob } from \"node:fs\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.segmentAnything2({\n    image: await openAsBlob(\"example.file\"),\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/text-to-image"]["post"]
+  - target: $["paths"]["/api/generate/text-to-image"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
           label: genTextToImage
           source: "import { Livepeer } from \"livepeer\";\n\nconst livepeer = new Livepeer({\n  apiKey: \"<YOUR_BEARER_TOKEN_HERE>\",\n});\n\nasync function run() {\n  const result = await livepeer.generate.textToImage({\n    prompt: \"<value>\",\n  });\n  \n  // Handle the result\n  console.log(result)\n}\n\nrun();"
-  - target: $["paths"]["/api/beta/generate/upscale"]["post"]
+  - target: $["paths"]["/api/generate/upscale"]["post"]
     update:
       x-codeSamples:
         - lang: typescript

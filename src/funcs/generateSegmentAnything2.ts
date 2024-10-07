@@ -102,7 +102,7 @@ export async function generateSegmentAnything2(
     body$.append("return_logits", String(payload$.return_logits));
   }
 
-  const path$ = pathToFunc("/api/beta/generate/segment-anything-2")();
+  const path$ = pathToFunc("/api/generate/segment-anything-2")();
 
   const headers$ = new Headers({
     Accept: "application/json",

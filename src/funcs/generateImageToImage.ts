@@ -84,6 +84,9 @@ export async function generateImageToImage(
   if (payload$.image_guidance_scale !== undefined) {
     body$.append("image_guidance_scale", String(payload$.image_guidance_scale));
   }
+  if (payload$.loras !== undefined) {
+    body$.append("loras", payload$.loras);
+  }
   if (payload$.model_id !== undefined) {
     body$.append("model_id", payload$.model_id);
   }
@@ -109,7 +112,7 @@ export async function generateImageToImage(
     body$.append("strength", String(payload$.strength));
   }
 
-  const path$ = pathToFunc("/api/beta/generate/image-to-image")();
+  const path$ = pathToFunc("/api/generate/image-to-image")();
 
   const headers$ = new Headers({
     Accept: "application/json",

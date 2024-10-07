@@ -6,6 +6,7 @@ export * from "./error.js";
 export * from "./genaudiototext.js";
 export * from "./genimagetoimage.js";
 export * from "./genimagetovideo.js";
+export * from "./genllm.js";
 export * from "./gensegmentanything2.js";
 export * from "./gentexttoimage.js";
 export * from "./genupscale.js";
