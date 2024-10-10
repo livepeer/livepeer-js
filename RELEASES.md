@@ -85,3 +85,13 @@ Based on:
 - [typescript v3.4.0] .
 ### Releases
 - [NPM v3.4.0] https://www.npmjs.com/package/livepeer/v/3.4.0 - .
+
+## 2024-10-10 00:21:54
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.399.0 (2.415.8) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v3.5.1] .
+### Releases
+- [NPM v3.5.1] https://www.npmjs.com/package/livepeer/v/3.5.1 - .

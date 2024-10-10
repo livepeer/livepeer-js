@@ -100,7 +100,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -188,7 +188,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -399,7 +399,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -476,7 +476,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {

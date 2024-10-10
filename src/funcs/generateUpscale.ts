@@ -91,7 +91,7 @@ export async function generateUpscale(
     body$.append("seed", String(payload$.seed));
   }
 
-  const path$ = pathToFunc("/api/beta/generate/upscale")();
+  const path$ = pathToFunc("/api/generate/upscale")();
 
   const headers$ = new Headers({
     Accept: "application/json",
