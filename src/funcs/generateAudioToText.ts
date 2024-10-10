@@ -82,7 +82,7 @@ export async function generateAudioToText(
     body$.append("model_id", payload$.model_id);
   }
 
-  const path$ = pathToFunc("/api/beta/generate/audio-to-text")();
+  const path$ = pathToFunc("/api/generate/audio-to-text")();
 
   const headers$ = new Headers({
     Accept: "application/json",

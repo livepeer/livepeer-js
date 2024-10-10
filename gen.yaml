@@ -11,7 +11,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
 typescript:
-  version: 3.4.0
+  version: 3.5.1
   additionalDependencies:
     dependencies:
       jest: ^29.7.0
@@ -25,6 +25,7 @@ typescript:
   clientServerStatusCodesAsErrors: true
   enumFormat: enum
   flattenGlobalSecurity: true
+  flatteningOrder: body-first
   imports:
     option: openapi
     paths:

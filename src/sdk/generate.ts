@@ -5,6 +5,7 @@
 import { generateAudioToText } from "../funcs/generateAudioToText.js";
 import { generateImageToImage } from "../funcs/generateImageToImage.js";
 import { generateImageToVideo } from "../funcs/generateImageToVideo.js";
+import { generateLlm } from "../funcs/generateLlm.js";
 import { generateSegmentAnything2 } from "../funcs/generateSegmentAnything2.js";
 import { generateTextToImage } from "../funcs/generateTextToImage.js";
 import { generateUpscale } from "../funcs/generateUpscale.js";
@@ -110,6 +111,23 @@ export class Generate extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.GenSegmentAnything2Response> {
     return unwrapAsync(generateSegmentAnything2(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * LLM
+   *
+   * @remarks
+   * Generate text using a language model.
+   */
+  async llm(
+    request: components.BodyGenLLM,
+    options?: RequestOptions,
+  ): Promise<operations.GenLLMResponse> {
+    return unwrapAsync(generateLlm(
       this,
       request,
       options,

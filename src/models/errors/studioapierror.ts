@@ -110,6 +110,22 @@ export type StudioApiErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse24?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse25?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse26?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse27?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse28?: Response | undefined;
 };
 
 /**
@@ -217,6 +233,22 @@ export class StudioApiError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse24?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse25?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse26?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse27?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse28?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: StudioApiErrorData;
@@ -254,6 +286,10 @@ export class StudioApiError extends Error {
     if (err.rawResponse22 != null) this.rawResponse22 = err.rawResponse22;
     if (err.rawResponse23 != null) this.rawResponse23 = err.rawResponse23;
     if (err.rawResponse24 != null) this.rawResponse24 = err.rawResponse24;
+    if (err.rawResponse25 != null) this.rawResponse25 = err.rawResponse25;
+    if (err.rawResponse26 != null) this.rawResponse26 = err.rawResponse26;
+    if (err.rawResponse27 != null) this.rawResponse27 = err.rawResponse27;
+    if (err.rawResponse28 != null) this.rawResponse28 = err.rawResponse28;
 
     this.name = "StudioApiError";
   }
@@ -291,6 +327,10 @@ export const StudioApiError$inboundSchema: z.ZodType<
   RawResponse22: z.instanceof(Response).optional(),
   RawResponse23: z.instanceof(Response).optional(),
   RawResponse24: z.instanceof(Response).optional(),
+  RawResponse25: z.instanceof(Response).optional(),
+  RawResponse26: z.instanceof(Response).optional(),
+  RawResponse27: z.instanceof(Response).optional(),
+  RawResponse28: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
@@ -319,6 +359,10 @@ export const StudioApiError$inboundSchema: z.ZodType<
       "RawResponse22": "rawResponse22",
       "RawResponse23": "rawResponse23",
       "RawResponse24": "rawResponse24",
+      "RawResponse25": "rawResponse25",
+      "RawResponse26": "rawResponse26",
+      "RawResponse27": "rawResponse27",
+      "RawResponse28": "rawResponse28",
     });
 
     return new StudioApiError(remapped);
@@ -352,6 +396,10 @@ export type StudioApiError$Outbound = {
   RawResponse22?: never | undefined;
   RawResponse23?: never | undefined;
   RawResponse24?: never | undefined;
+  RawResponse25?: never | undefined;
+  RawResponse26?: never | undefined;
+  RawResponse27?: never | undefined;
+  RawResponse28?: never | undefined;
 };
 
 /** @internal */
@@ -439,6 +487,18 @@ export const StudioApiError$outboundSchema: z.ZodType<
       rawResponse24: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
+      rawResponse25: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
+      rawResponse26: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
+      rawResponse27: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
+      rawResponse28: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         rawResponse: "RawResponse",
@@ -466,6 +526,10 @@ export const StudioApiError$outboundSchema: z.ZodType<
         rawResponse22: "RawResponse22",
         rawResponse23: "RawResponse23",
         rawResponse24: "RawResponse24",
+        rawResponse25: "RawResponse25",
+        rawResponse26: "RawResponse26",
+        rawResponse27: "RawResponse27",
+        rawResponse28: "RawResponse28",
       });
     }),
   );

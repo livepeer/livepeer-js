@@ -90,6 +90,18 @@ export type HTTPErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse18?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse19?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse20?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse21?: Response | undefined;
 };
 
 /**
@@ -176,6 +188,18 @@ export class HTTPError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse18?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse19?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse20?: Response | undefined;
+  /**
+   * Raw HTTP response; suitable for custom response parsing
+   */
+  rawResponse21?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: HTTPErrorData;
@@ -207,6 +231,9 @@ export class HTTPError extends Error {
     if (err.rawResponse16 != null) this.rawResponse16 = err.rawResponse16;
     if (err.rawResponse17 != null) this.rawResponse17 = err.rawResponse17;
     if (err.rawResponse18 != null) this.rawResponse18 = err.rawResponse18;
+    if (err.rawResponse19 != null) this.rawResponse19 = err.rawResponse19;
+    if (err.rawResponse20 != null) this.rawResponse20 = err.rawResponse20;
+    if (err.rawResponse21 != null) this.rawResponse21 = err.rawResponse21;
 
     this.name = "HTTPError";
   }
@@ -238,6 +265,9 @@ export const HTTPError$inboundSchema: z.ZodType<
   RawResponse16: z.instanceof(Response).optional(),
   RawResponse17: z.instanceof(Response).optional(),
   RawResponse18: z.instanceof(Response).optional(),
+  RawResponse19: z.instanceof(Response).optional(),
+  RawResponse20: z.instanceof(Response).optional(),
+  RawResponse21: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
@@ -260,6 +290,9 @@ export const HTTPError$inboundSchema: z.ZodType<
       "RawResponse16": "rawResponse16",
       "RawResponse17": "rawResponse17",
       "RawResponse18": "rawResponse18",
+      "RawResponse19": "rawResponse19",
+      "RawResponse20": "rawResponse20",
+      "RawResponse21": "rawResponse21",
     });
 
     return new HTTPError(remapped);
@@ -287,6 +320,9 @@ export type HTTPError$Outbound = {
   RawResponse16?: never | undefined;
   RawResponse17?: never | undefined;
   RawResponse18?: never | undefined;
+  RawResponse19?: never | undefined;
+  RawResponse20?: never | undefined;
+  RawResponse21?: never | undefined;
 };
 
 /** @internal */
@@ -356,6 +392,15 @@ export const HTTPError$outboundSchema: z.ZodType<
       rawResponse18: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
+      rawResponse19: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
+      rawResponse20: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
+      rawResponse21: z.instanceof(Response).transform(() => {
+        throw new Error("Response cannot be serialized");
+      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         rawResponse: "RawResponse",
@@ -377,6 +422,9 @@ export const HTTPError$outboundSchema: z.ZodType<
         rawResponse16: "RawResponse16",
         rawResponse17: "RawResponse17",
         rawResponse18: "RawResponse18",
+        rawResponse19: "RawResponse19",
+        rawResponse20: "RawResponse20",
+        rawResponse21: "RawResponse21",
       });
     }),
   );
