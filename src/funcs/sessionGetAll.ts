@@ -3,7 +3,7 @@
  */
 
 import { LivepeerCore } from "../core.js";
-import * as m$ from "../lib/matchers.js";
+import * as M from "../lib/matchers.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -23,7 +23,7 @@ import { Result } from "../types/fp.js";
  * Retrieve sessions
  */
 export async function sessionGetAll(
-  client$: LivepeerCore,
+  client: LivepeerCore,
   options?: RequestOptions,
 ): Promise<
   Result<
@@ -37,46 +37,50 @@ export async function sessionGetAll(
     | ConnectionError
   >
 > {
-  const path$ = pathToFunc("/session")();
+  const path = pathToFunc("/session")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "getSessions",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "GET",
-    path: path$,
-    headers: headers$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["4XX", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -84,7 +88,7 @@ export async function sessionGetAll(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.GetSessionsResponse,
     | SDKError
     | SDKValidationError
@@ -94,15 +98,15 @@ export async function sessionGetAll(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.GetSessionsResponse$inboundSchema, { key: "data" }),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.GetSessionsResponse$inboundSchema, {
+    M.json(200, operations.GetSessionsResponse$inboundSchema, { key: "data" }),
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.GetSessionsResponse$inboundSchema, {
       key: "error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

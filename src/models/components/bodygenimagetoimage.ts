@@ -8,7 +8,7 @@ import { blobLikeSchema } from "../../types/blobs.js";
 
 export type Image = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 export type BodyGenImageToImage = {
@@ -28,6 +28,10 @@ export type BodyGenImageToImage = {
    * Degree to which the generated image is pushed towards the initial image.
    */
   imageGuidanceScale?: number | undefined;
+  /**
+   * A LoRA (Low-Rank Adaptation) model and its corresponding weight for image generation. Example: { "latent-consistency/lcm-lora-sdxl": 1.0, "nerijs/pixel-art-xl": 1.2}.
+   */
+  loras?: string | undefined;
   /**
    * Hugging Face model ID used for image generation.
    */
@@ -66,13 +70,14 @@ export const Image$inboundSchema: z.ZodType<Image, z.ZodTypeDef, unknown> = z
       z.instanceof(ReadableStream<Uint8Array>),
       z.instanceof(Blob),
       z.instanceof(ArrayBuffer),
+      z.instanceof(Uint8Array),
     ]),
   });
 
 /** @internal */
 export type Image$Outbound = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
@@ -86,6 +91,7 @@ export const Image$outboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
@@ -112,6 +118,7 @@ export const BodyGenImageToImage$inboundSchema: z.ZodType<
   prompt: z.string(),
   guidance_scale: z.number().default(7.5),
   image_guidance_scale: z.number().default(1.5),
+  loras: z.string().default(""),
   model_id: z.string().default("timbrooks/instruct-pix2pix"),
   negative_prompt: z.string().default(""),
   num_images_per_prompt: z.number().int().default(1),
@@ -137,6 +144,7 @@ export type BodyGenImageToImage$Outbound = {
   prompt: string;
   guidance_scale: number;
   image_guidance_scale: number;
+  loras: string;
   model_id: string;
   negative_prompt: string;
   num_images_per_prompt: number;
@@ -156,6 +164,7 @@ export const BodyGenImageToImage$outboundSchema: z.ZodType<
   prompt: z.string(),
   guidanceScale: z.number().default(7.5),
   imageGuidanceScale: z.number().default(1.5),
+  loras: z.string().default(""),
   modelId: z.string().default("timbrooks/instruct-pix2pix"),
   negativePrompt: z.string().default(""),
   numImagesPerPrompt: z.number().int().default(1),

@@ -100,7 +100,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -111,9 +111,9 @@ async function run() {
       ],
     },
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -188,7 +188,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -207,7 +207,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -228,10 +228,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## getAll
 
@@ -248,9 +247,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.getAll();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -280,7 +279,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -301,10 +300,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get
 
@@ -321,9 +319,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.get("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -353,7 +351,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -374,10 +372,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## update
 
@@ -394,12 +391,12 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.stream.update("<id>", {
+  const result = await livepeer.stream.update({
     record: false,
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -446,10 +443,11 @@ async function run() {
         },
       ],
     },
-  });
-  
+    name: "test_stream",
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -471,12 +469,12 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await streamUpdate(livepeer, "<id>", {
+  const res = await streamUpdate(livepeer, {
     record: false,
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -523,7 +521,8 @@ async function run() {
         },
       ],
     },
-  });
+    name: "test_stream",
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -532,7 +531,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -554,10 +553,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -578,9 +576,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.delete("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -610,7 +608,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -631,10 +629,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## terminate
 
@@ -659,9 +656,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.terminate("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -691,7 +688,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -712,10 +709,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## startPull
 
@@ -739,9 +735,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.startPull("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -771,7 +767,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -792,10 +788,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## createClip
 
@@ -818,9 +813,9 @@ async function run() {
     name: "My Clip",
     sessionId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -856,7 +851,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -877,10 +872,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## getClips
 
@@ -897,9 +891,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.getClips("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -929,7 +923,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -950,10 +944,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## addMultistreamTarget
 
@@ -969,7 +962,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.stream.addMultistreamTarget("<id>", {
+  const result = await livepeer.stream.addMultistreamTarget({
     profile: "720p0",
     videoOnly: false,
     id: "PUSH123",
@@ -977,10 +970,10 @@ async function run() {
       name: "My target",
       url: "rtmps://live.my-service.tv/channel/secretKey",
     },
-  });
-  
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -1001,7 +994,7 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await streamAddMultistreamTarget(livepeer, "<id>", {
+  const res = await streamAddMultistreamTarget(livepeer, {
     profile: "720p0",
     videoOnly: false,
     id: "PUSH123",
@@ -1009,7 +1002,7 @@ async function run() {
       name: "My target",
       url: "rtmps://live.my-service.tv/channel/secretKey",
     },
-  });
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -1018,7 +1011,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -1040,10 +1033,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## removeMultistreamTarget
 
@@ -1060,9 +1052,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.stream.removeMultistreamTarget("<id>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -1092,7 +1084,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -1114,6 +1106,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

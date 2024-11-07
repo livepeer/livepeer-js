@@ -9,7 +9,7 @@ The time step to aggregate viewership metrics by
 import { GetUsageMetricsQueryParamTimeStep } from "livepeer/models/operations";
 
 let value: GetUsageMetricsQueryParamTimeStep =
-  GetUsageMetricsQueryParamTimeStep.Hour;
+  GetUsageMetricsQueryParamTimeStep.Day;
 ```
 
 ## Values

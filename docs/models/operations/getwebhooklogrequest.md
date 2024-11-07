@@ -7,7 +7,7 @@ import { GetWebhookLogRequest } from "livepeer/models/operations";
 
 let value: GetWebhookLogRequest = {
   id: "<id>",
-  logId: "<value>",
+  logId: "<id>",
 };
 ```
 

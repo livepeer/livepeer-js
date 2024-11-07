@@ -7,7 +7,7 @@ import { UpdateRoomUserRequest } from "livepeer/models/operations";
 
 let value: UpdateRoomUserRequest = {
   id: "<id>",
-  userId: "<value>",
+  userId: "<id>",
   roomUserUpdatePayload: {
     canPublish: true,
     canPublishData: true,

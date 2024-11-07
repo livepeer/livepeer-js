@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
 
 export type UploadAssetAssetTask = {
   id: string;
@@ -55,7 +54,7 @@ export type UploadAssetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -221,7 +220,7 @@ export const UploadAssetResponse$inboundSchema: z.ZodType<
     .optional(),
   "201_application/json_data": z.lazy(() => UploadAssetDataOutput$inboundSchema)
     .optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -239,7 +238,7 @@ export type UploadAssetResponse$Outbound = {
   RawResponse: never;
   "200_application/json_data"?: UploadAssetData$Outbound | undefined;
   "201_application/json_data"?: UploadAssetDataOutput$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -258,7 +257,7 @@ export const UploadAssetResponse$outboundSchema: z.ZodType<
   twoHundredAndOneApplicationJsonData: z.lazy(() =>
     UploadAssetDataOutput$outboundSchema
   ).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

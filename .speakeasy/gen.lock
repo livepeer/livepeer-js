@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 7146d910-ec93-46d4-b2c7-5717a58dd471
 management:
-  docChecksum: a4f46cb330dd59f1f60caa6eaccdbd3b
+  docChecksum: fb1bc2946d2afe8e5a8160c0b606ae47
   docVersion: 1.0.0
-  speakeasyVersion: 1.399.0
-  generationVersion: 2.415.8
-  releaseVersion: 3.4.0
-  configChecksum: 90506ba54a805c16b64b380d8478e30e
+  speakeasyVersion: 1.434.0
+  generationVersion: 2.452.0
+  releaseVersion: 3.5.0
+  configChecksum: bbecd991d287d0d4cc2e619cd8571315
   repoURL: https://github.com/livepeer/livepeer-js.git
   installationURL: https://github.com/livepeer/livepeer-js
   published: true
@@ -15,13 +15,13 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.1
     constsAndDefaults: 0.1.11
-    core: 3.17.3
+    core: 3.18.3
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
-    envVarSecurityUsage: 0.1.1
+    envVarSecurityUsage: 0.1.2
     errorUnions: 0.1.1
-    flattening: 2.81.1
+    flattening: 2.82.0
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.0
@@ -31,8 +31,9 @@ features:
     nullables: 0.1.0
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.1.0
-    unions: 2.85.7
+    sdkHooks: 0.2.0
+    tests: 0.7.0
+    unions: 2.85.8
     uploadStreams: 0.1.0
 generatedFiles:
   - .eslintrc.cjs
@@ -69,6 +70,7 @@ generatedFiles:
   - docs/models/components/bodygenimagetoimage.md
   - docs/models/components/bodygenimagetovideo.md
   - docs/models/components/bodygenimagetovideoimage.md
+  - docs/models/components/bodygenllm.md
   - docs/models/components/bodygensegmentanything2.md
   - docs/models/components/bodygensegmentanything2image.md
   - docs/models/components/bodygenupscale.md
@@ -88,7 +90,9 @@ generatedFiles:
   - docs/models/components/domain.md
   - docs/models/components/dvrplayback.md
   - docs/models/components/encoder.md
+  - docs/models/components/encryption.md
   - docs/models/components/encryptionoutput.md
+  - docs/models/components/errort.md
   - docs/models/components/events.md
   - docs/models/components/export.md
   - docs/models/components/exportdata.md
@@ -115,6 +119,7 @@ generatedFiles:
   - docs/models/components/ismobile.md
   - docs/models/components/lastfailure.md
   - docs/models/components/live.md
+  - docs/models/components/llmresponse.md
   - docs/models/components/loc.md
   - docs/models/components/location.md
   - docs/models/components/masksresponse.md
@@ -124,6 +129,7 @@ generatedFiles:
   - docs/models/components/mp4.md
   - docs/models/components/multistream.md
   - docs/models/components/multistreamtarget.md
+  - docs/models/components/multistreamtargetinput.md
   - docs/models/components/multistreamtargetpatchpayload.md
   - docs/models/components/name.md
   - docs/models/components/newassetfromurlpayload.md
@@ -184,6 +190,8 @@ generatedFiles:
   - docs/models/components/streampull.md
   - docs/models/components/streamrecordingspec.md
   - docs/models/components/streamusertags.md
+  - docs/models/components/studioapierror.md
+  - docs/models/components/target.md
   - docs/models/components/targetaddpayload.md
   - docs/models/components/targetaddpayloadspec.md
   - docs/models/components/targetoutput.md
@@ -232,6 +240,7 @@ generatedFiles:
   - docs/models/components/videospec.md
   - docs/models/components/viewershipmetric.md
   - docs/models/components/webhook.md
+  - docs/models/components/webhookinput.md
   - docs/models/components/webhooklog.md
   - docs/models/errors/errort.md
   - docs/models/errors/genaudiototextgenerateresponse422responsebody.md
@@ -247,6 +256,10 @@ generatedFiles:
   - docs/models/errors/genimagetovideogenerateresponsebody.md
   - docs/models/errors/genimagetovideogenerateresponseresponsebody.md
   - docs/models/errors/genimagetovideoresponsebody.md
+  - docs/models/errors/genllmgenerateresponse500responsebody.md
+  - docs/models/errors/genllmgenerateresponsebody.md
+  - docs/models/errors/genllmgenerateresponseresponsebody.md
+  - docs/models/errors/genllmresponsebody.md
   - docs/models/errors/gensegmentanything2generateresponse500responsebody.md
   - docs/models/errors/gensegmentanything2generateresponsebody.md
   - docs/models/errors/gensegmentanything2generateresponseresponsebody.md
@@ -293,6 +306,7 @@ generatedFiles:
   - docs/models/operations/genaudiototextresponse.md
   - docs/models/operations/genimagetoimageresponse.md
   - docs/models/operations/genimagetovideoresponse.md
+  - docs/models/operations/genllmresponse.md
   - docs/models/operations/gensegmentanything2response.md
   - docs/models/operations/gentexttoimageresponse.md
   - docs/models/operations/genupscaleresponse.md
@@ -419,6 +433,7 @@ generatedFiles:
   - src/funcs/generateAudioToText.ts
   - src/funcs/generateImageToImage.ts
   - src/funcs/generateImageToVideo.ts
+  - src/funcs/generateLlm.ts
   - src/funcs/generateSegmentAnything2.ts
   - src/funcs/generateTextToImage.ts
   - src/funcs/generateUpscale.ts
@@ -494,6 +509,7 @@ generatedFiles:
   - src/models/components/bodygenaudiototext.ts
   - src/models/components/bodygenimagetoimage.ts
   - src/models/components/bodygenimagetovideo.ts
+  - src/models/components/bodygenllm.ts
   - src/models/components/bodygensegmentanything2.ts
   - src/models/components/bodygenupscale.ts
   - src/models/components/chunk.ts
@@ -502,6 +518,7 @@ generatedFiles:
   - src/models/components/creatorid.ts
   - src/models/components/encryption.ts
   - src/models/components/encryptionoutput.ts
+  - src/models/components/error.ts
   - src/models/components/exporttaskparams.ts
   - src/models/components/ffmpegprofile.ts
   - src/models/components/getroomuserresponse.ts
@@ -510,6 +527,7 @@ generatedFiles:
   - src/models/components/inputcreatorid.ts
   - src/models/components/ipfsexportparams.ts
   - src/models/components/ipfsfileinfo.ts
+  - src/models/components/llmresponse.ts
   - src/models/components/masksresponse.ts
   - src/models/components/media.ts
   - src/models/components/multistream.ts
@@ -537,6 +555,7 @@ generatedFiles:
   - src/models/components/storagestatus.ts
   - src/models/components/stream.ts
   - src/models/components/streampatchpayload.ts
+  - src/models/components/studioapierror.ts
   - src/models/components/target.ts
   - src/models/components/targetaddpayload.ts
   - src/models/components/targetoutput.ts
@@ -556,6 +575,7 @@ generatedFiles:
   - src/models/errors/genaudiototext.ts
   - src/models/errors/genimagetoimage.ts
   - src/models/errors/genimagetovideo.ts
+  - src/models/errors/genllm.ts
   - src/models/errors/gensegmentanything2.ts
   - src/models/errors/gentexttoimage.ts
   - src/models/errors/genupscale.ts
@@ -584,6 +604,7 @@ generatedFiles:
   - src/models/operations/genaudiototext.ts
   - src/models/operations/genimagetoimage.ts
   - src/models/operations/genimagetovideo.ts
+  - src/models/operations/genllm.ts
   - src/models/operations/gensegmentanything2.ts
   - src/models/operations/gentexttoimage.ts
   - src/models/operations/genupscale.ts
@@ -657,10 +678,10 @@ examples:
   createStream:
     speakeasy-default-create-stream:
       requestBody:
-        application/json: {"name": "test_stream", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}}
+        application/json: {"name": "test_stream", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p0", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}}
       responses:
         "201":
-          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p0", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getStreams:
@@ -677,7 +698,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
+          application/json: {"id": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "name": "test_stream", "creatorId": {"type": "unverified", "value": "user123"}, "lastSeen": 1587667174725, "sourceSegments": 1, "transcodedSegments": 2, "sourceSegmentsDuration": 1, "transcodedSegmentsDuration": 2, "sourceBytes": 1, "transcodedBytes": 2, "ingestRate": 1, "outgoingRate": 2, "isActive": true, "createdByTokenName": "abc-123-xyz-456", "createdAt": 1587667174725, "parentId": "de7818e7-610a-4057-8f6f-b785dc1e6f88", "streamKey": "hgebdhhigq", "pull": {"source": "https://myservice.com/live/stream.flv", "headers": {"Authorization": "Bearer 123"}, "location": {"lat": 39.739, "lon": -104.988}}, "playbackId": "eaw4nk06ts2d0mzb", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "record": false, "recordingSpec": {"profiles": []}, "multistream": {"targets": [{"profile": "720p0", "videoOnly": false, "id": "PUSH123"}]}, "lastTerminatedAt": 1713281212993}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   updateStream:
@@ -686,7 +707,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"record": false, "multistream": {"targets": [{"profile": "720p", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "recordingSpec": {"profiles": []}}
+        application/json: {"record": false, "multistream": {"targets": [{"profile": "720p0", "videoOnly": false, "id": "PUSH123", "spec": {"name": "My target", "url": "rtmps://live.my-service.tv/channel/secretKey"}}]}, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": [], "recordingSpec": {"profiles": []}, "name": "test_stream"}
       responses:
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
@@ -720,7 +741,7 @@ examples:
         application/json: {"playbackId": "eaw4nk06ts2d0mzb", "startTime": 1587667174725, "endTime": 1587667174725, "name": "My Clip", "sessionId": "de7818e7-610a-4057-8f6f-b785dc1e6f88"}
       responses:
         "200":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getClips:
@@ -889,7 +910,7 @@ examples:
         application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "profiles": []}
       responses:
         "200":
-          application/json: {"url": "https://origin.livepeer.com/api/asset/upload/direct?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "tusEndpoint": "https://origin.livepeer.com/api/asset/upload/tus?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"url": "https://origin.livepeer.com/api/asset/upload/direct?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "tusEndpoint": "https://origin.livepeer.com/api/asset/upload/tus?token=eyJhbGciOiJIUzI1NiJ9.eyJtc2ciOiJoZWxsbyBoYWNrZXIsIHRoZXJlJ3Mgbm90aGluZyBmb3IgeW91IGhlcmUg8J-YhiJ9.1YDjmXsqLcgNyMSzT4kXl_kIni46_EuGX_xfqmC7e0Q", "asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   uploadAsset:
@@ -898,9 +919,9 @@ examples:
         application/json: {"name": "filename.mp4", "staticMp4": true, "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "url": "https://s3.amazonaws.com/my-bucket/path/filename.mp4", "profiles": []}
       responses:
         "200":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "recording", "sessionId": "<value>"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "waiting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         "201":
-          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://dutiful-colorlessness.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "uploading", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
+          application/json: {"asset": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://dutiful-colorlessness.com"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "uploading", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "task": {"id": "34d7618e-fd42-4798-acf5-19504616a11e"}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getAsset:
@@ -910,7 +931,7 @@ examples:
           assetId: "<value>"
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "ready", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   updateAsset:
@@ -922,7 +943,7 @@ examples:
         application/json: {"name": "filename.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}}
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "directUpload"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "failed", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   deleteAsset:
@@ -1150,14 +1171,14 @@ examples:
           taskId: "<value>"
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {}}, "exportData": {"ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "clip"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>", "key1": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"ipfs": {"pinata": {"apiKey": "1234567890"}}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "clip"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>", "key1": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
   transcodeVideo:
     speakeasy-default-transcode-video:
       requestBody:
         application/json: {"input": {"url": "https://s3.amazonaws.com/bucket/file.mp4"}, "storage": {"type": "s3", "endpoint": "https://gateway.storjshare.io", "bucket": "outputbucket", "credentials": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "secretAccessKey": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"}}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}, "fmp4": {"path": "/samplevideo/fmp4"}}, "profiles": []}
       responses:
         "200":
-          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"ipfs": {}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://speedy-basil.org"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
+          application/json: {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "upload", "createdAt": 1587667174725, "scheduledAt": 1587667174725, "inputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "outputAssetId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "projectId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "requesterId": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "params": {"upload": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4", "c2pa": true, "profiles": [], "targetSegmentSizeSecs": 6}, "export": {"ipfs": {"pinata": {"apiKey": "1234567890"}}}, "exportData": {"ipfs": {}, "type": "text/plain", "id": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}, "transcode-file": {"input": {"url": "https://cdn.livepeer.com/ABC123/filename.mp4"}, "storage": {"url": "s3+https://accessKeyId:secretAccessKey@s3Endpoint/bucket"}, "outputs": {"hls": {"path": "/samplevideo/hls"}, "mp4": {"path": "/samplevideo/mp4"}}, "profiles": [], "targetSegmentSizeSecs": 10, "c2pa": false}, "clip": {"url": "https://asset-cdn.lp-playback.monster/hls/1bde4o2i6xycudoy/static360p0.mp4", "clipStrategy": {"startTime": 1587667174725, "endTime": 1587667174725, "playbackId": "eaw4nk06ts2d0mzb"}, "catalystPipelineStrategy": "catalyst_ffmpeg", "sessionId": "d32ae9e6-c459-4931-9898-e86e2f5e7e16", "inputId": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}, "status": {"phase": "pending", "updatedAt": 1587667174725, "progress": 0.5, "errorMessage": "Failed to upload file", "retries": 3}, "output": {"upload": {"assetSpec": {"id": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "type": "video", "playbackId": "eaw4nk06ts2d0mzb", "playbackUrl": "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8", "downloadUrl": "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4", "playbackPolicy": {"type": "webhook", "webhookId": "1bde4o2i6xycudoy", "webhookContext": {"streamerId": "my-custom-id"}, "refreshInterval": 600}, "source": {"type": "url", "url": "http://speedy-basil.org"}, "creatorId": {"type": "unverified", "value": "user123"}, "profiles": [], "storage": {"ipfs": {"updatedAt": 1587667174725}, "status": {"phase": "ready", "progress": 0.5, "errorMessage": "Failed to update storage", "tasks": {"pending": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "last": "09F8B46C-61A0-4254-9875-F71F4C605BC7", "failed": "09F8B46C-61A0-4254-9875-F71F4C605BC7"}}}, "status": {"phase": "deleting", "updatedAt": 1587667174725}, "name": "filename.mp4", "projectId": "aac12556-4d65-4d34-9fb6-d1f0985eb0a9", "createdAt": 1587667174725, "size": 84934509, "hash": [], "videoSpec": {"format": "mp4", "duration": 23.8328, "bitrate": 1000000, "tracks": []}}, "key": "<value>"}, "export": {"ipfs": {"videoFileCid": "Qmabc123xyz341", "videoFileUrl": "ipfs://Qmabc123xyz341", "videoFileGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341", "nftMetadataCid": "Qmabc123xyz341", "nftMetadataUrl": "ipfs://Qmabc123xyz341", "nftMetadataGatewayUrl": "https://gateway.ipfs.io/ipfs/Qmabc123xyz341"}}, "exportData": {"ipfs": {"cid": "Qmabc123xyz341"}}}}
         default:
           application/json: {"errors": ["[\"id not provided\",\"Account not found\"]"]}
   getPlaybackInfo:
@@ -1183,7 +1204,8 @@ examples:
           application/json: {"detail": {"msg": "<value>"}}
         "401": {}
         "422": {}
-        "500": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
         default: {}
   genImageToImage:
     speakeasy-default-gen-image-to-image:
@@ -1212,7 +1234,8 @@ examples:
         "401":
           application/json: {"detail": {"msg": "<value>"}}
         "422": {}
-        "500": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
         default: {}
   genUpscale:
     speakeasy-default-gen-upscale:
@@ -1238,7 +1261,8 @@ examples:
         "400": {}
         "401":
           application/json: {"detail": {"msg": "<value>"}}
-        "413": {}
+        "413":
+          application/json: {"detail": {"msg": "<value>"}}
         "422": {}
         "500":
           application/json: {"detail": {"msg": "<value>"}}
@@ -1253,6 +1277,20 @@ examples:
         "400": {}
         "401":
           application/json: {"detail": {"msg": "<value>"}}
+        "422": {}
+        "500":
+          application/json: {"detail": {"msg": "<value>"}}
+        default: {}
+  genLLM:
+    speakeasy-default-gen-LLM:
+      requestBody:
+        application/x-www-form-urlencoded: {"prompt": "<value>"}
+      responses:
+        "200":
+          application/json: {"response": "<value>", "tokens_used": 60712}
+        "400":
+          application/json: {"detail": {"msg": "<value>"}}
+        "401": {}
         "422": {}
         "500":
           application/json: {"detail": {"msg": "<value>"}}

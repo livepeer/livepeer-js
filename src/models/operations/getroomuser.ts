@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
 
 export type GetRoomUserRequest = {
   id: string;
@@ -32,7 +31,7 @@ export type GetRoomUserResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -85,7 +84,7 @@ export const GetRoomUserResponse$inboundSchema: z.ZodType<
   RawResponse: z.instanceof(Response),
   "get-room-user-response": components.GetRoomUserResponse$inboundSchema
     .optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -103,7 +102,7 @@ export type GetRoomUserResponse$Outbound = {
   "get-room-user-response"?:
     | components.GetRoomUserResponse$Outbound
     | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -118,7 +117,7 @@ export const GetRoomUserResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   getRoomUserResponse: components.GetRoomUserResponse$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

@@ -7,7 +7,7 @@ import { RemoveMultistreamTargetRequest } from "livepeer/models/operations";
 
 let value: RemoveMultistreamTargetRequest = {
   id: "<id>",
-  targetId: "<value>",
+  targetId: "<id>",
 };
 ```
 

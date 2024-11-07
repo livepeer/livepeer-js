@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import * as components from "../components/index.js";
 
 export type GetPublicViewershipMetricsRequest = {
   /**
@@ -62,7 +62,7 @@ export type GetPublicViewershipMetricsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -157,7 +157,7 @@ export const GetPublicViewershipMetricsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.lazy(() => GetPublicViewershipMetricsData$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -172,7 +172,7 @@ export type GetPublicViewershipMetricsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: GetPublicViewershipMetricsData$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -187,7 +187,7 @@ export const GetPublicViewershipMetricsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.lazy(() => GetPublicViewershipMetricsData$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

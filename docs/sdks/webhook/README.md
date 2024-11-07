@@ -31,9 +31,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.getAll();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -63,7 +63,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -83,10 +83,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## create
 
@@ -115,9 +114,9 @@ async function run() {
     sharedSecret: "my-secret",
     streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -158,7 +157,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -179,10 +178,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get
 
@@ -199,9 +197,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.get("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -231,7 +229,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -252,10 +250,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## update
 
@@ -272,7 +269,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.webhook.update("<id>", {
+  const result = await livepeer.webhook.update({
     name: "test_webhook",
     projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
@@ -282,10 +279,10 @@ async function run() {
     url: "https://my-service.com/webhook",
     sharedSecret: "my-secret",
     streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-  });
-  
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -307,7 +304,7 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await webhookUpdate(livepeer, "<id>", {
+  const res = await webhookUpdate(livepeer, {
     name: "test_webhook",
     projectId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
     events: [
@@ -317,7 +314,7 @@ async function run() {
     url: "https://my-service.com/webhook",
     sharedSecret: "my-secret",
     streamId: "de7818e7-610a-4057-8f6f-b785dc1e6f88",
-  });
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -326,7 +323,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -348,10 +345,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -368,9 +364,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.delete("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -400,7 +396,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -421,10 +417,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## getLogs
 
@@ -441,9 +436,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.getLogs("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -473,7 +468,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -494,10 +489,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## getLog
 
@@ -514,9 +508,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.getLog("<id>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -546,7 +540,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -568,10 +562,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## resendLog
 
@@ -591,9 +584,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.webhook.resendLog("<id>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -623,7 +616,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -645,6 +638,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

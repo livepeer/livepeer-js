@@ -3,9 +3,9 @@
  */
 
 import { LivepeerCore } from "../core.js";
-import { encodeSimple as encodeSimple$ } from "../lib/encodings.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import { encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -26,7 +26,7 @@ import { Result } from "../types/fp.js";
  * Retrieve Playback Info
  */
 export async function playbackGet(
-  client$: LivepeerCore,
+  client: LivepeerCore,
   id: string,
   options?: RequestOptions,
 ): Promise<
@@ -42,69 +42,73 @@ export async function playbackGet(
     | ConnectionError
   >
 > {
-  const input$: operations.GetPlaybackInfoRequest = {
+  const input: operations.GetPlaybackInfoRequest = {
     id: id,
   };
 
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) => operations.GetPlaybackInfoRequest$outboundSchema.parse(value$),
+  const parsed = safeParse(
+    input,
+    (value) => operations.GetPlaybackInfoRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
-  const body$ = null;
+  const payload = parsed.value;
+  const body = null;
 
-  const pathParams$ = {
-    id: encodeSimple$("id", payload$.id, {
+  const pathParams = {
+    id: encodeSimple("id", payload.id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path$ = pathToFunc("/playback/{id}")(pathParams$);
+  const path = pathToFunc("/playback/{id}")(pathParams);
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "getPlaybackInfo",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "GET",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["404", "4XX", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -112,7 +116,7 @@ export async function playbackGet(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.GetPlaybackInfoResponse,
     | errors.ErrorT
     | SDKError
@@ -123,18 +127,18 @@ export async function playbackGet(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.GetPlaybackInfoResponse$inboundSchema, {
+    M.json(200, operations.GetPlaybackInfoResponse$inboundSchema, {
       key: "playback-info",
     }),
-    m$.jsonErr(404, errors.ErrorT$inboundSchema),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.GetPlaybackInfoResponse$inboundSchema, {
+    M.jsonErr(404, errors.ErrorT$inboundSchema),
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.GetPlaybackInfoResponse$inboundSchema, {
       key: "error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

@@ -64,6 +64,7 @@ export type StreamPatchPayload = {
    * User input tags associated with the stream
    */
   userTags?: { [k: string]: UserTags } | undefined;
+  name?: string | undefined;
 };
 
 /** @internal */
@@ -80,6 +81,7 @@ export const StreamPatchPayload$inboundSchema: z.ZodType<
   profiles: z.nullable(z.array(FfmpegProfile$inboundSchema)).optional(),
   recordingSpec: RecordingSpec$inboundSchema.optional(),
   userTags: z.record(UserTags$inboundSchema).optional(),
+  name: z.string().optional(),
 });
 
 /** @internal */
@@ -92,6 +94,7 @@ export type StreamPatchPayload$Outbound = {
   profiles?: Array<FfmpegProfile$Outbound> | null | undefined;
   recordingSpec?: RecordingSpec$Outbound | undefined;
   userTags?: { [k: string]: UserTags$Outbound } | undefined;
+  name?: string | undefined;
 };
 
 /** @internal */
@@ -108,6 +111,7 @@ export const StreamPatchPayload$outboundSchema: z.ZodType<
   profiles: z.nullable(z.array(FfmpegProfile$outboundSchema)).optional(),
   recordingSpec: RecordingSpec$outboundSchema.optional(),
   userTags: z.record(UserTags$outboundSchema).optional(),
+  name: z.string().optional(),
 });
 
 /**

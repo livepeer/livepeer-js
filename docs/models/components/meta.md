@@ -19,7 +19,7 @@ import {
 } from "livepeer/models/components";
 
 let value: Meta = {
-  live: Live.Zero,
+  live: Live.One,
   playbackPolicy: {
     type: Type.Webhook,
     webhookId: "1bde4o2i6xycudoy",

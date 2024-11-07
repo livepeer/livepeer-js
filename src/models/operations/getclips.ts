@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
 
 export type GetClipsRequest = {
   /**
@@ -34,7 +33,7 @@ export type GetClipsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -83,7 +82,7 @@ export const GetClipsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Asset$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -98,7 +97,7 @@ export type GetClipsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Asset$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -113,7 +112,7 @@ export const GetClipsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Asset$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

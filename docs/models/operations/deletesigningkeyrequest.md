@@ -6,7 +6,7 @@
 import { DeleteSigningKeyRequest } from "livepeer/models/operations";
 
 let value: DeleteSigningKeyRequest = {
-  keyId: "<value>",
+  keyId: "<id>",
 };
 ```
 

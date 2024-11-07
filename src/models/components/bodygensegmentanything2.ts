@@ -8,7 +8,7 @@ import { blobLikeSchema } from "../../types/blobs.js";
 
 export type BodyGenSegmentAnything2Image = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 export type BodyGenSegmentAnything2 = {
@@ -61,13 +61,14 @@ export const BodyGenSegmentAnything2Image$inboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
 /** @internal */
 export type BodyGenSegmentAnything2Image$Outbound = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
@@ -81,6 +82,7 @@ export const BodyGenSegmentAnything2Image$outboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
@@ -106,7 +108,7 @@ export const BodyGenSegmentAnything2$inboundSchema: z.ZodType<
   image: z.lazy(() => BodyGenSegmentAnything2Image$inboundSchema),
   box: z.string().optional(),
   mask_input: z.string().optional(),
-  model_id: z.string().default("facebook/sam2-hiera-large:"),
+  model_id: z.string().default("facebook/sam2-hiera-large"),
   multimask_output: z.boolean().default(true),
   normalize_coords: z.boolean().default(true),
   point_coords: z.string().optional(),
@@ -148,7 +150,7 @@ export const BodyGenSegmentAnything2$outboundSchema: z.ZodType<
   ),
   box: z.string().optional(),
   maskInput: z.string().optional(),
-  modelId: z.string().default("facebook/sam2-hiera-large:"),
+  modelId: z.string().default("facebook/sam2-hiera-large"),
   multimaskOutput: z.boolean().default(true),
   normalizeCoords: z.boolean().default(true),
   pointCoords: z.string().optional(),

@@ -84,7 +84,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -116,7 +116,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();

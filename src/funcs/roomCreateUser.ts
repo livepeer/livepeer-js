@@ -3,12 +3,9 @@
  */
 
 import { LivepeerCore } from "../core.js";
-import {
-  encodeJSON as encodeJSON$,
-  encodeSimple as encodeSimple$,
-} from "../lib/encodings.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -36,9 +33,9 @@ import { Result } from "../types/fp.js";
  * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
  */
 export async function roomCreateUser(
-  client$: LivepeerCore,
-  id: string,
+  client: LivepeerCore,
   roomUserPayload: components.RoomUserPayload,
+  id: string,
   options?: RequestOptions,
 ): Promise<
   Result<
@@ -52,73 +49,77 @@ export async function roomCreateUser(
     | ConnectionError
   >
 > {
-  const input$: operations.CreateRoomUserRequest = {
-    id: id,
+  const input: operations.CreateRoomUserRequest = {
     roomUserPayload: roomUserPayload,
+    id: id,
   };
 
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) => operations.CreateRoomUserRequest$outboundSchema.parse(value$),
+  const parsed = safeParse(
+    input,
+    (value) => operations.CreateRoomUserRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
-  const body$ = encodeJSON$("body", payload$["room-user-payload"], {
+  const payload = parsed.value;
+  const body = encodeJSON("body", payload["room-user-payload"], {
     explode: true,
   });
 
-  const pathParams$ = {
-    id: encodeSimple$("id", payload$.id, {
+  const pathParams = {
+    id: encodeSimple("id", payload.id, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path$ = pathToFunc("/room/{id}/user")(pathParams$);
+  const path = pathToFunc("/room/{id}/user")(pathParams);
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     "Content-Type": "application/json",
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "createRoomUser",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["4XX", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -126,7 +127,7 @@ export async function roomCreateUser(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.CreateRoomUserResponse,
     | SDKError
     | SDKValidationError
@@ -136,17 +137,17 @@ export async function roomCreateUser(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(201, operations.CreateRoomUserResponse$inboundSchema, {
+    M.json(201, operations.CreateRoomUserResponse$inboundSchema, {
       key: "room-user-response",
     }),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.CreateRoomUserResponse$inboundSchema, {
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.CreateRoomUserResponse$inboundSchema, {
       key: "error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

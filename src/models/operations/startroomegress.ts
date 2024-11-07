@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
 
 export type StartRoomEgressRequest = {
   id: string;
@@ -28,7 +27,7 @@ export type StartRoomEgressResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -87,7 +86,7 @@ export const StartRoomEgressResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -101,7 +100,7 @@ export type StartRoomEgressResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -115,7 +114,7 @@ export const StartRoomEgressResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

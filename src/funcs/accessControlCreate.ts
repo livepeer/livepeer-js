@@ -3,7 +3,7 @@
  */
 
 import { LivepeerCore } from "../core.js";
-import * as m$ from "../lib/matchers.js";
+import * as M from "../lib/matchers.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -27,7 +27,7 @@ import { Result } from "../types/fp.js";
  * Up to 10 signing keys can be generated, after that you must delete at least one signing key to create a new one.
  */
 export async function accessControlCreate(
-  client$: LivepeerCore,
+  client: LivepeerCore,
   options?: RequestOptions,
 ): Promise<
   Result<
@@ -41,46 +41,50 @@ export async function accessControlCreate(
     | ConnectionError
   >
 > {
-  const path$ = pathToFunc("/access-control/signing-key")();
+  const path = pathToFunc("/access-control/signing-key")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "createSigningKey",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    path: path$,
-    headers: headers$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["4XX", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -88,7 +92,7 @@ export async function accessControlCreate(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.CreateSigningKeyResponse,
     | SDKError
     | SDKValidationError
@@ -98,17 +102,17 @@ export async function accessControlCreate(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.CreateSigningKeyResponse$inboundSchema, {
+    M.json(200, operations.CreateSigningKeyResponse$inboundSchema, {
       key: "signing-key",
     }),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.CreateSigningKeyResponse$inboundSchema, {
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.CreateSigningKeyResponse$inboundSchema, {
       key: "error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

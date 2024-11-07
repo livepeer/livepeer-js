@@ -6,7 +6,7 @@
 import { GetTaskRequest } from "livepeer/models/operations";
 
 let value: GetTaskRequest = {
-  taskId: "<value>",
+  taskId: "<id>",
 };
 ```
 

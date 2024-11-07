@@ -7,7 +7,7 @@ import { Type } from "livepeer/models/components";
 import { UpdateAssetRequest } from "livepeer/models/operations";
 
 let value: UpdateAssetRequest = {
-  assetId: "<value>",
+  assetId: "<id>",
   assetPatchPayload: {
     name: "filename.mp4",
     playbackPolicy: {

@@ -63,6 +63,7 @@ let value: StreamPatchPayload = {
       },
     ],
   },
+  name: "test_stream",
 };
 ```
 
@@ -78,3 +79,4 @@ let value: StreamPatchPayload = {
 | `profiles`                                                                                                            | [components.FfmpegProfile](../../models/components/ffmpegprofile.md)[]                                                | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |                                                                                                                       |
 | `recordingSpec`                                                                                                       | [components.RecordingSpec](../../models/components/recordingspec.md)                                                  | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |                                                                                                                       |
 | `userTags`                                                                                                            | Record<string, *components.UserTags*>                                                                                 | :heavy_minus_sign:                                                                                                    | User input tags associated with the stream                                                                            |                                                                                                                       |
+| `name`                                                                                                                | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   | test_stream                                                                                                           |

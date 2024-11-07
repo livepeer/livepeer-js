@@ -5,7 +5,6 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
 
 export type GetPlaybackInfoRequest = {
   /**
@@ -34,7 +33,7 @@ export type GetPlaybackInfoResponse = {
   /**
    * Playback not found
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -83,7 +82,7 @@ export const GetPlaybackInfoResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "playback-info": components.PlaybackInfo$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -99,7 +98,7 @@ export type GetPlaybackInfoResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "playback-info"?: components.PlaybackInfo$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -114,7 +113,7 @@ export const GetPlaybackInfoResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   playbackInfo: components.PlaybackInfo$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",

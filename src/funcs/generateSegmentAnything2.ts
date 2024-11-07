@@ -4,8 +4,8 @@
 
 import { LivepeerCore } from "../core.js";
 import { readableStreamToArrayBuffer } from "../lib/files.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -32,7 +32,7 @@ import { isReadableStream } from "../types/streams.js";
  * Segment objects in an image.
  */
 export async function generateSegmentAnything2(
-  client$: LivepeerCore,
+  client: LivepeerCore,
   request: components.BodyGenSegmentAnything2,
   options?: RequestOptions,
 ): Promise<
@@ -51,98 +51,100 @@ export async function generateSegmentAnything2(
     | ConnectionError
   >
 > {
-  const input$ = request;
-
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) => components.BodyGenSegmentAnything2$outboundSchema.parse(value$),
+  const parsed = safeParse(
+    request,
+    (value) => components.BodyGenSegmentAnything2$outboundSchema.parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
-  const body$ = new FormData();
+  const payload = parsed.value;
+  const body = new FormData();
 
-  if (isBlobLike(payload$.image)) {
-    body$.append("image", payload$.image);
-  } else if (isReadableStream(payload$.image.content)) {
-    const buffer = await readableStreamToArrayBuffer(payload$.image.content);
+  if (isBlobLike(payload.image)) {
+    body.append("image", payload.image);
+  } else if (isReadableStream(payload.image.content)) {
+    const buffer = await readableStreamToArrayBuffer(payload.image.content);
     const blob = new Blob([buffer], { type: "application/octet-stream" });
-    body$.append("image", blob);
+    body.append("image", blob);
   } else {
-    body$.append(
+    body.append(
       "image",
-      new Blob([payload$.image.content], { type: "application/octet-stream" }),
-      payload$.image.fileName,
+      new Blob([payload.image.content], { type: "application/octet-stream" }),
+      payload.image.fileName,
     );
   }
-  if (payload$.box !== undefined) {
-    body$.append("box", payload$.box);
+  if (payload.box !== undefined) {
+    body.append("box", payload.box);
   }
-  if (payload$.mask_input !== undefined) {
-    body$.append("mask_input", payload$.mask_input);
+  if (payload.mask_input !== undefined) {
+    body.append("mask_input", payload.mask_input);
   }
-  if (payload$.model_id !== undefined) {
-    body$.append("model_id", payload$.model_id);
+  if (payload.model_id !== undefined) {
+    body.append("model_id", payload.model_id);
   }
-  if (payload$.multimask_output !== undefined) {
-    body$.append("multimask_output", String(payload$.multimask_output));
+  if (payload.multimask_output !== undefined) {
+    body.append("multimask_output", String(payload.multimask_output));
   }
-  if (payload$.normalize_coords !== undefined) {
-    body$.append("normalize_coords", String(payload$.normalize_coords));
+  if (payload.normalize_coords !== undefined) {
+    body.append("normalize_coords", String(payload.normalize_coords));
   }
-  if (payload$.point_coords !== undefined) {
-    body$.append("point_coords", payload$.point_coords);
+  if (payload.point_coords !== undefined) {
+    body.append("point_coords", payload.point_coords);
   }
-  if (payload$.point_labels !== undefined) {
-    body$.append("point_labels", payload$.point_labels);
+  if (payload.point_labels !== undefined) {
+    body.append("point_labels", payload.point_labels);
   }
-  if (payload$.return_logits !== undefined) {
-    body$.append("return_logits", String(payload$.return_logits));
+  if (payload.return_logits !== undefined) {
+    body.append("return_logits", String(payload.return_logits));
   }
 
-  const path$ = pathToFunc("/api/beta/generate/segment-anything-2")();
+  const path = pathToFunc("/api/generate/segment-anything-2")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "genSegmentAnything2",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["400", "401", "422", "4XX", "500", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -150,7 +152,7 @@ export async function generateSegmentAnything2(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.GenSegmentAnything2Response,
     | errors.GenSegmentAnything2ResponseBody
     | errors.GenSegmentAnything2GenerateResponseBody
@@ -164,30 +166,30 @@ export async function generateSegmentAnything2(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.GenSegmentAnything2Response$inboundSchema, {
+    M.json(200, operations.GenSegmentAnything2Response$inboundSchema, {
       key: "MasksResponse",
     }),
-    m$.jsonErr(400, errors.GenSegmentAnything2ResponseBody$inboundSchema),
-    m$.jsonErr(
+    M.jsonErr(400, errors.GenSegmentAnything2ResponseBody$inboundSchema),
+    M.jsonErr(
       401,
       errors.GenSegmentAnything2GenerateResponseBody$inboundSchema,
     ),
-    m$.jsonErr(
+    M.jsonErr(
       422,
       errors.GenSegmentAnything2GenerateResponseResponseBody$inboundSchema,
     ),
-    m$.jsonErr(
+    M.jsonErr(
       500,
       errors.GenSegmentAnything2GenerateResponse500ResponseBody$inboundSchema,
     ),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.GenSegmentAnything2Response$inboundSchema, {
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.GenSegmentAnything2Response$inboundSchema, {
       key: "studio-api-error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

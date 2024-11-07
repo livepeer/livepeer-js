@@ -10,7 +10,9 @@ import { TaskExportData } from "livepeer/models/components";
 let value: TaskExportData = {
   content: {},
   ipfs: {
-    pinata: {},
+    pinata: {
+      apiKey: "1234567890",
+    },
   },
   type: "text/plain",
   id: "09F8B46C-61A0-4254-9875-F71F4C605BC7",

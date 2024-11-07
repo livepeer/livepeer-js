@@ -7,7 +7,7 @@ Output of the upload task
 ```typescript
 import {
   AssetPhase,
-  AssetSchemasSourceType,
+  AssetSchemasSource3Type,
   AssetSchemasVideoSpecType,
   AssetType,
   CreatorIdType,
@@ -25,7 +25,8 @@ let value: TaskUpload = {
     playbackId: "eaw4nk06ts2d0mzb",
     playbackUrl:
       "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8",
-    downloadUrl: "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video",
+    downloadUrl:
+      "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4",
     playbackPolicy: {
       type: Type.Webhook,
       webhookId: "1bde4o2i6xycudoy",
@@ -35,8 +36,7 @@ let value: TaskUpload = {
       refreshInterval: 600,
     },
     source: {
-      type: AssetSchemasSourceType.Recording,
-      sessionId: "<value>",
+      type: AssetSchemasSource3Type.DirectUpload,
     },
     creatorId: {
       type: CreatorIdType.Unverified,
@@ -72,7 +72,7 @@ let value: TaskUpload = {
       },
     },
     status: {
-      phase: AssetPhase.Deleted,
+      phase: AssetPhase.Waiting,
       updatedAt: 1587667174725,
     },
     name: "filename.mp4",

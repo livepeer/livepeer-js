@@ -10,8 +10,8 @@ import { ImageResponse } from "livepeer/models/components";
 let value: ImageResponse = {
   images: [
     {
-      url: "http://palatable-forum.biz",
-      seed: 570197,
+      url: "https://dental-chasuble.info",
+      seed: 355613,
       nsfw: false,
     },
   ],
