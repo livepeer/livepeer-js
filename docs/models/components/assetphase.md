@@ -7,7 +7,7 @@ Phase of the asset
 ```typescript
 import { AssetPhase } from "livepeer/models/components";
 
-let value: AssetPhase = AssetPhase.Processing;
+let value: AssetPhase = AssetPhase.Failed;
 ```
 
 ## Values

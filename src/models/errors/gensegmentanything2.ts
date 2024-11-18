@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import {
   HTTPError,
   HTTPError$inboundSchema,
@@ -15,6 +17,7 @@ import {
   HTTPValidationError$Outbound,
   HTTPValidationError$outboundSchema,
 } from "./httpvalidationerror.js";
+import { SDKValidationError } from "./sdkvalidationerror.js";
 import {
   StudioApiError,
   StudioApiError$inboundSchema,
@@ -85,6 +88,33 @@ export namespace GenSegmentAnything2GenerateResponse500ResponseBody$ {
     GenSegmentAnything2GenerateResponse500ResponseBody$Outbound;
 }
 
+export function genSegmentAnything2GenerateResponse500ResponseBodyToJSON(
+  genSegmentAnything2GenerateResponse500ResponseBody:
+    GenSegmentAnything2GenerateResponse500ResponseBody,
+): string {
+  return JSON.stringify(
+    GenSegmentAnything2GenerateResponse500ResponseBody$outboundSchema.parse(
+      genSegmentAnything2GenerateResponse500ResponseBody,
+    ),
+  );
+}
+
+export function genSegmentAnything2GenerateResponse500ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenSegmentAnything2GenerateResponse500ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenSegmentAnything2GenerateResponse500ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenSegmentAnything2GenerateResponse500ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenSegmentAnything2GenerateResponseResponseBody$inboundSchema:
   z.ZodType<
@@ -128,6 +158,33 @@ export namespace GenSegmentAnything2GenerateResponseResponseBody$ {
     GenSegmentAnything2GenerateResponseResponseBody$Outbound;
 }
 
+export function genSegmentAnything2GenerateResponseResponseBodyToJSON(
+  genSegmentAnything2GenerateResponseResponseBody:
+    GenSegmentAnything2GenerateResponseResponseBody,
+): string {
+  return JSON.stringify(
+    GenSegmentAnything2GenerateResponseResponseBody$outboundSchema.parse(
+      genSegmentAnything2GenerateResponseResponseBody,
+    ),
+  );
+}
+
+export function genSegmentAnything2GenerateResponseResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenSegmentAnything2GenerateResponseResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenSegmentAnything2GenerateResponseResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenSegmentAnything2GenerateResponseResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenSegmentAnything2GenerateResponseBody$inboundSchema: z.ZodType<
   GenSegmentAnything2GenerateResponseBody,
@@ -162,6 +219,33 @@ export namespace GenSegmentAnything2GenerateResponseBody$ {
   export type Outbound = GenSegmentAnything2GenerateResponseBody$Outbound;
 }
 
+export function genSegmentAnything2GenerateResponseBodyToJSON(
+  genSegmentAnything2GenerateResponseBody:
+    GenSegmentAnything2GenerateResponseBody,
+): string {
+  return JSON.stringify(
+    GenSegmentAnything2GenerateResponseBody$outboundSchema.parse(
+      genSegmentAnything2GenerateResponseBody,
+    ),
+  );
+}
+
+export function genSegmentAnything2GenerateResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenSegmentAnything2GenerateResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenSegmentAnything2GenerateResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenSegmentAnything2GenerateResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenSegmentAnything2ResponseBody$inboundSchema: z.ZodType<
   GenSegmentAnything2ResponseBody,
@@ -192,4 +276,24 @@ export namespace GenSegmentAnything2ResponseBody$ {
   export const outboundSchema = GenSegmentAnything2ResponseBody$outboundSchema;
   /** @deprecated use `GenSegmentAnything2ResponseBody$Outbound` instead. */
   export type Outbound = GenSegmentAnything2ResponseBody$Outbound;
+}
+
+export function genSegmentAnything2ResponseBodyToJSON(
+  genSegmentAnything2ResponseBody: GenSegmentAnything2ResponseBody,
+): string {
+  return JSON.stringify(
+    GenSegmentAnything2ResponseBody$outboundSchema.parse(
+      genSegmentAnything2ResponseBody,
+    ),
+  );
+}
+
+export function genSegmentAnything2ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenSegmentAnything2ResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenSegmentAnything2ResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenSegmentAnything2ResponseBody' from JSON`,
+  );
 }

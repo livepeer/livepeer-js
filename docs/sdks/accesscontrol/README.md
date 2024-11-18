@@ -30,9 +30,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.accessControl.create();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -62,7 +62,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -82,10 +82,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## getAll
 
@@ -102,9 +101,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.accessControl.getAll();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -134,7 +133,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -154,10 +153,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -174,9 +172,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.accessControl.delete("<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -206,7 +204,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -227,10 +225,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get
 
@@ -247,9 +244,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.accessControl.get("<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -279,7 +276,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -300,10 +297,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## update
 
@@ -319,10 +315,10 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.accessControl.update("<value>", {});
-  
+  const result = await livepeer.accessControl.update({}, "<value>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -343,7 +339,7 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await accessControlUpdate(livepeer, "<value>", {});
+  const res = await accessControlUpdate(livepeer, {}, "<value>");
 
   if (!res.ok) {
     throw res.error;
@@ -352,7 +348,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -374,6 +370,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

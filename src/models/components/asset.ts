@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CreatorId,
   CreatorId$inboundSchema,
@@ -467,6 +470,20 @@ export namespace Asset3$ {
   export type Outbound = Asset3$Outbound;
 }
 
+export function asset3ToJSON(asset3: Asset3): string {
+  return JSON.stringify(Asset3$outboundSchema.parse(asset3));
+}
+
+export function asset3FromJSON(
+  jsonString: string,
+): SafeParseResult<Asset3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Asset3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Asset3' from JSON`,
+  );
+}
+
 /** @internal */
 export const AssetSchemasSourceType$inboundSchema: z.ZodNativeEnum<
   typeof AssetSchemasSourceType
@@ -519,6 +536,20 @@ export namespace Two$ {
   export const outboundSchema = Two$outboundSchema;
   /** @deprecated use `Two$Outbound` instead. */
   export type Outbound = Two$Outbound;
+}
+
+export function twoToJSON(two: Two): string {
+  return JSON.stringify(Two$outboundSchema.parse(two));
+}
+
+export function twoFromJSON(
+  jsonString: string,
+): SafeParseResult<Two, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Two$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Two' from JSON`,
+  );
 }
 
 /** @internal */
@@ -584,6 +615,20 @@ export namespace Asset1$ {
   export type Outbound = Asset1$Outbound;
 }
 
+export function asset1ToJSON(asset1: Asset1): string {
+  return JSON.stringify(Asset1$outboundSchema.parse(asset1));
+}
+
+export function asset1FromJSON(
+  jsonString: string,
+): SafeParseResult<Asset1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Asset1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Asset1' from JSON`,
+  );
+}
+
 /** @internal */
 export const Source$inboundSchema: z.ZodType<Source, z.ZodTypeDef, unknown> = z
   .union([
@@ -617,6 +662,20 @@ export namespace Source$ {
   export const outboundSchema = Source$outboundSchema;
   /** @deprecated use `Source$Outbound` instead. */
   export type Outbound = Source$Outbound;
+}
+
+export function sourceToJSON(source: Source): string {
+  return JSON.stringify(Source$outboundSchema.parse(source));
+}
+
+export function sourceFromJSON(
+  jsonString: string,
+): SafeParseResult<Source, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Source$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Source' from JSON`,
+  );
 }
 
 /** @internal */
@@ -670,6 +729,24 @@ export namespace AssetNftMetadata$ {
   export type Outbound = AssetNftMetadata$Outbound;
 }
 
+export function assetNftMetadataToJSON(
+  assetNftMetadata: AssetNftMetadata,
+): string {
+  return JSON.stringify(
+    AssetNftMetadata$outboundSchema.parse(assetNftMetadata),
+  );
+}
+
+export function assetNftMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<AssetNftMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AssetNftMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssetNftMetadata' from JSON`,
+  );
+}
+
 /** @internal */
 export const AssetSpec$inboundSchema: z.ZodType<
   AssetSpec,
@@ -711,6 +788,20 @@ export namespace AssetSpec$ {
   export const outboundSchema = AssetSpec$outboundSchema;
   /** @deprecated use `AssetSpec$Outbound` instead. */
   export type Outbound = AssetSpec$Outbound;
+}
+
+export function assetSpecToJSON(assetSpec: AssetSpec): string {
+  return JSON.stringify(AssetSpec$outboundSchema.parse(assetSpec));
+}
+
+export function assetSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<AssetSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AssetSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssetSpec' from JSON`,
+  );
 }
 
 /** @internal */
@@ -766,6 +857,20 @@ export namespace AssetIpfs$ {
   export type Outbound = AssetIpfs$Outbound;
 }
 
+export function assetIpfsToJSON(assetIpfs: AssetIpfs): string {
+  return JSON.stringify(AssetIpfs$outboundSchema.parse(assetIpfs));
+}
+
+export function assetIpfsFromJSON(
+  jsonString: string,
+): SafeParseResult<AssetIpfs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AssetIpfs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssetIpfs' from JSON`,
+  );
+}
+
 /** @internal */
 export const AssetStorage$inboundSchema: z.ZodType<
   AssetStorage,
@@ -803,6 +908,20 @@ export namespace AssetStorage$ {
   export const outboundSchema = AssetStorage$outboundSchema;
   /** @deprecated use `AssetStorage$Outbound` instead. */
   export type Outbound = AssetStorage$Outbound;
+}
+
+export function assetStorageToJSON(assetStorage: AssetStorage): string {
+  return JSON.stringify(AssetStorage$outboundSchema.parse(assetStorage));
+}
+
+export function assetStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<AssetStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AssetStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssetStorage' from JSON`,
+  );
 }
 
 /** @internal */
@@ -869,6 +988,20 @@ export namespace AssetStatus$ {
   export type Outbound = AssetStatus$Outbound;
 }
 
+export function assetStatusToJSON(assetStatus: AssetStatus): string {
+  return JSON.stringify(AssetStatus$outboundSchema.parse(assetStatus));
+}
+
+export function assetStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<AssetStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AssetStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AssetStatus' from JSON`,
+  );
+}
+
 /** @internal */
 export const Hash$inboundSchema: z.ZodType<Hash, z.ZodTypeDef, unknown> = z
   .object({
@@ -900,6 +1033,20 @@ export namespace Hash$ {
   export const outboundSchema = Hash$outboundSchema;
   /** @deprecated use `Hash$Outbound` instead. */
   export type Outbound = Hash$Outbound;
+}
+
+export function hashToJSON(hash: Hash): string {
+  return JSON.stringify(Hash$outboundSchema.parse(hash));
+}
+
+export function hashFromJSON(
+  jsonString: string,
+): SafeParseResult<Hash, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Hash$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Hash' from JSON`,
+  );
 }
 
 /** @internal */
@@ -989,6 +1136,20 @@ export namespace Tracks$ {
   export type Outbound = Tracks$Outbound;
 }
 
+export function tracksToJSON(tracks: Tracks): string {
+  return JSON.stringify(Tracks$outboundSchema.parse(tracks));
+}
+
+export function tracksFromJSON(
+  jsonString: string,
+): SafeParseResult<Tracks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Tracks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Tracks' from JSON`,
+  );
+}
+
 /** @internal */
 export const VideoSpec$inboundSchema: z.ZodType<
   VideoSpec,
@@ -1032,6 +1193,20 @@ export namespace VideoSpec$ {
   export const outboundSchema = VideoSpec$outboundSchema;
   /** @deprecated use `VideoSpec$Outbound` instead. */
   export type Outbound = VideoSpec$Outbound;
+}
+
+export function videoSpecToJSON(videoSpec: VideoSpec): string {
+  return JSON.stringify(VideoSpec$outboundSchema.parse(videoSpec));
+}
+
+export function videoSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<VideoSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VideoSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoSpec' from JSON`,
+  );
 }
 
 /** @internal */
@@ -1127,4 +1302,18 @@ export namespace Asset$ {
   export const outboundSchema = Asset$outboundSchema;
   /** @deprecated use `Asset$Outbound` instead. */
   export type Outbound = Asset$Outbound;
+}
+
+export function assetToJSON(asset: Asset): string {
+  return JSON.stringify(Asset$outboundSchema.parse(asset));
+}
+
+export function assetFromJSON(
+  jsonString: string,
+): SafeParseResult<Asset, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Asset$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Asset' from JSON`,
+  );
 }

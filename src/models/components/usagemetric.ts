@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * An individual metric about usage of a user.
@@ -95,4 +98,18 @@ export namespace UsageMetric$ {
   export const outboundSchema = UsageMetric$outboundSchema;
   /** @deprecated use `UsageMetric$Outbound` instead. */
   export type Outbound = UsageMetric$Outbound;
+}
+
+export function usageMetricToJSON(usageMetric: UsageMetric): string {
+  return JSON.stringify(UsageMetric$outboundSchema.parse(usageMetric));
+}
+
+export function usageMetricFromJSON(
+  jsonString: string,
+): SafeParseResult<UsageMetric, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UsageMetric$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UsageMetric' from JSON`,
+  );
 }

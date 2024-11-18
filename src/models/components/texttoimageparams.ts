@@ -4,12 +4,19 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type TextToImageParams = {
   /**
    * Hugging Face model ID used for image generation.
    */
   modelId?: string | undefined;
+  /**
+   * A LoRA (Low-Rank Adaptation) model and its corresponding weight for image generation. Example: { "latent-consistency/lcm-lora-sdxl": 1.0, "nerijs/pixel-art-xl": 1.2}.
+   */
+  loras?: string | undefined;
   /**
    * Text prompt(s) to guide image generation. Separate multiple prompts with '|' if supported by the model.
    */
@@ -55,6 +62,7 @@ export const TextToImageParams$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   model_id: z.string().default("SG161222/RealVisXL_V4.0_Lightning"),
+  loras: z.string().default(""),
   prompt: z.string(),
   height: z.number().int().default(576),
   width: z.number().int().default(1024),
@@ -78,6 +86,7 @@ export const TextToImageParams$inboundSchema: z.ZodType<
 /** @internal */
 export type TextToImageParams$Outbound = {
   model_id: string;
+  loras: string;
   prompt: string;
   height: number;
   width: number;
@@ -96,6 +105,7 @@ export const TextToImageParams$outboundSchema: z.ZodType<
   TextToImageParams
 > = z.object({
   modelId: z.string().default("SG161222/RealVisXL_V4.0_Lightning"),
+  loras: z.string().default(""),
   prompt: z.string(),
   height: z.number().int().default(576),
   width: z.number().int().default(1024),
@@ -127,4 +137,22 @@ export namespace TextToImageParams$ {
   export const outboundSchema = TextToImageParams$outboundSchema;
   /** @deprecated use `TextToImageParams$Outbound` instead. */
   export type Outbound = TextToImageParams$Outbound;
+}
+
+export function textToImageParamsToJSON(
+  textToImageParams: TextToImageParams,
+): string {
+  return JSON.stringify(
+    TextToImageParams$outboundSchema.parse(textToImageParams),
+  );
+}
+
+export function textToImageParamsFromJSON(
+  jsonString: string,
+): SafeParseResult<TextToImageParams, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TextToImageParams$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TextToImageParams' from JSON`,
+  );
 }

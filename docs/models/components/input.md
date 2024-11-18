@@ -1,11 +1,20 @@
 # Input
 
-## Example Usage
+
+## Supported Types
+
+### `components.TranscodePayload1`
 
 ```typescript
-import { Input, TranscodePayloadType } from "livepeer/models/components";
+const value: components.TranscodePayload1 = {
+  url: "https://s3.amazonaws.com/bucket/file.mp4",
+};
+```
 
-let value: Input = {
+### `components.TranscodePayload2`
+
+```typescript
+const value: components.TranscodePayload2 = {
   type: TranscodePayloadType.S3,
   endpoint: "https://gateway.storjshare.io",
   bucket: "inputbucket",
@@ -15,19 +24,5 @@ let value: Input = {
     secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
   },
 };
-```
-
-## Supported Types
-
-### `components.TranscodePayload1`
-
-```typescript
-const value: components.TranscodePayload1 = /* values here */
-```
-
-### `components.TranscodePayload2`
-
-```typescript
-const value: components.TranscodePayload2 = /* values here */
 ```
 

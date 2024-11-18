@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type IpfsExportParams2 = {
   /**
@@ -69,6 +72,24 @@ export namespace IpfsExportParams2$ {
   export type Outbound = IpfsExportParams2$Outbound;
 }
 
+export function ipfsExportParams2ToJSON(
+  ipfsExportParams2: IpfsExportParams2,
+): string {
+  return JSON.stringify(
+    IpfsExportParams2$outboundSchema.parse(ipfsExportParams2),
+  );
+}
+
+export function ipfsExportParams2FromJSON(
+  jsonString: string,
+): SafeParseResult<IpfsExportParams2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IpfsExportParams2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IpfsExportParams2' from JSON`,
+  );
+}
+
 /** @internal */
 export const IpfsExportParams1$inboundSchema: z.ZodType<
   IpfsExportParams1,
@@ -97,6 +118,24 @@ export namespace IpfsExportParams1$ {
   export const outboundSchema = IpfsExportParams1$outboundSchema;
   /** @deprecated use `IpfsExportParams1$Outbound` instead. */
   export type Outbound = IpfsExportParams1$Outbound;
+}
+
+export function ipfsExportParams1ToJSON(
+  ipfsExportParams1: IpfsExportParams1,
+): string {
+  return JSON.stringify(
+    IpfsExportParams1$outboundSchema.parse(ipfsExportParams1),
+  );
+}
+
+export function ipfsExportParams1FromJSON(
+  jsonString: string,
+): SafeParseResult<IpfsExportParams1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IpfsExportParams1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IpfsExportParams1' from JSON`,
+  );
 }
 
 /** @internal */
@@ -132,6 +171,20 @@ export namespace Pinata$ {
   export const outboundSchema = Pinata$outboundSchema;
   /** @deprecated use `Pinata$Outbound` instead. */
   export type Outbound = Pinata$Outbound;
+}
+
+export function pinataToJSON(pinata: Pinata): string {
+  return JSON.stringify(Pinata$outboundSchema.parse(pinata));
+}
+
+export function pinataFromJSON(
+  jsonString: string,
+): SafeParseResult<Pinata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pinata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pinata' from JSON`,
+  );
 }
 
 /** @internal */
@@ -185,4 +238,22 @@ export namespace IpfsExportParams$ {
   export const outboundSchema = IpfsExportParams$outboundSchema;
   /** @deprecated use `IpfsExportParams$Outbound` instead. */
   export type Outbound = IpfsExportParams$Outbound;
+}
+
+export function ipfsExportParamsToJSON(
+  ipfsExportParams: IpfsExportParams,
+): string {
+  return JSON.stringify(
+    IpfsExportParams$outboundSchema.parse(ipfsExportParams),
+  );
+}
+
+export function ipfsExportParamsFromJSON(
+  jsonString: string,
+): SafeParseResult<IpfsExportParams, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IpfsExportParams$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IpfsExportParams' from JSON`,
+  );
 }

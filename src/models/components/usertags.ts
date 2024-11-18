@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Three = string | number;
 
@@ -33,6 +36,20 @@ export namespace Three$ {
   export const outboundSchema = Three$outboundSchema;
   /** @deprecated use `Three$Outbound` instead. */
   export type Outbound = Three$Outbound;
+}
+
+export function threeToJSON(three: Three): string {
+  return JSON.stringify(Three$outboundSchema.parse(three));
+}
+
+export function threeFromJSON(
+  jsonString: string,
+): SafeParseResult<Three, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Three$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Three' from JSON`,
+  );
 }
 
 /** @internal */
@@ -71,4 +88,18 @@ export namespace UserTags$ {
   export const outboundSchema = UserTags$outboundSchema;
   /** @deprecated use `UserTags$Outbound` instead. */
   export type Outbound = UserTags$Outbound;
+}
+
+export function userTagsToJSON(userTags: UserTags): string {
+  return JSON.stringify(UserTags$outboundSchema.parse(userTags));
+}
+
+export function userTagsFromJSON(
+  jsonString: string,
+): SafeParseResult<UserTags, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UserTags$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UserTags' from JSON`,
+  );
 }

@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetTasksResponse = {
   /**
@@ -27,7 +29,7 @@ export type GetTasksResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const GetTasksResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Task$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type GetTasksResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Task$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const GetTasksResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Task$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace GetTasksResponse$ {
   export const outboundSchema = GetTasksResponse$outboundSchema;
   /** @deprecated use `GetTasksResponse$Outbound` instead. */
   export type Outbound = GetTasksResponse$Outbound;
+}
+
+export function getTasksResponseToJSON(
+  getTasksResponse: GetTasksResponse,
+): string {
+  return JSON.stringify(
+    GetTasksResponse$outboundSchema.parse(getTasksResponse),
+  );
+}
+
+export function getTasksResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetTasksResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetTasksResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetTasksResponse' from JSON`,
+  );
 }

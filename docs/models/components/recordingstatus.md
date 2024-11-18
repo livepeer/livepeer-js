@@ -7,7 +7,7 @@ The status of the recording process of this stream session.
 ```typescript
 import { RecordingStatus } from "livepeer/models/components";
 
-let value: RecordingStatus = RecordingStatus.Deleted;
+let value: RecordingStatus = RecordingStatus.Waiting;
 ```
 
 ## Values

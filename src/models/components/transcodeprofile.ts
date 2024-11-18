@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum TranscodeProfileProfile {
   H264Baseline = "H264Baseline",
@@ -142,4 +145,22 @@ export namespace TranscodeProfile$ {
   export const outboundSchema = TranscodeProfile$outboundSchema;
   /** @deprecated use `TranscodeProfile$Outbound` instead. */
   export type Outbound = TranscodeProfile$Outbound;
+}
+
+export function transcodeProfileToJSON(
+  transcodeProfile: TranscodeProfile,
+): string {
+  return JSON.stringify(
+    TranscodeProfile$outboundSchema.parse(transcodeProfile),
+  );
+}
+
+export function transcodeProfileFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodeProfile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodeProfile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodeProfile' from JSON`,
+  );
 }

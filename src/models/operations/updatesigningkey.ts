@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateSigningKeyRequestBody = {
   disabled?: boolean | undefined;
@@ -35,7 +38,7 @@ export type UpdateSigningKeyResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -75,6 +78,26 @@ export namespace UpdateSigningKeyRequestBody$ {
   export const outboundSchema = UpdateSigningKeyRequestBody$outboundSchema;
   /** @deprecated use `UpdateSigningKeyRequestBody$Outbound` instead. */
   export type Outbound = UpdateSigningKeyRequestBody$Outbound;
+}
+
+export function updateSigningKeyRequestBodyToJSON(
+  updateSigningKeyRequestBody: UpdateSigningKeyRequestBody,
+): string {
+  return JSON.stringify(
+    UpdateSigningKeyRequestBody$outboundSchema.parse(
+      updateSigningKeyRequestBody,
+    ),
+  );
+}
+
+export function updateSigningKeyRequestBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateSigningKeyRequestBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateSigningKeyRequestBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateSigningKeyRequestBody' from JSON`,
+  );
 }
 
 /** @internal */
@@ -124,6 +147,24 @@ export namespace UpdateSigningKeyRequest$ {
   export type Outbound = UpdateSigningKeyRequest$Outbound;
 }
 
+export function updateSigningKeyRequestToJSON(
+  updateSigningKeyRequest: UpdateSigningKeyRequest,
+): string {
+  return JSON.stringify(
+    UpdateSigningKeyRequest$outboundSchema.parse(updateSigningKeyRequest),
+  );
+}
+
+export function updateSigningKeyRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateSigningKeyRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateSigningKeyRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateSigningKeyRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const UpdateSigningKeyResponse$inboundSchema: z.ZodType<
   UpdateSigningKeyResponse,
@@ -133,7 +174,7 @@ export const UpdateSigningKeyResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -147,7 +188,7 @@ export type UpdateSigningKeyResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -161,7 +202,7 @@ export const UpdateSigningKeyResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -181,4 +222,22 @@ export namespace UpdateSigningKeyResponse$ {
   export const outboundSchema = UpdateSigningKeyResponse$outboundSchema;
   /** @deprecated use `UpdateSigningKeyResponse$Outbound` instead. */
   export type Outbound = UpdateSigningKeyResponse$Outbound;
+}
+
+export function updateSigningKeyResponseToJSON(
+  updateSigningKeyResponse: UpdateSigningKeyResponse,
+): string {
+  return JSON.stringify(
+    UpdateSigningKeyResponse$outboundSchema.parse(updateSigningKeyResponse),
+  );
+}
+
+export function updateSigningKeyResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateSigningKeyResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateSigningKeyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateSigningKeyResponse' from JSON`,
+  );
 }

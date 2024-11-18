@@ -12,26 +12,6 @@ export type HTTPValidationErrorData = {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse2?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse3?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse4?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse5?: Response | undefined;
 };
 
 export class HTTPValidationError extends Error {
@@ -40,26 +20,6 @@ export class HTTPValidationError extends Error {
    * Raw HTTP response; suitable for custom response parsing
    */
   rawResponse?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse1?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse2?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse3?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse4?: Response | undefined;
-  /**
-   * Raw HTTP response; suitable for custom response parsing
-   */
-  rawResponse5?: Response | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: HTTPValidationErrorData;
@@ -73,11 +33,6 @@ export class HTTPValidationError extends Error {
 
     if (err.detail != null) this.detail = err.detail;
     if (err.rawResponse != null) this.rawResponse = err.rawResponse;
-    if (err.rawResponse1 != null) this.rawResponse1 = err.rawResponse1;
-    if (err.rawResponse2 != null) this.rawResponse2 = err.rawResponse2;
-    if (err.rawResponse3 != null) this.rawResponse3 = err.rawResponse3;
-    if (err.rawResponse4 != null) this.rawResponse4 = err.rawResponse4;
-    if (err.rawResponse5 != null) this.rawResponse5 = err.rawResponse5;
 
     this.name = "HTTPValidationError";
   }
@@ -91,20 +46,10 @@ export const HTTPValidationError$inboundSchema: z.ZodType<
 > = z.object({
   detail: z.array(components.ValidationError$inboundSchema).optional(),
   RawResponse: z.instanceof(Response).optional(),
-  RawResponse1: z.instanceof(Response).optional(),
-  RawResponse2: z.instanceof(Response).optional(),
-  RawResponse3: z.instanceof(Response).optional(),
-  RawResponse4: z.instanceof(Response).optional(),
-  RawResponse5: z.instanceof(Response).optional(),
 })
   .transform((v) => {
     const remapped = remap$(v, {
       "RawResponse": "rawResponse",
-      "RawResponse1": "rawResponse1",
-      "RawResponse2": "rawResponse2",
-      "RawResponse3": "rawResponse3",
-      "RawResponse4": "rawResponse4",
-      "RawResponse5": "rawResponse5",
     });
 
     return new HTTPValidationError(remapped);
@@ -114,11 +59,6 @@ export const HTTPValidationError$inboundSchema: z.ZodType<
 export type HTTPValidationError$Outbound = {
   detail?: Array<components.ValidationError$Outbound> | undefined;
   RawResponse?: never | undefined;
-  RawResponse1?: never | undefined;
-  RawResponse2?: never | undefined;
-  RawResponse3?: never | undefined;
-  RawResponse4?: never | undefined;
-  RawResponse5?: never | undefined;
 };
 
 /** @internal */
@@ -134,29 +74,9 @@ export const HTTPValidationError$outboundSchema: z.ZodType<
       rawResponse: z.instanceof(Response).transform(() => {
         throw new Error("Response cannot be serialized");
       }).optional(),
-      rawResponse1: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
-      rawResponse2: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
-      rawResponse3: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
-      rawResponse4: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
-      rawResponse5: z.instanceof(Response).transform(() => {
-        throw new Error("Response cannot be serialized");
-      }).optional(),
     }).transform((v) => {
       return remap$(v, {
         rawResponse: "RawResponse",
-        rawResponse1: "RawResponse1",
-        rawResponse2: "RawResponse2",
-        rawResponse3: "RawResponse3",
-        rawResponse4: "RawResponse4",
-        rawResponse5: "RawResponse5",
       });
     }),
   );

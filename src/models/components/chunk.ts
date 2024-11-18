@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * A chunk of text with a timestamp.
@@ -52,4 +55,18 @@ export namespace Chunk$ {
   export const outboundSchema = Chunk$outboundSchema;
   /** @deprecated use `Chunk$Outbound` instead. */
   export type Outbound = Chunk$Outbound;
+}
+
+export function chunkToJSON(chunk: Chunk): string {
+  return JSON.stringify(Chunk$outboundSchema.parse(chunk));
+}
+
+export function chunkFromJSON(
+  jsonString: string,
+): SafeParseResult<Chunk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Chunk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Chunk' from JSON`,
+  );
 }

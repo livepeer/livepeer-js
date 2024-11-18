@@ -5,7 +5,7 @@
 ```typescript
 import { QueryParamBreakdownBy } from "livepeer/models/operations";
 
-let value: QueryParamBreakdownBy = QueryParamBreakdownBy.Browser;
+let value: QueryParamBreakdownBy = QueryParamBreakdownBy.Geohash;
 ```
 
 ## Values

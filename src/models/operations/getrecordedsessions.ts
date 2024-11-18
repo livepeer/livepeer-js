@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Flag indicating if the response should only include recorded
@@ -49,7 +51,7 @@ export type GetRecordedSessionsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -77,6 +79,20 @@ export namespace RecordT$ {
   export const outboundSchema = RecordT$outboundSchema;
   /** @deprecated use `RecordT$Outbound` instead. */
   export type Outbound = RecordT$Outbound;
+}
+
+export function recordTToJSON(recordT: RecordT): string {
+  return JSON.stringify(RecordT$outboundSchema.parse(recordT));
+}
+
+export function recordTFromJSON(
+  jsonString: string,
+): SafeParseResult<RecordT, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RecordT$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RecordT' from JSON`,
+  );
 }
 
 /** @internal */
@@ -118,6 +134,24 @@ export namespace GetRecordedSessionsRequest$ {
   export type Outbound = GetRecordedSessionsRequest$Outbound;
 }
 
+export function getRecordedSessionsRequestToJSON(
+  getRecordedSessionsRequest: GetRecordedSessionsRequest,
+): string {
+  return JSON.stringify(
+    GetRecordedSessionsRequest$outboundSchema.parse(getRecordedSessionsRequest),
+  );
+}
+
+export function getRecordedSessionsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRecordedSessionsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRecordedSessionsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRecordedSessionsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetRecordedSessionsResponse$inboundSchema: z.ZodType<
   GetRecordedSessionsResponse,
@@ -128,7 +162,7 @@ export const GetRecordedSessionsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Session$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -143,7 +177,7 @@ export type GetRecordedSessionsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Session$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -158,7 +192,7 @@ export const GetRecordedSessionsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Session$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -178,4 +212,24 @@ export namespace GetRecordedSessionsResponse$ {
   export const outboundSchema = GetRecordedSessionsResponse$outboundSchema;
   /** @deprecated use `GetRecordedSessionsResponse$Outbound` instead. */
   export type Outbound = GetRecordedSessionsResponse$Outbound;
+}
+
+export function getRecordedSessionsResponseToJSON(
+  getRecordedSessionsResponse: GetRecordedSessionsResponse,
+): string {
+  return JSON.stringify(
+    GetRecordedSessionsResponse$outboundSchema.parse(
+      getRecordedSessionsResponse,
+    ),
+  );
+}
+
+export function getRecordedSessionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRecordedSessionsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRecordedSessionsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRecordedSessionsResponse' from JSON`,
+  );
 }

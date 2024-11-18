@@ -1,32 +1,25 @@
 # StreamUserTags
 
-## Example Usage
-
-```typescript
-import { StreamUserTags } from "livepeer/models/components";
-
-let value: StreamUserTags = [
-  9786.19,
-];
-```
 
 ## Supported Types
 
 ### `string`
 
 ```typescript
-const value: string = /* values here */
+const value: string = "<value>";
 ```
 
 ### `number`
 
 ```typescript
-const value: number = /* values here */
+const value: number = 2543.56;
 ```
 
 ### `components.Stream3[]`
 
 ```typescript
-const value: components.Stream3[] = /* values here */
+const value: components.Stream3[] = [
+  "<value>",
+];
 ```
 

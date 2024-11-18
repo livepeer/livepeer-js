@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum Events {
   StreamStarted = "stream.started",
@@ -179,6 +182,20 @@ export namespace LastFailure$ {
   export type Outbound = LastFailure$Outbound;
 }
 
+export function lastFailureToJSON(lastFailure: LastFailure): string {
+  return JSON.stringify(LastFailure$outboundSchema.parse(lastFailure));
+}
+
+export function lastFailureFromJSON(
+  jsonString: string,
+): SafeParseResult<LastFailure, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LastFailure$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LastFailure' from JSON`,
+  );
+}
+
 /** @internal */
 export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> = z
   .object({
@@ -213,6 +230,20 @@ export namespace Status$ {
   export const outboundSchema = Status$outboundSchema;
   /** @deprecated use `Status$Outbound` instead. */
   export type Outbound = Status$Outbound;
+}
+
+export function statusToJSON(status: Status): string {
+  return JSON.stringify(Status$outboundSchema.parse(status));
+}
+
+export function statusFromJSON(
+  jsonString: string,
+): SafeParseResult<Status, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Status$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Status' from JSON`,
+  );
 }
 
 /** @internal */
@@ -275,6 +306,20 @@ export namespace Webhook$ {
   export type Outbound = Webhook$Outbound;
 }
 
+export function webhookToJSON(webhook: Webhook): string {
+  return JSON.stringify(Webhook$outboundSchema.parse(webhook));
+}
+
+export function webhookFromJSON(
+  jsonString: string,
+): SafeParseResult<Webhook, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Webhook$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Webhook' from JSON`,
+  );
+}
+
 /** @internal */
 export const WebhookInput$inboundSchema: z.ZodType<
   WebhookInput,
@@ -324,4 +369,18 @@ export namespace WebhookInput$ {
   export const outboundSchema = WebhookInput$outboundSchema;
   /** @deprecated use `WebhookInput$Outbound` instead. */
   export type Outbound = WebhookInput$Outbound;
+}
+
+export function webhookInputToJSON(webhookInput: WebhookInput): string {
+  return JSON.stringify(WebhookInput$outboundSchema.parse(webhookInput));
+}
+
+export function webhookInputFromJSON(
+  jsonString: string,
+): SafeParseResult<WebhookInput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => WebhookInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebhookInput' from JSON`,
+  );
 }

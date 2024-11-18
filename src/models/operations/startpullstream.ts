@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type StartPullStreamRequest = {
   /**
@@ -29,7 +32,7 @@ export type StartPullStreamResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -68,6 +71,24 @@ export namespace StartPullStreamRequest$ {
   export type Outbound = StartPullStreamRequest$Outbound;
 }
 
+export function startPullStreamRequestToJSON(
+  startPullStreamRequest: StartPullStreamRequest,
+): string {
+  return JSON.stringify(
+    StartPullStreamRequest$outboundSchema.parse(startPullStreamRequest),
+  );
+}
+
+export function startPullStreamRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<StartPullStreamRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StartPullStreamRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StartPullStreamRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const StartPullStreamResponse$inboundSchema: z.ZodType<
   StartPullStreamResponse,
@@ -77,7 +98,7 @@ export const StartPullStreamResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -91,7 +112,7 @@ export type StartPullStreamResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -105,7 +126,7 @@ export const StartPullStreamResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -125,4 +146,22 @@ export namespace StartPullStreamResponse$ {
   export const outboundSchema = StartPullStreamResponse$outboundSchema;
   /** @deprecated use `StartPullStreamResponse$Outbound` instead. */
   export type Outbound = StartPullStreamResponse$Outbound;
+}
+
+export function startPullStreamResponseToJSON(
+  startPullStreamResponse: StartPullStreamResponse,
+): string {
+  return JSON.stringify(
+    StartPullStreamResponse$outboundSchema.parse(startPullStreamResponse),
+  );
+}
+
+export function startPullStreamResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<StartPullStreamResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StartPullStreamResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StartPullStreamResponse' from JSON`,
+  );
 }

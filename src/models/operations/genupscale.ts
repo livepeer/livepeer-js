@@ -4,8 +4,11 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenUpscaleResponse = {
   /**
@@ -94,4 +97,22 @@ export namespace GenUpscaleResponse$ {
   export const outboundSchema = GenUpscaleResponse$outboundSchema;
   /** @deprecated use `GenUpscaleResponse$Outbound` instead. */
   export type Outbound = GenUpscaleResponse$Outbound;
+}
+
+export function genUpscaleResponseToJSON(
+  genUpscaleResponse: GenUpscaleResponse,
+): string {
+  return JSON.stringify(
+    GenUpscaleResponse$outboundSchema.parse(genUpscaleResponse),
+  );
+}
+
+export function genUpscaleResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GenUpscaleResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenUpscaleResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenUpscaleResponse' from JSON`,
+  );
 }

@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Encryption,
   Encryption$inboundSchema,
@@ -132,4 +135,22 @@ export namespace NewAssetFromUrlPayload$ {
   export const outboundSchema = NewAssetFromUrlPayload$outboundSchema;
   /** @deprecated use `NewAssetFromUrlPayload$Outbound` instead. */
   export type Outbound = NewAssetFromUrlPayload$Outbound;
+}
+
+export function newAssetFromUrlPayloadToJSON(
+  newAssetFromUrlPayload: NewAssetFromUrlPayload,
+): string {
+  return JSON.stringify(
+    NewAssetFromUrlPayload$outboundSchema.parse(newAssetFromUrlPayload),
+  );
+}
+
+export function newAssetFromUrlPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetFromUrlPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetFromUrlPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetFromUrlPayload' from JSON`,
+  );
 }

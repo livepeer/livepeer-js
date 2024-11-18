@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum Profile {
   H264Baseline = "H264Baseline",
@@ -135,4 +138,18 @@ export namespace FfmpegProfile$ {
   export const outboundSchema = FfmpegProfile$outboundSchema;
   /** @deprecated use `FfmpegProfile$Outbound` instead. */
   export type Outbound = FfmpegProfile$Outbound;
+}
+
+export function ffmpegProfileToJSON(ffmpegProfile: FfmpegProfile): string {
+  return JSON.stringify(FfmpegProfile$outboundSchema.parse(ffmpegProfile));
+}
+
+export function ffmpegProfileFromJSON(
+  jsonString: string,
+): SafeParseResult<FfmpegProfile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FfmpegProfile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FfmpegProfile' from JSON`,
+  );
 }

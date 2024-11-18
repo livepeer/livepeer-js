@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Chunk,
   Chunk$inboundSchema,
@@ -61,4 +64,18 @@ export namespace TextResponse$ {
   export const outboundSchema = TextResponse$outboundSchema;
   /** @deprecated use `TextResponse$Outbound` instead. */
   export type Outbound = TextResponse$Outbound;
+}
+
+export function textResponseToJSON(textResponse: TextResponse): string {
+  return JSON.stringify(TextResponse$outboundSchema.parse(textResponse));
+}
+
+export function textResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<TextResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TextResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TextResponse' from JSON`,
+  );
 }

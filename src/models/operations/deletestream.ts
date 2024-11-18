@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteStreamRequest = {
   /**
@@ -29,7 +32,7 @@ export type DeleteStreamResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -68,6 +71,24 @@ export namespace DeleteStreamRequest$ {
   export type Outbound = DeleteStreamRequest$Outbound;
 }
 
+export function deleteStreamRequestToJSON(
+  deleteStreamRequest: DeleteStreamRequest,
+): string {
+  return JSON.stringify(
+    DeleteStreamRequest$outboundSchema.parse(deleteStreamRequest),
+  );
+}
+
+export function deleteStreamRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteStreamRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteStreamRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteStreamRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const DeleteStreamResponse$inboundSchema: z.ZodType<
   DeleteStreamResponse,
@@ -77,7 +98,7 @@ export const DeleteStreamResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -91,7 +112,7 @@ export type DeleteStreamResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -105,7 +126,7 @@ export const DeleteStreamResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -125,4 +146,22 @@ export namespace DeleteStreamResponse$ {
   export const outboundSchema = DeleteStreamResponse$outboundSchema;
   /** @deprecated use `DeleteStreamResponse$Outbound` instead. */
   export type Outbound = DeleteStreamResponse$Outbound;
+}
+
+export function deleteStreamResponseToJSON(
+  deleteStreamResponse: DeleteStreamResponse,
+): string {
+  return JSON.stringify(
+    DeleteStreamResponse$outboundSchema.parse(deleteStreamResponse),
+  );
+}
+
+export function deleteStreamResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteStreamResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteStreamResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteStreamResponse' from JSON`,
+  );
 }

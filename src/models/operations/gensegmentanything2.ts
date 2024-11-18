@@ -4,8 +4,11 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenSegmentAnything2Response = {
   /**
@@ -94,4 +97,24 @@ export namespace GenSegmentAnything2Response$ {
   export const outboundSchema = GenSegmentAnything2Response$outboundSchema;
   /** @deprecated use `GenSegmentAnything2Response$Outbound` instead. */
   export type Outbound = GenSegmentAnything2Response$Outbound;
+}
+
+export function genSegmentAnything2ResponseToJSON(
+  genSegmentAnything2Response: GenSegmentAnything2Response,
+): string {
+  return JSON.stringify(
+    GenSegmentAnything2Response$outboundSchema.parse(
+      genSegmentAnything2Response,
+    ),
+  );
+}
+
+export function genSegmentAnything2ResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GenSegmentAnything2Response, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenSegmentAnything2Response$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenSegmentAnything2Response' from JSON`,
+  );
 }

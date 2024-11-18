@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   FfmpegProfile,
   FfmpegProfile$inboundSchema,
@@ -117,6 +120,26 @@ export namespace NewStreamPayloadRecordingSpec$ {
   export type Outbound = NewStreamPayloadRecordingSpec$Outbound;
 }
 
+export function newStreamPayloadRecordingSpecToJSON(
+  newStreamPayloadRecordingSpec: NewStreamPayloadRecordingSpec,
+): string {
+  return JSON.stringify(
+    NewStreamPayloadRecordingSpec$outboundSchema.parse(
+      newStreamPayloadRecordingSpec,
+    ),
+  );
+}
+
+export function newStreamPayloadRecordingSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<NewStreamPayloadRecordingSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewStreamPayloadRecordingSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewStreamPayloadRecordingSpec' from JSON`,
+  );
+}
+
 /** @internal */
 export const NewStreamPayload$inboundSchema: z.ZodType<
   NewStreamPayload,
@@ -177,4 +200,22 @@ export namespace NewStreamPayload$ {
   export const outboundSchema = NewStreamPayload$outboundSchema;
   /** @deprecated use `NewStreamPayload$Outbound` instead. */
   export type Outbound = NewStreamPayload$Outbound;
+}
+
+export function newStreamPayloadToJSON(
+  newStreamPayload: NewStreamPayload,
+): string {
+  return JSON.stringify(
+    NewStreamPayload$outboundSchema.parse(newStreamPayload),
+  );
+}
+
+export function newStreamPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<NewStreamPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewStreamPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewStreamPayload' from JSON`,
+  );
 }

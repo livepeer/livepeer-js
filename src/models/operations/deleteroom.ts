@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteRoomRequest = {
   id: string;
@@ -26,7 +29,7 @@ export type DeleteRoomResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -65,6 +68,24 @@ export namespace DeleteRoomRequest$ {
   export type Outbound = DeleteRoomRequest$Outbound;
 }
 
+export function deleteRoomRequestToJSON(
+  deleteRoomRequest: DeleteRoomRequest,
+): string {
+  return JSON.stringify(
+    DeleteRoomRequest$outboundSchema.parse(deleteRoomRequest),
+  );
+}
+
+export function deleteRoomRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteRoomRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteRoomRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteRoomRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const DeleteRoomResponse$inboundSchema: z.ZodType<
   DeleteRoomResponse,
@@ -74,7 +95,7 @@ export const DeleteRoomResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -88,7 +109,7 @@ export type DeleteRoomResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -102,7 +123,7 @@ export const DeleteRoomResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -122,4 +143,22 @@ export namespace DeleteRoomResponse$ {
   export const outboundSchema = DeleteRoomResponse$outboundSchema;
   /** @deprecated use `DeleteRoomResponse$Outbound` instead. */
   export type Outbound = DeleteRoomResponse$Outbound;
+}
+
+export function deleteRoomResponseToJSON(
+  deleteRoomResponse: DeleteRoomResponse,
+): string {
+  return JSON.stringify(
+    DeleteRoomResponse$outboundSchema.parse(deleteRoomResponse),
+  );
+}
+
+export function deleteRoomResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteRoomResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteRoomResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteRoomResponse' from JSON`,
+  );
 }

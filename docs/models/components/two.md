@@ -7,7 +7,7 @@ import { AssetSchemasSourceType, Two } from "livepeer/models/components";
 
 let value: Two = {
   type: AssetSchemasSourceType.Recording,
-  sessionId: "<value>",
+  sessionId: "<id>",
 };
 ```
 

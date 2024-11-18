@@ -4,11 +4,14 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Audio = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 export type BodyGenAudioToText = {
@@ -20,6 +23,10 @@ export type BodyGenAudioToText = {
    * Hugging Face model ID used for transcription.
    */
   modelId?: string | undefined;
+  /**
+   * Return timestamps for the transcribed text. Supported values: 'sentence', 'word', or a string boolean ('true' or 'false'). Default is 'true' ('sentence'). 'false' means no timestamps. 'word' means word-based timestamps.
+   */
+  returnTimestamps?: string | undefined;
 };
 
 /** @internal */
@@ -30,13 +37,14 @@ export const Audio$inboundSchema: z.ZodType<Audio, z.ZodTypeDef, unknown> = z
       z.instanceof(ReadableStream<Uint8Array>),
       z.instanceof(Blob),
       z.instanceof(ArrayBuffer),
+      z.instanceof(Uint8Array),
     ]),
   });
 
 /** @internal */
 export type Audio$Outbound = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
@@ -50,6 +58,7 @@ export const Audio$outboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
@@ -66,6 +75,20 @@ export namespace Audio$ {
   export type Outbound = Audio$Outbound;
 }
 
+export function audioToJSON(audio: Audio): string {
+  return JSON.stringify(Audio$outboundSchema.parse(audio));
+}
+
+export function audioFromJSON(
+  jsonString: string,
+): SafeParseResult<Audio, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Audio$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Audio' from JSON`,
+  );
+}
+
 /** @internal */
 export const BodyGenAudioToText$inboundSchema: z.ZodType<
   BodyGenAudioToText,
@@ -74,9 +97,11 @@ export const BodyGenAudioToText$inboundSchema: z.ZodType<
 > = z.object({
   audio: z.lazy(() => Audio$inboundSchema),
   model_id: z.string().default("openai/whisper-large-v3"),
+  return_timestamps: z.string().default("true"),
 }).transform((v) => {
   return remap$(v, {
     "model_id": "modelId",
+    "return_timestamps": "returnTimestamps",
   });
 });
 
@@ -84,6 +109,7 @@ export const BodyGenAudioToText$inboundSchema: z.ZodType<
 export type BodyGenAudioToText$Outbound = {
   audio: Audio$Outbound | Blob;
   model_id: string;
+  return_timestamps: string;
 };
 
 /** @internal */
@@ -94,9 +120,11 @@ export const BodyGenAudioToText$outboundSchema: z.ZodType<
 > = z.object({
   audio: z.lazy(() => Audio$outboundSchema).or(blobLikeSchema),
   modelId: z.string().default("openai/whisper-large-v3"),
+  returnTimestamps: z.string().default("true"),
 }).transform((v) => {
   return remap$(v, {
     modelId: "model_id",
+    returnTimestamps: "return_timestamps",
   });
 });
 
@@ -111,4 +139,22 @@ export namespace BodyGenAudioToText$ {
   export const outboundSchema = BodyGenAudioToText$outboundSchema;
   /** @deprecated use `BodyGenAudioToText$Outbound` instead. */
   export type Outbound = BodyGenAudioToText$Outbound;
+}
+
+export function bodyGenAudioToTextToJSON(
+  bodyGenAudioToText: BodyGenAudioToText,
+): string {
+  return JSON.stringify(
+    BodyGenAudioToText$outboundSchema.parse(bodyGenAudioToText),
+  );
+}
+
+export function bodyGenAudioToTextFromJSON(
+  jsonString: string,
+): SafeParseResult<BodyGenAudioToText, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BodyGenAudioToText$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BodyGenAudioToText' from JSON`,
+  );
 }

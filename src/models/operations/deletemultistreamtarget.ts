@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteMultistreamTargetRequest = {
   /**
@@ -29,7 +32,7 @@ export type DeleteMultistreamTargetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -68,6 +71,26 @@ export namespace DeleteMultistreamTargetRequest$ {
   export type Outbound = DeleteMultistreamTargetRequest$Outbound;
 }
 
+export function deleteMultistreamTargetRequestToJSON(
+  deleteMultistreamTargetRequest: DeleteMultistreamTargetRequest,
+): string {
+  return JSON.stringify(
+    DeleteMultistreamTargetRequest$outboundSchema.parse(
+      deleteMultistreamTargetRequest,
+    ),
+  );
+}
+
+export function deleteMultistreamTargetRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteMultistreamTargetRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteMultistreamTargetRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMultistreamTargetRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const DeleteMultistreamTargetResponse$inboundSchema: z.ZodType<
   DeleteMultistreamTargetResponse,
@@ -77,7 +100,7 @@ export const DeleteMultistreamTargetResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -91,7 +114,7 @@ export type DeleteMultistreamTargetResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -105,7 +128,7 @@ export const DeleteMultistreamTargetResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -125,4 +148,24 @@ export namespace DeleteMultistreamTargetResponse$ {
   export const outboundSchema = DeleteMultistreamTargetResponse$outboundSchema;
   /** @deprecated use `DeleteMultistreamTargetResponse$Outbound` instead. */
   export type Outbound = DeleteMultistreamTargetResponse$Outbound;
+}
+
+export function deleteMultistreamTargetResponseToJSON(
+  deleteMultistreamTargetResponse: DeleteMultistreamTargetResponse,
+): string {
+  return JSON.stringify(
+    DeleteMultistreamTargetResponse$outboundSchema.parse(
+      deleteMultistreamTargetResponse,
+    ),
+  );
+}
+
+export function deleteMultistreamTargetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteMultistreamTargetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteMultistreamTargetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteMultistreamTargetResponse' from JSON`,
+  );
 }

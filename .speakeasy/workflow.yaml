@@ -17,3 +17,5 @@ targets:
                 token: $npm_token
         codeSamples:
             output: codeSamples.yaml
+            registry:
+                location: registry.speakeasyapi.dev/livepeer/livepeer-studio/livepeer-studio-api-code-samples

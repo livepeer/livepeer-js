@@ -22,7 +22,7 @@ import {
 let value: PlaybackInfo = {
   type: PlaybackInfoType.Vod,
   meta: {
-    live: Live.One,
+    live: Live.Zero,
     playbackPolicy: {
       type: Type.Webhook,
       webhookId: "1bde4o2i6xycudoy",

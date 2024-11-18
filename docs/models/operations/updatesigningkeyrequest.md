@@ -6,7 +6,7 @@
 import { UpdateSigningKeyRequest } from "livepeer/models/operations";
 
 let value: UpdateSigningKeyRequest = {
-  keyId: "<value>",
+  keyId: "<id>",
   requestBody: {},
 };
 ```

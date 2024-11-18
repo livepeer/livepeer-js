@@ -4,8 +4,11 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenAudioToTextResponse = {
   /**
@@ -94,4 +97,22 @@ export namespace GenAudioToTextResponse$ {
   export const outboundSchema = GenAudioToTextResponse$outboundSchema;
   /** @deprecated use `GenAudioToTextResponse$Outbound` instead. */
   export type Outbound = GenAudioToTextResponse$Outbound;
+}
+
+export function genAudioToTextResponseToJSON(
+  genAudioToTextResponse: GenAudioToTextResponse,
+): string {
+  return JSON.stringify(
+    GenAudioToTextResponse$outboundSchema.parse(genAudioToTextResponse),
+  );
+}
+
+export function genAudioToTextResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GenAudioToTextResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenAudioToTextResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenAudioToTextResponse' from JSON`,
+  );
 }

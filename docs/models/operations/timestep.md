@@ -7,7 +7,7 @@ The time step to aggregate viewership metrics by
 ```typescript
 import { TimeStep } from "livepeer/models/operations";
 
-let value: TimeStep = TimeStep.Day;
+let value: TimeStep = TimeStep.Year;
 ```
 
 ## Values

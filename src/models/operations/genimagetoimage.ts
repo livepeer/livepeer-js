@@ -4,8 +4,11 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenImageToImageResponse = {
   /**
@@ -94,4 +97,22 @@ export namespace GenImageToImageResponse$ {
   export const outboundSchema = GenImageToImageResponse$outboundSchema;
   /** @deprecated use `GenImageToImageResponse$Outbound` instead. */
   export type Outbound = GenImageToImageResponse$Outbound;
+}
+
+export function genImageToImageResponseToJSON(
+  genImageToImageResponse: GenImageToImageResponse,
+): string {
+  return JSON.stringify(
+    GenImageToImageResponse$outboundSchema.parse(genImageToImageResponse),
+  );
+}
+
+export function genImageToImageResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GenImageToImageResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenImageToImageResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenImageToImageResponse' from JSON`,
+  );
 }

@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Media,
   Media$inboundSchema,
@@ -54,4 +57,18 @@ export namespace ImageResponse$ {
   export const outboundSchema = ImageResponse$outboundSchema;
   /** @deprecated use `ImageResponse$Outbound` instead. */
   export type Outbound = ImageResponse$Outbound;
+}
+
+export function imageResponseToJSON(imageResponse: ImageResponse): string {
+  return JSON.stringify(ImageResponse$outboundSchema.parse(imageResponse));
+}
+
+export function imageResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ImageResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ImageResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ImageResponse' from JSON`,
+  );
 }

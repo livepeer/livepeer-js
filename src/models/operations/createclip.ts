@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateClipTask = {
   id?: string | undefined;
@@ -39,7 +41,7 @@ export type CreateClipResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -76,6 +78,20 @@ export namespace CreateClipTask$ {
   export const outboundSchema = CreateClipTask$outboundSchema;
   /** @deprecated use `CreateClipTask$Outbound` instead. */
   export type Outbound = CreateClipTask$Outbound;
+}
+
+export function createClipTaskToJSON(createClipTask: CreateClipTask): string {
+  return JSON.stringify(CreateClipTask$outboundSchema.parse(createClipTask));
+}
+
+export function createClipTaskFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateClipTask, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateClipTask$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateClipTask' from JSON`,
+  );
 }
 
 /** @internal */
@@ -117,6 +133,20 @@ export namespace CreateClipData$ {
   export type Outbound = CreateClipData$Outbound;
 }
 
+export function createClipDataToJSON(createClipData: CreateClipData): string {
+  return JSON.stringify(CreateClipData$outboundSchema.parse(createClipData));
+}
+
+export function createClipDataFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateClipData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateClipData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateClipData' from JSON`,
+  );
+}
+
 /** @internal */
 export const CreateClipResponse$inboundSchema: z.ZodType<
   CreateClipResponse,
@@ -127,7 +157,7 @@ export const CreateClipResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.lazy(() => CreateClipData$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -142,7 +172,7 @@ export type CreateClipResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: CreateClipData$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -157,7 +187,7 @@ export const CreateClipResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.lazy(() => CreateClipData$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -177,4 +207,22 @@ export namespace CreateClipResponse$ {
   export const outboundSchema = CreateClipResponse$outboundSchema;
   /** @deprecated use `CreateClipResponse$Outbound` instead. */
   export type Outbound = CreateClipResponse$Outbound;
+}
+
+export function createClipResponseToJSON(
+  createClipResponse: CreateClipResponse,
+): string {
+  return JSON.stringify(
+    CreateClipResponse$outboundSchema.parse(createClipResponse),
+  );
+}
+
+export function createClipResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateClipResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateClipResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateClipResponse' from JSON`,
+  );
 }

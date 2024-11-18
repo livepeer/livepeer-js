@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import {
   HTTPError,
   HTTPError$inboundSchema,
@@ -15,6 +17,7 @@ import {
   HTTPValidationError$Outbound,
   HTTPValidationError$outboundSchema,
 } from "./httpvalidationerror.js";
+import { SDKValidationError } from "./sdkvalidationerror.js";
 import {
   StudioApiError,
   StudioApiError$inboundSchema,
@@ -81,6 +84,33 @@ export namespace GenUpscaleGenerateResponse500ResponseBody$ {
   export type Outbound = GenUpscaleGenerateResponse500ResponseBody$Outbound;
 }
 
+export function genUpscaleGenerateResponse500ResponseBodyToJSON(
+  genUpscaleGenerateResponse500ResponseBody:
+    GenUpscaleGenerateResponse500ResponseBody,
+): string {
+  return JSON.stringify(
+    GenUpscaleGenerateResponse500ResponseBody$outboundSchema.parse(
+      genUpscaleGenerateResponse500ResponseBody,
+    ),
+  );
+}
+
+export function genUpscaleGenerateResponse500ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenUpscaleGenerateResponse500ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenUpscaleGenerateResponse500ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenUpscaleGenerateResponse500ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenUpscaleGenerateResponseResponseBody$inboundSchema: z.ZodType<
   GenUpscaleGenerateResponseResponseBody,
@@ -118,6 +148,28 @@ export namespace GenUpscaleGenerateResponseResponseBody$ {
   export type Outbound = GenUpscaleGenerateResponseResponseBody$Outbound;
 }
 
+export function genUpscaleGenerateResponseResponseBodyToJSON(
+  genUpscaleGenerateResponseResponseBody:
+    GenUpscaleGenerateResponseResponseBody,
+): string {
+  return JSON.stringify(
+    GenUpscaleGenerateResponseResponseBody$outboundSchema.parse(
+      genUpscaleGenerateResponseResponseBody,
+    ),
+  );
+}
+
+export function genUpscaleGenerateResponseResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenUpscaleGenerateResponseResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenUpscaleGenerateResponseResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenUpscaleGenerateResponseResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenUpscaleGenerateResponseBody$inboundSchema: z.ZodType<
   GenUpscaleGenerateResponseBody,
@@ -150,6 +202,26 @@ export namespace GenUpscaleGenerateResponseBody$ {
   export type Outbound = GenUpscaleGenerateResponseBody$Outbound;
 }
 
+export function genUpscaleGenerateResponseBodyToJSON(
+  genUpscaleGenerateResponseBody: GenUpscaleGenerateResponseBody,
+): string {
+  return JSON.stringify(
+    GenUpscaleGenerateResponseBody$outboundSchema.parse(
+      genUpscaleGenerateResponseBody,
+    ),
+  );
+}
+
+export function genUpscaleGenerateResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenUpscaleGenerateResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenUpscaleGenerateResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenUpscaleGenerateResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenUpscaleResponseBody$inboundSchema: z.ZodType<
   GenUpscaleResponseBody,
@@ -180,4 +252,22 @@ export namespace GenUpscaleResponseBody$ {
   export const outboundSchema = GenUpscaleResponseBody$outboundSchema;
   /** @deprecated use `GenUpscaleResponseBody$Outbound` instead. */
   export type Outbound = GenUpscaleResponseBody$Outbound;
+}
+
+export function genUpscaleResponseBodyToJSON(
+  genUpscaleResponseBody: GenUpscaleResponseBody,
+): string {
+  return JSON.stringify(
+    GenUpscaleResponseBody$outboundSchema.parse(genUpscaleResponseBody),
+  );
+}
+
+export function genUpscaleResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenUpscaleResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenUpscaleResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenUpscaleResponseBody' from JSON`,
+  );
 }

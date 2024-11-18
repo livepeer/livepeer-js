@@ -60,6 +60,7 @@ let value: UpdateStreamRequest = {
         },
       ],
     },
+    name: "test_stream",
   },
 };
 ```

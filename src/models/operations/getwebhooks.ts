@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWebhooksResponse = {
   /**
@@ -27,7 +29,7 @@ export type GetWebhooksResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const GetWebhooksResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Webhook$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type GetWebhooksResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Webhook$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const GetWebhooksResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Webhook$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace GetWebhooksResponse$ {
   export const outboundSchema = GetWebhooksResponse$outboundSchema;
   /** @deprecated use `GetWebhooksResponse$Outbound` instead. */
   export type Outbound = GetWebhooksResponse$Outbound;
+}
+
+export function getWebhooksResponseToJSON(
+  getWebhooksResponse: GetWebhooksResponse,
+): string {
+  return JSON.stringify(
+    GetWebhooksResponse$outboundSchema.parse(getWebhooksResponse),
+  );
+}
+
+export function getWebhooksResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebhooksResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebhooksResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebhooksResponse' from JSON`,
+  );
 }

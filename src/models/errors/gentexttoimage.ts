@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import {
   HTTPError,
   HTTPError$inboundSchema,
@@ -15,6 +17,7 @@ import {
   HTTPValidationError$Outbound,
   HTTPValidationError$outboundSchema,
 } from "./httpvalidationerror.js";
+import { SDKValidationError } from "./sdkvalidationerror.js";
 import {
   StudioApiError,
   StudioApiError$inboundSchema,
@@ -82,6 +85,33 @@ export namespace GenTextToImageGenerateResponse500ResponseBody$ {
   export type Outbound = GenTextToImageGenerateResponse500ResponseBody$Outbound;
 }
 
+export function genTextToImageGenerateResponse500ResponseBodyToJSON(
+  genTextToImageGenerateResponse500ResponseBody:
+    GenTextToImageGenerateResponse500ResponseBody,
+): string {
+  return JSON.stringify(
+    GenTextToImageGenerateResponse500ResponseBody$outboundSchema.parse(
+      genTextToImageGenerateResponse500ResponseBody,
+    ),
+  );
+}
+
+export function genTextToImageGenerateResponse500ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenTextToImageGenerateResponse500ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenTextToImageGenerateResponse500ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenTextToImageGenerateResponse500ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenTextToImageGenerateResponseResponseBody$inboundSchema:
   z.ZodType<GenTextToImageGenerateResponseResponseBody, z.ZodTypeDef, unknown> =
@@ -118,6 +148,33 @@ export namespace GenTextToImageGenerateResponseResponseBody$ {
   export type Outbound = GenTextToImageGenerateResponseResponseBody$Outbound;
 }
 
+export function genTextToImageGenerateResponseResponseBodyToJSON(
+  genTextToImageGenerateResponseResponseBody:
+    GenTextToImageGenerateResponseResponseBody,
+): string {
+  return JSON.stringify(
+    GenTextToImageGenerateResponseResponseBody$outboundSchema.parse(
+      genTextToImageGenerateResponseResponseBody,
+    ),
+  );
+}
+
+export function genTextToImageGenerateResponseResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenTextToImageGenerateResponseResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenTextToImageGenerateResponseResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenTextToImageGenerateResponseResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenTextToImageGenerateResponseBody$inboundSchema: z.ZodType<
   GenTextToImageGenerateResponseBody,
@@ -151,6 +208,27 @@ export namespace GenTextToImageGenerateResponseBody$ {
   export type Outbound = GenTextToImageGenerateResponseBody$Outbound;
 }
 
+export function genTextToImageGenerateResponseBodyToJSON(
+  genTextToImageGenerateResponseBody: GenTextToImageGenerateResponseBody,
+): string {
+  return JSON.stringify(
+    GenTextToImageGenerateResponseBody$outboundSchema.parse(
+      genTextToImageGenerateResponseBody,
+    ),
+  );
+}
+
+export function genTextToImageGenerateResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenTextToImageGenerateResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenTextToImageGenerateResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenTextToImageGenerateResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenTextToImageResponseBody$inboundSchema: z.ZodType<
   GenTextToImageResponseBody,
@@ -181,4 +259,22 @@ export namespace GenTextToImageResponseBody$ {
   export const outboundSchema = GenTextToImageResponseBody$outboundSchema;
   /** @deprecated use `GenTextToImageResponseBody$Outbound` instead. */
   export type Outbound = GenTextToImageResponseBody$Outbound;
+}
+
+export function genTextToImageResponseBodyToJSON(
+  genTextToImageResponseBody: GenTextToImageResponseBody,
+): string {
+  return JSON.stringify(
+    GenTextToImageResponseBody$outboundSchema.parse(genTextToImageResponseBody),
+  );
+}
+
+export function genTextToImageResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenTextToImageResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenTextToImageResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenTextToImageResponseBody' from JSON`,
+  );
 }

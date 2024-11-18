@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * 0: not mobile, 1: mobile screen share, 2: mobile camera.
@@ -118,6 +121,20 @@ export namespace IsMobile$ {
   export type Outbound = IsMobile$Outbound;
 }
 
+export function isMobileToJSON(isMobile: IsMobile): string {
+  return JSON.stringify(IsMobile$outboundSchema.parse(isMobile));
+}
+
+export function isMobileFromJSON(
+  jsonString: string,
+): SafeParseResult<IsMobile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IsMobile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IsMobile' from JSON`,
+  );
+}
+
 /** @internal */
 export const Location$inboundSchema: z.ZodType<
   Location,
@@ -157,6 +174,20 @@ export namespace Location$ {
   export type Outbound = Location$Outbound;
 }
 
+export function locationToJSON(location: Location): string {
+  return JSON.stringify(Location$outboundSchema.parse(location));
+}
+
+export function locationFromJSON(
+  jsonString: string,
+): SafeParseResult<Location, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Location$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Location' from JSON`,
+  );
+}
+
 /** @internal */
 export const Pull$inboundSchema: z.ZodType<Pull, z.ZodTypeDef, unknown> = z
   .object({
@@ -194,4 +225,18 @@ export namespace Pull$ {
   export const outboundSchema = Pull$outboundSchema;
   /** @deprecated use `Pull$Outbound` instead. */
   export type Outbound = Pull$Outbound;
+}
+
+export function pullToJSON(pull: Pull): string {
+  return JSON.stringify(Pull$outboundSchema.parse(pull));
+}
+
+export function pullFromJSON(
+  jsonString: string,
+): SafeParseResult<Pull, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Pull$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Pull' from JSON`,
+  );
 }

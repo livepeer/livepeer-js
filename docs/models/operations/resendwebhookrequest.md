@@ -7,7 +7,7 @@ import { ResendWebhookRequest } from "livepeer/models/operations";
 
 let value: ResendWebhookRequest = {
   id: "<id>",
-  logId: "<value>",
+  logId: "<id>",
 };
 ```
 

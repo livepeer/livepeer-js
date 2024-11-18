@@ -28,9 +28,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.multistream.getAll();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -60,7 +60,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -80,10 +80,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## create
 
@@ -102,9 +101,9 @@ async function run() {
   const result = await livepeer.multistream.create({
     url: "rtmps://live.my-service.tv/channel/secretKey",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -136,7 +135,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -157,10 +156,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get
 
@@ -177,9 +175,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.multistream.get("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -209,7 +207,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -230,10 +228,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## update
 
@@ -249,12 +246,12 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.multistream.update("<id>", {
+  const result = await livepeer.multistream.update({
     url: "rtmps://live.my-service.tv/channel/secretKey",
-  });
-  
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -275,9 +272,9 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await multistreamUpdate(livepeer, "<id>", {
+  const res = await multistreamUpdate(livepeer, {
     url: "rtmps://live.my-service.tv/channel/secretKey",
-  });
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -286,7 +283,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -308,10 +305,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -330,9 +326,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.multistream.delete("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -362,7 +358,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -383,6 +379,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

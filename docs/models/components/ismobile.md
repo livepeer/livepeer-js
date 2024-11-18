@@ -2,25 +2,18 @@
 
 Indicates whether the stream will be pulled from a mobile source.
 
-## Example Usage
-
-```typescript
-import { IsMobile } from "livepeer/models/components";
-
-let value: IsMobile = false;
-```
 
 ## Supported Types
 
 ### `components.One`
 
 ```typescript
-const value: components.One = /* values here */
+const value: components.One = One.Zero;
 ```
 
 ### `boolean`
 
 ```typescript
-const value: boolean = /* values here */
+const value: boolean = false;
 ```
 

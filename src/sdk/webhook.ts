@@ -63,14 +63,14 @@ export class Webhook extends ClientSDK {
    * Update a webhook
    */
   async update(
-    id: string,
     webhook: components.WebhookInput,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.UpdateWebhookResponse> {
     return unwrapAsync(webhookUpdate(
       this,
-      id,
       webhook,
+      id,
       options,
     ));
   }

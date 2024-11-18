@@ -5,7 +5,7 @@
 ```typescript
 import { Events } from "livepeer/models/components";
 
-let value: Events = Events.AssetCreated;
+let value: Events = Events.RecordingWaiting;
 ```
 
 ## Values

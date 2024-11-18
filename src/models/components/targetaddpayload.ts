@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Inline multistream target object. Will automatically
@@ -87,6 +90,24 @@ export namespace TargetAddPayloadSpec$ {
   export type Outbound = TargetAddPayloadSpec$Outbound;
 }
 
+export function targetAddPayloadSpecToJSON(
+  targetAddPayloadSpec: TargetAddPayloadSpec,
+): string {
+  return JSON.stringify(
+    TargetAddPayloadSpec$outboundSchema.parse(targetAddPayloadSpec),
+  );
+}
+
+export function targetAddPayloadSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<TargetAddPayloadSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TargetAddPayloadSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TargetAddPayloadSpec' from JSON`,
+  );
+}
+
 /** @internal */
 export const TargetAddPayload$inboundSchema: z.ZodType<
   TargetAddPayload,
@@ -130,4 +151,22 @@ export namespace TargetAddPayload$ {
   export const outboundSchema = TargetAddPayload$outboundSchema;
   /** @deprecated use `TargetAddPayload$Outbound` instead. */
   export type Outbound = TargetAddPayload$Outbound;
+}
+
+export function targetAddPayloadToJSON(
+  targetAddPayload: TargetAddPayload,
+): string {
+  return JSON.stringify(
+    TargetAddPayload$outboundSchema.parse(targetAddPayload),
+  );
+}
+
+export function targetAddPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<TargetAddPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TargetAddPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TargetAddPayload' from JSON`,
+  );
 }

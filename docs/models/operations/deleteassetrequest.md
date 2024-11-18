@@ -6,7 +6,7 @@
 import { DeleteAssetRequest } from "livepeer/models/operations";
 
 let value: DeleteAssetRequest = {
-  assetId: "<value>",
+  assetId: "<id>",
 };
 ```
 

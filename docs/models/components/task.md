@@ -58,9 +58,7 @@ let value: Task = {
     exportData: {
       content: {},
       ipfs: {
-        pinata: {
-          apiKey: "1234567890",
-        },
+        pinata: {},
       },
       type: "text/plain",
       id: "09F8B46C-61A0-4254-9875-F71F4C605BC7",
@@ -125,7 +123,8 @@ let value: Task = {
         playbackId: "eaw4nk06ts2d0mzb",
         playbackUrl:
           "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8",
-        downloadUrl: "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video",
+        downloadUrl:
+          "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4",
         playbackPolicy: {
           type: Type.Webhook,
           webhookId: "1bde4o2i6xycudoy",
@@ -136,7 +135,7 @@ let value: Task = {
         },
         source: {
           type: AssetSchemasSourceType.Recording,
-          sessionId: "<value>",
+          sessionId: "<id>",
         },
         creatorId: {
           type: CreatorIdType.Unverified,
@@ -172,7 +171,7 @@ let value: Task = {
           },
         },
         status: {
-          phase: AssetPhase.Deleted,
+          phase: AssetPhase.Ready,
           updatedAt: 1587667174725,
         },
         name: "filename.mp4",

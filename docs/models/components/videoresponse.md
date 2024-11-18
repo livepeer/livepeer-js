@@ -10,8 +10,8 @@ import { VideoResponse } from "livepeer/models/components";
 let value: VideoResponse = {
   images: [
     {
-      url: "https://curly-yellow.name",
-      seed: 581850,
+      url: "https://exalted-breastplate.com/",
+      seed: 929530,
       nsfw: false,
     },
   ],

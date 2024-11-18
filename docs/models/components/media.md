@@ -8,8 +8,8 @@ A media object containing information about the generated media.
 import { Media } from "livepeer/models/components";
 
 let value: Media = {
-  url: "http://insidious-parole.org",
-  seed: 958950,
+  url: "https://sniveling-republican.org",
+  seed: 83422,
   nsfw: false,
 };
 ```

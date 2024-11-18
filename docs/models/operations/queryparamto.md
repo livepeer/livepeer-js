@@ -2,25 +2,18 @@
 
 End timestamp for the query range (exclusive)
 
-## Example Usage
-
-```typescript
-import { QueryParamTo } from "livepeer/models/operations";
-
-let value: QueryParamTo = 528895;
-```
 
 ## Supported Types
 
 ### `Date`
 
 ```typescript
-const value: Date = /* values here */
+const value: Date = new Date("2024-12-30T17:40:17.979Z");
 ```
 
 ### `number`
 
 ```typescript
-const value: number = /* values here */
+const value: number = 149448;
 ```
 

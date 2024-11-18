@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type MultistreamTarget = {
   id?: string | undefined;
@@ -73,4 +76,22 @@ export namespace MultistreamTarget$ {
   export const outboundSchema = MultistreamTarget$outboundSchema;
   /** @deprecated use `MultistreamTarget$Outbound` instead. */
   export type Outbound = MultistreamTarget$Outbound;
+}
+
+export function multistreamTargetToJSON(
+  multistreamTarget: MultistreamTarget,
+): string {
+  return JSON.stringify(
+    MultistreamTarget$outboundSchema.parse(multistreamTarget),
+  );
+}
+
+export function multistreamTargetFromJSON(
+  jsonString: string,
+): SafeParseResult<MultistreamTarget, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MultistreamTarget$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MultistreamTarget' from JSON`,
+  );
 }

@@ -7,7 +7,7 @@ The time step to aggregate viewership metrics by
 ```typescript
 import { QueryParamTimeStep } from "livepeer/models/operations";
 
-let value: QueryParamTimeStep = QueryParamTimeStep.Week;
+let value: QueryParamTimeStep = QueryParamTimeStep.Year;
 ```
 
 ## Values

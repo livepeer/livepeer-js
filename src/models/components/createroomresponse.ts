@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateRoomResponse = {
   /**
@@ -45,4 +48,22 @@ export namespace CreateRoomResponse$ {
   export const outboundSchema = CreateRoomResponse$outboundSchema;
   /** @deprecated use `CreateRoomResponse$Outbound` instead. */
   export type Outbound = CreateRoomResponse$Outbound;
+}
+
+export function createRoomResponseToJSON(
+  createRoomResponse: CreateRoomResponse,
+): string {
+  return JSON.stringify(
+    CreateRoomResponse$outboundSchema.parse(createRoomResponse),
+  );
+}
+
+export function createRoomResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateRoomResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateRoomResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateRoomResponse' from JSON`,
+  );
 }

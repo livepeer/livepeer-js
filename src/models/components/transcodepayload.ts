@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   InputCreatorId,
   InputCreatorId$inboundSchema,
@@ -292,6 +295,20 @@ export namespace Credentials$ {
   export type Outbound = Credentials$Outbound;
 }
 
+export function credentialsToJSON(credentials: Credentials): string {
+  return JSON.stringify(Credentials$outboundSchema.parse(credentials));
+}
+
+export function credentialsFromJSON(
+  jsonString: string,
+): SafeParseResult<Credentials, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Credentials$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Credentials' from JSON`,
+  );
+}
+
 /** @internal */
 export const TranscodePayload2$inboundSchema: z.ZodType<
   TranscodePayload2,
@@ -340,6 +357,24 @@ export namespace TranscodePayload2$ {
   export type Outbound = TranscodePayload2$Outbound;
 }
 
+export function transcodePayload2ToJSON(
+  transcodePayload2: TranscodePayload2,
+): string {
+  return JSON.stringify(
+    TranscodePayload2$outboundSchema.parse(transcodePayload2),
+  );
+}
+
+export function transcodePayload2FromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayload2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayload2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayload2' from JSON`,
+  );
+}
+
 /** @internal */
 export const TranscodePayload1$inboundSchema: z.ZodType<
   TranscodePayload1,
@@ -376,6 +411,24 @@ export namespace TranscodePayload1$ {
   export type Outbound = TranscodePayload1$Outbound;
 }
 
+export function transcodePayload1ToJSON(
+  transcodePayload1: TranscodePayload1,
+): string {
+  return JSON.stringify(
+    TranscodePayload1$outboundSchema.parse(transcodePayload1),
+  );
+}
+
+export function transcodePayload1FromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayload1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayload1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayload1' from JSON`,
+  );
+}
+
 /** @internal */
 export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
   .union([
@@ -409,6 +462,20 @@ export namespace Input$ {
   export const outboundSchema = Input$outboundSchema;
   /** @deprecated use `Input$Outbound` instead. */
   export type Outbound = Input$Outbound;
+}
+
+export function inputToJSON(input: Input): string {
+  return JSON.stringify(Input$outboundSchema.parse(input));
+}
+
+export function inputFromJSON(
+  jsonString: string,
+): SafeParseResult<Input, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Input$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Input' from JSON`,
+  );
 }
 
 /** @internal */
@@ -470,6 +537,27 @@ export namespace TranscodePayloadSchemasCredentials$ {
   export type Outbound = TranscodePayloadSchemasCredentials$Outbound;
 }
 
+export function transcodePayloadSchemasCredentialsToJSON(
+  transcodePayloadSchemasCredentials: TranscodePayloadSchemasCredentials,
+): string {
+  return JSON.stringify(
+    TranscodePayloadSchemasCredentials$outboundSchema.parse(
+      transcodePayloadSchemasCredentials,
+    ),
+  );
+}
+
+export function transcodePayloadSchemasCredentialsFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayloadSchemasCredentials, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      TranscodePayloadSchemasCredentials$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayloadSchemasCredentials' from JSON`,
+  );
+}
+
 /** @internal */
 export const TranscodePayloadSchemas2$inboundSchema: z.ZodType<
   TranscodePayloadSchemas2,
@@ -507,6 +595,24 @@ export namespace TranscodePayloadSchemas2$ {
   export const outboundSchema = TranscodePayloadSchemas2$outboundSchema;
   /** @deprecated use `TranscodePayloadSchemas2$Outbound` instead. */
   export type Outbound = TranscodePayloadSchemas2$Outbound;
+}
+
+export function transcodePayloadSchemas2ToJSON(
+  transcodePayloadSchemas2: TranscodePayloadSchemas2,
+): string {
+  return JSON.stringify(
+    TranscodePayloadSchemas2$outboundSchema.parse(transcodePayloadSchemas2),
+  );
+}
+
+export function transcodePayloadSchemas2FromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayloadSchemas2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayloadSchemas2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayloadSchemas2' from JSON`,
+  );
 }
 
 /** @internal */
@@ -569,6 +675,26 @@ export namespace TranscodePayloadCredentials$ {
   export type Outbound = TranscodePayloadCredentials$Outbound;
 }
 
+export function transcodePayloadCredentialsToJSON(
+  transcodePayloadCredentials: TranscodePayloadCredentials,
+): string {
+  return JSON.stringify(
+    TranscodePayloadCredentials$outboundSchema.parse(
+      transcodePayloadCredentials,
+    ),
+  );
+}
+
+export function transcodePayloadCredentialsFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayloadCredentials, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayloadCredentials$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayloadCredentials' from JSON`,
+  );
+}
+
 /** @internal */
 export const TranscodePayloadSchemas1$inboundSchema: z.ZodType<
   TranscodePayloadSchemas1,
@@ -614,6 +740,24 @@ export namespace TranscodePayloadSchemas1$ {
   export type Outbound = TranscodePayloadSchemas1$Outbound;
 }
 
+export function transcodePayloadSchemas1ToJSON(
+  transcodePayloadSchemas1: TranscodePayloadSchemas1,
+): string {
+  return JSON.stringify(
+    TranscodePayloadSchemas1$outboundSchema.parse(transcodePayloadSchemas1),
+  );
+}
+
+export function transcodePayloadSchemas1FromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayloadSchemas1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayloadSchemas1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayloadSchemas1' from JSON`,
+  );
+}
+
 /** @internal */
 export const TranscodePayloadStorage$inboundSchema: z.ZodType<
   TranscodePayloadStorage,
@@ -652,6 +796,24 @@ export namespace TranscodePayloadStorage$ {
   export type Outbound = TranscodePayloadStorage$Outbound;
 }
 
+export function transcodePayloadStorageToJSON(
+  transcodePayloadStorage: TranscodePayloadStorage,
+): string {
+  return JSON.stringify(
+    TranscodePayloadStorage$outboundSchema.parse(transcodePayloadStorage),
+  );
+}
+
+export function transcodePayloadStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayloadStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayloadStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayloadStorage' from JSON`,
+  );
+}
+
 /** @internal */
 export const Hls$inboundSchema: z.ZodType<Hls, z.ZodTypeDef, unknown> = z
   .object({
@@ -680,6 +842,20 @@ export namespace Hls$ {
   export const outboundSchema = Hls$outboundSchema;
   /** @deprecated use `Hls$Outbound` instead. */
   export type Outbound = Hls$Outbound;
+}
+
+export function hlsToJSON(hls: Hls): string {
+  return JSON.stringify(Hls$outboundSchema.parse(hls));
+}
+
+export function hlsFromJSON(
+  jsonString: string,
+): SafeParseResult<Hls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Hls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Hls' from JSON`,
+  );
 }
 
 /** @internal */
@@ -712,6 +888,20 @@ export namespace Mp4$ {
   export type Outbound = Mp4$Outbound;
 }
 
+export function mp4ToJSON(mp4: Mp4): string {
+  return JSON.stringify(Mp4$outboundSchema.parse(mp4));
+}
+
+export function mp4FromJSON(
+  jsonString: string,
+): SafeParseResult<Mp4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Mp4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Mp4' from JSON`,
+  );
+}
+
 /** @internal */
 export const Fmp4$inboundSchema: z.ZodType<Fmp4, z.ZodTypeDef, unknown> = z
   .object({
@@ -740,6 +930,20 @@ export namespace Fmp4$ {
   export const outboundSchema = Fmp4$outboundSchema;
   /** @deprecated use `Fmp4$Outbound` instead. */
   export type Outbound = Fmp4$Outbound;
+}
+
+export function fmp4ToJSON(fmp4: Fmp4): string {
+  return JSON.stringify(Fmp4$outboundSchema.parse(fmp4));
+}
+
+export function fmp4FromJSON(
+  jsonString: string,
+): SafeParseResult<Fmp4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Fmp4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Fmp4' from JSON`,
+  );
 }
 
 /** @internal */
@@ -779,6 +983,20 @@ export namespace Outputs$ {
   export const outboundSchema = Outputs$outboundSchema;
   /** @deprecated use `Outputs$Outbound` instead. */
   export type Outbound = Outputs$Outbound;
+}
+
+export function outputsToJSON(outputs: Outputs): string {
+  return JSON.stringify(Outputs$outboundSchema.parse(outputs));
+}
+
+export function outputsFromJSON(
+  jsonString: string,
+): SafeParseResult<Outputs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Outputs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Outputs' from JSON`,
+  );
 }
 
 /** @internal */
@@ -847,4 +1065,22 @@ export namespace TranscodePayload$ {
   export const outboundSchema = TranscodePayload$outboundSchema;
   /** @deprecated use `TranscodePayload$Outbound` instead. */
   export type Outbound = TranscodePayload$Outbound;
+}
+
+export function transcodePayloadToJSON(
+  transcodePayload: TranscodePayload,
+): string {
+  return JSON.stringify(
+    TranscodePayload$outboundSchema.parse(transcodePayload),
+  );
+}
+
+export function transcodePayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodePayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodePayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodePayload' from JSON`,
+  );
 }

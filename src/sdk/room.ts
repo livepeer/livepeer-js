@@ -76,14 +76,14 @@ export class Room extends ClientSDK {
    * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   async startEgress(
-    id: string,
     roomEgressPayload: components.RoomEgressPayload,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.StartRoomEgressResponse> {
     return unwrapAsync(roomStartEgress(
       this,
-      id,
       roomEgressPayload,
+      id,
       options,
     ));
   }
@@ -115,14 +115,14 @@ export class Room extends ClientSDK {
    * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   async createUser(
-    id: string,
     roomUserPayload: components.RoomUserPayload,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.CreateRoomUserResponse> {
     return unwrapAsync(roomCreateUser(
       this,
-      id,
       roomUserPayload,
+      id,
       options,
     ));
   }
@@ -154,16 +154,16 @@ export class Room extends ClientSDK {
    * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   async updateUser(
+    roomUserUpdatePayload: components.RoomUserUpdatePayload,
     id: string,
     userId: string,
-    roomUserUpdatePayload: components.RoomUserUpdatePayload,
     options?: RequestOptions,
   ): Promise<operations.UpdateRoomUserResponse> {
     return unwrapAsync(roomUpdateUser(
       this,
+      roomUserUpdatePayload,
       id,
       userId,
-      roomUserUpdatePayload,
       options,
     ));
   }

@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateStreamResponse = {
   /**
@@ -27,7 +29,7 @@ export type CreateStreamResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const CreateStreamResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   stream: components.Stream$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type CreateStreamResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   stream?: components.Stream$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const CreateStreamResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   stream: components.Stream$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace CreateStreamResponse$ {
   export const outboundSchema = CreateStreamResponse$outboundSchema;
   /** @deprecated use `CreateStreamResponse$Outbound` instead. */
   export type Outbound = CreateStreamResponse$Outbound;
+}
+
+export function createStreamResponseToJSON(
+  createStreamResponse: CreateStreamResponse,
+): string {
+  return JSON.stringify(
+    CreateStreamResponse$outboundSchema.parse(createStreamResponse),
+  );
+}
+
+export function createStreamResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateStreamResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateStreamResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateStreamResponse' from JSON`,
+  );
 }

@@ -7,7 +7,7 @@ import { Asset1, AssetSchemasType } from "livepeer/models/components";
 
 let value: Asset1 = {
   type: AssetSchemasType.Url,
-  url: "http://miserly-usage.net",
+  url: "https://unlucky-word.biz",
 };
 ```
 

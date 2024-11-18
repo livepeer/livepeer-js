@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPublicViewershipMetricsRequest = {
   /**
@@ -62,7 +65,7 @@ export type GetPublicViewershipMetricsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -100,6 +103,26 @@ export namespace GetPublicViewershipMetricsRequest$ {
     GetPublicViewershipMetricsRequest$outboundSchema;
   /** @deprecated use `GetPublicViewershipMetricsRequest$Outbound` instead. */
   export type Outbound = GetPublicViewershipMetricsRequest$Outbound;
+}
+
+export function getPublicViewershipMetricsRequestToJSON(
+  getPublicViewershipMetricsRequest: GetPublicViewershipMetricsRequest,
+): string {
+  return JSON.stringify(
+    GetPublicViewershipMetricsRequest$outboundSchema.parse(
+      getPublicViewershipMetricsRequest,
+    ),
+  );
+}
+
+export function getPublicViewershipMetricsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPublicViewershipMetricsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPublicViewershipMetricsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPublicViewershipMetricsRequest' from JSON`,
+  );
 }
 
 /** @internal */
@@ -147,6 +170,26 @@ export namespace GetPublicViewershipMetricsData$ {
   export type Outbound = GetPublicViewershipMetricsData$Outbound;
 }
 
+export function getPublicViewershipMetricsDataToJSON(
+  getPublicViewershipMetricsData: GetPublicViewershipMetricsData,
+): string {
+  return JSON.stringify(
+    GetPublicViewershipMetricsData$outboundSchema.parse(
+      getPublicViewershipMetricsData,
+    ),
+  );
+}
+
+export function getPublicViewershipMetricsDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPublicViewershipMetricsData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPublicViewershipMetricsData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPublicViewershipMetricsData' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetPublicViewershipMetricsResponse$inboundSchema: z.ZodType<
   GetPublicViewershipMetricsResponse,
@@ -157,7 +200,7 @@ export const GetPublicViewershipMetricsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.lazy(() => GetPublicViewershipMetricsData$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -172,7 +215,7 @@ export type GetPublicViewershipMetricsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: GetPublicViewershipMetricsData$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -187,7 +230,7 @@ export const GetPublicViewershipMetricsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.lazy(() => GetPublicViewershipMetricsData$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -208,4 +251,25 @@ export namespace GetPublicViewershipMetricsResponse$ {
     GetPublicViewershipMetricsResponse$outboundSchema;
   /** @deprecated use `GetPublicViewershipMetricsResponse$Outbound` instead. */
   export type Outbound = GetPublicViewershipMetricsResponse$Outbound;
+}
+
+export function getPublicViewershipMetricsResponseToJSON(
+  getPublicViewershipMetricsResponse: GetPublicViewershipMetricsResponse,
+): string {
+  return JSON.stringify(
+    GetPublicViewershipMetricsResponse$outboundSchema.parse(
+      getPublicViewershipMetricsResponse,
+    ),
+  );
+}
+
+export function getPublicViewershipMetricsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPublicViewershipMetricsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetPublicViewershipMetricsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPublicViewershipMetricsResponse' from JSON`,
+  );
 }

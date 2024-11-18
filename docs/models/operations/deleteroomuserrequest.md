@@ -7,7 +7,7 @@ import { DeleteRoomUserRequest } from "livepeer/models/operations";
 
 let value: DeleteRoomUserRequest = {
   id: "<id>",
-  userId: "<value>",
+  userId: "<id>",
 };
 ```
 

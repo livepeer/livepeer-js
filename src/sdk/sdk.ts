@@ -19,61 +19,61 @@ import { Webhook } from "./webhook.js";
 export class Livepeer extends ClientSDK {
   private _stream?: Stream;
   get stream(): Stream {
-    return (this._stream ??= new Stream(this.options$));
+    return (this._stream ??= new Stream(this._options));
   }
 
   private _multistream?: Multistream;
   get multistream(): Multistream {
-    return (this._multistream ??= new Multistream(this.options$));
+    return (this._multistream ??= new Multistream(this._options));
   }
 
   private _webhook?: Webhook;
   get webhook(): Webhook {
-    return (this._webhook ??= new Webhook(this.options$));
+    return (this._webhook ??= new Webhook(this._options));
   }
 
   private _asset?: Asset;
   get asset(): Asset {
-    return (this._asset ??= new Asset(this.options$));
+    return (this._asset ??= new Asset(this._options));
   }
 
   private _session?: Session;
   get session(): Session {
-    return (this._session ??= new Session(this.options$));
+    return (this._session ??= new Session(this._options));
   }
 
   private _room?: Room;
   get room(): Room {
-    return (this._room ??= new Room(this.options$));
+    return (this._room ??= new Room(this._options));
   }
 
   private _metrics?: Metrics;
   get metrics(): Metrics {
-    return (this._metrics ??= new Metrics(this.options$));
+    return (this._metrics ??= new Metrics(this._options));
   }
 
   private _accessControl?: AccessControl;
   get accessControl(): AccessControl {
-    return (this._accessControl ??= new AccessControl(this.options$));
+    return (this._accessControl ??= new AccessControl(this._options));
   }
 
   private _task?: Task;
   get task(): Task {
-    return (this._task ??= new Task(this.options$));
+    return (this._task ??= new Task(this._options));
   }
 
   private _transcode?: Transcode;
   get transcode(): Transcode {
-    return (this._transcode ??= new Transcode(this.options$));
+    return (this._transcode ??= new Transcode(this._options));
   }
 
   private _playback?: Playback;
   get playback(): Playback {
-    return (this._playback ??= new Playback(this.options$));
+    return (this._playback ??= new Playback(this._options));
   }
 
   private _generate?: Generate;
   get generate(): Generate {
-    return (this._generate ??= new Generate(this.options$));
+    return (this._generate ??= new Generate(this._options));
   }
 }

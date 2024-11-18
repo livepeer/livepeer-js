@@ -7,7 +7,9 @@ import { ExportTaskParams2 } from "livepeer/models/components";
 
 let value: ExportTaskParams2 = {
   ipfs: {
-    pinata: {},
+    pinata: {
+      apiKey: "1234567890",
+    },
   },
 };
 ```

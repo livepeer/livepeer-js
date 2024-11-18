@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetStreamsRequest = {
   streamsonly?: string | undefined;
@@ -31,7 +33,7 @@ export type GetStreamsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -70,6 +72,24 @@ export namespace GetStreamsRequest$ {
   export type Outbound = GetStreamsRequest$Outbound;
 }
 
+export function getStreamsRequestToJSON(
+  getStreamsRequest: GetStreamsRequest,
+): string {
+  return JSON.stringify(
+    GetStreamsRequest$outboundSchema.parse(getStreamsRequest),
+  );
+}
+
+export function getStreamsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStreamsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStreamsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStreamsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetStreamsResponse$inboundSchema: z.ZodType<
   GetStreamsResponse,
@@ -80,7 +100,7 @@ export const GetStreamsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Stream$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -95,7 +115,7 @@ export type GetStreamsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Stream$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -110,7 +130,7 @@ export const GetStreamsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Stream$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -130,4 +150,22 @@ export namespace GetStreamsResponse$ {
   export const outboundSchema = GetStreamsResponse$outboundSchema;
   /** @deprecated use `GetStreamsResponse$Outbound` instead. */
   export type Outbound = GetStreamsResponse$Outbound;
+}
+
+export function getStreamsResponseToJSON(
+  getStreamsResponse: GetStreamsResponse,
+): string {
+  return JSON.stringify(
+    GetStreamsResponse$outboundSchema.parse(getStreamsResponse),
+  );
+}
+
+export function getStreamsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetStreamsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetStreamsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetStreamsResponse' from JSON`,
+  );
 }

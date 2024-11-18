@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPlaybackInfoRequest = {
   /**
@@ -34,7 +36,7 @@ export type GetPlaybackInfoResponse = {
   /**
    * Playback not found
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -73,6 +75,24 @@ export namespace GetPlaybackInfoRequest$ {
   export type Outbound = GetPlaybackInfoRequest$Outbound;
 }
 
+export function getPlaybackInfoRequestToJSON(
+  getPlaybackInfoRequest: GetPlaybackInfoRequest,
+): string {
+  return JSON.stringify(
+    GetPlaybackInfoRequest$outboundSchema.parse(getPlaybackInfoRequest),
+  );
+}
+
+export function getPlaybackInfoRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPlaybackInfoRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPlaybackInfoRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPlaybackInfoRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetPlaybackInfoResponse$inboundSchema: z.ZodType<
   GetPlaybackInfoResponse,
@@ -83,7 +103,7 @@ export const GetPlaybackInfoResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "playback-info": components.PlaybackInfo$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -99,7 +119,7 @@ export type GetPlaybackInfoResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "playback-info"?: components.PlaybackInfo$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -114,7 +134,7 @@ export const GetPlaybackInfoResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   playbackInfo: components.PlaybackInfo$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -135,4 +155,22 @@ export namespace GetPlaybackInfoResponse$ {
   export const outboundSchema = GetPlaybackInfoResponse$outboundSchema;
   /** @deprecated use `GetPlaybackInfoResponse$Outbound` instead. */
   export type Outbound = GetPlaybackInfoResponse$Outbound;
+}
+
+export function getPlaybackInfoResponseToJSON(
+  getPlaybackInfoResponse: GetPlaybackInfoResponse,
+): string {
+  return JSON.stringify(
+    GetPlaybackInfoResponse$outboundSchema.parse(getPlaybackInfoResponse),
+  );
+}
+
+export function getPlaybackInfoResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPlaybackInfoResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPlaybackInfoResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPlaybackInfoResponse' from JSON`,
+  );
 }

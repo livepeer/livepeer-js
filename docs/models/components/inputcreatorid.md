@@ -1,24 +1,20 @@
 # InputCreatorId
 
-## Example Usage
-
-```typescript
-import { InputCreatorId } from "livepeer/models/components";
-
-let value: InputCreatorId = "<value>";
-```
 
 ## Supported Types
 
 ### `components.InputCreatorId1`
 
 ```typescript
-const value: components.InputCreatorId1 = /* values here */
+const value: components.InputCreatorId1 = {
+  type: InputCreatorIdType.Unverified,
+  value: "<value>",
+};
 ```
 
 ### `string`
 
 ```typescript
-const value: string = /* values here */
+const value: string = "<value>";
 ```
 

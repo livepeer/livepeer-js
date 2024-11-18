@@ -6,7 +6,7 @@
 import { GetAssetRequest } from "livepeer/models/operations";
 
 let value: GetAssetRequest = {
-  assetId: "<value>",
+  assetId: "<id>",
 };
 ```
 

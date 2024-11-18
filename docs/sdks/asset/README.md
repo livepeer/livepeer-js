@@ -29,9 +29,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.asset.getAll();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -61,7 +61,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -81,10 +81,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## create
 
@@ -198,9 +197,9 @@ async function run() {
       },
     ],
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -256,7 +255,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -277,10 +276,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## createViaUrl
 
@@ -324,9 +322,9 @@ async function run() {
       },
     ],
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -383,7 +381,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -404,10 +402,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get
 
@@ -424,9 +421,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.asset.get("<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -456,7 +453,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -477,10 +474,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## update
 
@@ -497,7 +493,7 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.asset.update("<value>", {
+  const result = await livepeer.asset.update({
     name: "filename.mp4",
     playbackPolicy: {
       type: Type.Webhook,
@@ -507,10 +503,10 @@ async function run() {
       },
       refreshInterval: 600,
     },
-  });
-  
+  }, "<value>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -532,7 +528,7 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await assetUpdate(livepeer, "<value>", {
+  const res = await assetUpdate(livepeer, {
     name: "filename.mp4",
     playbackPolicy: {
       type: Type.Webhook,
@@ -542,7 +538,7 @@ async function run() {
       },
       refreshInterval: 600,
     },
-  });
+  }, "<value>");
 
   if (!res.ok) {
     throw res.error;
@@ -551,7 +547,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -573,10 +569,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -593,9 +588,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.asset.delete("<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -625,7 +620,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -646,6 +641,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Start timestamp for the query range (inclusive)
@@ -98,7 +100,7 @@ export type GetCreatorViewershipMetricsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -134,6 +136,20 @@ export namespace QueryParamFrom$ {
   export type Outbound = QueryParamFrom$Outbound;
 }
 
+export function queryParamFromToJSON(queryParamFrom: QueryParamFrom): string {
+  return JSON.stringify(QueryParamFrom$outboundSchema.parse(queryParamFrom));
+}
+
+export function queryParamFromFromJSON(
+  jsonString: string,
+): SafeParseResult<QueryParamFrom, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => QueryParamFrom$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'QueryParamFrom' from JSON`,
+  );
+}
+
 /** @internal */
 export const QueryParamTo$inboundSchema: z.ZodType<
   QueryParamTo,
@@ -165,6 +181,20 @@ export namespace QueryParamTo$ {
   export const outboundSchema = QueryParamTo$outboundSchema;
   /** @deprecated use `QueryParamTo$Outbound` instead. */
   export type Outbound = QueryParamTo$Outbound;
+}
+
+export function queryParamToToJSON(queryParamTo: QueryParamTo): string {
+  return JSON.stringify(QueryParamTo$outboundSchema.parse(queryParamTo));
+}
+
+export function queryParamToFromJSON(
+  jsonString: string,
+): SafeParseResult<QueryParamTo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => QueryParamTo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'QueryParamTo' from JSON`,
+  );
 }
 
 /** @internal */
@@ -286,6 +316,27 @@ export namespace GetCreatorViewershipMetricsRequest$ {
   export type Outbound = GetCreatorViewershipMetricsRequest$Outbound;
 }
 
+export function getCreatorViewershipMetricsRequestToJSON(
+  getCreatorViewershipMetricsRequest: GetCreatorViewershipMetricsRequest,
+): string {
+  return JSON.stringify(
+    GetCreatorViewershipMetricsRequest$outboundSchema.parse(
+      getCreatorViewershipMetricsRequest,
+    ),
+  );
+}
+
+export function getCreatorViewershipMetricsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCreatorViewershipMetricsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetCreatorViewershipMetricsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCreatorViewershipMetricsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetCreatorViewershipMetricsResponse$inboundSchema: z.ZodType<
   GetCreatorViewershipMetricsResponse,
@@ -296,7 +347,7 @@ export const GetCreatorViewershipMetricsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.ViewershipMetric$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -311,7 +362,7 @@ export type GetCreatorViewershipMetricsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.ViewershipMetric$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -326,7 +377,7 @@ export const GetCreatorViewershipMetricsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.ViewershipMetric$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -348,4 +399,25 @@ export namespace GetCreatorViewershipMetricsResponse$ {
     GetCreatorViewershipMetricsResponse$outboundSchema;
   /** @deprecated use `GetCreatorViewershipMetricsResponse$Outbound` instead. */
   export type Outbound = GetCreatorViewershipMetricsResponse$Outbound;
+}
+
+export function getCreatorViewershipMetricsResponseToJSON(
+  getCreatorViewershipMetricsResponse: GetCreatorViewershipMetricsResponse,
+): string {
+  return JSON.stringify(
+    GetCreatorViewershipMetricsResponse$outboundSchema.parse(
+      getCreatorViewershipMetricsResponse,
+    ),
+  );
+}
+
+export function getCreatorViewershipMetricsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCreatorViewershipMetricsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetCreatorViewershipMetricsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCreatorViewershipMetricsResponse' from JSON`,
+  );
 }

@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateMultistreamTargetRequest = {
   /**
@@ -31,7 +33,7 @@ export type UpdateMultistreamTargetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -84,6 +86,26 @@ export namespace UpdateMultistreamTargetRequest$ {
   export type Outbound = UpdateMultistreamTargetRequest$Outbound;
 }
 
+export function updateMultistreamTargetRequestToJSON(
+  updateMultistreamTargetRequest: UpdateMultistreamTargetRequest,
+): string {
+  return JSON.stringify(
+    UpdateMultistreamTargetRequest$outboundSchema.parse(
+      updateMultistreamTargetRequest,
+    ),
+  );
+}
+
+export function updateMultistreamTargetRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateMultistreamTargetRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateMultistreamTargetRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateMultistreamTargetRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const UpdateMultistreamTargetResponse$inboundSchema: z.ZodType<
   UpdateMultistreamTargetResponse,
@@ -93,7 +115,7 @@ export const UpdateMultistreamTargetResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -107,7 +129,7 @@ export type UpdateMultistreamTargetResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -121,7 +143,7 @@ export const UpdateMultistreamTargetResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -141,4 +163,24 @@ export namespace UpdateMultistreamTargetResponse$ {
   export const outboundSchema = UpdateMultistreamTargetResponse$outboundSchema;
   /** @deprecated use `UpdateMultistreamTargetResponse$Outbound` instead. */
   export type Outbound = UpdateMultistreamTargetResponse$Outbound;
+}
+
+export function updateMultistreamTargetResponseToJSON(
+  updateMultistreamTargetResponse: UpdateMultistreamTargetResponse,
+): string {
+  return JSON.stringify(
+    UpdateMultistreamTargetResponse$outboundSchema.parse(
+      updateMultistreamTargetResponse,
+    ),
+  );
+}
+
+export function updateMultistreamTargetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateMultistreamTargetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateMultistreamTargetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateMultistreamTargetResponse' from JSON`,
+  );
 }
