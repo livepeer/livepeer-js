@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum InputCreatorIdType {
   Unverified = "unverified",
@@ -75,6 +78,22 @@ export namespace InputCreatorId1$ {
   export type Outbound = InputCreatorId1$Outbound;
 }
 
+export function inputCreatorId1ToJSON(
+  inputCreatorId1: InputCreatorId1,
+): string {
+  return JSON.stringify(InputCreatorId1$outboundSchema.parse(inputCreatorId1));
+}
+
+export function inputCreatorId1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputCreatorId1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCreatorId1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCreatorId1' from JSON`,
+  );
+}
+
 /** @internal */
 export const InputCreatorId$inboundSchema: z.ZodType<
   InputCreatorId,
@@ -103,4 +122,18 @@ export namespace InputCreatorId$ {
   export const outboundSchema = InputCreatorId$outboundSchema;
   /** @deprecated use `InputCreatorId$Outbound` instead. */
   export type Outbound = InputCreatorId$Outbound;
+}
+
+export function inputCreatorIdToJSON(inputCreatorId: InputCreatorId): string {
+  return JSON.stringify(InputCreatorId$outboundSchema.parse(inputCreatorId));
+}
+
+export function inputCreatorIdFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCreatorId, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCreatorId$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCreatorId' from JSON`,
+  );
 }

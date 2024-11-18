@@ -35,9 +35,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.create();
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -67,7 +67,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -87,10 +87,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~get~~
 
@@ -109,9 +108,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.get("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -141,7 +140,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -162,10 +161,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~delete~~
 
@@ -184,9 +182,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.delete("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -216,7 +214,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -237,10 +235,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~startEgress~~
 
@@ -260,12 +257,12 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.startEgress("<id>", {
+  const result = await livepeer.room.startEgress({
     streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-  });
-  
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -286,9 +283,9 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await roomStartEgress(livepeer, "<id>", {
+  const res = await roomStartEgress(livepeer, {
     streamId: "aac12556-4d65-4d34-9fb6-d1f0985eb0a9",
-  });
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -297,7 +294,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -319,10 +316,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~stopEgress~~
 
@@ -341,9 +337,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.stopEgress("<id>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -373,7 +369,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -394,10 +390,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~createUser~~
 
@@ -418,14 +413,14 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.createUser("<id>", {
+  const result = await livepeer.room.createUser({
     name: "name",
     canPublish: true,
     canPublishData: true,
-  });
-  
+  }, "<id>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -446,11 +441,11 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await roomCreateUser(livepeer, "<id>", {
+  const res = await roomCreateUser(livepeer, {
     name: "name",
     canPublish: true,
     canPublishData: true,
-  });
+  }, "<id>");
 
   if (!res.ok) {
     throw res.error;
@@ -459,7 +454,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -481,10 +476,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~getUser~~
 
@@ -503,9 +497,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.getUser("<id>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -535,7 +529,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -557,10 +551,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~updateUser~~
 
@@ -578,13 +571,13 @@ const livepeer = new Livepeer({
 });
 
 async function run() {
-  const result = await livepeer.room.updateUser("<id>", "<value>", {
+  const result = await livepeer.room.updateUser({
     canPublish: true,
     canPublishData: true,
-  });
-  
+  }, "<id>", "<value>");
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -605,10 +598,10 @@ const livepeer = new LivepeerCore({
 });
 
 async function run() {
-  const res = await roomUpdateUser(livepeer, "<id>", "<value>", {
+  const res = await roomUpdateUser(livepeer, {
     canPublish: true,
     canPublishData: true,
-  });
+  }, "<id>", "<value>");
 
   if (!res.ok) {
     throw res.error;
@@ -617,7 +610,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -640,10 +633,9 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
-
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## ~~deleteUser~~
 
@@ -662,9 +654,9 @@ const livepeer = new Livepeer({
 
 async function run() {
   const result = await livepeer.room.deleteUser("<id>", "<value>");
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -694,7 +686,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -716,6 +708,6 @@ run();
 
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
+| Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

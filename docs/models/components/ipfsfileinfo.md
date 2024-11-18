@@ -6,7 +6,7 @@
 import { IpfsFileInfo } from "livepeer/models/components";
 
 let value: IpfsFileInfo = {
-  cid: "<value>",
+  cid: "<id>",
 };
 ```
 

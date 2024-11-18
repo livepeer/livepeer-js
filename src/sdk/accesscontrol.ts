@@ -72,14 +72,14 @@ export class AccessControl extends ClientSDK {
    * Update a signing key
    */
   async update(
-    keyId: string,
     requestBody: operations.UpdateSigningKeyRequestBody,
+    keyId: string,
     options?: RequestOptions,
   ): Promise<operations.UpdateSigningKeyResponse> {
     return unwrapAsync(accessControlUpdate(
       this,
-      keyId,
       requestBody,
+      keyId,
       options,
     ));
   }

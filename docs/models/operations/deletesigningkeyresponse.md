@@ -5,7 +5,18 @@
 ```typescript
 import { DeleteSigningKeyResponse } from "livepeer/models/operations";
 
-// No examples available for this model
+let value: DeleteSigningKeyResponse = {
+  contentType: "<value>",
+  statusCode: 510,
+  rawResponse: new Response("{\"message\": \"hello world\"}", {
+    headers: { "Content-Type": "application/json" },
+  }),
+  error: {
+    errors: [
+      "[\"id not provided\",\"Account not found\"]",
+    ],
+  },
+};
 ```
 
 ## Fields
@@ -15,4 +26,4 @@ import { DeleteSigningKeyResponse } from "livepeer/models/operations";
 | `contentType`                                                         | *string*                                                              | :heavy_check_mark:                                                    | HTTP response content type for this operation                         |
 | `statusCode`                                                          | *number*                                                              | :heavy_check_mark:                                                    | HTTP response status code for this operation                          |
 | `rawResponse`                                                         | [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) | :heavy_check_mark:                                                    | Raw HTTP response; suitable for custom response parsing               |
-| `error`                                                               | *errors.ErrorT*                                                       | :heavy_minus_sign:                                                    | Error                                                                 |
+| `error`                                                               | [components.ErrorT](../../models/components/errort.md)                | :heavy_minus_sign:                                                    | Error                                                                 |

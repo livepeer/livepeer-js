@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Spec,
   Spec$inboundSchema,
@@ -70,6 +73,20 @@ export namespace Storage1$ {
   export type Outbound = Storage1$Outbound;
 }
 
+export function storage1ToJSON(storage1: Storage1): string {
+  return JSON.stringify(Storage1$outboundSchema.parse(storage1));
+}
+
+export function storage1FromJSON(
+  jsonString: string,
+): SafeParseResult<Storage1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Storage1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Storage1' from JSON`,
+  );
+}
+
 /** @internal */
 export const Ipfs$inboundSchema: z.ZodType<Ipfs, z.ZodTypeDef, unknown> = z
   .union([z.lazy(() => Storage1$inboundSchema), z.boolean()]);
@@ -92,6 +109,20 @@ export namespace Ipfs$ {
   export const outboundSchema = Ipfs$outboundSchema;
   /** @deprecated use `Ipfs$Outbound` instead. */
   export type Outbound = Ipfs$Outbound;
+}
+
+export function ipfsToJSON(ipfs: Ipfs): string {
+  return JSON.stringify(Ipfs$outboundSchema.parse(ipfs));
+}
+
+export function ipfsFromJSON(
+  jsonString: string,
+): SafeParseResult<Ipfs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Ipfs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Ipfs' from JSON`,
+  );
 }
 
 /** @internal */
@@ -129,4 +160,18 @@ export namespace Storage$ {
   export const outboundSchema = Storage$outboundSchema;
   /** @deprecated use `Storage$Outbound` instead. */
   export type Outbound = Storage$Outbound;
+}
+
+export function storageToJSON(storage: Storage): string {
+  return JSON.stringify(Storage$outboundSchema.parse(storage));
+}
+
+export function storageFromJSON(
+  jsonString: string,
+): SafeParseResult<Storage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Storage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Storage' from JSON`,
+  );
 }

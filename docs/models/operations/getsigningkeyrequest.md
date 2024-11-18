@@ -6,7 +6,7 @@
 import { GetSigningKeyRequest } from "livepeer/models/operations";
 
 let value: GetSigningKeyRequest = {
-  keyId: "<value>",
+  keyId: "<id>",
 };
 ```
 

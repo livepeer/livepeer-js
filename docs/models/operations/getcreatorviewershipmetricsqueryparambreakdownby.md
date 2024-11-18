@@ -6,7 +6,7 @@
 import { GetCreatorViewershipMetricsQueryParamBreakdownBy } from "livepeer/models/operations";
 
 let value: GetCreatorViewershipMetricsQueryParamBreakdownBy =
-  GetCreatorViewershipMetricsQueryParamBreakdownBy.Continent;
+  GetCreatorViewershipMetricsQueryParamBreakdownBy.Device;
 ```
 
 ## Values

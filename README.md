@@ -105,6 +105,7 @@ run();
 * [upscale](docs/sdks/generate/README.md#upscale) - Upscale
 * [audioToText](docs/sdks/generate/README.md#audiototext) - Audio To Text
 * [segmentAnything2](docs/sdks/generate/README.md#segmentanything2) - Segment Anything 2
+* [llm](docs/sdks/generate/README.md#llm) - LLM
 
 
 ### [metrics](docs/sdks/metrics/README.md)
@@ -186,15 +187,24 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-All SDK methods return a response object or throw an error. If Error objects are specified in your OpenAPI Spec, the SDK will throw the appropriate Error type.
+All SDK methods return a response object or throw an error. By default, an API error will throw a `errors.SDKError`.
 
-| Error Object     | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 404              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
+If a HTTP request fails, an operation my also throw an error from the `models/errors/httpclienterrors.ts` module:
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging. 
+| HTTP Client Error                                    | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| RequestAbortedError                                  | HTTP request was aborted by the client               |
+| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
+| ConnectionError                                      | HTTP client was unable to make a request to a server |
+| InvalidRequestError                                  | Any input used to create a request is invalid        |
+| UnexpectedClientError                                | Unrecognised or unexpected error                     |
 
+In addition, when custom error responses are specified for an operation, the SDK may throw their associated Error type. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation. For example, the `get` method may throw the following errors:
+
+| Error Type      | Status Code | Content Type     |
+| --------------- | ----------- | ---------------- |
+| errors.ErrorT   | 404         | application/json |
+| errors.SDKError | 4XX, 5XX    | \*/\*            |
 
 ```typescript
 import { Livepeer } from "livepeer";
@@ -235,6 +245,8 @@ async function run() {
 run();
 
 ```
+
+Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging.
 <!-- End Error Handling [errors] -->
 
 <!-- No Server Selection [server] -->
@@ -295,9 +307,9 @@ const sdk = new Livepeer({ httpClient });
 
 This SDK supports the following security scheme globally:
 
-| Name        | Type        | Scheme      |
-| ----------- | ----------- | ----------- |
-| `apiKey`    | http        | HTTP Bearer |
+| Name     | Type | Scheme      |
+| -------- | ---- | ----------- |
+| `apiKey` | http | HTTP Bearer |
 
 To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
@@ -367,7 +379,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -403,70 +415,70 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [accessControlCreate](docs/sdks/accesscontrol/README.md#create)
-- [accessControlDelete](docs/sdks/accesscontrol/README.md#delete)
-- [accessControlGetAll](docs/sdks/accesscontrol/README.md#getall)
-- [accessControlGet](docs/sdks/accesscontrol/README.md#get)
-- [accessControlUpdate](docs/sdks/accesscontrol/README.md#update)
-- [assetCreateViaUrl](docs/sdks/asset/README.md#createviaurl)
-- [assetCreate](docs/sdks/asset/README.md#create)
-- [assetDelete](docs/sdks/asset/README.md#delete)
-- [assetGetAll](docs/sdks/asset/README.md#getall)
-- [assetGet](docs/sdks/asset/README.md#get)
-- [assetUpdate](docs/sdks/asset/README.md#update)
-- [generateAudioToText](docs/sdks/generate/README.md#audiototext)
-- [generateImageToImage](docs/sdks/generate/README.md#imagetoimage)
-- [generateImageToVideo](docs/sdks/generate/README.md#imagetovideo)
-- [generateSegmentAnything2](docs/sdks/generate/README.md#segmentanything2)
-- [generateTextToImage](docs/sdks/generate/README.md#texttoimage)
-- [generateUpscale](docs/sdks/generate/README.md#upscale)
-- [metricsGetCreatorViewership](docs/sdks/metrics/README.md#getcreatorviewership)
-- [metricsGetPublicViewership](docs/sdks/metrics/README.md#getpublicviewership)
-- [metricsGetRealtimeViewership](docs/sdks/metrics/README.md#getrealtimeviewership)
-- [metricsGetUsage](docs/sdks/metrics/README.md#getusage)
-- [metricsGetViewership](docs/sdks/metrics/README.md#getviewership)
-- [multistreamCreate](docs/sdks/multistream/README.md#create)
-- [multistreamDelete](docs/sdks/multistream/README.md#delete)
-- [multistreamGetAll](docs/sdks/multistream/README.md#getall)
-- [multistreamGet](docs/sdks/multistream/README.md#get)
-- [multistreamUpdate](docs/sdks/multistream/README.md#update)
-- [playbackGet](docs/sdks/playback/README.md#get)
-- [roomCreateUser](docs/sdks/room/README.md#createuser)
-- [roomCreate](docs/sdks/room/README.md#create)
-- [roomDeleteUser](docs/sdks/room/README.md#deleteuser)
-- [roomDelete](docs/sdks/room/README.md#delete)
-- [roomGetUser](docs/sdks/room/README.md#getuser)
-- [roomGet](docs/sdks/room/README.md#get)
-- [roomStartEgress](docs/sdks/room/README.md#startegress)
-- [roomStopEgress](docs/sdks/room/README.md#stopegress)
-- [roomUpdateUser](docs/sdks/room/README.md#updateuser)
-- [sessionGetAll](docs/sdks/session/README.md#getall)
-- [sessionGetClips](docs/sdks/session/README.md#getclips)
-- [sessionGetRecorded](docs/sdks/session/README.md#getrecorded)
-- [sessionGet](docs/sdks/session/README.md#get)
-- [streamAddMultistreamTarget](docs/sdks/stream/README.md#addmultistreamtarget)
-- [streamCreateClip](docs/sdks/stream/README.md#createclip)
-- [streamCreate](docs/sdks/stream/README.md#create)
-- [streamDelete](docs/sdks/stream/README.md#delete)
-- [streamGetAll](docs/sdks/stream/README.md#getall)
-- [streamGetClips](docs/sdks/stream/README.md#getclips)
-- [streamGet](docs/sdks/stream/README.md#get)
-- [streamRemoveMultistreamTarget](docs/sdks/stream/README.md#removemultistreamtarget)
-- [streamStartPull](docs/sdks/stream/README.md#startpull)
-- [streamTerminate](docs/sdks/stream/README.md#terminate)
-- [streamUpdate](docs/sdks/stream/README.md#update)
-- [taskGetAll](docs/sdks/task/README.md#getall)
-- [taskGet](docs/sdks/task/README.md#get)
-- [transcodeCreate](docs/sdks/transcode/README.md#create)
-- [webhookCreate](docs/sdks/webhook/README.md#create)
-- [webhookDelete](docs/sdks/webhook/README.md#delete)
-- [webhookGetAll](docs/sdks/webhook/README.md#getall)
-- [webhookGetLog](docs/sdks/webhook/README.md#getlog)
-- [webhookGetLogs](docs/sdks/webhook/README.md#getlogs)
-- [webhookGet](docs/sdks/webhook/README.md#get)
-- [webhookResendLog](docs/sdks/webhook/README.md#resendlog)
-- [webhookUpdate](docs/sdks/webhook/README.md#update)
-
+- [`accessControlCreate`](docs/sdks/accesscontrol/README.md#create) - Create a signing key
+- [`accessControlDelete`](docs/sdks/accesscontrol/README.md#delete) - Delete Signing Key
+- [`accessControlGet`](docs/sdks/accesscontrol/README.md#get) - Retrieves a signing key
+- [`accessControlGetAll`](docs/sdks/accesscontrol/README.md#getall) - Retrieves signing keys
+- [`accessControlUpdate`](docs/sdks/accesscontrol/README.md#update) - Update a signing key
+- [`assetCreate`](docs/sdks/asset/README.md#create) - Upload an asset
+- [`assetCreateViaUrl`](docs/sdks/asset/README.md#createviaurl) - Upload asset via URL
+- [`assetDelete`](docs/sdks/asset/README.md#delete) - Delete an asset
+- [`assetGet`](docs/sdks/asset/README.md#get) - Retrieves an asset
+- [`assetGetAll`](docs/sdks/asset/README.md#getall) - Retrieve assets
+- [`assetUpdate`](docs/sdks/asset/README.md#update) - Patch an asset
+- [`generateAudioToText`](docs/sdks/generate/README.md#audiototext) - Audio To Text
+- [`generateImageToImage`](docs/sdks/generate/README.md#imagetoimage) - Image To Image
+- [`generateImageToVideo`](docs/sdks/generate/README.md#imagetovideo) - Image To Video
+- [`generateLlm`](docs/sdks/generate/README.md#llm) - LLM
+- [`generateSegmentAnything2`](docs/sdks/generate/README.md#segmentanything2) - Segment Anything 2
+- [`generateTextToImage`](docs/sdks/generate/README.md#texttoimage) - Text To Image
+- [`generateUpscale`](docs/sdks/generate/README.md#upscale) - Upscale
+- [`metricsGetCreatorViewership`](docs/sdks/metrics/README.md#getcreatorviewership) - Query creator viewership metrics
+- [`metricsGetPublicViewership`](docs/sdks/metrics/README.md#getpublicviewership) - Query public total views metrics
+- [`metricsGetRealtimeViewership`](docs/sdks/metrics/README.md#getrealtimeviewership) - Query realtime viewership
+- [`metricsGetUsage`](docs/sdks/metrics/README.md#getusage) - Query usage metrics
+- [`metricsGetViewership`](docs/sdks/metrics/README.md#getviewership) - Query viewership metrics
+- [`multistreamCreate`](docs/sdks/multistream/README.md#create) - Create a multistream target
+- [`multistreamDelete`](docs/sdks/multistream/README.md#delete) - Delete a multistream target
+- [`multistreamGet`](docs/sdks/multistream/README.md#get) - Retrieve a multistream target
+- [`multistreamGetAll`](docs/sdks/multistream/README.md#getall) - Retrieve Multistream Targets
+- [`multistreamUpdate`](docs/sdks/multistream/README.md#update) - Update Multistream Target
+- [`playbackGet`](docs/sdks/playback/README.md#get) - Retrieve Playback Info
+- [`sessionGet`](docs/sdks/session/README.md#get) - Retrieve a session
+- [`sessionGetAll`](docs/sdks/session/README.md#getall) - Retrieve sessions
+- [`sessionGetClips`](docs/sdks/session/README.md#getclips) - Retrieve clips of a session
+- [`sessionGetRecorded`](docs/sdks/session/README.md#getrecorded) - Retrieve Recorded Sessions
+- [`streamAddMultistreamTarget`](docs/sdks/stream/README.md#addmultistreamtarget) - Add a multistream target
+- [`streamCreate`](docs/sdks/stream/README.md#create) - Create a stream
+- [`streamCreateClip`](docs/sdks/stream/README.md#createclip) - Create a clip
+- [`streamDelete`](docs/sdks/stream/README.md#delete) - Delete a stream
+- [`streamGet`](docs/sdks/stream/README.md#get) - Retrieve a stream
+- [`streamGetAll`](docs/sdks/stream/README.md#getall) - Retrieve streams
+- [`streamGetClips`](docs/sdks/stream/README.md#getclips) - Retrieve clips of a livestream
+- [`streamRemoveMultistreamTarget`](docs/sdks/stream/README.md#removemultistreamtarget) - Remove a multistream target
+- [`streamStartPull`](docs/sdks/stream/README.md#startpull) - Start ingest for a pull stream
+- [`streamTerminate`](docs/sdks/stream/README.md#terminate) - Terminates a live stream
+- [`streamUpdate`](docs/sdks/stream/README.md#update) - Update a stream
+- [`taskGet`](docs/sdks/task/README.md#get) - Retrieve a Task
+- [`taskGetAll`](docs/sdks/task/README.md#getall) - Retrieve Tasks
+- [`transcodeCreate`](docs/sdks/transcode/README.md#create) - Transcode a video
+- [`webhookCreate`](docs/sdks/webhook/README.md#create) - Create a webhook
+- [`webhookDelete`](docs/sdks/webhook/README.md#delete) - Delete a webhook
+- [`webhookGet`](docs/sdks/webhook/README.md#get) - Retrieve a webhook
+- [`webhookGetAll`](docs/sdks/webhook/README.md#getall) - Retrieve a Webhook
+- [`webhookGetLog`](docs/sdks/webhook/README.md#getlog) - Retrieve a webhook log
+- [`webhookGetLogs`](docs/sdks/webhook/README.md#getlogs) - Retrieve webhook logs
+- [`webhookResendLog`](docs/sdks/webhook/README.md#resendlog) - Resend a webhook
+- [`webhookUpdate`](docs/sdks/webhook/README.md#update) - Update a webhook
+- ~~[`roomCreate`](docs/sdks/room/README.md#create)~~ - Create a room :warning: **Deprecated**
+- ~~[`roomCreateUser`](docs/sdks/room/README.md#createuser)~~ - Create a room user :warning: **Deprecated**
+- ~~[`roomDelete`](docs/sdks/room/README.md#delete)~~ - Delete a room :warning: **Deprecated**
+- ~~[`roomDeleteUser`](docs/sdks/room/README.md#deleteuser)~~ - Remove a user from the room :warning: **Deprecated**
+- ~~[`roomGet`](docs/sdks/room/README.md#get)~~ - Retrieve a room :warning: **Deprecated**
+- ~~[`roomGetUser`](docs/sdks/room/README.md#getuser)~~ - Get user details :warning: **Deprecated**
+- ~~[`roomStartEgress`](docs/sdks/room/README.md#startegress)~~ - Start room RTMP egress :warning: **Deprecated**
+- ~~[`roomStopEgress`](docs/sdks/room/README.md#stopegress)~~ - Stop room RTMP egress :warning: **Deprecated**
+- ~~[`roomUpdateUser`](docs/sdks/room/README.md#updateuser)~~ - Update a room user :warning: **Deprecated**
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -581,7 +593,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {
@@ -690,7 +702,7 @@ async function run() {
     multistream: {
       targets: [
         {
-          profile: "720p",
+          profile: "720p0",
           videoOnly: false,
           id: "PUSH123",
           spec: {

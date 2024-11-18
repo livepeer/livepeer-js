@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CreatorId,
   CreatorId$inboundSchema,
@@ -281,6 +284,20 @@ export namespace Stream3$ {
   export type Outbound = Stream3$Outbound;
 }
 
+export function stream3ToJSON(stream3: Stream3): string {
+  return JSON.stringify(Stream3$outboundSchema.parse(stream3));
+}
+
+export function stream3FromJSON(
+  jsonString: string,
+): SafeParseResult<Stream3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Stream3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Stream3' from JSON`,
+  );
+}
+
 /** @internal */
 export const StreamUserTags$inboundSchema: z.ZodType<
   StreamUserTags,
@@ -317,6 +334,20 @@ export namespace StreamUserTags$ {
   export const outboundSchema = StreamUserTags$outboundSchema;
   /** @deprecated use `StreamUserTags$Outbound` instead. */
   export type Outbound = StreamUserTags$Outbound;
+}
+
+export function streamUserTagsToJSON(streamUserTags: StreamUserTags): string {
+  return JSON.stringify(StreamUserTags$outboundSchema.parse(streamUserTags));
+}
+
+export function streamUserTagsFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamUserTags, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamUserTags$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamUserTags' from JSON`,
+  );
 }
 
 /** @internal */
@@ -368,6 +399,20 @@ export namespace StreamIsMobile$ {
   export type Outbound = StreamIsMobile$Outbound;
 }
 
+export function streamIsMobileToJSON(streamIsMobile: StreamIsMobile): string {
+  return JSON.stringify(StreamIsMobile$outboundSchema.parse(streamIsMobile));
+}
+
+export function streamIsMobileFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamIsMobile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamIsMobile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamIsMobile' from JSON`,
+  );
+}
+
 /** @internal */
 export const StreamLocation$inboundSchema: z.ZodType<
   StreamLocation,
@@ -405,6 +450,20 @@ export namespace StreamLocation$ {
   export const outboundSchema = StreamLocation$outboundSchema;
   /** @deprecated use `StreamLocation$Outbound` instead. */
   export type Outbound = StreamLocation$Outbound;
+}
+
+export function streamLocationToJSON(streamLocation: StreamLocation): string {
+  return JSON.stringify(StreamLocation$outboundSchema.parse(streamLocation));
+}
+
+export function streamLocationFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamLocation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamLocation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamLocation' from JSON`,
+  );
 }
 
 /** @internal */
@@ -452,6 +511,20 @@ export namespace StreamPull$ {
   export type Outbound = StreamPull$Outbound;
 }
 
+export function streamPullToJSON(streamPull: StreamPull): string {
+  return JSON.stringify(StreamPull$outboundSchema.parse(streamPull));
+}
+
+export function streamPullFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamPull, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamPull$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamPull' from JSON`,
+  );
+}
+
 /** @internal */
 export const StreamRecordingSpec$inboundSchema: z.ZodType<
   StreamRecordingSpec,
@@ -486,6 +559,24 @@ export namespace StreamRecordingSpec$ {
   export const outboundSchema = StreamRecordingSpec$outboundSchema;
   /** @deprecated use `StreamRecordingSpec$Outbound` instead. */
   export type Outbound = StreamRecordingSpec$Outbound;
+}
+
+export function streamRecordingSpecToJSON(
+  streamRecordingSpec: StreamRecordingSpec,
+): string {
+  return JSON.stringify(
+    StreamRecordingSpec$outboundSchema.parse(streamRecordingSpec),
+  );
+}
+
+export function streamRecordingSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamRecordingSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamRecordingSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamRecordingSpec' from JSON`,
+  );
 }
 
 /** @internal */
@@ -524,6 +615,24 @@ export namespace StreamMultistream$ {
   export type Outbound = StreamMultistream$Outbound;
 }
 
+export function streamMultistreamToJSON(
+  streamMultistream: StreamMultistream,
+): string {
+  return JSON.stringify(
+    StreamMultistream$outboundSchema.parse(streamMultistream),
+  );
+}
+
+export function streamMultistreamFromJSON(
+  jsonString: string,
+): SafeParseResult<StreamMultistream, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StreamMultistream$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StreamMultistream' from JSON`,
+  );
+}
+
 /** @internal */
 export const Renditions$inboundSchema: z.ZodType<
   Renditions,
@@ -552,6 +661,20 @@ export namespace Renditions$ {
   export const outboundSchema = Renditions$outboundSchema;
   /** @deprecated use `Renditions$Outbound` instead. */
   export type Outbound = Renditions$Outbound;
+}
+
+export function renditionsToJSON(renditions: Renditions): string {
+  return JSON.stringify(Renditions$outboundSchema.parse(renditions));
+}
+
+export function renditionsFromJSON(
+  jsonString: string,
+): SafeParseResult<Renditions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Renditions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Renditions' from JSON`,
+  );
 }
 
 /** @internal */
@@ -695,4 +818,18 @@ export namespace Stream$ {
   export const outboundSchema = Stream$outboundSchema;
   /** @deprecated use `Stream$Outbound` instead. */
   export type Outbound = Stream$Outbound;
+}
+
+export function streamToJSON(stream: Stream): string {
+  return JSON.stringify(Stream$outboundSchema.parse(stream));
+}
+
+export function streamFromJSON(
+  jsonString: string,
+): SafeParseResult<Stream, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Stream$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Stream' from JSON`,
+  );
 }

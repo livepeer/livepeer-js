@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Start timestamp for the query range (inclusive)
@@ -107,7 +109,7 @@ export type GetViewershipMetricsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -137,6 +139,20 @@ export namespace From$ {
   export type Outbound = From$Outbound;
 }
 
+export function fromToJSON(from: From): string {
+  return JSON.stringify(From$outboundSchema.parse(from));
+}
+
+export function fromFromJSON(
+  jsonString: string,
+): SafeParseResult<From, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => From$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'From' from JSON`,
+  );
+}
+
 /** @internal */
 export const To$inboundSchema: z.ZodType<To, z.ZodTypeDef, unknown> = z.union([
   z.string().datetime({ offset: true }).transform(v => new Date(v)),
@@ -161,6 +177,20 @@ export namespace To$ {
   export const outboundSchema = To$outboundSchema;
   /** @deprecated use `To$Outbound` instead. */
   export type Outbound = To$Outbound;
+}
+
+export function toToJSON(to: To): string {
+  return JSON.stringify(To$outboundSchema.parse(to));
+}
+
+export function toFromJSON(
+  jsonString: string,
+): SafeParseResult<To, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => To$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'To' from JSON`,
+  );
 }
 
 /** @internal */
@@ -276,6 +306,26 @@ export namespace GetViewershipMetricsRequest$ {
   export type Outbound = GetViewershipMetricsRequest$Outbound;
 }
 
+export function getViewershipMetricsRequestToJSON(
+  getViewershipMetricsRequest: GetViewershipMetricsRequest,
+): string {
+  return JSON.stringify(
+    GetViewershipMetricsRequest$outboundSchema.parse(
+      getViewershipMetricsRequest,
+    ),
+  );
+}
+
+export function getViewershipMetricsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetViewershipMetricsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetViewershipMetricsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetViewershipMetricsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetViewershipMetricsResponse$inboundSchema: z.ZodType<
   GetViewershipMetricsResponse,
@@ -286,7 +336,7 @@ export const GetViewershipMetricsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.ViewershipMetric$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -301,7 +351,7 @@ export type GetViewershipMetricsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.ViewershipMetric$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -316,7 +366,7 @@ export const GetViewershipMetricsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.ViewershipMetric$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -336,4 +386,24 @@ export namespace GetViewershipMetricsResponse$ {
   export const outboundSchema = GetViewershipMetricsResponse$outboundSchema;
   /** @deprecated use `GetViewershipMetricsResponse$Outbound` instead. */
   export type Outbound = GetViewershipMetricsResponse$Outbound;
+}
+
+export function getViewershipMetricsResponseToJSON(
+  getViewershipMetricsResponse: GetViewershipMetricsResponse,
+): string {
+  return JSON.stringify(
+    GetViewershipMetricsResponse$outboundSchema.parse(
+      getViewershipMetricsResponse,
+    ),
+  );
+}
+
+export function getViewershipMetricsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetViewershipMetricsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetViewershipMetricsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetViewershipMetricsResponse' from JSON`,
+  );
 }

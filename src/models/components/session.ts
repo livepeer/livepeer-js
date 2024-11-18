@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   FfmpegProfile,
   FfmpegProfile$inboundSchema,
@@ -242,4 +245,18 @@ export namespace Session$ {
   export const outboundSchema = Session$outboundSchema;
   /** @deprecated use `Session$Outbound` instead. */
   export type Outbound = Session$Outbound;
+}
+
+export function sessionToJSON(session: Session): string {
+  return JSON.stringify(Session$outboundSchema.parse(session));
+}
+
+export function sessionFromJSON(
+  jsonString: string,
+): SafeParseResult<Session, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Session$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Session' from JSON`,
+  );
 }

@@ -142,14 +142,14 @@ export class Asset extends ClientSDK {
    * Patch an asset
    */
   async update(
-    assetId: string,
     assetPatchPayload: components.AssetPatchPayload,
+    assetId: string,
     options?: RequestOptions,
   ): Promise<operations.UpdateAssetResponse> {
     return unwrapAsync(assetUpdate(
       this,
-      assetId,
       assetPatchPayload,
+      assetId,
       options,
     ));
   }

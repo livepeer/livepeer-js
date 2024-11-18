@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Attestation,
   Attestation$inboundSchema,
@@ -228,6 +231,24 @@ export namespace PlaybackInfoSource$ {
   export type Outbound = PlaybackInfoSource$Outbound;
 }
 
+export function playbackInfoSourceToJSON(
+  playbackInfoSource: PlaybackInfoSource,
+): string {
+  return JSON.stringify(
+    PlaybackInfoSource$outboundSchema.parse(playbackInfoSource),
+  );
+}
+
+export function playbackInfoSourceFromJSON(
+  jsonString: string,
+): SafeParseResult<PlaybackInfoSource, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PlaybackInfoSource$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PlaybackInfoSource' from JSON`,
+  );
+}
+
 /** @internal */
 export const PlaybackInfoHrn$inboundSchema: z.ZodNativeEnum<
   typeof PlaybackInfoHrn
@@ -315,6 +336,20 @@ export namespace DvrPlayback$ {
   export type Outbound = DvrPlayback$Outbound;
 }
 
+export function dvrPlaybackToJSON(dvrPlayback: DvrPlayback): string {
+  return JSON.stringify(DvrPlayback$outboundSchema.parse(dvrPlayback));
+}
+
+export function dvrPlaybackFromJSON(
+  jsonString: string,
+): SafeParseResult<DvrPlayback, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DvrPlayback$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DvrPlayback' from JSON`,
+  );
+}
+
 /** @internal */
 export const Meta$inboundSchema: z.ZodType<Meta, z.ZodTypeDef, unknown> = z
   .object({
@@ -357,6 +392,20 @@ export namespace Meta$ {
   export type Outbound = Meta$Outbound;
 }
 
+export function metaToJSON(meta: Meta): string {
+  return JSON.stringify(Meta$outboundSchema.parse(meta));
+}
+
+export function metaFromJSON(
+  jsonString: string,
+): SafeParseResult<Meta, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Meta$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Meta' from JSON`,
+  );
+}
+
 /** @internal */
 export const PlaybackInfo$inboundSchema: z.ZodType<
   PlaybackInfo,
@@ -394,4 +443,18 @@ export namespace PlaybackInfo$ {
   export const outboundSchema = PlaybackInfo$outboundSchema;
   /** @deprecated use `PlaybackInfo$Outbound` instead. */
   export type Outbound = PlaybackInfo$Outbound;
+}
+
+export function playbackInfoToJSON(playbackInfo: PlaybackInfo): string {
+  return JSON.stringify(PlaybackInfo$outboundSchema.parse(playbackInfo));
+}
+
+export function playbackInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<PlaybackInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PlaybackInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PlaybackInfo' from JSON`,
+  );
 }

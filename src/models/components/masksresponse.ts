@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Response model for object segmentation.
@@ -62,4 +65,18 @@ export namespace MasksResponse$ {
   export const outboundSchema = MasksResponse$outboundSchema;
   /** @deprecated use `MasksResponse$Outbound` instead. */
   export type Outbound = MasksResponse$Outbound;
+}
+
+export function masksResponseToJSON(masksResponse: MasksResponse): string {
+  return JSON.stringify(MasksResponse$outboundSchema.parse(masksResponse));
+}
+
+export function masksResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<MasksResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MasksResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MasksResponse' from JSON`,
+  );
 }

@@ -10,8 +10,9 @@ generation:
     requestResponseComponentNamesFeb2024: false
   auth:
     oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
 typescript:
-  version: 3.4.0
+  version: 3.5.0
   additionalDependencies:
     dependencies:
       jest: ^29.7.0
@@ -23,8 +24,10 @@ typescript:
   additionalPackageJSON: {}
   author: Livepeer
   clientServerStatusCodesAsErrors: true
+  defaultErrorName: SDKError
   enumFormat: enum
   flattenGlobalSecurity: true
+  flatteningOrder: body-first
   imports:
     option: openapi
     paths:

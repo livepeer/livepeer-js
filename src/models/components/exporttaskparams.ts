@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   IpfsExportParams,
   IpfsExportParams$inboundSchema,
@@ -80,6 +83,24 @@ export namespace ExportTaskParams2$ {
   export type Outbound = ExportTaskParams2$Outbound;
 }
 
+export function exportTaskParams2ToJSON(
+  exportTaskParams2: ExportTaskParams2,
+): string {
+  return JSON.stringify(
+    ExportTaskParams2$outboundSchema.parse(exportTaskParams2),
+  );
+}
+
+export function exportTaskParams2FromJSON(
+  jsonString: string,
+): SafeParseResult<ExportTaskParams2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExportTaskParams2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExportTaskParams2' from JSON`,
+  );
+}
+
 /** @internal */
 export const Custom$inboundSchema: z.ZodType<Custom, z.ZodTypeDef, unknown> = z
   .object({
@@ -119,6 +140,20 @@ export namespace Custom$ {
   export type Outbound = Custom$Outbound;
 }
 
+export function customToJSON(custom: Custom): string {
+  return JSON.stringify(Custom$outboundSchema.parse(custom));
+}
+
+export function customFromJSON(
+  jsonString: string,
+): SafeParseResult<Custom, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Custom$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Custom' from JSON`,
+  );
+}
+
 /** @internal */
 export const ExportTaskParams1$inboundSchema: z.ZodType<
   ExportTaskParams1,
@@ -153,6 +188,24 @@ export namespace ExportTaskParams1$ {
   export const outboundSchema = ExportTaskParams1$outboundSchema;
   /** @deprecated use `ExportTaskParams1$Outbound` instead. */
   export type Outbound = ExportTaskParams1$Outbound;
+}
+
+export function exportTaskParams1ToJSON(
+  exportTaskParams1: ExportTaskParams1,
+): string {
+  return JSON.stringify(
+    ExportTaskParams1$outboundSchema.parse(exportTaskParams1),
+  );
+}
+
+export function exportTaskParams1FromJSON(
+  jsonString: string,
+): SafeParseResult<ExportTaskParams1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExportTaskParams1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExportTaskParams1' from JSON`,
+  );
 }
 
 /** @internal */
@@ -191,4 +244,22 @@ export namespace ExportTaskParams$ {
   export const outboundSchema = ExportTaskParams$outboundSchema;
   /** @deprecated use `ExportTaskParams$Outbound` instead. */
   export type Outbound = ExportTaskParams$Outbound;
+}
+
+export function exportTaskParamsToJSON(
+  exportTaskParams: ExportTaskParams,
+): string {
+  return JSON.stringify(
+    ExportTaskParams$outboundSchema.parse(exportTaskParams),
+  );
+}
+
+export function exportTaskParamsFromJSON(
+  jsonString: string,
+): SafeParseResult<ExportTaskParams, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExportTaskParams$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExportTaskParams' from JSON`,
+  );
 }

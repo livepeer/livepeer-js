@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetAssetsResponse = {
   /**
@@ -27,7 +29,7 @@ export type GetAssetsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const GetAssetsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Asset$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type GetAssetsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Asset$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const GetAssetsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Asset$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace GetAssetsResponse$ {
   export const outboundSchema = GetAssetsResponse$outboundSchema;
   /** @deprecated use `GetAssetsResponse$Outbound` instead. */
   export type Outbound = GetAssetsResponse$Outbound;
+}
+
+export function getAssetsResponseToJSON(
+  getAssetsResponse: GetAssetsResponse,
+): string {
+  return JSON.stringify(
+    GetAssetsResponse$outboundSchema.parse(getAssetsResponse),
+  );
+}
+
+export function getAssetsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetAssetsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetAssetsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetAssetsResponse' from JSON`,
+  );
 }

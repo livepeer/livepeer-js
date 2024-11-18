@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   Media,
   Media$inboundSchema,
@@ -54,4 +57,18 @@ export namespace VideoResponse$ {
   export const outboundSchema = VideoResponse$outboundSchema;
   /** @deprecated use `VideoResponse$Outbound` instead. */
   export type Outbound = VideoResponse$Outbound;
+}
+
+export function videoResponseToJSON(videoResponse: VideoResponse): string {
+  return JSON.stringify(VideoResponse$outboundSchema.parse(videoResponse));
+}
+
+export function videoResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<VideoResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VideoResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VideoResponse' from JSON`,
+  );
 }

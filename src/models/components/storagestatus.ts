@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Phase of the asset storage
@@ -111,6 +114,20 @@ export namespace Tasks$ {
   export type Outbound = Tasks$Outbound;
 }
 
+export function tasksToJSON(tasks: Tasks): string {
+  return JSON.stringify(Tasks$outboundSchema.parse(tasks));
+}
+
+export function tasksFromJSON(
+  jsonString: string,
+): SafeParseResult<Tasks, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Tasks$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Tasks' from JSON`,
+  );
+}
+
 /** @internal */
 export const StorageStatus$inboundSchema: z.ZodType<
   StorageStatus,
@@ -154,4 +171,18 @@ export namespace StorageStatus$ {
   export const outboundSchema = StorageStatus$outboundSchema;
   /** @deprecated use `StorageStatus$Outbound` instead. */
   export type Outbound = StorageStatus$Outbound;
+}
+
+export function storageStatusToJSON(storageStatus: StorageStatus): string {
+  return JSON.stringify(StorageStatus$outboundSchema.parse(storageStatus));
+}
+
+export function storageStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<StorageStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StorageStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StorageStatus' from JSON`,
+  );
 }

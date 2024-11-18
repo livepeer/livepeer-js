@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Encryption = {
   /**
@@ -45,4 +48,18 @@ export namespace Encryption$ {
   export const outboundSchema = Encryption$outboundSchema;
   /** @deprecated use `Encryption$Outbound` instead. */
   export type Outbound = Encryption$Outbound;
+}
+
+export function encryptionToJSON(encryption: Encryption): string {
+  return JSON.stringify(Encryption$outboundSchema.parse(encryption));
+}
+
+export function encryptionFromJSON(
+  jsonString: string,
+): SafeParseResult<Encryption, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Encryption$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Encryption' from JSON`,
+  );
 }

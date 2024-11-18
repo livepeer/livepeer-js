@@ -4,11 +4,14 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type BodyGenImageToVideoImage = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 export type BodyGenImageToVideo = {
@@ -65,13 +68,14 @@ export const BodyGenImageToVideoImage$inboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
 /** @internal */
 export type BodyGenImageToVideoImage$Outbound = {
   fileName: string;
-  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
 /** @internal */
@@ -85,6 +89,7 @@ export const BodyGenImageToVideoImage$outboundSchema: z.ZodType<
     z.instanceof(ReadableStream<Uint8Array>),
     z.instanceof(Blob),
     z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
   ]),
 });
 
@@ -99,6 +104,24 @@ export namespace BodyGenImageToVideoImage$ {
   export const outboundSchema = BodyGenImageToVideoImage$outboundSchema;
   /** @deprecated use `BodyGenImageToVideoImage$Outbound` instead. */
   export type Outbound = BodyGenImageToVideoImage$Outbound;
+}
+
+export function bodyGenImageToVideoImageToJSON(
+  bodyGenImageToVideoImage: BodyGenImageToVideoImage,
+): string {
+  return JSON.stringify(
+    BodyGenImageToVideoImage$outboundSchema.parse(bodyGenImageToVideoImage),
+  );
+}
+
+export function bodyGenImageToVideoImageFromJSON(
+  jsonString: string,
+): SafeParseResult<BodyGenImageToVideoImage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BodyGenImageToVideoImage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BodyGenImageToVideoImage' from JSON`,
+  );
 }
 
 /** @internal */
@@ -184,4 +207,22 @@ export namespace BodyGenImageToVideo$ {
   export const outboundSchema = BodyGenImageToVideo$outboundSchema;
   /** @deprecated use `BodyGenImageToVideo$Outbound` instead. */
   export type Outbound = BodyGenImageToVideo$Outbound;
+}
+
+export function bodyGenImageToVideoToJSON(
+  bodyGenImageToVideo: BodyGenImageToVideo,
+): string {
+  return JSON.stringify(
+    BodyGenImageToVideo$outboundSchema.parse(bodyGenImageToVideo),
+  );
+}
+
+export function bodyGenImageToVideoFromJSON(
+  jsonString: string,
+): SafeParseResult<BodyGenImageToVideo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BodyGenImageToVideo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BodyGenImageToVideo' from JSON`,
+  );
 }

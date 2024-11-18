@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type TerminateStreamRequest = {
   /**
@@ -29,7 +32,7 @@ export type TerminateStreamResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -68,6 +71,24 @@ export namespace TerminateStreamRequest$ {
   export type Outbound = TerminateStreamRequest$Outbound;
 }
 
+export function terminateStreamRequestToJSON(
+  terminateStreamRequest: TerminateStreamRequest,
+): string {
+  return JSON.stringify(
+    TerminateStreamRequest$outboundSchema.parse(terminateStreamRequest),
+  );
+}
+
+export function terminateStreamRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<TerminateStreamRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TerminateStreamRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TerminateStreamRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const TerminateStreamResponse$inboundSchema: z.ZodType<
   TerminateStreamResponse,
@@ -77,7 +98,7 @@ export const TerminateStreamResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -91,7 +112,7 @@ export type TerminateStreamResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -105,7 +126,7 @@ export const TerminateStreamResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -125,4 +146,22 @@ export namespace TerminateStreamResponse$ {
   export const outboundSchema = TerminateStreamResponse$outboundSchema;
   /** @deprecated use `TerminateStreamResponse$Outbound` instead. */
   export type Outbound = TerminateStreamResponse$Outbound;
+}
+
+export function terminateStreamResponseToJSON(
+  terminateStreamResponse: TerminateStreamResponse,
+): string {
+  return JSON.stringify(
+    TerminateStreamResponse$outboundSchema.parse(terminateStreamResponse),
+  );
+}
+
+export function terminateStreamResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<TerminateStreamResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TerminateStreamResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TerminateStreamResponse' from JSON`,
+  );
 }

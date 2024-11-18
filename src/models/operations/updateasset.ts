@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateAssetRequest = {
   /**
@@ -35,7 +37,7 @@ export type UpdateAssetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -85,6 +87,24 @@ export namespace UpdateAssetRequest$ {
   export type Outbound = UpdateAssetRequest$Outbound;
 }
 
+export function updateAssetRequestToJSON(
+  updateAssetRequest: UpdateAssetRequest,
+): string {
+  return JSON.stringify(
+    UpdateAssetRequest$outboundSchema.parse(updateAssetRequest),
+  );
+}
+
+export function updateAssetRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateAssetRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateAssetRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateAssetRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const UpdateAssetResponse$inboundSchema: z.ZodType<
   UpdateAssetResponse,
@@ -95,7 +115,7 @@ export const UpdateAssetResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   asset: components.Asset$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -110,7 +130,7 @@ export type UpdateAssetResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   asset?: components.Asset$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -125,7 +145,7 @@ export const UpdateAssetResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   asset: components.Asset$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -145,4 +165,22 @@ export namespace UpdateAssetResponse$ {
   export const outboundSchema = UpdateAssetResponse$outboundSchema;
   /** @deprecated use `UpdateAssetResponse$Outbound` instead. */
   export type Outbound = UpdateAssetResponse$Outbound;
+}
+
+export function updateAssetResponseToJSON(
+  updateAssetResponse: UpdateAssetResponse,
+): string {
+  return JSON.stringify(
+    UpdateAssetResponse$outboundSchema.parse(updateAssetResponse),
+  );
+}
+
+export function updateAssetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateAssetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateAssetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateAssetResponse' from JSON`,
+  );
 }

@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import {
   HTTPError,
   HTTPError$inboundSchema,
@@ -15,6 +17,7 @@ import {
   HTTPValidationError$Outbound,
   HTTPValidationError$outboundSchema,
 } from "./httpvalidationerror.js";
+import { SDKValidationError } from "./sdkvalidationerror.js";
 import {
   StudioApiError,
   StudioApiError$inboundSchema,
@@ -34,6 +37,13 @@ export type GenAudioToTextGenerateResponse500ResponseBody =
  */
 export type GenAudioToTextGenerateResponse422ResponseBody =
   | HTTPValidationError
+  | StudioApiError;
+
+/**
+ * Unsupported Media Type
+ */
+export type GenAudioToTextGenerateResponse415ResponseBody =
+  | HTTPError
   | StudioApiError;
 
 /**
@@ -89,6 +99,33 @@ export namespace GenAudioToTextGenerateResponse500ResponseBody$ {
   export type Outbound = GenAudioToTextGenerateResponse500ResponseBody$Outbound;
 }
 
+export function genAudioToTextGenerateResponse500ResponseBodyToJSON(
+  genAudioToTextGenerateResponse500ResponseBody:
+    GenAudioToTextGenerateResponse500ResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextGenerateResponse500ResponseBody$outboundSchema.parse(
+      genAudioToTextGenerateResponse500ResponseBody,
+    ),
+  );
+}
+
+export function genAudioToTextGenerateResponse500ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenAudioToTextGenerateResponse500ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenAudioToTextGenerateResponse500ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenAudioToTextGenerateResponse500ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenAudioToTextGenerateResponse422ResponseBody$inboundSchema:
   z.ZodType<
@@ -131,6 +168,96 @@ export namespace GenAudioToTextGenerateResponse422ResponseBody$ {
   export type Outbound = GenAudioToTextGenerateResponse422ResponseBody$Outbound;
 }
 
+export function genAudioToTextGenerateResponse422ResponseBodyToJSON(
+  genAudioToTextGenerateResponse422ResponseBody:
+    GenAudioToTextGenerateResponse422ResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextGenerateResponse422ResponseBody$outboundSchema.parse(
+      genAudioToTextGenerateResponse422ResponseBody,
+    ),
+  );
+}
+
+export function genAudioToTextGenerateResponse422ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenAudioToTextGenerateResponse422ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenAudioToTextGenerateResponse422ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenAudioToTextGenerateResponse422ResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GenAudioToTextGenerateResponse415ResponseBody$inboundSchema:
+  z.ZodType<
+    GenAudioToTextGenerateResponse415ResponseBody,
+    z.ZodTypeDef,
+    unknown
+  > = z.union([HTTPError$inboundSchema, StudioApiError$inboundSchema]);
+
+/** @internal */
+export type GenAudioToTextGenerateResponse415ResponseBody$Outbound =
+  | HTTPError$Outbound
+  | StudioApiError$Outbound;
+
+/** @internal */
+export const GenAudioToTextGenerateResponse415ResponseBody$outboundSchema:
+  z.ZodType<
+    GenAudioToTextGenerateResponse415ResponseBody$Outbound,
+    z.ZodTypeDef,
+    GenAudioToTextGenerateResponse415ResponseBody
+  > = z.union([HTTPError$outboundSchema, StudioApiError$outboundSchema]);
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GenAudioToTextGenerateResponse415ResponseBody$ {
+  /** @deprecated use `GenAudioToTextGenerateResponse415ResponseBody$inboundSchema` instead. */
+  export const inboundSchema =
+    GenAudioToTextGenerateResponse415ResponseBody$inboundSchema;
+  /** @deprecated use `GenAudioToTextGenerateResponse415ResponseBody$outboundSchema` instead. */
+  export const outboundSchema =
+    GenAudioToTextGenerateResponse415ResponseBody$outboundSchema;
+  /** @deprecated use `GenAudioToTextGenerateResponse415ResponseBody$Outbound` instead. */
+  export type Outbound = GenAudioToTextGenerateResponse415ResponseBody$Outbound;
+}
+
+export function genAudioToTextGenerateResponse415ResponseBodyToJSON(
+  genAudioToTextGenerateResponse415ResponseBody:
+    GenAudioToTextGenerateResponse415ResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextGenerateResponse415ResponseBody$outboundSchema.parse(
+      genAudioToTextGenerateResponse415ResponseBody,
+    ),
+  );
+}
+
+export function genAudioToTextGenerateResponse415ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenAudioToTextGenerateResponse415ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenAudioToTextGenerateResponse415ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenAudioToTextGenerateResponse415ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenAudioToTextGenerateResponseResponseBody$inboundSchema:
   z.ZodType<GenAudioToTextGenerateResponseResponseBody, z.ZodTypeDef, unknown> =
@@ -162,6 +289,33 @@ export namespace GenAudioToTextGenerateResponseResponseBody$ {
     GenAudioToTextGenerateResponseResponseBody$outboundSchema;
   /** @deprecated use `GenAudioToTextGenerateResponseResponseBody$Outbound` instead. */
   export type Outbound = GenAudioToTextGenerateResponseResponseBody$Outbound;
+}
+
+export function genAudioToTextGenerateResponseResponseBodyToJSON(
+  genAudioToTextGenerateResponseResponseBody:
+    GenAudioToTextGenerateResponseResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextGenerateResponseResponseBody$outboundSchema.parse(
+      genAudioToTextGenerateResponseResponseBody,
+    ),
+  );
+}
+
+export function genAudioToTextGenerateResponseResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenAudioToTextGenerateResponseResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenAudioToTextGenerateResponseResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenAudioToTextGenerateResponseResponseBody' from JSON`,
+  );
 }
 
 /** @internal */
@@ -197,6 +351,27 @@ export namespace GenAudioToTextGenerateResponseBody$ {
   export type Outbound = GenAudioToTextGenerateResponseBody$Outbound;
 }
 
+export function genAudioToTextGenerateResponseBodyToJSON(
+  genAudioToTextGenerateResponseBody: GenAudioToTextGenerateResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextGenerateResponseBody$outboundSchema.parse(
+      genAudioToTextGenerateResponseBody,
+    ),
+  );
+}
+
+export function genAudioToTextGenerateResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenAudioToTextGenerateResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenAudioToTextGenerateResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenAudioToTextGenerateResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenAudioToTextResponseBody$inboundSchema: z.ZodType<
   GenAudioToTextResponseBody,
@@ -227,4 +402,22 @@ export namespace GenAudioToTextResponseBody$ {
   export const outboundSchema = GenAudioToTextResponseBody$outboundSchema;
   /** @deprecated use `GenAudioToTextResponseBody$Outbound` instead. */
   export type Outbound = GenAudioToTextResponseBody$Outbound;
+}
+
+export function genAudioToTextResponseBodyToJSON(
+  genAudioToTextResponseBody: GenAudioToTextResponseBody,
+): string {
+  return JSON.stringify(
+    GenAudioToTextResponseBody$outboundSchema.parse(genAudioToTextResponseBody),
+  );
+}
+
+export function genAudioToTextResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenAudioToTextResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenAudioToTextResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenAudioToTextResponseBody' from JSON`,
+  );
 }

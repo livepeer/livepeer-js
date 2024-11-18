@@ -7,7 +7,7 @@ Output of the task
 ```typescript
 import {
   AssetPhase,
-  AssetSchemasSource3Type,
+  AssetSchemasSourceType,
   AssetSchemasVideoSpecType,
   AssetType,
   CreatorIdType,
@@ -26,7 +26,8 @@ let value: Output = {
       playbackId: "eaw4nk06ts2d0mzb",
       playbackUrl:
         "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8",
-      downloadUrl: "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video",
+      downloadUrl:
+        "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4",
       playbackPolicy: {
         type: Type.Webhook,
         webhookId: "1bde4o2i6xycudoy",
@@ -36,7 +37,8 @@ let value: Output = {
         refreshInterval: 600,
       },
       source: {
-        type: AssetSchemasSource3Type.Clip,
+        type: AssetSchemasSourceType.Recording,
+        sessionId: "<id>",
       },
       creatorId: {
         type: CreatorIdType.Unverified,
@@ -72,7 +74,7 @@ let value: Output = {
         },
       },
       status: {
-        phase: AssetPhase.Ready,
+        phase: AssetPhase.Uploading,
         updatedAt: 1587667174725,
       },
       name: "filename.mp4",

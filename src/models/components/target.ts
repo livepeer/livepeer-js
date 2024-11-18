@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Inline multistream target object. Will automatically
@@ -87,6 +90,20 @@ export namespace TargetSpec$ {
   export type Outbound = TargetSpec$Outbound;
 }
 
+export function targetSpecToJSON(targetSpec: TargetSpec): string {
+  return JSON.stringify(TargetSpec$outboundSchema.parse(targetSpec));
+}
+
+export function targetSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<TargetSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TargetSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TargetSpec' from JSON`,
+  );
+}
+
 /** @internal */
 export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
   .object({
@@ -127,4 +144,18 @@ export namespace Target$ {
   export const outboundSchema = Target$outboundSchema;
   /** @deprecated use `Target$Outbound` instead. */
   export type Outbound = Target$Outbound;
+}
+
+export function targetToJSON(target: Target): string {
+  return JSON.stringify(Target$outboundSchema.parse(target));
+}
+
+export function targetFromJSON(
+  jsonString: string,
+): SafeParseResult<Target, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Target$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Target' from JSON`,
+  );
 }

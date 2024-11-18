@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Participants = {
   /**
@@ -88,6 +91,20 @@ export namespace Participants$ {
   export type Outbound = Participants$Outbound;
 }
 
+export function participantsToJSON(participants: Participants): string {
+  return JSON.stringify(Participants$outboundSchema.parse(participants));
+}
+
+export function participantsFromJSON(
+  jsonString: string,
+): SafeParseResult<Participants, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Participants$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Participants' from JSON`,
+  );
+}
+
 /** @internal */
 export const Room$inboundSchema: z.ZodType<Room, z.ZodTypeDef, unknown> = z
   .object({
@@ -128,4 +145,18 @@ export namespace Room$ {
   export const outboundSchema = Room$outboundSchema;
   /** @deprecated use `Room$Outbound` instead. */
   export type Outbound = Room$Outbound;
+}
+
+export function roomToJSON(room: Room): string {
+  return JSON.stringify(Room$outboundSchema.parse(room));
+}
+
+export function roomFromJSON(
+  jsonString: string,
+): SafeParseResult<Room, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Room$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Room' from JSON`,
+  );
 }

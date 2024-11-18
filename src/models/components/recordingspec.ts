@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   TranscodeProfile,
   TranscodeProfile$inboundSchema,
@@ -48,4 +51,18 @@ export namespace RecordingSpec$ {
   export const outboundSchema = RecordingSpec$outboundSchema;
   /** @deprecated use `RecordingSpec$Outbound` instead. */
   export type Outbound = RecordingSpec$Outbound;
+}
+
+export function recordingSpecToJSON(recordingSpec: RecordingSpec): string {
+  return JSON.stringify(RecordingSpec$outboundSchema.parse(recordingSpec));
+}
+
+export function recordingSpecFromJSON(
+  jsonString: string,
+): SafeParseResult<RecordingSpec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RecordingSpec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RecordingSpec' from JSON`,
+  );
 }

@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * An individual metric about viewership of a stream/asset. Necessarily, at least
@@ -208,4 +211,22 @@ export namespace ViewershipMetric$ {
   export const outboundSchema = ViewershipMetric$outboundSchema;
   /** @deprecated use `ViewershipMetric$Outbound` instead. */
   export type Outbound = ViewershipMetric$Outbound;
+}
+
+export function viewershipMetricToJSON(
+  viewershipMetric: ViewershipMetric,
+): string {
+  return JSON.stringify(
+    ViewershipMetric$outboundSchema.parse(viewershipMetric),
+  );
+}
+
+export function viewershipMetricFromJSON(
+  jsonString: string,
+): SafeParseResult<ViewershipMetric, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ViewershipMetric$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ViewershipMetric' from JSON`,
+  );
 }

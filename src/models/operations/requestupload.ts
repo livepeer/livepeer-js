@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Task = {
   id: string;
@@ -47,7 +49,7 @@ export type RequestUploadResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -78,6 +80,20 @@ export namespace Task$ {
   export const outboundSchema = Task$outboundSchema;
   /** @deprecated use `Task$Outbound` instead. */
   export type Outbound = Task$Outbound;
+}
+
+export function taskToJSON(task: Task): string {
+  return JSON.stringify(Task$outboundSchema.parse(task));
+}
+
+export function taskFromJSON(
+  jsonString: string,
+): SafeParseResult<Task, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Task$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Task' from JSON`,
+  );
 }
 
 /** @internal */
@@ -125,6 +141,24 @@ export namespace RequestUploadData$ {
   export type Outbound = RequestUploadData$Outbound;
 }
 
+export function requestUploadDataToJSON(
+  requestUploadData: RequestUploadData,
+): string {
+  return JSON.stringify(
+    RequestUploadData$outboundSchema.parse(requestUploadData),
+  );
+}
+
+export function requestUploadDataFromJSON(
+  jsonString: string,
+): SafeParseResult<RequestUploadData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RequestUploadData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RequestUploadData' from JSON`,
+  );
+}
+
 /** @internal */
 export const RequestUploadResponse$inboundSchema: z.ZodType<
   RequestUploadResponse,
@@ -135,7 +169,7 @@ export const RequestUploadResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.lazy(() => RequestUploadData$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -150,7 +184,7 @@ export type RequestUploadResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: RequestUploadData$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -165,7 +199,7 @@ export const RequestUploadResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.lazy(() => RequestUploadData$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -185,4 +219,22 @@ export namespace RequestUploadResponse$ {
   export const outboundSchema = RequestUploadResponse$outboundSchema;
   /** @deprecated use `RequestUploadResponse$Outbound` instead. */
   export type Outbound = RequestUploadResponse$Outbound;
+}
+
+export function requestUploadResponseToJSON(
+  requestUploadResponse: RequestUploadResponse,
+): string {
+  return JSON.stringify(
+    RequestUploadResponse$outboundSchema.parse(requestUploadResponse),
+  );
+}
+
+export function requestUploadResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<RequestUploadResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RequestUploadResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RequestUploadResponse' from JSON`,
+  );
 }

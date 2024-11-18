@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetRoomRequest = {
   id: string;
@@ -31,7 +33,7 @@ export type GetRoomResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -70,6 +72,20 @@ export namespace GetRoomRequest$ {
   export type Outbound = GetRoomRequest$Outbound;
 }
 
+export function getRoomRequestToJSON(getRoomRequest: GetRoomRequest): string {
+  return JSON.stringify(GetRoomRequest$outboundSchema.parse(getRoomRequest));
+}
+
+export function getRoomRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRoomRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRoomRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRoomRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetRoomResponse$inboundSchema: z.ZodType<
   GetRoomResponse,
@@ -80,7 +96,7 @@ export const GetRoomResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   room: components.Room$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -95,7 +111,7 @@ export type GetRoomResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   room?: components.Room$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -110,7 +126,7 @@ export const GetRoomResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   room: components.Room$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -130,4 +146,20 @@ export namespace GetRoomResponse$ {
   export const outboundSchema = GetRoomResponse$outboundSchema;
   /** @deprecated use `GetRoomResponse$Outbound` instead. */
   export type Outbound = GetRoomResponse$Outbound;
+}
+
+export function getRoomResponseToJSON(
+  getRoomResponse: GetRoomResponse,
+): string {
+  return JSON.stringify(GetRoomResponse$outboundSchema.parse(getRoomResponse));
+}
+
+export function getRoomResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRoomResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRoomResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRoomResponse' from JSON`,
+  );
 }

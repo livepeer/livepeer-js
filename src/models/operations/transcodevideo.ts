@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type TranscodeVideoResponse = {
   /**
@@ -27,7 +29,7 @@ export type TranscodeVideoResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const TranscodeVideoResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   task: components.Task$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type TranscodeVideoResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   task?: components.Task$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const TranscodeVideoResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   task: components.Task$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace TranscodeVideoResponse$ {
   export const outboundSchema = TranscodeVideoResponse$outboundSchema;
   /** @deprecated use `TranscodeVideoResponse$Outbound` instead. */
   export type Outbound = TranscodeVideoResponse$Outbound;
+}
+
+export function transcodeVideoResponseToJSON(
+  transcodeVideoResponse: TranscodeVideoResponse,
+): string {
+  return JSON.stringify(
+    TranscodeVideoResponse$outboundSchema.parse(transcodeVideoResponse),
+  );
+}
+
+export function transcodeVideoResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<TranscodeVideoResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TranscodeVideoResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TranscodeVideoResponse' from JSON`,
+  );
 }

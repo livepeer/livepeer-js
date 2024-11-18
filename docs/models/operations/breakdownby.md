@@ -5,7 +5,7 @@
 ```typescript
 import { BreakdownBy } from "livepeer/models/operations";
 
-let value: BreakdownBy = BreakdownBy.Device;
+let value: BreakdownBy = BreakdownBy.Browser;
 ```
 
 ## Values

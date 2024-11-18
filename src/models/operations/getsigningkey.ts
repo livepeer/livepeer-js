@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSigningKeyRequest = {
   /**
@@ -34,7 +36,7 @@ export type GetSigningKeyResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -73,6 +75,24 @@ export namespace GetSigningKeyRequest$ {
   export type Outbound = GetSigningKeyRequest$Outbound;
 }
 
+export function getSigningKeyRequestToJSON(
+  getSigningKeyRequest: GetSigningKeyRequest,
+): string {
+  return JSON.stringify(
+    GetSigningKeyRequest$outboundSchema.parse(getSigningKeyRequest),
+  );
+}
+
+export function getSigningKeyRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSigningKeyRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSigningKeyRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSigningKeyRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetSigningKeyResponse$inboundSchema: z.ZodType<
   GetSigningKeyResponse,
@@ -83,7 +103,7 @@ export const GetSigningKeyResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "signing-key": components.SigningKey$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -99,7 +119,7 @@ export type GetSigningKeyResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "signing-key"?: components.SigningKey$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -114,7 +134,7 @@ export const GetSigningKeyResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   signingKey: components.SigningKey$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -135,4 +155,22 @@ export namespace GetSigningKeyResponse$ {
   export const outboundSchema = GetSigningKeyResponse$outboundSchema;
   /** @deprecated use `GetSigningKeyResponse$Outbound` instead. */
   export type Outbound = GetSigningKeyResponse$Outbound;
+}
+
+export function getSigningKeyResponseToJSON(
+  getSigningKeyResponse: GetSigningKeyResponse,
+): string {
+  return JSON.stringify(
+    GetSigningKeyResponse$outboundSchema.parse(getSigningKeyResponse),
+  );
+}
+
+export function getSigningKeyResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSigningKeyResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSigningKeyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSigningKeyResponse' from JSON`,
+  );
 }

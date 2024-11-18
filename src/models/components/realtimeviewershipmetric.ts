@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * An individual metric about realtime viewership of a stream/asset.
@@ -85,4 +88,22 @@ export namespace RealtimeViewershipMetric$ {
   export const outboundSchema = RealtimeViewershipMetric$outboundSchema;
   /** @deprecated use `RealtimeViewershipMetric$Outbound` instead. */
   export type Outbound = RealtimeViewershipMetric$Outbound;
+}
+
+export function realtimeViewershipMetricToJSON(
+  realtimeViewershipMetric: RealtimeViewershipMetric,
+): string {
+  return JSON.stringify(
+    RealtimeViewershipMetric$outboundSchema.parse(realtimeViewershipMetric),
+  );
+}
+
+export function realtimeViewershipMetricFromJSON(
+  jsonString: string,
+): SafeParseResult<RealtimeViewershipMetric, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RealtimeViewershipMetric$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RealtimeViewershipMetric' from JSON`,
+  );
 }

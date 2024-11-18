@@ -1,30 +1,25 @@
 # UserTags
 
-## Example Usage
-
-```typescript
-import { UserTags } from "livepeer/models/components";
-
-let value: UserTags = 7805.29;
-```
 
 ## Supported Types
 
 ### `string`
 
 ```typescript
-const value: string = /* values here */
+const value: string = "<value>";
 ```
 
 ### `number`
 
 ```typescript
-const value: number = /* values here */
+const value: number = 3777.52;
 ```
 
 ### `components.Three[]`
 
 ```typescript
-const value: components.Three[] = /* values here */
+const value: components.Three[] = [
+  "<value>",
+];
 ```
 

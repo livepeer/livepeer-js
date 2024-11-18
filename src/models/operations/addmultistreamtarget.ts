@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type AddMultistreamTargetRequest = {
   /**
@@ -31,7 +33,7 @@ export type AddMultistreamTargetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -81,6 +83,26 @@ export namespace AddMultistreamTargetRequest$ {
   export type Outbound = AddMultistreamTargetRequest$Outbound;
 }
 
+export function addMultistreamTargetRequestToJSON(
+  addMultistreamTargetRequest: AddMultistreamTargetRequest,
+): string {
+  return JSON.stringify(
+    AddMultistreamTargetRequest$outboundSchema.parse(
+      addMultistreamTargetRequest,
+    ),
+  );
+}
+
+export function addMultistreamTargetRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<AddMultistreamTargetRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AddMultistreamTargetRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AddMultistreamTargetRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const AddMultistreamTargetResponse$inboundSchema: z.ZodType<
   AddMultistreamTargetResponse,
@@ -90,7 +112,7 @@ export const AddMultistreamTargetResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -104,7 +126,7 @@ export type AddMultistreamTargetResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -118,7 +140,7 @@ export const AddMultistreamTargetResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -138,4 +160,24 @@ export namespace AddMultistreamTargetResponse$ {
   export const outboundSchema = AddMultistreamTargetResponse$outboundSchema;
   /** @deprecated use `AddMultistreamTargetResponse$Outbound` instead. */
   export type Outbound = AddMultistreamTargetResponse$Outbound;
+}
+
+export function addMultistreamTargetResponseToJSON(
+  addMultistreamTargetResponse: AddMultistreamTargetResponse,
+): string {
+  return JSON.stringify(
+    AddMultistreamTargetResponse$outboundSchema.parse(
+      addMultistreamTargetResponse,
+    ),
+  );
+}
+
+export function addMultistreamTargetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<AddMultistreamTargetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AddMultistreamTargetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AddMultistreamTargetResponse' from JSON`,
+  );
 }

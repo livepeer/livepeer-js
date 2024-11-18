@@ -5,7 +5,7 @@
 ```typescript
 import {
   AssetPhase,
-  AssetSchemasType,
+  AssetSchemasSourceType,
   AssetSchemasVideoSpecType,
   AssetType,
   CatalystPipelineStrategy,
@@ -21,7 +21,7 @@ import { GetTaskResponse } from "livepeer/models/operations";
 
 let value: GetTaskResponse = {
   contentType: "<value>",
-  statusCode: 925597,
+  statusCode: 507,
   rawResponse: new Response("{\"message\": \"hello world\"}", {
     headers: { "Content-Type": "application/json" },
   }),
@@ -55,8 +55,10 @@ let value: GetTaskResponse = {
         targetSegmentSizeSecs: 6,
       },
       export: {
-        ipfs: {
-          pinata: {},
+        custom: {
+          url:
+            "https://s3.amazonaws.com/my-bucket/path/filename.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=LLMMB",
+          method: "POST",
         },
       },
       exportData: {
@@ -127,7 +129,8 @@ let value: GetTaskResponse = {
           playbackId: "eaw4nk06ts2d0mzb",
           playbackUrl:
             "https://livepeercdn.com/asset/ea03f37e-f861-4cdd-b495-0e60b6d753ad/index.m3u8",
-          downloadUrl: "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video",
+          downloadUrl:
+            "https://livepeercdn.com/asset/eaw4nk06ts2d0mzb/video/download.mp4",
           playbackPolicy: {
             type: Type.Webhook,
             webhookId: "1bde4o2i6xycudoy",
@@ -137,8 +140,8 @@ let value: GetTaskResponse = {
             refreshInterval: 600,
           },
           source: {
-            type: AssetSchemasType.Url,
-            url: "https://agitated-friendship.net",
+            type: AssetSchemasSourceType.Recording,
+            sessionId: "<id>",
           },
           creatorId: {
             type: CreatorIdType.Unverified,
@@ -174,7 +177,7 @@ let value: GetTaskResponse = {
             },
           },
           status: {
-            phase: AssetPhase.Deleted,
+            phase: AssetPhase.Failed,
             updatedAt: 1587667174725,
           },
           name: "filename.mp4",

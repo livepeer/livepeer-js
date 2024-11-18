@@ -6,7 +6,7 @@
 import { Asset3, AssetSchemasSource3Type } from "livepeer/models/components";
 
 let value: Asset3 = {
-  type: AssetSchemasSource3Type.Clip,
+  type: AssetSchemasSource3Type.DirectUpload,
 };
 ```
 

@@ -1,18 +1,20 @@
-speakeasyVersion: 1.399.0
+speakeasyVersion: 1.440.1
 sources:
     livepeer-studio-api:
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:91b774b75a510e880c3b32b7c79aebe9e26f41740a89d09aa21eb8f7577951bf
-        sourceBlobDigest: sha256:aa27f19cd706fdbc92320eea5ca4d28aefd20557554f78a6fa0393320d8ee1d6
+        sourceRevisionDigest: sha256:633537f4ff41f0d772d9cf05d40d5e4aff45ae0dd5feeb24e504d6731f598f3c
+        sourceBlobDigest: sha256:be2290828376735e5ff78d923e40b7d642529225d1d8bf6cd33b570c92ef2e84
         tags:
             - latest
-            - main
+            - speakeasy-sdk-regen-1731111704
 targets:
     livepeer-ts:
         source: livepeer-studio-api
         sourceNamespace: livepeer-studio-api
-        sourceRevisionDigest: sha256:91b774b75a510e880c3b32b7c79aebe9e26f41740a89d09aa21eb8f7577951bf
-        sourceBlobDigest: sha256:aa27f19cd706fdbc92320eea5ca4d28aefd20557554f78a6fa0393320d8ee1d6
+        sourceRevisionDigest: sha256:633537f4ff41f0d772d9cf05d40d5e4aff45ae0dd5feeb24e504d6731f598f3c
+        sourceBlobDigest: sha256:be2290828376735e5ff78d923e40b7d642529225d1d8bf6cd33b570c92ef2e84
+        codeSamplesNamespace: livepeer-studio-api-code-samples
+        codeSamplesRevisionDigest: sha256:be65c9eddb3d2765d2e558171875f4037821ccb16a7dffd46080703bac2a2ec8
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -33,3 +35,5 @@ workflow:
                     token: $npm_token
             codeSamples:
                 output: codeSamples.yaml
+                registry:
+                    location: registry.speakeasyapi.dev/livepeer/livepeer-studio/livepeer-studio-api-code-samples

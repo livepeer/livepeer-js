@@ -10,7 +10,7 @@ will reference only the immutable MP4 files.
 ```typescript
 import { NftMetadataTemplate } from "livepeer/models/components";
 
-let value: NftMetadataTemplate = NftMetadataTemplate.File;
+let value: NftMetadataTemplate = NftMetadataTemplate.Player;
 ```
 
 ## Values

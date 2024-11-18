@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type MultistreamTargetPatchPayload = {
   name?: string | undefined;
@@ -59,4 +62,24 @@ export namespace MultistreamTargetPatchPayload$ {
   export const outboundSchema = MultistreamTargetPatchPayload$outboundSchema;
   /** @deprecated use `MultistreamTargetPatchPayload$Outbound` instead. */
   export type Outbound = MultistreamTargetPatchPayload$Outbound;
+}
+
+export function multistreamTargetPatchPayloadToJSON(
+  multistreamTargetPatchPayload: MultistreamTargetPatchPayload,
+): string {
+  return JSON.stringify(
+    MultistreamTargetPatchPayload$outboundSchema.parse(
+      multistreamTargetPatchPayload,
+    ),
+  );
+}
+
+export function multistreamTargetPatchPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<MultistreamTargetPatchPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MultistreamTargetPatchPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MultistreamTargetPatchPayload' from JSON`,
+  );
 }

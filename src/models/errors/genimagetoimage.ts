@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import {
   HTTPError,
   HTTPError$inboundSchema,
@@ -15,6 +17,7 @@ import {
   HTTPValidationError$Outbound,
   HTTPValidationError$outboundSchema,
 } from "./httpvalidationerror.js";
+import { SDKValidationError } from "./sdkvalidationerror.js";
 import {
   StudioApiError,
   StudioApiError$inboundSchema,
@@ -83,6 +86,33 @@ export namespace GenImageToImageGenerateResponse500ResponseBody$ {
     GenImageToImageGenerateResponse500ResponseBody$Outbound;
 }
 
+export function genImageToImageGenerateResponse500ResponseBodyToJSON(
+  genImageToImageGenerateResponse500ResponseBody:
+    GenImageToImageGenerateResponse500ResponseBody,
+): string {
+  return JSON.stringify(
+    GenImageToImageGenerateResponse500ResponseBody$outboundSchema.parse(
+      genImageToImageGenerateResponse500ResponseBody,
+    ),
+  );
+}
+
+export function genImageToImageGenerateResponse500ResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenImageToImageGenerateResponse500ResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenImageToImageGenerateResponse500ResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenImageToImageGenerateResponse500ResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenImageToImageGenerateResponseResponseBody$inboundSchema:
   z.ZodType<
@@ -125,6 +155,33 @@ export namespace GenImageToImageGenerateResponseResponseBody$ {
   export type Outbound = GenImageToImageGenerateResponseResponseBody$Outbound;
 }
 
+export function genImageToImageGenerateResponseResponseBodyToJSON(
+  genImageToImageGenerateResponseResponseBody:
+    GenImageToImageGenerateResponseResponseBody,
+): string {
+  return JSON.stringify(
+    GenImageToImageGenerateResponseResponseBody$outboundSchema.parse(
+      genImageToImageGenerateResponseResponseBody,
+    ),
+  );
+}
+
+export function genImageToImageGenerateResponseResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GenImageToImageGenerateResponseResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenImageToImageGenerateResponseResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GenImageToImageGenerateResponseResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenImageToImageGenerateResponseBody$inboundSchema: z.ZodType<
   GenImageToImageGenerateResponseBody,
@@ -159,6 +216,27 @@ export namespace GenImageToImageGenerateResponseBody$ {
   export type Outbound = GenImageToImageGenerateResponseBody$Outbound;
 }
 
+export function genImageToImageGenerateResponseBodyToJSON(
+  genImageToImageGenerateResponseBody: GenImageToImageGenerateResponseBody,
+): string {
+  return JSON.stringify(
+    GenImageToImageGenerateResponseBody$outboundSchema.parse(
+      genImageToImageGenerateResponseBody,
+    ),
+  );
+}
+
+export function genImageToImageGenerateResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenImageToImageGenerateResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GenImageToImageGenerateResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenImageToImageGenerateResponseBody' from JSON`,
+  );
+}
+
 /** @internal */
 export const GenImageToImageResponseBody$inboundSchema: z.ZodType<
   GenImageToImageResponseBody,
@@ -189,4 +267,24 @@ export namespace GenImageToImageResponseBody$ {
   export const outboundSchema = GenImageToImageResponseBody$outboundSchema;
   /** @deprecated use `GenImageToImageResponseBody$Outbound` instead. */
   export type Outbound = GenImageToImageResponseBody$Outbound;
+}
+
+export function genImageToImageResponseBodyToJSON(
+  genImageToImageResponseBody: GenImageToImageResponseBody,
+): string {
+  return JSON.stringify(
+    GenImageToImageResponseBody$outboundSchema.parse(
+      genImageToImageResponseBody,
+    ),
+  );
+}
+
+export function genImageToImageResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GenImageToImageResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenImageToImageResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenImageToImageResponseBody' from JSON`,
+  );
 }

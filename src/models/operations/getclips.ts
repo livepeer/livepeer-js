@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetClipsRequest = {
   /**
@@ -34,7 +36,7 @@ export type GetClipsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -73,6 +75,22 @@ export namespace GetClipsRequest$ {
   export type Outbound = GetClipsRequest$Outbound;
 }
 
+export function getClipsRequestToJSON(
+  getClipsRequest: GetClipsRequest,
+): string {
+  return JSON.stringify(GetClipsRequest$outboundSchema.parse(getClipsRequest));
+}
+
+export function getClipsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetClipsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetClipsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetClipsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetClipsResponse$inboundSchema: z.ZodType<
   GetClipsResponse,
@@ -83,7 +101,7 @@ export const GetClipsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Asset$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -98,7 +116,7 @@ export type GetClipsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Asset$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -113,7 +131,7 @@ export const GetClipsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Asset$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -133,4 +151,22 @@ export namespace GetClipsResponse$ {
   export const outboundSchema = GetClipsResponse$outboundSchema;
   /** @deprecated use `GetClipsResponse$Outbound` instead. */
   export type Outbound = GetClipsResponse$Outbound;
+}
+
+export function getClipsResponseToJSON(
+  getClipsResponse: GetClipsResponse,
+): string {
+  return JSON.stringify(
+    GetClipsResponse$outboundSchema.parse(getClipsResponse),
+  );
+}
+
+export function getClipsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetClipsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetClipsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetClipsResponse' from JSON`,
+  );
 }

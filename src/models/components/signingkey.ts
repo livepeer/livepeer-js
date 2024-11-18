@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type SigningKey = {
   id?: string | undefined;
@@ -88,4 +91,18 @@ export namespace SigningKey$ {
   export const outboundSchema = SigningKey$outboundSchema;
   /** @deprecated use `SigningKey$Outbound` instead. */
   export type Outbound = SigningKey$Outbound;
+}
+
+export function signingKeyToJSON(signingKey: SigningKey): string {
+  return JSON.stringify(SigningKey$outboundSchema.parse(signingKey));
+}
+
+export function signingKeyFromJSON(
+  jsonString: string,
+): SafeParseResult<SigningKey, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SigningKey$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SigningKey' from JSON`,
+  );
 }

@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum Type {
   Public = "public",
@@ -102,4 +105,18 @@ export namespace PlaybackPolicy$ {
   export const outboundSchema = PlaybackPolicy$outboundSchema;
   /** @deprecated use `PlaybackPolicy$Outbound` instead. */
   export type Outbound = PlaybackPolicy$Outbound;
+}
+
+export function playbackPolicyToJSON(playbackPolicy: PlaybackPolicy): string {
+  return JSON.stringify(PlaybackPolicy$outboundSchema.parse(playbackPolicy));
+}
+
+export function playbackPolicyFromJSON(
+  jsonString: string,
+): SafeParseResult<PlaybackPolicy, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PlaybackPolicy$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PlaybackPolicy' from JSON`,
+  );
 }

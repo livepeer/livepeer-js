@@ -80,14 +80,14 @@ export class Stream extends ClientSDK {
    * Update a stream
    */
   async update(
-    id: string,
     streamPatchPayload: components.StreamPatchPayload,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.UpdateStreamResponse> {
     return unwrapAsync(streamUpdate(
       this,
-      id,
       streamPatchPayload,
+      id,
       options,
     ));
   }
@@ -191,14 +191,14 @@ export class Stream extends ClientSDK {
    * Add a multistream target
    */
   async addMultistreamTarget(
-    id: string,
     targetAddPayload: components.TargetAddPayload,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.AddMultistreamTargetResponse> {
     return unwrapAsync(streamAddMultistreamTarget(
       this,
-      id,
       targetAddPayload,
+      id,
       options,
     ));
   }

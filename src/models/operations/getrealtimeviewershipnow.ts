@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum BreakdownBy {
   PlaybackId = "playbackId",
@@ -56,7 +58,7 @@ export type GetRealtimeViewershipNowResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -128,6 +130,26 @@ export namespace GetRealtimeViewershipNowRequest$ {
   export type Outbound = GetRealtimeViewershipNowRequest$Outbound;
 }
 
+export function getRealtimeViewershipNowRequestToJSON(
+  getRealtimeViewershipNowRequest: GetRealtimeViewershipNowRequest,
+): string {
+  return JSON.stringify(
+    GetRealtimeViewershipNowRequest$outboundSchema.parse(
+      getRealtimeViewershipNowRequest,
+    ),
+  );
+}
+
+export function getRealtimeViewershipNowRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRealtimeViewershipNowRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRealtimeViewershipNowRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRealtimeViewershipNowRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetRealtimeViewershipNowResponse$inboundSchema: z.ZodType<
   GetRealtimeViewershipNowResponse,
@@ -138,7 +160,7 @@ export const GetRealtimeViewershipNowResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.RealtimeViewershipMetric$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -153,7 +175,7 @@ export type GetRealtimeViewershipNowResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.RealtimeViewershipMetric$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -168,7 +190,7 @@ export const GetRealtimeViewershipNowResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.RealtimeViewershipMetric$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -188,4 +210,24 @@ export namespace GetRealtimeViewershipNowResponse$ {
   export const outboundSchema = GetRealtimeViewershipNowResponse$outboundSchema;
   /** @deprecated use `GetRealtimeViewershipNowResponse$Outbound` instead. */
   export type Outbound = GetRealtimeViewershipNowResponse$Outbound;
+}
+
+export function getRealtimeViewershipNowResponseToJSON(
+  getRealtimeViewershipNowResponse: GetRealtimeViewershipNowResponse,
+): string {
+  return JSON.stringify(
+    GetRealtimeViewershipNowResponse$outboundSchema.parse(
+      getRealtimeViewershipNowResponse,
+    ),
+  );
+}
+
+export function getRealtimeViewershipNowResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRealtimeViewershipNowResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRealtimeViewershipNowResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRealtimeViewershipNowResponse' from JSON`,
+  );
 }

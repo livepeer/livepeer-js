@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteWebhookRequest = {
   id: string;
@@ -31,7 +33,7 @@ export type DeleteWebhookResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -70,6 +72,24 @@ export namespace DeleteWebhookRequest$ {
   export type Outbound = DeleteWebhookRequest$Outbound;
 }
 
+export function deleteWebhookRequestToJSON(
+  deleteWebhookRequest: DeleteWebhookRequest,
+): string {
+  return JSON.stringify(
+    DeleteWebhookRequest$outboundSchema.parse(deleteWebhookRequest),
+  );
+}
+
+export function deleteWebhookRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteWebhookRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteWebhookRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteWebhookRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const DeleteWebhookResponse$inboundSchema: z.ZodType<
   DeleteWebhookResponse,
@@ -80,7 +100,7 @@ export const DeleteWebhookResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   webhook: components.Webhook$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -95,7 +115,7 @@ export type DeleteWebhookResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   webhook?: components.Webhook$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -110,7 +130,7 @@ export const DeleteWebhookResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   webhook: components.Webhook$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -130,4 +150,22 @@ export namespace DeleteWebhookResponse$ {
   export const outboundSchema = DeleteWebhookResponse$outboundSchema;
   /** @deprecated use `DeleteWebhookResponse$Outbound` instead. */
   export type Outbound = DeleteWebhookResponse$Outbound;
+}
+
+export function deleteWebhookResponseToJSON(
+  deleteWebhookResponse: DeleteWebhookResponse,
+): string {
+  return JSON.stringify(
+    DeleteWebhookResponse$outboundSchema.parse(deleteWebhookResponse),
+  );
+}
+
+export function deleteWebhookResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteWebhookResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteWebhookResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteWebhookResponse' from JSON`,
+  );
 }

@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export enum CreatorIdType {
   Unverified = "unverified",
@@ -78,6 +81,20 @@ export namespace CreatorId1$ {
   export type Outbound = CreatorId1$Outbound;
 }
 
+export function creatorId1ToJSON(creatorId1: CreatorId1): string {
+  return JSON.stringify(CreatorId1$outboundSchema.parse(creatorId1));
+}
+
+export function creatorId1FromJSON(
+  jsonString: string,
+): SafeParseResult<CreatorId1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreatorId1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreatorId1' from JSON`,
+  );
+}
+
 /** @internal */
 export const CreatorId$inboundSchema: z.ZodType<
   CreatorId,
@@ -106,4 +123,18 @@ export namespace CreatorId$ {
   export const outboundSchema = CreatorId$outboundSchema;
   /** @deprecated use `CreatorId$Outbound` instead. */
   export type Outbound = CreatorId$Outbound;
+}
+
+export function creatorIdToJSON(creatorId: CreatorId): string {
+  return JSON.stringify(CreatorId$outboundSchema.parse(creatorId));
+}
+
+export function creatorIdFromJSON(
+  jsonString: string,
+): SafeParseResult<CreatorId, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreatorId$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreatorId' from JSON`,
+  );
 }

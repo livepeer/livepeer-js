@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ResendWebhookRequest = {
   id: string;
@@ -32,7 +34,7 @@ export type ResendWebhookResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -74,6 +76,24 @@ export namespace ResendWebhookRequest$ {
   export type Outbound = ResendWebhookRequest$Outbound;
 }
 
+export function resendWebhookRequestToJSON(
+  resendWebhookRequest: ResendWebhookRequest,
+): string {
+  return JSON.stringify(
+    ResendWebhookRequest$outboundSchema.parse(resendWebhookRequest),
+  );
+}
+
+export function resendWebhookRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<ResendWebhookRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ResendWebhookRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResendWebhookRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const ResendWebhookResponse$inboundSchema: z.ZodType<
   ResendWebhookResponse,
@@ -84,7 +104,7 @@ export const ResendWebhookResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "webhook-log": components.WebhookLog$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -100,7 +120,7 @@ export type ResendWebhookResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "webhook-log"?: components.WebhookLog$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -115,7 +135,7 @@ export const ResendWebhookResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   webhookLog: components.WebhookLog$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -136,4 +156,22 @@ export namespace ResendWebhookResponse$ {
   export const outboundSchema = ResendWebhookResponse$outboundSchema;
   /** @deprecated use `ResendWebhookResponse$Outbound` instead. */
   export type Outbound = ResendWebhookResponse$Outbound;
+}
+
+export function resendWebhookResponseToJSON(
+  resendWebhookResponse: ResendWebhookResponse,
+): string {
+  return JSON.stringify(
+    ResendWebhookResponse$outboundSchema.parse(resendWebhookResponse),
+  );
+}
+
+export function resendWebhookResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ResendWebhookResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ResendWebhookResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResendWebhookResponse' from JSON`,
+  );
 }

@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type StartRoomEgressRequest = {
   id: string;
@@ -28,7 +30,7 @@ export type StartRoomEgressResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -78,6 +80,24 @@ export namespace StartRoomEgressRequest$ {
   export type Outbound = StartRoomEgressRequest$Outbound;
 }
 
+export function startRoomEgressRequestToJSON(
+  startRoomEgressRequest: StartRoomEgressRequest,
+): string {
+  return JSON.stringify(
+    StartRoomEgressRequest$outboundSchema.parse(startRoomEgressRequest),
+  );
+}
+
+export function startRoomEgressRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<StartRoomEgressRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StartRoomEgressRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StartRoomEgressRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const StartRoomEgressResponse$inboundSchema: z.ZodType<
   StartRoomEgressResponse,
@@ -87,7 +107,7 @@ export const StartRoomEgressResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -101,7 +121,7 @@ export type StartRoomEgressResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -115,7 +135,7 @@ export const StartRoomEgressResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -135,4 +155,22 @@ export namespace StartRoomEgressResponse$ {
   export const outboundSchema = StartRoomEgressResponse$outboundSchema;
   /** @deprecated use `StartRoomEgressResponse$Outbound` instead. */
   export type Outbound = StartRoomEgressResponse$Outbound;
+}
+
+export function startRoomEgressResponseToJSON(
+  startRoomEgressResponse: StartRoomEgressResponse,
+): string {
+  return JSON.stringify(
+    StartRoomEgressResponse$outboundSchema.parse(startRoomEgressResponse),
+  );
+}
+
+export function startRoomEgressResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<StartRoomEgressResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StartRoomEgressResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StartRoomEgressResponse' from JSON`,
+  );
 }

@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   StorageStatus,
   StorageStatus$inboundSchema,
@@ -189,6 +192,20 @@ export namespace Domain$ {
   export type Outbound = Domain$Outbound;
 }
 
+export function domainToJSON(domain: Domain): string {
+  return JSON.stringify(Domain$outboundSchema.parse(domain));
+}
+
+export function domainFromJSON(
+  jsonString: string,
+): SafeParseResult<Domain, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Domain$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Domain' from JSON`,
+  );
+}
+
 /** @internal */
 export const Attestations$inboundSchema: z.ZodType<
   Attestations,
@@ -226,6 +243,20 @@ export namespace Attestations$ {
   export const outboundSchema = Attestations$outboundSchema;
   /** @deprecated use `Attestations$Outbound` instead. */
   export type Outbound = Attestations$Outbound;
+}
+
+export function attestationsToJSON(attestations: Attestations): string {
+  return JSON.stringify(Attestations$outboundSchema.parse(attestations));
+}
+
+export function attestationsFromJSON(
+  jsonString: string,
+): SafeParseResult<Attestations, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Attestations$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Attestations' from JSON`,
+  );
 }
 
 /** @internal */
@@ -268,6 +299,20 @@ export namespace Message$ {
   export const outboundSchema = Message$outboundSchema;
   /** @deprecated use `Message$Outbound` instead. */
   export type Outbound = Message$Outbound;
+}
+
+export function messageToJSON(message: Message): string {
+  return JSON.stringify(Message$outboundSchema.parse(message));
+}
+
+export function messageFromJSON(
+  jsonString: string,
+): SafeParseResult<Message, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Message$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Message' from JSON`,
+  );
 }
 
 /** @internal */
@@ -338,6 +383,22 @@ export namespace AttestationIpfs$ {
   export type Outbound = AttestationIpfs$Outbound;
 }
 
+export function attestationIpfsToJSON(
+  attestationIpfs: AttestationIpfs,
+): string {
+  return JSON.stringify(AttestationIpfs$outboundSchema.parse(attestationIpfs));
+}
+
+export function attestationIpfsFromJSON(
+  jsonString: string,
+): SafeParseResult<AttestationIpfs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AttestationIpfs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AttestationIpfs' from JSON`,
+  );
+}
+
 /** @internal */
 export const AttestationStorage$inboundSchema: z.ZodType<
   AttestationStorage,
@@ -375,6 +436,24 @@ export namespace AttestationStorage$ {
   export const outboundSchema = AttestationStorage$outboundSchema;
   /** @deprecated use `AttestationStorage$Outbound` instead. */
   export type Outbound = AttestationStorage$Outbound;
+}
+
+export function attestationStorageToJSON(
+  attestationStorage: AttestationStorage,
+): string {
+  return JSON.stringify(
+    AttestationStorage$outboundSchema.parse(attestationStorage),
+  );
+}
+
+export function attestationStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<AttestationStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AttestationStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AttestationStorage' from JSON`,
+  );
 }
 
 /** @internal */
@@ -432,4 +511,18 @@ export namespace Attestation$ {
   export const outboundSchema = Attestation$outboundSchema;
   /** @deprecated use `Attestation$Outbound` instead. */
   export type Outbound = Attestation$Outbound;
+}
+
+export function attestationToJSON(attestation: Attestation): string {
+  return JSON.stringify(Attestation$outboundSchema.parse(attestation));
+}
+
+export function attestationFromJSON(
+  jsonString: string,
+): SafeParseResult<Attestation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Attestation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Attestation' from JSON`,
+  );
 }

@@ -5,25 +5,18 @@ pinned files, specify an object with a spec field. False or null
 means to unpin from IPFS, but it's unsupported right now.
 
 
-## Example Usage
-
-```typescript
-import { NewAssetPayloadIpfs } from "livepeer/models/components";
-
-let value: NewAssetPayloadIpfs = {};
-```
 
 ## Supported Types
 
 ### `components.NewAssetPayload1`
 
 ```typescript
-const value: components.NewAssetPayload1 = /* values here */
+const value: components.NewAssetPayload1 = {};
 ```
 
 ### `boolean`
 
 ```typescript
-const value: boolean = /* values here */
+const value: boolean = false;
 ```
 

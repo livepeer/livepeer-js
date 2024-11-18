@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Name of the NFT metadata template to export. 'player'
@@ -95,6 +98,20 @@ export namespace NftMetadata$ {
   export type Outbound = NftMetadata$Outbound;
 }
 
+export function nftMetadataToJSON(nftMetadata: NftMetadata): string {
+  return JSON.stringify(NftMetadata$outboundSchema.parse(nftMetadata));
+}
+
+export function nftMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<NftMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NftMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NftMetadata' from JSON`,
+  );
+}
+
 /** @internal */
 export const Spec$inboundSchema: z.ZodType<Spec, z.ZodTypeDef, unknown> = z
   .object({
@@ -130,4 +147,18 @@ export namespace Spec$ {
   export const outboundSchema = Spec$outboundSchema;
   /** @deprecated use `Spec$Outbound` instead. */
   export type Outbound = Spec$Outbound;
+}
+
+export function specToJSON(spec: Spec): string {
+  return JSON.stringify(Spec$outboundSchema.parse(spec));
+}
+
+export function specFromJSON(
+  jsonString: string,
+): SafeParseResult<Spec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Spec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Spec' from JSON`,
+  );
 }

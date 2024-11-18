@@ -8,7 +8,7 @@ Status of the asset
 import { AssetPhase, AssetStatus } from "livepeer/models/components";
 
 let value: AssetStatus = {
-  phase: AssetPhase.Ready,
+  phase: AssetPhase.Deleting,
   updatedAt: 1587667174725,
 };
 ```

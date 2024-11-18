@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetRoomUserRequest = {
   id: string;
@@ -32,7 +34,7 @@ export type GetRoomUserResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -74,6 +76,24 @@ export namespace GetRoomUserRequest$ {
   export type Outbound = GetRoomUserRequest$Outbound;
 }
 
+export function getRoomUserRequestToJSON(
+  getRoomUserRequest: GetRoomUserRequest,
+): string {
+  return JSON.stringify(
+    GetRoomUserRequest$outboundSchema.parse(getRoomUserRequest),
+  );
+}
+
+export function getRoomUserRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRoomUserRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRoomUserRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRoomUserRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetRoomUserResponse$inboundSchema: z.ZodType<
   GetRoomUserResponse,
@@ -85,7 +105,7 @@ export const GetRoomUserResponse$inboundSchema: z.ZodType<
   RawResponse: z.instanceof(Response),
   "get-room-user-response": components.GetRoomUserResponse$inboundSchema
     .optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -103,7 +123,7 @@ export type GetRoomUserResponse$Outbound = {
   "get-room-user-response"?:
     | components.GetRoomUserResponse$Outbound
     | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -118,7 +138,7 @@ export const GetRoomUserResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   getRoomUserResponse: components.GetRoomUserResponse$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -139,4 +159,22 @@ export namespace GetRoomUserResponse$ {
   export const outboundSchema = GetRoomUserResponse$outboundSchema;
   /** @deprecated use `GetRoomUserResponse$Outbound` instead. */
   export type Outbound = GetRoomUserResponse$Outbound;
+}
+
+export function getRoomUserResponseToJSON(
+  getRoomUserResponse: GetRoomUserResponse,
+): string {
+  return JSON.stringify(
+    GetRoomUserResponse$outboundSchema.parse(getRoomUserResponse),
+  );
+}
+
+export function getRoomUserResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRoomUserResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRoomUserResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRoomUserResponse' from JSON`,
+  );
 }

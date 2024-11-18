@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GenTextToImageResponse = {
   /**
@@ -27,7 +29,7 @@ export type GenTextToImageResponse = {
   /**
    * Error
    */
-  studioApiError?: errors.StudioApiError | undefined;
+  studioApiError?: components.StudioApiError | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const GenTextToImageResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   ImageResponse: components.ImageResponse$inboundSchema.optional(),
-  "studio-api-error": errors.StudioApiError$inboundSchema.optional(),
+  "studio-api-error": components.StudioApiError$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -57,7 +59,7 @@ export type GenTextToImageResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   ImageResponse?: components.ImageResponse$Outbound | undefined;
-  "studio-api-error"?: errors.StudioApiError$Outbound | undefined;
+  "studio-api-error"?: components.StudioApiError$Outbound | undefined;
 };
 
 /** @internal */
@@ -72,7 +74,7 @@ export const GenTextToImageResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   imageResponse: components.ImageResponse$outboundSchema.optional(),
-  studioApiError: errors.StudioApiError$outboundSchema.optional(),
+  studioApiError: components.StudioApiError$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -94,4 +96,22 @@ export namespace GenTextToImageResponse$ {
   export const outboundSchema = GenTextToImageResponse$outboundSchema;
   /** @deprecated use `GenTextToImageResponse$Outbound` instead. */
   export type Outbound = GenTextToImageResponse$Outbound;
+}
+
+export function genTextToImageResponseToJSON(
+  genTextToImageResponse: GenTextToImageResponse,
+): string {
+  return JSON.stringify(
+    GenTextToImageResponse$outboundSchema.parse(genTextToImageResponse),
+  );
+}
+
+export function genTextToImageResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GenTextToImageResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GenTextToImageResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GenTextToImageResponse' from JSON`,
+  );
 }

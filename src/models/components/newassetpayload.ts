@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   InputCreatorId,
   InputCreatorId$inboundSchema,
@@ -124,6 +127,24 @@ export namespace NewAssetPayload1$ {
   export type Outbound = NewAssetPayload1$Outbound;
 }
 
+export function newAssetPayload1ToJSON(
+  newAssetPayload1: NewAssetPayload1,
+): string {
+  return JSON.stringify(
+    NewAssetPayload1$outboundSchema.parse(newAssetPayload1),
+  );
+}
+
+export function newAssetPayload1FromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetPayload1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetPayload1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetPayload1' from JSON`,
+  );
+}
+
 /** @internal */
 export const NewAssetPayloadIpfs$inboundSchema: z.ZodType<
   NewAssetPayloadIpfs,
@@ -152,6 +173,24 @@ export namespace NewAssetPayloadIpfs$ {
   export const outboundSchema = NewAssetPayloadIpfs$outboundSchema;
   /** @deprecated use `NewAssetPayloadIpfs$Outbound` instead. */
   export type Outbound = NewAssetPayloadIpfs$Outbound;
+}
+
+export function newAssetPayloadIpfsToJSON(
+  newAssetPayloadIpfs: NewAssetPayloadIpfs,
+): string {
+  return JSON.stringify(
+    NewAssetPayloadIpfs$outboundSchema.parse(newAssetPayloadIpfs),
+  );
+}
+
+export function newAssetPayloadIpfsFromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetPayloadIpfs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetPayloadIpfs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetPayloadIpfs' from JSON`,
+  );
 }
 
 /** @internal */
@@ -194,6 +233,24 @@ export namespace NewAssetPayloadStorage$ {
   export type Outbound = NewAssetPayloadStorage$Outbound;
 }
 
+export function newAssetPayloadStorageToJSON(
+  newAssetPayloadStorage: NewAssetPayloadStorage,
+): string {
+  return JSON.stringify(
+    NewAssetPayloadStorage$outboundSchema.parse(newAssetPayloadStorage),
+  );
+}
+
+export function newAssetPayloadStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetPayloadStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetPayloadStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetPayloadStorage' from JSON`,
+  );
+}
+
 /** @internal */
 export const NewAssetPayloadEncryption$inboundSchema: z.ZodType<
   NewAssetPayloadEncryption,
@@ -228,6 +285,24 @@ export namespace NewAssetPayloadEncryption$ {
   export const outboundSchema = NewAssetPayloadEncryption$outboundSchema;
   /** @deprecated use `NewAssetPayloadEncryption$Outbound` instead. */
   export type Outbound = NewAssetPayloadEncryption$Outbound;
+}
+
+export function newAssetPayloadEncryptionToJSON(
+  newAssetPayloadEncryption: NewAssetPayloadEncryption,
+): string {
+  return JSON.stringify(
+    NewAssetPayloadEncryption$outboundSchema.parse(newAssetPayloadEncryption),
+  );
+}
+
+export function newAssetPayloadEncryptionFromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetPayloadEncryption, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetPayloadEncryption$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetPayloadEncryption' from JSON`,
+  );
 }
 
 /** @internal */
@@ -288,4 +363,20 @@ export namespace NewAssetPayload$ {
   export const outboundSchema = NewAssetPayload$outboundSchema;
   /** @deprecated use `NewAssetPayload$Outbound` instead. */
   export type Outbound = NewAssetPayload$Outbound;
+}
+
+export function newAssetPayloadToJSON(
+  newAssetPayload: NewAssetPayload,
+): string {
+  return JSON.stringify(NewAssetPayload$outboundSchema.parse(newAssetPayload));
+}
+
+export function newAssetPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<NewAssetPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NewAssetPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NewAssetPayload' from JSON`,
+  );
 }

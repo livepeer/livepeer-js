@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSessionsResponse = {
   /**
@@ -27,7 +29,7 @@ export type GetSessionsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -40,7 +42,7 @@ export const GetSessionsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   data: z.array(components.Session$inboundSchema).optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -55,7 +57,7 @@ export type GetSessionsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   data?: Array<components.Session$Outbound> | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -70,7 +72,7 @@ export const GetSessionsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   data: z.array(components.Session$outboundSchema).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -90,4 +92,22 @@ export namespace GetSessionsResponse$ {
   export const outboundSchema = GetSessionsResponse$outboundSchema;
   /** @deprecated use `GetSessionsResponse$Outbound` instead. */
   export type Outbound = GetSessionsResponse$Outbound;
+}
+
+export function getSessionsResponseToJSON(
+  getSessionsResponse: GetSessionsResponse,
+): string {
+  return JSON.stringify(
+    GetSessionsResponse$outboundSchema.parse(getSessionsResponse),
+  );
+}
+
+export function getSessionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSessionsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSessionsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSessionsResponse' from JSON`,
+  );
 }

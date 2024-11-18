@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type RoomEgressPayload = {
   /**
@@ -45,4 +48,22 @@ export namespace RoomEgressPayload$ {
   export const outboundSchema = RoomEgressPayload$outboundSchema;
   /** @deprecated use `RoomEgressPayload$Outbound` instead. */
   export type Outbound = RoomEgressPayload$Outbound;
+}
+
+export function roomEgressPayloadToJSON(
+  roomEgressPayload: RoomEgressPayload,
+): string {
+  return JSON.stringify(
+    RoomEgressPayload$outboundSchema.parse(roomEgressPayload),
+  );
+}
+
+export function roomEgressPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<RoomEgressPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RoomEgressPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoomEgressPayload' from JSON`,
+  );
 }

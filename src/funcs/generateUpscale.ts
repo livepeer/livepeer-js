@@ -4,8 +4,8 @@
 
 import { LivepeerCore } from "../core.js";
 import { readableStreamToArrayBuffer } from "../lib/files.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -32,7 +32,7 @@ import { isReadableStream } from "../types/streams.js";
  * Upscale an image by increasing its resolution.
  */
 export async function generateUpscale(
-  client$: LivepeerCore,
+  client: LivepeerCore,
   request: components.BodyGenUpscale,
   options?: RequestOptions,
 ): Promise<
@@ -51,87 +51,92 @@ export async function generateUpscale(
     | ConnectionError
   >
 > {
-  const input$ = request;
-
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) => components.BodyGenUpscale$outboundSchema.parse(value$),
+  const parsed = safeParse(
+    request,
+    (value) => components.BodyGenUpscale$outboundSchema.parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
-  const body$ = new FormData();
+  const payload = parsed.value;
+  const body = new FormData();
 
-  if (isBlobLike(payload$.image)) {
-    body$.append("image", payload$.image);
-  } else if (isReadableStream(payload$.image.content)) {
-    const buffer = await readableStreamToArrayBuffer(payload$.image.content);
+  if (isBlobLike(payload.image)) {
+    body.append("image", payload.image);
+  } else if (isReadableStream(payload.image.content)) {
+    const buffer = await readableStreamToArrayBuffer(payload.image.content);
     const blob = new Blob([buffer], { type: "application/octet-stream" });
-    body$.append("image", blob);
+    body.append("image", blob);
   } else {
-    body$.append(
+    body.append(
       "image",
-      new Blob([payload$.image.content], { type: "application/octet-stream" }),
-      payload$.image.fileName,
+      new Blob([payload.image.content], { type: "application/octet-stream" }),
+      payload.image.fileName,
     );
   }
-  body$.append("prompt", payload$.prompt);
-  if (payload$.model_id !== undefined) {
-    body$.append("model_id", payload$.model_id);
+  body.append("prompt", payload.prompt);
+  if (payload.model_id !== undefined) {
+    body.append("model_id", payload.model_id);
   }
-  if (payload$.num_inference_steps !== undefined) {
-    body$.append("num_inference_steps", String(payload$.num_inference_steps));
+  if (payload.num_inference_steps !== undefined) {
+    body.append("num_inference_steps", String(payload.num_inference_steps));
   }
-  if (payload$.safety_check !== undefined) {
-    body$.append("safety_check", String(payload$.safety_check));
+  if (payload.safety_check !== undefined) {
+    body.append("safety_check", String(payload.safety_check));
   }
-  if (payload$.seed !== undefined) {
-    body$.append("seed", String(payload$.seed));
+  if (payload.seed !== undefined) {
+    body.append("seed", String(payload.seed));
   }
 
-  const path$ = pathToFunc("/api/beta/generate/upscale")();
+  const path = pathToFunc("/api/generate/upscale")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     Accept: "application/json",
   });
 
-  const apiKey$ = await extractSecurity(client$.options$.apiKey);
-  const security$ = apiKey$ == null ? {} : { apiKey: apiKey$ };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "genUpscale",
     oAuth2Scopes: [],
-    securitySource: client$.options$.apiKey,
-  };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+    resolvedSecurity: requestSecurity,
+
+    securitySource: client._options.apiKey,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+  };
+
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["400", "401", "422", "4XX", "500", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
+  const responseFields = {
     ContentType: response.headers.get("content-type")
       ?? "application/octet-stream",
     StatusCode: response.status,
@@ -139,7 +144,7 @@ export async function generateUpscale(
     Headers: {},
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.GenUpscaleResponse,
     | errors.GenUpscaleResponseBody
     | errors.GenUpscaleGenerateResponseBody
@@ -153,27 +158,24 @@ export async function generateUpscale(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.GenUpscaleResponse$inboundSchema, {
+    M.json(200, operations.GenUpscaleResponse$inboundSchema, {
       key: "ImageResponse",
     }),
-    m$.jsonErr(400, errors.GenUpscaleResponseBody$inboundSchema),
-    m$.jsonErr(401, errors.GenUpscaleGenerateResponseBody$inboundSchema),
-    m$.jsonErr(
-      422,
-      errors.GenUpscaleGenerateResponseResponseBody$inboundSchema,
-    ),
-    m$.jsonErr(
+    M.jsonErr(400, errors.GenUpscaleResponseBody$inboundSchema),
+    M.jsonErr(401, errors.GenUpscaleGenerateResponseBody$inboundSchema),
+    M.jsonErr(422, errors.GenUpscaleGenerateResponseResponseBody$inboundSchema),
+    M.jsonErr(
       500,
       errors.GenUpscaleGenerateResponse500ResponseBody$inboundSchema,
     ),
-    m$.fail(["4XX", "5XX"]),
-    m$.json("default", operations.GenUpscaleResponse$inboundSchema, {
+    M.fail(["4XX", "5XX"]),
+    M.json("default", operations.GenUpscaleResponse$inboundSchema, {
       key: "studio-api-error",
     }),
-  )(response, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+  )(response, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

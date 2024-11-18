@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * The time step to aggregate viewership metrics by
@@ -75,7 +77,7 @@ export type GetUsageMetricsResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -182,6 +184,24 @@ export namespace GetUsageMetricsRequest$ {
   export type Outbound = GetUsageMetricsRequest$Outbound;
 }
 
+export function getUsageMetricsRequestToJSON(
+  getUsageMetricsRequest: GetUsageMetricsRequest,
+): string {
+  return JSON.stringify(
+    GetUsageMetricsRequest$outboundSchema.parse(getUsageMetricsRequest),
+  );
+}
+
+export function getUsageMetricsRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetUsageMetricsRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetUsageMetricsRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetUsageMetricsRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetUsageMetricsResponse$inboundSchema: z.ZodType<
   GetUsageMetricsResponse,
@@ -192,7 +212,7 @@ export const GetUsageMetricsResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "usage-metric": components.UsageMetric$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -208,7 +228,7 @@ export type GetUsageMetricsResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "usage-metric"?: components.UsageMetric$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -223,7 +243,7 @@ export const GetUsageMetricsResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   usageMetric: components.UsageMetric$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -244,4 +264,22 @@ export namespace GetUsageMetricsResponse$ {
   export const outboundSchema = GetUsageMetricsResponse$outboundSchema;
   /** @deprecated use `GetUsageMetricsResponse$Outbound` instead. */
   export type Outbound = GetUsageMetricsResponse$Outbound;
+}
+
+export function getUsageMetricsResponseToJSON(
+  getUsageMetricsResponse: GetUsageMetricsResponse,
+): string {
+  return JSON.stringify(
+    GetUsageMetricsResponse$outboundSchema.parse(getUsageMetricsResponse),
+  );
+}
+
+export function getUsageMetricsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetUsageMetricsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetUsageMetricsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetUsageMetricsResponse' from JSON`,
+  );
 }

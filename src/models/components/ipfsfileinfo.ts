@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type IpfsFileInfo = {
   /**
@@ -59,4 +62,18 @@ export namespace IpfsFileInfo$ {
   export const outboundSchema = IpfsFileInfo$outboundSchema;
   /** @deprecated use `IpfsFileInfo$Outbound` instead. */
   export type Outbound = IpfsFileInfo$Outbound;
+}
+
+export function ipfsFileInfoToJSON(ipfsFileInfo: IpfsFileInfo): string {
+  return JSON.stringify(IpfsFileInfo$outboundSchema.parse(ipfsFileInfo));
+}
+
+export function ipfsFileInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<IpfsFileInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IpfsFileInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IpfsFileInfo' from JSON`,
+  );
 }

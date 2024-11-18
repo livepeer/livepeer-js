@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWebhookLogRequest = {
   id: string;
@@ -32,7 +34,7 @@ export type GetWebhookLogResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -74,6 +76,24 @@ export namespace GetWebhookLogRequest$ {
   export type Outbound = GetWebhookLogRequest$Outbound;
 }
 
+export function getWebhookLogRequestToJSON(
+  getWebhookLogRequest: GetWebhookLogRequest,
+): string {
+  return JSON.stringify(
+    GetWebhookLogRequest$outboundSchema.parse(getWebhookLogRequest),
+  );
+}
+
+export function getWebhookLogRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebhookLogRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebhookLogRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebhookLogRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const GetWebhookLogResponse$inboundSchema: z.ZodType<
   GetWebhookLogResponse,
@@ -84,7 +104,7 @@ export const GetWebhookLogResponse$inboundSchema: z.ZodType<
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
   "webhook-log": components.WebhookLog$inboundSchema.optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -100,7 +120,7 @@ export type GetWebhookLogResponse$Outbound = {
   StatusCode: number;
   RawResponse: never;
   "webhook-log"?: components.WebhookLog$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -115,7 +135,7 @@ export const GetWebhookLogResponse$outboundSchema: z.ZodType<
     throw new Error("Response cannot be serialized");
   }),
   webhookLog: components.WebhookLog$outboundSchema.optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -136,4 +156,22 @@ export namespace GetWebhookLogResponse$ {
   export const outboundSchema = GetWebhookLogResponse$outboundSchema;
   /** @deprecated use `GetWebhookLogResponse$Outbound` instead. */
   export type Outbound = GetWebhookLogResponse$Outbound;
+}
+
+export function getWebhookLogResponseToJSON(
+  getWebhookLogResponse: GetWebhookLogResponse,
+): string {
+  return JSON.stringify(
+    GetWebhookLogResponse$outboundSchema.parse(getWebhookLogResponse),
+  );
+}
+
+export function getWebhookLogResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebhookLogResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebhookLogResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebhookLogResponse' from JSON`,
+  );
 }

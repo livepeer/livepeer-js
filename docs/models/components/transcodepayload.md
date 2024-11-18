@@ -5,7 +5,7 @@
 ```typescript
 import {
   TranscodePayload,
-  TranscodePayloadSchemasType,
+  TranscodePayloadSchemasStorageType,
   TranscodeProfileEncoder,
   TranscodeProfileProfile,
 } from "livepeer/models/components";
@@ -15,12 +15,10 @@ let value: TranscodePayload = {
     url: "https://s3.amazonaws.com/bucket/file.mp4",
   },
   storage: {
-    type: TranscodePayloadSchemasType.S3,
-    endpoint: "https://gateway.storjshare.io",
-    bucket: "outputbucket",
+    type: TranscodePayloadSchemasStorageType.Web3Storage,
     credentials: {
-      accessKeyId: "AKIAIOSFODNN7EXAMPLE",
-      secretAccessKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+      proof:
+        "EaJlcm9vdHOAZ3ZlcnNpb24BmgIBcRIg2uxHpcPYSWNtifMKFkPC7IEDvFDCxCd3ADViv0coV7SnYXNYRO2hA0AnblHEW38s3lSlcwaDjPn",
     },
   },
   outputs: {

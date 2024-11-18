@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ClipPayload = {
   /**
@@ -73,4 +76,18 @@ export namespace ClipPayload$ {
   export const outboundSchema = ClipPayload$outboundSchema;
   /** @deprecated use `ClipPayload$Outbound` instead. */
   export type Outbound = ClipPayload$Outbound;
+}
+
+export function clipPayloadToJSON(clipPayload: ClipPayload): string {
+  return JSON.stringify(ClipPayload$outboundSchema.parse(clipPayload));
+}
+
+export function clipPayloadFromJSON(
+  jsonString: string,
+): SafeParseResult<ClipPayload, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClipPayload$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClipPayload' from JSON`,
+  );
 }

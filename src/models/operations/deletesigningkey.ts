@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
-import * as errors from "../errors/index.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteSigningKeyRequest = {
   /**
@@ -29,7 +32,7 @@ export type DeleteSigningKeyResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -68,6 +71,24 @@ export namespace DeleteSigningKeyRequest$ {
   export type Outbound = DeleteSigningKeyRequest$Outbound;
 }
 
+export function deleteSigningKeyRequestToJSON(
+  deleteSigningKeyRequest: DeleteSigningKeyRequest,
+): string {
+  return JSON.stringify(
+    DeleteSigningKeyRequest$outboundSchema.parse(deleteSigningKeyRequest),
+  );
+}
+
+export function deleteSigningKeyRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteSigningKeyRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteSigningKeyRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteSigningKeyRequest' from JSON`,
+  );
+}
+
 /** @internal */
 export const DeleteSigningKeyResponse$inboundSchema: z.ZodType<
   DeleteSigningKeyResponse,
@@ -77,7 +98,7 @@ export const DeleteSigningKeyResponse$inboundSchema: z.ZodType<
   ContentType: z.string(),
   StatusCode: z.number().int(),
   RawResponse: z.instanceof(Response),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -91,7 +112,7 @@ export type DeleteSigningKeyResponse$Outbound = {
   ContentType: string;
   StatusCode: number;
   RawResponse: never;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -105,7 +126,7 @@ export const DeleteSigningKeyResponse$outboundSchema: z.ZodType<
   rawResponse: z.instanceof(Response).transform(() => {
     throw new Error("Response cannot be serialized");
   }),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -125,4 +146,22 @@ export namespace DeleteSigningKeyResponse$ {
   export const outboundSchema = DeleteSigningKeyResponse$outboundSchema;
   /** @deprecated use `DeleteSigningKeyResponse$Outbound` instead. */
   export type Outbound = DeleteSigningKeyResponse$Outbound;
+}
+
+export function deleteSigningKeyResponseToJSON(
+  deleteSigningKeyResponse: DeleteSigningKeyResponse,
+): string {
+  return JSON.stringify(
+    DeleteSigningKeyResponse$outboundSchema.parse(deleteSigningKeyResponse),
+  );
+}
+
+export function deleteSigningKeyResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteSigningKeyResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteSigningKeyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteSigningKeyResponse' from JSON`,
+  );
 }

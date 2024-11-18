@@ -57,14 +57,14 @@ export class Multistream extends ClientSDK {
    * Update Multistream Target
    */
   async update(
-    id: string,
     multistreamTargetPatchPayload: components.MultistreamTargetPatchPayload,
+    id: string,
     options?: RequestOptions,
   ): Promise<operations.UpdateMultistreamTargetResponse> {
     return unwrapAsync(multistreamUpdate(
       this,
-      id,
       multistreamTargetPatchPayload,
+      id,
       options,
     ));
   }

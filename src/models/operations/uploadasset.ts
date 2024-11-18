@@ -4,8 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import * as errors from "../errors/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UploadAssetAssetTask = {
   id: string;
@@ -55,7 +57,7 @@ export type UploadAssetResponse = {
   /**
    * Error
    */
-  error?: errors.ErrorT | undefined;
+  error?: components.ErrorT | undefined;
 };
 
 /** @internal */
@@ -92,6 +94,24 @@ export namespace UploadAssetAssetTask$ {
   export const outboundSchema = UploadAssetAssetTask$outboundSchema;
   /** @deprecated use `UploadAssetAssetTask$Outbound` instead. */
   export type Outbound = UploadAssetAssetTask$Outbound;
+}
+
+export function uploadAssetAssetTaskToJSON(
+  uploadAssetAssetTask: UploadAssetAssetTask,
+): string {
+  return JSON.stringify(
+    UploadAssetAssetTask$outboundSchema.parse(uploadAssetAssetTask),
+  );
+}
+
+export function uploadAssetAssetTaskFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadAssetAssetTask, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadAssetAssetTask$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadAssetAssetTask' from JSON`,
+  );
 }
 
 /** @internal */
@@ -133,6 +153,24 @@ export namespace UploadAssetDataOutput$ {
   export type Outbound = UploadAssetDataOutput$Outbound;
 }
 
+export function uploadAssetDataOutputToJSON(
+  uploadAssetDataOutput: UploadAssetDataOutput,
+): string {
+  return JSON.stringify(
+    UploadAssetDataOutput$outboundSchema.parse(uploadAssetDataOutput),
+  );
+}
+
+export function uploadAssetDataOutputFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadAssetDataOutput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadAssetDataOutput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadAssetDataOutput' from JSON`,
+  );
+}
+
 /** @internal */
 export const UploadAssetTask$inboundSchema: z.ZodType<
   UploadAssetTask,
@@ -167,6 +205,22 @@ export namespace UploadAssetTask$ {
   export const outboundSchema = UploadAssetTask$outboundSchema;
   /** @deprecated use `UploadAssetTask$Outbound` instead. */
   export type Outbound = UploadAssetTask$Outbound;
+}
+
+export function uploadAssetTaskToJSON(
+  uploadAssetTask: UploadAssetTask,
+): string {
+  return JSON.stringify(UploadAssetTask$outboundSchema.parse(uploadAssetTask));
+}
+
+export function uploadAssetTaskFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadAssetTask, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadAssetTask$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadAssetTask' from JSON`,
+  );
 }
 
 /** @internal */
@@ -208,6 +262,22 @@ export namespace UploadAssetData$ {
   export type Outbound = UploadAssetData$Outbound;
 }
 
+export function uploadAssetDataToJSON(
+  uploadAssetData: UploadAssetData,
+): string {
+  return JSON.stringify(UploadAssetData$outboundSchema.parse(uploadAssetData));
+}
+
+export function uploadAssetDataFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadAssetData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadAssetData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadAssetData' from JSON`,
+  );
+}
+
 /** @internal */
 export const UploadAssetResponse$inboundSchema: z.ZodType<
   UploadAssetResponse,
@@ -221,7 +291,7 @@ export const UploadAssetResponse$inboundSchema: z.ZodType<
     .optional(),
   "201_application/json_data": z.lazy(() => UploadAssetDataOutput$inboundSchema)
     .optional(),
-  error: errors.ErrorT$inboundSchema.optional(),
+  error: components.ErrorT$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "ContentType": "contentType",
@@ -239,7 +309,7 @@ export type UploadAssetResponse$Outbound = {
   RawResponse: never;
   "200_application/json_data"?: UploadAssetData$Outbound | undefined;
   "201_application/json_data"?: UploadAssetDataOutput$Outbound | undefined;
-  error?: errors.ErrorT$Outbound | undefined;
+  error?: components.ErrorT$Outbound | undefined;
 };
 
 /** @internal */
@@ -258,7 +328,7 @@ export const UploadAssetResponse$outboundSchema: z.ZodType<
   twoHundredAndOneApplicationJsonData: z.lazy(() =>
     UploadAssetDataOutput$outboundSchema
   ).optional(),
-  error: errors.ErrorT$outboundSchema.optional(),
+  error: components.ErrorT$outboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     contentType: "ContentType",
@@ -280,4 +350,22 @@ export namespace UploadAssetResponse$ {
   export const outboundSchema = UploadAssetResponse$outboundSchema;
   /** @deprecated use `UploadAssetResponse$Outbound` instead. */
   export type Outbound = UploadAssetResponse$Outbound;
+}
+
+export function uploadAssetResponseToJSON(
+  uploadAssetResponse: UploadAssetResponse,
+): string {
+  return JSON.stringify(
+    UploadAssetResponse$outboundSchema.parse(uploadAssetResponse),
+  );
+}
+
+export function uploadAssetResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UploadAssetResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UploadAssetResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UploadAssetResponse' from JSON`,
+  );
 }

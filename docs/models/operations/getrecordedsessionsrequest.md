@@ -6,7 +6,7 @@
 import { GetRecordedSessionsRequest } from "livepeer/models/operations";
 
 let value: GetRecordedSessionsRequest = {
-  parentId: "<value>",
+  parentId: "<id>",
   record: true,
 };
 ```
